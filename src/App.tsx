@@ -5,6 +5,10 @@ import ErrorPage from './error-page.tsx'
 import Blog from './component/blog.tsx'
 import Home from './component/home.tsx'
 import Contact from './component/contact.tsx'
+import { useEffect, useState } from 'react'
+import { ConnectionState } from './component/ConnectionState.tsx'
+import { socket } from './socket';
+import { ConnectionManager } from './component/ConnectionManager.tsx'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,26 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  // const [isConnected, setIsConnected] = useState(socket.connected);
+
+  // useEffect(() => {
+  //   function onConnect() {
+  //     setIsConnected(true);
+  //   }
+
+  //   function onDisconnect() {
+  //     setIsConnected(false);
+  //   }
+
+  //   socket.on('connect', onConnect);
+  //   socket.on('disconnect', onDisconnect);
+
+  //   return () => {
+  //     socket.off('connect', onConnect);
+  //     socket.off('disconnect', onDisconnect);
+  //   };
+  // }, []);
+
   return (
     <>
       <RouterProvider router={router} />
