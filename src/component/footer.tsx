@@ -12,11 +12,9 @@ export default function Footer() {
             document.documentElement.scrollTop > 5
           ) {
             const el = backToUp.current;
-            console.log('el block', el);
             // el.style.display = "block";
           } else {
             const el = backToUp.current;
-            console.log('el none', el);
             // backToUp.style.display = "none";
           }
     }, []);

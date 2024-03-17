@@ -1,14 +1,13 @@
 import { NavLink, Outlet } from "react-router-dom";
 import logo from '../assets/WASB_1.png';
-import { MetaMaskButton, useSDK} from '@metamask/sdk-react-ui';
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import Footer from "../component/footer";
+import TernoaConnect from "../web3/ternoaConnect.jsx";
 
 export default function Root() {
-  const { ready } = useSDK();
   const [t, i18n] = useTranslation("global");
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -22,10 +21,6 @@ export default function Root() {
   const handleMouseLeave = () => {
     setIsHovering(false);
 };
-
-  if (!ready) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
@@ -63,7 +58,7 @@ export default function Root() {
                 </ul>
               </div>
               <div className="d-flex" role="connect">
-                <MetaMaskButton theme={'light'} color="white"></MetaMaskButton>
+                <TernoaConnect />
               </div>
             </div>
           </div>
