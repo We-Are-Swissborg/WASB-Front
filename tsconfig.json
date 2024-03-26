@@ -21,7 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/web3/ternoaConnect.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/web3/ternoaConnect.tsx"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
