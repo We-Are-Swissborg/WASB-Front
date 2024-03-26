@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import Client from "@walletconnect/sign-client";
+import { SessionTypes } from "@walletconnect/types";
 import QRCodeModal from "@walletconnect/legacy-modal";
 import { ERROR } from "@walletconnect/utils";
 import {
@@ -16,6 +17,7 @@ const DEFAULT_APP_METADATA = {
   icons: ["https://weareswissborg.com/favicon.ico"],
 };
 
+// console.log('import.meta.env.VITE_CHAIN_PROVIDER', import.meta.env.VITE_CHAIN_PROVIDER);
 const TERNOA_CHAIN = import.meta.env.VITE_CHAIN_PROVIDER;
 const RELAY_URL = "wss://wallet-connectrelay.ternoa.network/";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID; // Get your project id by applying to the form, link in the introduction
@@ -27,29 +29,25 @@ const requiredNamespaces = {
   },
 };
 
-console.log();
-
-
 export default function TernoaConnect() {
     const reset = () => {
-      setPairings([]);
-      setSession(null);
+    //   setPairings([]);
+      setSession(undefined);
       localStorage.removeItem("walletTernoa");
-      setAddress(null);
+      setAddress(undefined);
       localStorage.removeItem("sessionTernoa");
     };
 
-    const [client, setClient] = useState(null);
-    const [pairings, setPairings] = useState(null);
-    const [session, setSession] = useState(null);
-    const [address, setAddress] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isInitializing, setIsInitializing] = useState(false);
-    const [isAccountCertified, setIsAccountCertified] = useState(false);
-    const [addressSplited, setAddressSplited] = useState();
+    const [client, setClient] = useState<Client>();
+    // const [pairings, setPairings] = useState<PairingTypes.Struct[]>([]);
+    const [session, setSession] = useState<SessionTypes.Struct>();
+    const [address, setAddress] = useState<string>();
+    const [addressSplited, setAddressSplited] = useState<string>();
+    // const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isInitializing, setIsInitializing] = useState<boolean>(false);
+    const [isAccountCertified, setIsAccountCertified] = useState<boolean>(false);
 
-
-    const onSessionConnected = useCallback((_session) => {
+    const onSessionConnected = useCallback((_session: SessionTypes.Struct) => {
       const _pubKey = Object.values(_session.namespaces)
         .map((namespace) => namespace.accounts)
         .flat()[0]
@@ -62,7 +60,7 @@ export default function TernoaConnect() {
     }, []);
 
     const connect = useCallback(
-      async (pairing) => {
+      async (pairing: any) => {
         if (typeof client === "undefined") {
           console.log("WalletConnect is not initialized");
           throw new Error("WalletConnect is not initialized");
@@ -92,7 +90,7 @@ export default function TernoaConnect() {
     );
 
     const subscribeToEvents = useCallback(
-      async (_client) => {
+      async (_client: Client) => {
         if (typeof _client === "undefined") {
           throw new Error("WalletConnect is not initialized");
         }
@@ -111,7 +109,7 @@ export default function TernoaConnect() {
       [onSessionConnected]
     );
 
-    function generatePartialString(inputString, start, end) {
+    function generatePartialString(inputString: string, start: number, end: number) {
       const length = inputString.length;
       let retVal = inputString.substring(start, end);
       retVal += `...${inputString.substring(length - 4, length)}`;
@@ -119,11 +117,11 @@ export default function TernoaConnect() {
     }
 
     const checkPersistedState = useCallback(
-      async (_client) => {
+      async (_client: Client) => {
         if (typeof _client === "undefined") {
           throw new Error("WalletConnect is not initialized");
         }
-        setPairings(_client.pairing.values);
+        // setPairings(_client.pairing.values);
 
         if (typeof session !== "undefined") return;
 
@@ -188,14 +186,14 @@ export default function TernoaConnect() {
       if (typeof session === "undefined") {
         throw new Error("Session not connected");
       }
-      setIsLoading(true);
+    //   setIsLoading(true);
 
       // This could be any message, but will be rejected by the Wallet if it is a transaction hash
       const message = "Confirm your registration to join our community #WeAreSwissborg";
 
       try
       {
-        const response = await client.request({
+        const response = await client.request<string>({
           chainId: TERNOA_CHAIN,
           topic: session.topic,
           request: {
@@ -220,7 +218,7 @@ export default function TernoaConnect() {
       } catch {
         console.log("ERROR: invalid signature");
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     }, [client, session, address]);
 
@@ -237,7 +235,7 @@ export default function TernoaConnect() {
       }
   }, [client, createClient]);
 
-    const isValidSignaturePolkadot = (signedMessage, signature, address) => {
+    const isValidSignaturePolkadot = (signedMessage: string, signature: string, address: string) => {
       const publicKey = decodeAddress(address);
       const hexPublicKey = u8aToHex(publicKey);
       return signatureVerify(signedMessage, signature, hexPublicKey).isValid;

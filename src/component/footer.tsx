@@ -7,16 +7,16 @@ export default function Footer() {
     const backToUp = useRef(null);
 
     useEffect(() => {
-        if (
-            document.body.scrollTop > 5 ||
-            document.documentElement.scrollTop > 5
-          ) {
-            const el = backToUp.current;
-            // el.style.display = "block";
-          } else {
-            const el = backToUp.current;
-            // backToUp.style.display = "none";
-          }
+        // if (
+        //     document.body.scrollTop > 5 ||
+        //     document.documentElement.scrollTop > 5
+        //   ) {
+        //     const el  = backToUp.current;
+        //     // el.style.display = "block";
+        //   } else {
+        //     const el = backToUp.current;
+        //     // backToUp.style.display = "none";
+        //   }
     }, []);
 
  return (
