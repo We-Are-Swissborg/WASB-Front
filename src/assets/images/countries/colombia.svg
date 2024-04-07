@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/colombia</title>
+    <g id="Assets/Flags/colombia" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="colombia" fill-rule="nonzero">
+            <path d="M0,12 C0,5.372625 5.372625,0 12,0 C18.627375,0 24,5.372625 24,12 L12,13.0434844 L0,12 Z" id="Path" fill="#FFDA44"></path>
+            <path d="M1.60575,18 C3.68067187,21.5866875 7.55835938,24 12,24 C16.4416406,24 20.3193281,21.5866875 22.39425,18 L12,17.217375 L1.60575,18 Z" id="Path" fill="#D80027"></path>
+            <path d="M22.39425,18 C23.4152812,16.2349688 24,14.1858281 24,12 L0,12 C0,14.1858281 0.58471875,16.2349688 1.60575,18 L22.39425,18 Z" id="Path" fill="#0052B4"></path>
+        </g>
+    </g>
+</svg>

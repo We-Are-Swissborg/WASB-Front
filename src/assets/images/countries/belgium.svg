@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/belgium</title>
+    <g id="Assets/Flags/belgium" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="belgium" fill-rule="nonzero">
+            <path d="M16.1738906,0.746390625 C14.8739063,0.264046875 13.4678438,0 12,0 C10.5321562,0 9.12609375,0.264046875 7.82610937,0.746390625 L6.782625,12 L7.82610937,23.2536094 C9.12609375,23.736 10.5321562,24 12,24 C13.4678437,24 14.8739063,23.736 16.1738906,23.2536094 L17.217375,12 L16.1738906,0.746390625 Z" id="Path" fill="#FFDA44"></path>
+            <path d="M24,12 C24,6.84046875 20.7435,2.44190625 16.1738906,0.7464375 L16.1738906,23.2537031 C20.7435,21.5580937 24,17.159625 24,12 Z" id="Path" fill="#D80027"></path>
+            <path d="M0,12 C0,17.159625 3.2565,21.5580938 7.82610937,23.2536562 L7.82610937,0.7464375 C3.2565,2.44190625 0,6.84046875 0,12 Z" id="Path" fill="#000000"></path>
+        </g>
+    </g>
+</svg>

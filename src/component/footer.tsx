@@ -63,18 +63,18 @@ export default function Footer() {
                 </div>
                 <div className="col-md-5 offset-md-1 mb-3">
                     <form>
-                        <h5>Subscribe to our newsletter</h5>
-                        <p>Monthly digest of what's new and exciting from us.</p>
+                        <h5>{t('footer.subscribe.title')}</h5>
+                        <p>{t('footer.subscribe.message')}</p>
                         <div className="d-flex flex-column flex-sm-row w-100 gap-2">
-                            <label htmlFor="newsletter1" className="visually-hidden">Email address</label>
-                            <input id="newsletter1" type="text" className="form-control" placeholder="Email address" disabled />
-                            <button className="btn btn-secondary" type="button" disabled>Subscribe</button>
+                            <label htmlFor="newsletter1" className="visually-hidden">{t('footer.subscribe.placeholder')}</label>
+                            <input id="newsletter1" type="text" className="form-control" placeholder={t('footer.subscribe.placeholder')} disabled />
+                            <button className="btn btn-secondary" type="button" disabled>{t('footer.subscribe.button')}</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                <p>© 2024 WeAreSwissborg, Inc. All rights reserved.</p>
+                <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
                 <ul className="list-unstyled d-flex">
                     <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-x-twitter"></i></a></li>
                     <li className="ms-3"><a className="link-light" href='https://discord.gg/hCekNVzGSM' target='_blank'><i className="fa-brands fa-discord"></i></a></li>
