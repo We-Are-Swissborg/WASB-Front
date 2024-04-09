@@ -1,7 +1,7 @@
 import './App.scss'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Root from './routes/root.tsx'
-import ErrorPage from './services/error-page.tsx'
+import ErrorPage from './hook/Error-page.tsx'
 import Blog from './component/blog.tsx'
 import Home from './component/home.tsx'
 import Contact from './component/contact.tsx'

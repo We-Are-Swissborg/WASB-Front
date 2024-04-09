@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import SelectorCountries from "./SelectorCountries";
 import { LinkText } from "./LinksTranslate";
 import { Registration } from "../types/Registration";
 import Countries from "../hook/Countries";
@@ -140,7 +139,7 @@ export default function Register() {
       setCountry(urlImg);
     }
     if(activation) {
-      setDisabledButton(false);0
+      setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
@@ -236,7 +235,20 @@ export default function Register() {
       <form className="d-flex flex-column align-items-center w-100 px-5 mb-3 mt-5" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <SelectorCountries country={country} activeMarge={activeMarge} handleChange={handleChange} />
+            <label className="form-label" htmlFor="country">{t('register.country')}</label>
+            <select 
+              style={{background: `url(${country}) no-repeat`}} 
+              className={`form-select shadow_background-input position-flag-select design ${activeMarge}`} 
+              name="country" 
+              id="country" 
+              onChange={handleChange} 
+              required
+            >
+              <option defaultValue=''>{t('register.placeholder.select')}</option>
+              {
+                listCountries.map((country) => <option key={country.iso} value={country.iso}>{country.name}</option>)
+              }
+            </select>
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label" htmlFor="firstName">{t('register.first-name')}</label>
@@ -258,7 +270,7 @@ export default function Register() {
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label" htmlFor="wallet">{t('register.wallet')}</label>
-            <input className={`form-control shadow_background-input ${errorWallet ? 'border-danger' : ''}`} placeholder="0x523azb2m63..." type="text" name="wallet" id="wallet" onChange={handleChange} required />
+            <input className={`form-control shadow_background-input ${errorWallet ? 'border-danger' : ''}`} placeholder="523aBb2m63H..." type="text" name="wallet" id="wallet" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
