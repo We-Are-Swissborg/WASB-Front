@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/south-korea</title>
+    <g id="Assets/Flags/south-korea" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="south-korea" fill-rule="nonzero">
+            <circle id="Oval" stroke-opacity="0.5" stroke="#8F96A1" stroke-width="0.2" fill="#F0F0F0" cx="12" cy="12" r="11.9"></circle>
+            <path d="M16.1738906,12 C16.1738906,13.0434844 14.3051719,15.6521719 12,15.6521719 C9.69482812,15.6521719 7.82610937,13.0434844 7.82610937,12 C7.82610937,9.69478125 9.69482812,7.82610937 12,7.82610937 C14.3051719,7.82610937 16.1738906,9.69478125 16.1738906,12 Z" id="Path" fill="#D80027"></path>
+            <path d="M16.1738906,12 C16.1738906,14.3052187 14.3051719,16.1738906 12,16.1738906 C9.69482812,16.1738906 7.82610937,14.3052187 7.82610937,12" id="Path" fill="#0052B4"></path>
+            <rect id="Rectangle" fill="#000000" transform="translate(17.349264, 15.504839) rotate(-45.000000) translate(-17.349264, -15.504839) " x="16.56667" y="14.9831016" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(15.504399, 17.349574) rotate(-45.000000) translate(-15.504399, -17.349574) " x="14.7218053" y="16.827837" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(19.563092, 17.717914) rotate(-45.000000) translate(-19.563092, -17.717914) " x="18.780498" y="17.1961772" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(17.718248, 19.562971) rotate(-45.000000) translate(-17.718248, -19.562971) " x="16.9356544" y="19.0412337" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(18.456117, 16.611462) rotate(-45.000000) translate(-18.456117, -16.611462) " x="17.6735232" y="16.0897249" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(16.611772, 18.456199) rotate(-45.000000) translate(-16.611772, -18.456199) " x="15.8291778" y="17.9344613" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(17.534385, 6.465839) rotate(-135.000000) translate(-17.534385, -6.465839) " x="15.4474596" y="5.94410155" width="4.1738506" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(15.505222, 6.650756) rotate(-135.000000) translate(-15.505222, -6.650756) " x="14.7226283" y="6.12904231" width="1.56518811" height="1.04342749"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(17.349595, 8.495211) rotate(-135.000000) translate(-17.349595, -8.495211) " x="16.5670012" y="7.97349695" width="1.56518811" height="1.04342749"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(17.717804, 4.437178) rotate(-135.000000) translate(-17.717804, -4.437178) " x="16.93521" y="3.91544088" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(19.563178, 6.281844) rotate(-135.000000) translate(-19.563178, -6.281844) " x="18.7805844" y="5.76010683" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(5.359377, 18.640750) rotate(45.000000) translate(-5.359377, -18.640750) " x="3.27245184" y="18.1190126" width="4.1738506" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(7.388237, 18.455911) rotate(45.000000) translate(-7.388237, -18.455911) " x="6.60564328" y="17.934197" width="1.56518811" height="1.04342749"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(5.543698, 16.611525) rotate(45.000000) translate(-5.543698, -16.611525) " x="4.76110417" y="16.0897875" width="1.56518811" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(7.572823, 16.427011) rotate(45.000000) translate(-7.572823, -16.427011) " x="5.48589748" y="15.9052734" width="4.1738506" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(5.359312, 5.359266) rotate(135.000000) translate(-5.359312, -5.359266) " x="3.27238686" y="4.83752844" width="4.1738506" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(6.465714, 6.465758) rotate(135.000000) translate(-6.465714, -6.465758) " x="4.37878828" y="5.94402119" width="4.1738506" height="1.04347437"></rect>
+            <rect id="Rectangle" fill="#000000" transform="translate(7.573168, 7.573034) rotate(135.000000) translate(-7.573168, -7.573034) " x="5.48624263" y="7.05132035" width="4.1738506" height="1.04342749"></rect>
+        </g>
+    </g>
+</svg>

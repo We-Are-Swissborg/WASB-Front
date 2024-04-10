@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/thailand</title>
+    <g id="Assets/Flags/thailand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="thailand" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <path d="M23.2536094,7.82610937 L0.746390625,7.82610937 C0.264,9.12609375 0,10.5321562 0,12 C0,13.4678437 0.264,14.8739063 0.746390625,16.1738906 L23.2536562,16.1738906 C23.736,14.8739063 24,13.4678438 24,12 C24,10.5321562 23.736,9.12609375 23.2536094,7.82610937 Z" id="Path" fill="#0052B4"></path>
+            <g id="Group" transform="translate(2.859375, 0.000000)" fill="#D80027">
+                <path d="M9.140625,0 C5.50354688,0 2.24465625,1.6183125 0.044015625,4.17389063 L18.2371875,4.17389063 C16.0365937,1.6183125 12.7777031,0 9.140625,0 Z" id="Path"></path>
+                <path d="M18.2372344,19.8261094 L0.044015625,19.8261094 C2.24465625,22.3816875 5.50354688,24 9.140625,24 C12.7777031,24 16.0365937,22.3816875 18.2372344,19.8261094 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

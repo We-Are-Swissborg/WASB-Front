@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/bulgaria</title>
+    <g id="Assets/Flags/bulgaria" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bulgaria" fill-rule="nonzero">
+            <path d="M24,12 C24,10.5321562 23.736,9.12604688 23.2536094,7.82610937 L12,7.30434375 L0.746390625,7.8260625 C0.264046875,9.12604688 0,10.5321562 0,12 C0,13.4678438 0.264046875,14.8739531 0.746390625,16.1738906 L12,16.6956562 L23.2536094,16.1739375 C23.736,14.8739531 24,13.4678438 24,12 Z" id="Path" fill="#496E2D"></path>
+            <path d="M12,24 C17.1595781,24 21.5580937,20.7435 23.2536094,16.1738906 L0.746390625,16.1738906 C2.44190625,20.7435 6.84042188,24 12,24 Z" id="Path" fill="#D80027"></path>
+            <path d="M0.746390625,7.82610937 L23.2536562,7.82610937 C21.5580938,3.2565 17.1595781,0 12,0 C6.84042187,0 2.44190625,3.2565 0.746390625,7.82610937 Z" id="Path" fill="#F0F0F0"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/lithuania</title>
+    <g id="Assets/Flags/lithuania" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="lithuania" fill-rule="nonzero">
+            <path d="M23.2536094,16.1738906 C23.736,14.8739531 24,13.4678438 24,12 C24,10.5321562 23.736,9.12604687 23.2536094,7.82610937 L12,6.782625 L0.746390625,7.82610937 C0.264,9.12604687 0,10.5321562 0,12 C0,13.4678437 0.264,14.8739531 0.746390625,16.1738906 L12,17.217375 L23.2536094,16.1738906 Z" id="Path" fill="#6DA544"></path>
+            <path d="M23.2536094,7.82610937 C21.5580937,3.2565 17.1595781,0 12,0 C6.84042187,0 2.44190625,3.2565 0.746390625,7.82610937 L23.2536094,7.82610937 Z" id="Path" fill="#FFDA44"></path>
+            <path d="M12,24 C17.1595781,24 21.5580937,20.7435 23.2536094,16.1738906 L0.746390625,16.1738906 C2.44190625,20.7435 6.84042188,24 12,24 Z" id="Path" fill="#D80027"></path>
+        </g>
+    </g>
+</svg>

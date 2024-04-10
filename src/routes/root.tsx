@@ -60,6 +60,7 @@ export default function Root() {
               <div className="d-flex" role="connect">
                 <TernoaConnect />
               </div>
+              <NavLink className="btn btn-primary bg-secondary-subtle text-dark" to="/register">{t("nav.register")}</NavLink>
             </div>
           </div>
         </nav>

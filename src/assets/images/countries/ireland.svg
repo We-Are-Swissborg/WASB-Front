@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/ireland</title>
+    <g id="Assets/Flags/ireland" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ireland" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <path d="M24,12 C24,6.84046875 20.7435,2.44190625 16.1738906,0.7464375 L16.1738906,23.2537031 C20.7435,21.5580937 24,17.159625 24,12 Z" id="Path" fill="#FF9811"></path>
+            <path d="M0,12 C0,17.159625 3.2565,21.5580938 7.82610937,23.2536562 L7.82610937,0.7464375 C3.2565,2.44190625 0,6.84046875 0,12 Z" id="Path" fill="#6DA544"></path>
+        </g>
+    </g>
+</svg>

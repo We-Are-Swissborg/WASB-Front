@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/india</title>
+    <g id="Assets/Flags/india" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="india" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <path d="M12,0 C7.24246875,0 3.13171875,2.76867187 1.19071875,6.782625 L22.8092344,6.782625 C20.8682813,2.76867187 16.7574844,0 12,0 Z" id="Path" fill="#FF9811"></path>
+            <path d="M12,24 C16.7574844,24 20.8682812,21.2313281 22.8092812,17.217375 L1.19071875,17.217375 C3.13171875,21.2313281 7.24246875,24 12,24 Z" id="Path" fill="#6DA544"></path>
+            <circle id="Oval" fill="#0052B4" cx="12" cy="12" r="4.17389063"></circle>
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="2.6086875"></circle>
+            <polygon id="Path" fill="#0052B4" points="12 8.78090625 12.8047969 10.606125 14.7877969 10.3904531 13.6095469 12 14.7877969 13.6095469 12.8047969 13.393875 12 15.2190937 11.1952031 13.393875 9.21220312 13.6095 10.3904531 12 9.21220312 10.3904531 11.1952031 10.606125"></polygon>
+        </g>
+    </g>
+</svg>

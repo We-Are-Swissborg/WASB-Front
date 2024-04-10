@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/chile</title>
+    <g id="Assets/Flags/chile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="chile" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <path d="M24,12 C24,18.627375 18.627375,24 12,24 C5.372625,24 0,18.627375 0,12 C0,5.372625 12,12 12,12 C12,12 21.0825469,12 24,12 Z" id="Path" fill="#D80027"></path>
+            <path d="M0,12 C0,5.372625 5.372625,0 12,0 C12,4.56351562 12,12 12,12 C12,12 4.17389063,12 0,12 Z" id="Path" fill="#0052B4"></path>
+            <polygon id="Path" fill="#F0F0F0" points="7.14323438 4.17389063 7.92028125 6.56535938 10.4347969 6.56535938 8.40051563 8.04332813 9.17751563 10.4347969 7.14323438 8.95678125 5.10895313 10.4347969 5.88595313 8.04332813 3.85167188 6.56535938 6.3661875 6.56535938"></polygon>
+        </g>
+    </g>
+</svg>
