@@ -233,7 +233,7 @@ export default function TernoaConnect() {
           setAddressSplited(generatePartialString(localStorage.getItem("walletTernoa") || "",0,4));
         }
       }
-  }, [client, createClient]);
+    }, []);
 
     const isValidSignaturePolkadot = (signedMessage: string, signature: string, address: string) => {
       const publicKey = decodeAddress(address);
