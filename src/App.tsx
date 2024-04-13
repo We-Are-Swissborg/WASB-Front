@@ -6,6 +6,7 @@ import Blog from './component/blog.tsx'
 import Home from './component/home.tsx'
 import Contact from './component/contact.tsx'
 import Register from './component/register.tsx'
+import Setting from './component/setting.tsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />
+      },
+      {
+        path: '/setting',
+        element: <Setting />
       }
     ]
   },

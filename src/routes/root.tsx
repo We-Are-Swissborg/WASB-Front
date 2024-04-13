@@ -8,6 +8,7 @@ import TernoaConnect from "../web3/ternoaConnect.tsx";
 export default function Root() {
   const [t, i18n] = useTranslation("global");
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [userConnect, setUserConnect] = useState(true);
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -55,6 +56,7 @@ export default function Root() {
                   <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>English</button></li>
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>Français</button></li>
+                  {userConnect && <li><NavLink className="" to="/setting">Profile</NavLink></li>}
                 </ul>
               </div>
               <div className="d-flex" role="connect">

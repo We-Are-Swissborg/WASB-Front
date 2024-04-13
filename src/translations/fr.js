@@ -97,6 +97,12 @@ const global_fr = {
         "title": "Devenir membre",
         "wallet": "Adresse de votre wallet*"
     },
+    "setting": {
+        "linked-accounts": "Compte liés",
+        "manage-membership": "Gérer mon adhésion",
+        "my-account": "Mon compte",
+        "title": "Réglages",
+    },
     "whoarewe": {
         "content": `WeAreSwissBorg est bien plus qu'une simple association. ` + 
                    `Nous sommes une communauté passionnée, engagée à partager la connaissance et à démocratiser l'utilisation des crypto-actifs et de l'écosystème SwissBorg.`,

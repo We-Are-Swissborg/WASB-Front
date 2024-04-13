@@ -235,7 +235,7 @@ export default function Register() {
       <form className="d-flex flex-column align-items-center w-100 px-5 mb-3 mt-5" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="country">{t('register.country')}</label>
+            <label className="form-label size-text-label" htmlFor="country">{t('register.country')}</label>
             <select 
               style={{background: `url(${country}) no-repeat`}} 
               className={`form-select shadow_background-input position-flag-select design ${activeMarge}`} 
@@ -251,49 +251,49 @@ export default function Register() {
             </select>
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="firstName">{t('register.first-name')}</label>
+            <label className="form-label size-text-label" htmlFor="firstName">{t('register.first-name')}</label>
             <input className={`form-control shadow_background-input ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.first-name')} type="text" name="firstName" id="firstName" onChange={handleChange} required />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="lastName">{t('register.last-name')}</label>
+            <label className="form-label size-text-label" htmlFor="lastName">{t('register.last-name')}</label>
             <input className={`form-control shadow_background-input ${errorLastName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.last-name')} type="text" name="lastName" id="lastName" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="pseudo">{t('register.pseudo')}</label>
+            <label className="form-label size-text-label" htmlFor="pseudo">{t('register.pseudo')}</label>
             <input className={`form-control shadow_background-input ${errorPseudo ? 'border-danger' : ''}`} placeholder={t('register.placeholder.pseudo')} type="text" name="pseudo" id="pseudo" onChange={handleChange} required />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="email">{t('register.email')}</label>
+            <label className="form-label size-text-label" htmlFor="email">{t('register.email')}</label>
             <input className={`form-control shadow_background-input ${errorEmail ? 'border-danger' : ''}`} placeholder={t('register.placeholder.email')} type="email" name="email" id="email" onChange={handleChange} required />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="wallet">{t('register.wallet')}</label>
+            <label className="form-label size-text-label" htmlFor="wallet">{t('register.wallet')}</label>
             <input className={`form-control shadow_background-input ${errorWallet ? 'border-danger' : ''}`} placeholder="523aBb2m63H..." type="text" name="wallet" id="wallet" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="twitter">Twitter</label>
+            <label className="form-label size-text-label" htmlFor="twitter">Twitter</label>
             <input className={`form-control shadow_background-input ${errorTwitter ? 'border-danger' : ''}`} placeholder="twitter.com/WeAreSwissBorg" type="text" name="twitter" id="twitter" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="discord">Discord</label>
+            <label className="form-label size-text-label" htmlFor="discord">Discord</label>
             <input className={`form-control shadow_background-input ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('register.placeholder.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="tiktok">TikTok</label>
+            <label className="form-label size-text-label" htmlFor="tiktok">TikTok</label>
             <input className={`form-control shadow_background-input ${errorTiktok ? 'border-danger' : ''}`} placeholder="tiktok.com/@weareswissborg.eth" type="text" name="tiktok" id="tiktok" onChange={handleChange} />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-              <label className="form-label" htmlFor="telegram">Telegram</label>
+              <label className="form-label size-text-label" htmlFor="telegram">Telegram</label>
               <input className={`form-control shadow_background-input ${errorTelegram ? 'border-danger' : ''}`} placeholder="t.me/WeAreSwissBorg" type="text" name="telegram" id="telegram" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-              <label className="form-label" htmlFor="referral">{t('register.referral.label')}</label>
+              <label className="form-label size-text-label" htmlFor="referral">{t('register.referral.label')}</label>
               <select className="form-select shadow_background-input" name="referral" id="referral" value={valueReferral} onChange={handleChange}>
                 <option defaultValue="">{t('register.placeholder.select')}</option>
                 <option value="discord">Discord</option>
@@ -307,7 +307,7 @@ export default function Register() {
           </div> 
           {
             peopleOrOrther && <div className="mb-3 me-3 w-100">
-                <label className="form-label" htmlFor={valueReferral === 'people' ? 'userReferral' : 'detailsOther'}>{labelPeopleOrOrther}</label>
+                <label className="form-label size-text-label" htmlFor={valueReferral === 'people' ? 'userReferral' : 'detailsOther'}>{labelPeopleOrOrther}</label>
                 <textarea
                   className={styleInputGeneral}
                   placeholder={t('register.placeholder.texte-area')}
@@ -321,14 +321,14 @@ export default function Register() {
           }
         </div>
         <div className="d-flex justify-content-between align-items-center w-100 mt-4" style={{marginBottom: '120px'}}>
-          <div style={{fontSize: 'smaller'}}>
+          <p style={{fontSize: '11px'}}>
             <Trans i18nKey="register.confidentiality" t={t} components= {
               { 
                 link1: <LinkText href="#" title="Terms of Use" />, 
                 link2: <LinkText href="#" title="Privacy Policy" /> 
               }
             }/>
-          </div>
+          </p>
           <button className="btn btn-secondary me-3" type="submit" disabled={disabledButton}>{t('register.send')}</button>
         </div>
       </form>
