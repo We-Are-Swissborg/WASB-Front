@@ -9,15 +9,15 @@ import {
   signatureVerify,
 } from "@polkadot/util-crypto";
 import { u8aToHex } from "@polkadot/util";
+import wasb_favicon from '../assets/svg/wasb_favicon.svg';
 
 const DEFAULT_APP_METADATA = {
-  name: "WeAreSwissborg",
+  name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
   description: "The association that supports you in your crypto adventure!",
   url: "https://weareswissborg.com",
-  icons: ["https://weareswissborg.com/favicon.ico"],
+  icons: [wasb_favicon],
 };
 
-// console.log('import.meta.env.VITE_CHAIN_PROVIDER', import.meta.env.VITE_CHAIN_PROVIDER);
 const TERNOA_CHAIN = import.meta.env.VITE_CHAIN_PROVIDER;
 const RELAY_URL = "wss://wallet-connectrelay.ternoa.network/";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID; // Get your project id by applying to the form, link in the introduction
@@ -62,7 +62,6 @@ export default function TernoaConnect() {
     const connect = useCallback(
       async (pairing: any) => {
         if (typeof client === "undefined") {
-          console.log("WalletConnect is not initialized");
           throw new Error("WalletConnect is not initialized");
         }
         try {
@@ -71,13 +70,11 @@ export default function TernoaConnect() {
             requiredNamespaces: requiredNamespaces,
           });
           if (uri) {
-            console.log('uri', uri);
             QRCodeModal.open(uri, () => {});
           }
           // Here we will await the Wallet's response to the pairing proposal
           const session = await approval();
           onSessionConnected(session);
-          console.log("session", session);
           return session;
         } catch (e) {
           console.error(e);
@@ -91,6 +88,8 @@ export default function TernoaConnect() {
 
     const subscribeToEvents = useCallback(
       async (_client: Client) => {
+        console.log("subscribeToEvents ");
+
         if (typeof _client === "undefined") {
           throw new Error("WalletConnect is not initialized");
         }
@@ -103,6 +102,7 @@ export default function TernoaConnect() {
         });
         _client.on("session_delete", () => {
           // Session was deleted -> reset the dapp state, clean up from user session, etc.
+          console.log("session_delete from Dapp :");
           reset();
         });
       },
@@ -139,6 +139,7 @@ export default function TernoaConnect() {
 
     const createClient = useCallback(async () => {
         try {
+          console.log('createClient');
           setIsInitializing(true);
           const _client = await Client.init({
             relayUrl: RELAY_URL,
@@ -148,11 +149,17 @@ export default function TernoaConnect() {
 
           // Here we subscribe to the events
           await subscribeToEvents(_client);
+          console.log('subscribeToEvents');
+
 
           // Here we check if we have any persisted session
           await checkPersistedState(_client);
+          console.log('checkPersistedState');
+
 
           setClient(_client);
+          console.log('setClient');
+
         } catch (err) {
           console.error(err)
           throw err;
@@ -225,6 +232,7 @@ export default function TernoaConnect() {
     // if the "client" doesn't exist yet, we call "createClient"
     useEffect(() => {
       if (!client) {
+        console.log(`if the "client" doesn't exist yet, we call "createClient"`);
         createClient();
         if(localStorage.getItem("walletTernoa")) {
           const _session = JSON.parse(localStorage.getItem("sessionTernoa") || "");
