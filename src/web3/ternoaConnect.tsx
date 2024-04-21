@@ -88,8 +88,6 @@ export default function TernoaConnect() {
 
     const subscribeToEvents = useCallback(
       async (_client: Client) => {
-        console.log("subscribeToEvents ");
-
         if (typeof _client === "undefined") {
           throw new Error("WalletConnect is not initialized");
         }
@@ -102,7 +100,6 @@ export default function TernoaConnect() {
         });
         _client.on("session_delete", () => {
           // Session was deleted -> reset the dapp state, clean up from user session, etc.
-          console.log("session_delete from Dapp :");
           reset();
         });
       },
@@ -139,7 +136,6 @@ export default function TernoaConnect() {
 
     const createClient = useCallback(async () => {
         try {
-          console.log('createClient');
           setIsInitializing(true);
           const _client = await Client.init({
             relayUrl: RELAY_URL,
@@ -149,17 +145,11 @@ export default function TernoaConnect() {
 
           // Here we subscribe to the events
           await subscribeToEvents(_client);
-          console.log('subscribeToEvents');
-
 
           // Here we check if we have any persisted session
           await checkPersistedState(_client);
-          console.log('checkPersistedState');
-
 
           setClient(_client);
-          console.log('setClient');
-
         } catch (err) {
           console.error(err)
           throw err;
@@ -232,7 +222,6 @@ export default function TernoaConnect() {
     // if the "client" doesn't exist yet, we call "createClient"
     useEffect(() => {
       if (!client) {
-        console.log(`if the "client" doesn't exist yet, we call "createClient"`);
         createClient();
         if(localStorage.getItem("walletTernoa")) {
           const _session = JSON.parse(localStorage.getItem("sessionTernoa") || "");
