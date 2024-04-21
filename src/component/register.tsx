@@ -4,15 +4,15 @@ import { LinkText } from "./LinksTranslate";
 import { Registration } from "../types/Registration";
 import Countries from "../hook/Countries";
 import regex from "../services/regex";
-import { userRegistration } from "../services/requests";
+import { register } from "../services/user.service";
 
 export default function Register() {
   const [t] = useTranslation("global");
   const [valueReferral, setValueReferral] = useState("");
   const [disabledButton, setDisabledButton] = useState(true);
-  
+
   // Management input
-  const styleInputGeneral = "form-control shadow_background-input";  
+  const styleInputGeneral = "form-control shadow_background-input";
   const [peopleOrOrther, setPeopleOrOrther] = useState(false); // Display last input in the form
   const [labelPeopleOrOrther, setLabelPeopleOrOrther] = useState(''); // Label last input in the form
   const peopleLabel = t('register.people');
@@ -33,7 +33,7 @@ export default function Register() {
   const [country, setCountry] = useState('');
   const activeMarge = country ? 'ps-5' : '';
   const listCountries = Countries();
-  
+
   const [registration, setRegistration] = useState<Registration>({
     country: '',
     firstName: '',
@@ -48,7 +48,6 @@ export default function Register() {
       telegram: ''
     },
     referral: '',
-    userReferral: '',
     detailsOther: '',
   })
 
@@ -119,9 +118,6 @@ export default function Register() {
       case 'referral':
         setRegistration({...registration, referral: value});
         break;
-      case 'userReferral':
-        setRegistration({...registration, userReferral: value.trim()});
-        break;
       case 'detailsOther':
         setRegistration({...registration, detailsOther: value.trim()});
         break;
@@ -130,7 +126,7 @@ export default function Register() {
 
   const activeButton = useCallback((name:string = '', value:string = '') => {
     const activation = registration.country && registration.firstName && registration.lastName && registration.email && registration.pseudo && registration.wallet && registration.country !== 'Choose...' && registration.country !== 'Choisir...';
-    
+
     createObjectToSend(name, value);
 
     if(name === 'country') {
@@ -144,7 +140,7 @@ export default function Register() {
       setDisabledButton(true);
     }
   }, [registration, listCountries, createObjectToSend])
-  
+
   const guardRegex = (check: boolean, name: string, value: string) => {
     if(check) {
       createObjectToSend(name, value);
@@ -155,7 +151,7 @@ export default function Register() {
     }
   }
 
-  const activeRegex = (formData: any) => {
+  const activeRegex = async (formData: any) => {
     const regexName = new RegExp(regex.name);
     const regexPseudo = new RegExp(regex.pseudo);
     const regexEmail = new RegExp(regex.email);
@@ -201,33 +197,34 @@ export default function Register() {
     const checkErr = errors.every((error) => error === undefined);
 
     if (checkErr) {
-      userRegistration(registration);
-    } 
+      await register(registration);
+      // userRegistration(registration);
+    }
   }
 
   useEffect(() => {
     checkSocialMedia();
     activeButton();
   }, [checkSocialMedia, activeButton])
-  
+
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const name = e.target.name;
     const value = e.target.value;
-    
+
     checkError(name, false);
     checkReferral(name, value);
     activeButton(name, value);
   }, [activeButton, checkReferral]);
-  
+
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const form = e.target;
     const formData = new FormData(form);
-    
+
     activeRegex(formData);
   }
-  
+
   return(
     <div className="container d-flex flex-column align-items-center">
       <h1 className="my-5">{t('register.title')}</h1>
@@ -236,12 +233,12 @@ export default function Register() {
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label" htmlFor="country">{t('register.country')}</label>
-            <select 
+            <select
               style={{background: `url(${country}) no-repeat`}} 
-              className={`form-select shadow_background-input position-flag-select design ${activeMarge}`} 
-              name="country" 
-              id="country" 
-              onChange={handleChange} 
+              className={`form-select shadow_background-input position-flag-select design ${activeMarge}`}
+              name="country"
+              id="country"
+              onChange={handleChange}
               required
             >
               <option defaultValue=''>{t('register.placeholder.select')}</option>
@@ -304,7 +301,7 @@ export default function Register() {
                 <option value="people">{t('register.referral.people')}</option>
                 <option value="other">{t('register.referral.other')}</option>
             </select>
-          </div> 
+          </div>
           {
             peopleOrOrther && <div className="mb-3 me-3 w-100">
                 <label className="form-label" htmlFor={valueReferral === 'people' ? 'userReferral' : 'detailsOther'}>{labelPeopleOrOrther}</label>
@@ -323,9 +320,9 @@ export default function Register() {
         <div className="d-flex justify-content-between align-items-center w-100 mt-4" style={{marginBottom: '120px'}}>
           <div style={{fontSize: 'smaller'}}>
             <Trans i18nKey="register.confidentiality" t={t} components= {
-              { 
-                link1: <LinkText href="#" title="Terms of Use" />, 
-                link2: <LinkText href="#" title="Privacy Policy" /> 
+              {
+                link1: <LinkText href="#" title="Terms of Use" />,
+                link2: <LinkText href="#" title="Privacy Policy" />
               }
             }/>
           </div>
