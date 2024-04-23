@@ -68,16 +68,20 @@ const global_fr = {
         "title": "Nos objectifs"
     },
     "register": {
+        "aboutUs": "Comment avez-vous entendu parler de l’association ?",
+        "city": "Ville",
         "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
-        "country": "Choisissez votre pays*",
+        "contribution": "Cotisation",
+        "country": "Choisissez votre pays",
         "email": "E-mail*",
-        "first-name": "Prénom*",
-        "last-name": "Nom*",
+        "first-name": "Prénom",
+        "last-name": "Nom",
         "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
                     Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
-        "other": "Dites-nous en plus sur cette découverte*",
-        "people": "Qui vous à parler de nous ? (entrer son/leur pseudo)*",
+        "other": "D'une autre manière",
         "placeholder": {
+            "city": "Entrer votre ville",
+            "contribution": "Devenir adhérent pour...",
             "discord": "Entrer votre pseudo Discord",
             "email": "Entrer votre e-mail",
             "first-name": "Entrer votre prénom",
@@ -87,11 +91,7 @@ const global_fr = {
             "texte-area": "Entrer votre réponse ici s'il vous plaît"
         },
         "pseudo": "Pseudo*",
-        "referral": {
-            "label": "Comment avez-vous entendu parler de l’association ?",
-            "other": "D'une autre manière",
-            "people": "Personne de la communauté",
-        },
+        "referral": "Référent",
         "send": "Envoyer mon inscription",
         "social": "Lien vers vos comptes de médias sociaux",
         "title": "Devenir membre",
@@ -104,8 +104,7 @@ const global_fr = {
     },
 
     // For all components
-       // For all components
-       "countries": {
+    "countries": {
         "argentina": "Argentine",
         "austria": "Autriche",
         "belgium": "Belgique",

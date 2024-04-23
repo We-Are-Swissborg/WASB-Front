@@ -1,11 +1,13 @@
 export interface Registration {
   id?: number;
-  country: string;
-  firstName: string;
-  lastName: string;
+  country?: string;
+  city?: string;
+  firstName?: string;
+  lastName?: string;
   pseudo: string;
   email: string;
   wallet: string;
+  contribution?: string;
   socialMedias?: {
     twitter?: string,
     discord?: string,
@@ -13,8 +15,7 @@ export interface Registration {
     telegram?: string
   };
   referral?: string;
-  userReferral?: string;
-  detailsOther?: string;
+  aboutUs?: string;
   creationDate?: Date;
   modificationDate?: Date
 }

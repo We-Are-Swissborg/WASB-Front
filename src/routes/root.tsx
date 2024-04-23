@@ -55,12 +55,12 @@ export default function Root() {
                   <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>English</button></li>
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>Français</button></li>
+                  <NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink>
                 </ul>
               </div>
               <div className="d-flex" role="connect">
                 <TernoaConnect />
               </div>
-              <NavLink className="btn btn-primary bg-secondary-subtle text-dark" to="/register">{t("nav.register")}</NavLink>
             </div>
           </div>
         </nav>
