@@ -9,15 +9,15 @@ import {
   signatureVerify,
 } from "@polkadot/util-crypto";
 import { u8aToHex } from "@polkadot/util";
+import wasb_favicon from '../assets/svg/wasb_favicon.svg';
 
 const DEFAULT_APP_METADATA = {
-  name: "WeAreSwissborg",
+  name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
   description: "The association that supports you in your crypto adventure!",
-  url: "https://weareswissborg.com",
-  icons: ["https://weareswissborg.com/favicon.ico"],
+  url: window.location.origin,
+  icons: [`${window.location.origin}/${wasb_favicon}`],
 };
 
-// console.log('import.meta.env.VITE_CHAIN_PROVIDER', import.meta.env.VITE_CHAIN_PROVIDER);
 const TERNOA_CHAIN = import.meta.env.VITE_CHAIN_PROVIDER;
 const RELAY_URL = "wss://wallet-connectrelay.ternoa.network/";
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID; // Get your project id by applying to the form, link in the introduction
@@ -28,6 +28,10 @@ const requiredNamespaces = {
       methods: ["sign_message"], // methods that we will use, each project implements methods according to the business logic
   },
 };
+
+if (!PROJECT_ID) {
+  throw new Error("You need to provide PROJECT_ID env variable");
+}
 
 export default function TernoaConnect() {
     const reset = () => {
@@ -62,7 +66,6 @@ export default function TernoaConnect() {
     const connect = useCallback(
       async (pairing: any) => {
         if (typeof client === "undefined") {
-          console.log("WalletConnect is not initialized");
           throw new Error("WalletConnect is not initialized");
         }
         try {
@@ -71,13 +74,11 @@ export default function TernoaConnect() {
             requiredNamespaces: requiredNamespaces,
           });
           if (uri) {
-            console.log('uri', uri);
             QRCodeModal.open(uri, () => {});
           }
           // Here we will await the Wallet's response to the pairing proposal
           const session = await approval();
           onSessionConnected(session);
-          console.log("session", session);
           return session;
         } catch (e) {
           console.error(e);

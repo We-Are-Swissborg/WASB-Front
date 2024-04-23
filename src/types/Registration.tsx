@@ -13,8 +13,5 @@ export interface Registration {
     telegram?: string
   };
   referral?: string;
-  userReferral?: string;
   detailsOther?: string;
-  creationDate?: Date;
-  modificationDate?: Date
 }

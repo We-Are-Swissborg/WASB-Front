@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Post } from '../types/Post';
+import { getPosts } from "../services/blog.service";
 
 
 export default function Blog() {
@@ -33,10 +34,4 @@ export default function Blog() {
       </div>
     </>
   );
-}
-
-async function getPosts() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=10");
-  const posts = await response.json() as Post[];
-  return posts;
 }
