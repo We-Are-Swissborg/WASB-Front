@@ -14,8 +14,8 @@ import wasb_favicon from '../assets/svg/wasb_favicon.svg';
 const DEFAULT_APP_METADATA = {
   name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
   description: "The association that supports you in your crypto adventure!",
-  url: "https://weareswissborg.com",
-  icons: [wasb_favicon],
+  url: window.location.origin,
+  icons: [`${window.location.origin}/${wasb_favicon}`],
 };
 
 const TERNOA_CHAIN = import.meta.env.VITE_CHAIN_PROVIDER;
@@ -28,6 +28,10 @@ const requiredNamespaces = {
       methods: ["sign_message"], // methods that we will use, each project implements methods according to the business logic
   },
 };
+
+if (!PROJECT_ID) {
+  throw new Error("You need to provide PROJECT_ID env variable");
+}
 
 export default function TernoaConnect() {
     const reset = () => {
