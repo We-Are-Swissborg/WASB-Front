@@ -1,9 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
-import logo from '../assets/WASB_1.png';
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import Footer from "../component/footer";
+import { NavLink, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import TernoaConnect from "../web3/ternoaConnect.tsx";
+
+import Footer from "../component/footer";
+
+import logo from '../assets/images/Wasb_logo__blanc.png';
 
 export default function Root() {
   const [t, i18n] = useTranslation("global");
@@ -28,7 +31,7 @@ export default function Root() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
           <div className="container d-flex justify-content-between">
             <a className="navbar-brand" href="#">
-              <img src={logo} alt="We are SwissBorg" height="70" />
+              <img src={logo} alt="We are SwissBorg" height="65" width="145" />
             </a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
@@ -45,6 +48,10 @@ export default function Root() {
                   <NavLink className="nav-link" to="/contact">{t("nav.contact")}</NavLink>
                 </li>
               </ul>
+              <NavLink className="btn btn-primary bg-secondary-subtle text-dark" to="/register">{t("nav.register")}</NavLink>
+              <div className="d-flex" role="connect">
+                <TernoaConnect />
+              </div>
               <div className="dropdown">
                 <button type="button" className="btn btn-outline-secondary" id="navbarParams" role="button" data-bs-toggle="dropdown" aria-expanded="false"
                         onMouseEnter={handleMouseEnter}
@@ -57,10 +64,6 @@ export default function Root() {
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>Français</button></li>
                 </ul>
               </div>
-              <div className="d-flex" role="connect">
-                <TernoaConnect />
-              </div>
-              <NavLink className="btn btn-primary bg-secondary-subtle text-dark" to="/register">{t("nav.register")}</NavLink>
             </div>
           </div>
         </nav>

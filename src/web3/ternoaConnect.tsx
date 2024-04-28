@@ -1,15 +1,17 @@
 import { useCallback, useState, useEffect } from "react";
+
 import Client from "@walletconnect/sign-client";
 import { SessionTypes } from "@walletconnect/types";
 import QRCodeModal from "@walletconnect/legacy-modal";
-import { ERROR } from "@walletconnect/utils";
+// import { ERROR } from "@walletconnect/utils";
 import {
   cryptoWaitReady,
   decodeAddress,
   signatureVerify,
 } from "@polkadot/util-crypto";
 import { u8aToHex } from "@polkadot/util";
-import wasb_favicon from '../assets/svg/wasb_favicon.svg';
+import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
+import iconWalletconnect from '../assets/images/svg/walletconnect_icon.svg';
 
 const DEFAULT_APP_METADATA = {
   name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
@@ -244,9 +246,9 @@ export default function TernoaConnect() {
 
   if(!isInitializing && !address) {
     return (
-      <>
-          <button className="btn btn-secondary" onClick={connect}>Login</button>
-      </>
+      <div className="bg-gradient gradient-div">
+        <button className="btn bg-white radius-button" onClick={connect}> <img className='me-2' src={iconWalletconnect} />Connect wallet</button>
+      </div>
     );
   } else {
     return (

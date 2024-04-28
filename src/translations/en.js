@@ -94,7 +94,7 @@ const global_en = {
             "other": "In another way",
             "people": "Someone from the community",
         },
-        "send": "Send my registration",
+        "send": "Join",
         "social": "Link to your social media accounts",
         "title": "Become a member",
         "wallet": "Your wallet address*"

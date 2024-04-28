@@ -227,7 +227,7 @@ export default function Register() {
 
   return(
     <div className="container d-flex flex-column align-items-center">
-      <h1 className="my-5">{t('register.title')}</h1>
+      <h1 className="my-5 text-secondary">{t('register.title')}</h1>
       <p className="text-center">{t('register.message')}</p>
       <form className="d-flex flex-column align-items-center w-100 px-5 mb-3 mt-5" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
         <div className="d-flex w-100">
@@ -326,7 +326,7 @@ export default function Register() {
               }
             }/>
           </div>
-          <button className="btn btn-secondary me-3" type="submit" disabled={disabledButton}>{t('register.send')}</button>
+          <button className="btn bg-gradient rounded-pill border border-secondary me-3 text-white padding-button" type="submit" >{t('register.send')}</button> {/* disabled={disabledButton}*/}
         </div>
       </form>
     </div>

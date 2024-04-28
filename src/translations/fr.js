@@ -92,7 +92,7 @@ const global_fr = {
             "other": "D'une autre manière",
             "people": "Personne de la communauté",
         },
-        "send": "Envoyer mon inscription",
+        "send": "Rejoindre",
         "social": "Lien vers vos comptes de médias sociaux",
         "title": "Devenir membre",
         "wallet": "Adresse de votre wallet*"
