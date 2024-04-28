@@ -99,6 +99,12 @@ const global_en = {
         "title": "Become a member",
         "wallet": "Your wallet address*"
     },
+    "setting": {
+        "linked-accounts": "Linked accounts",
+        "manage-membership": "Manage my membership",
+        "my-account": "My account",
+        "title": "Setting",
+    },
     "whoarewe": {
         "content": `WeAreSwissBorg is much more than just an association. ` +
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,

@@ -11,6 +11,8 @@ import logo from '../assets/images/Wasb_logo__blanc.png';
 export default function Root() {
   const [t, i18n] = useTranslation("global");
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [validateUserConnect, setValidateUserConnect] = useState(true);
+  const [userConnect, setUserConnect] = useState(true);
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -61,7 +63,8 @@ export default function Root() {
                   <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>English</button></li>
                   <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>Français</button></li>
-                  <NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink>
+                  {userConnect &&<li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
+                  {validateUserConnect && <li><NavLink className="" to="/setting">Profile</NavLink></li>}
                 </ul>
               </div>
             </div>

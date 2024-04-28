@@ -183,7 +183,7 @@ export default function Register() {
       <form className="d-flex flex-column align-items-center w-100 px-5 mb-3 mt-5" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="country">{t('register.country')}</label>
+            <label className="form-label size-text-label" htmlFor="country">{t('register.country')}</label>
             <select 
               style={{background: `url(${country}) no-repeat`}}
               className={`form-select shadow_background-input position-flag-select design ${activeMarge}`} 
@@ -198,45 +198,45 @@ export default function Register() {
             </select>
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="city">{t('register.city')}</label>
+            <label className="form-label size-text-label" htmlFor="city">{t('register.city')}</label>
             <input className={`form-control shadow_background-input ${errorCity ? 'border-danger' : ''}`} placeholder={t('register.placeholder.city')} type="text" name="city" id="city" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="pseudo">{t('register.pseudo')}</label>
+            <label className="form-label size-text-label" htmlFor="pseudo">{t('register.pseudo')}</label>
             <input className={`form-control shadow_background-input ${errorPseudo ? 'border-danger' : ''}`} placeholder={t('register.placeholder.pseudo')} type="text" name="pseudo" id="pseudo" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="firstName">{t('register.first-name')}</label>
+            <label className="form-label size-text-label" htmlFor="firstName">{t('register.first-name')}</label>
             <input className={`form-control shadow_background-input ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.first-name')} type="text" name="firstName" id="firstName" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="lastName">{t('register.last-name')}</label>
+            <label className="form-label size-text-label" htmlFor="lastName">{t('register.last-name')}</label>
             <input className={`form-control shadow_background-input ${errorLastName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.last-name')} type="text" name="lastName" id="lastName" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="email">{t('register.email')}</label>
+            <label className="form-label size-text-label" htmlFor="email">{t('register.email')}</label>
             <input className={`form-control shadow_background-input ${errorEmail ? 'border-danger' : ''}`} placeholder={t('register.placeholder.email')} type="email" name="email" id="email" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="wallet">{t('register.wallet')}</label>
+            <label className="form-label size-text-label" htmlFor="wallet">{t('register.wallet')}</label>
             <input className='form-control shadow_background-input' type="text" name="wallet" id="wallet" onChange={handleChange} value='WALLET' required readOnly/>
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="discord">Discord</label>
+            <label className="form-label size-text-label" htmlFor="discord">Discord</label>
             <input className={`form-control shadow_background-input ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('register.placeholder.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="referral">{t('register.referral')}</label>
+            <label className="form-label size-text-label" htmlFor="referral">{t('register.referral')}</label>
             <input className={`form-control shadow_background-input ${errorReferral ? 'border-danger' : ''}`} placeholder="PUT EXEMPLE REFERRAL" type="text" name="referral" id="referral" onChange={handleChange} />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="aboutUs">{t('register.aboutUs')}</label>
+            <label className="form-label size-text-label" htmlFor="aboutUs">{t('register.aboutUs')}</label>
             <select className="form-select shadow_background-input" name="aboutUs" id="aboutUs" onChange={handleChange}>
               <option defaultValue="">{t('register.placeholder.select')}</option>
               <option value="discord">Discord</option>
@@ -248,7 +248,7 @@ export default function Register() {
             </select>
           </div> 
           <div className="mb-3 me-3 w-100">
-            <label className="form-label" htmlFor="contribution">{t('register.contribution')}</label>
+            <label className="form-label size-text-label" htmlFor="contribution">{t('register.contribution')}</label>
             <select className="form-select shadow_background-input" name="contribution" id="contribution" onChange={handleChange}>
               <option defaultValue="">{t('register.placeholder.contribution')}</option>
               <option value="30CHF">30 CHF/3mois</option>
@@ -258,7 +258,7 @@ export default function Register() {
           </div> 
         </div>
         <div className="d-flex justify-content-between align-items-center w-100 mt-4" style={{marginBottom: '120px'}}>
-          <div style={{fontSize: 'smaller'}}>
+          <p style={{fontSize: '11px'}}>
             <Trans i18nKey="register.confidentiality" t={t} components= {
               {
                 link1: <LinkText href="#" title="Terms of Use" />,
