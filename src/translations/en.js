@@ -70,16 +70,20 @@ const global_en = {
         "title": "Our objectives"
     },
     "register": {
+        "aboutUs": "How did you hear about the association ?",
+        "city": "City",
         "confidentiality": "By submitting this form, you agree to be contacted by WeAreSwissBorg and accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
-        "country": "Choose your country*",
+        "contribution": "Contribution",
+        "country": "Choose your country",
         "email": "Email*",
-        "first-name": "First Name*",
-        "last-name": "Last Name*",
+        "first-name": "First Name",
+        "last-name": "Last Name",
         "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association. 
                     To register, please fill out the form below (all fields with * are mandatory):`,
-        "other": "Tell us more about this discovery*",
-        "people": "Who told you about us ? (enter its/their pseudo)*",
+        "other": "In another way",
         "placeholder": {
+            "city": "Enter your city",
+            "contribution": "Become a member for...",
             "discord": "Enter your Discord pseudo",
             "email": "Enter your email",
             "first-name": "Enter your first name",
@@ -89,11 +93,7 @@ const global_en = {
             "texte-area": "Enter your answer here please"
         },
         "pseudo": "Pseudo*",
-        "referral": {
-            "label": "How did you hear about the association ?",
-            "other": "In another way",
-            "people": "Someone from the community",
-        },
+        "referral": "Referral",
         "send": "Join",
         "social": "Link to your social media accounts",
         "title": "Become a member",

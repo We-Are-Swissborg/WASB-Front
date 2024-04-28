@@ -79,6 +79,8 @@ export default function TernoaConnect() {
             QRCodeModal.open(uri, () => {});
           }
           // Here we will await the Wallet's response to the pairing proposal
+          console.log("BUG HERE :")
+          console.log({approval})
           const session = await approval();
           onSessionConnected(session);
           return session;
@@ -148,7 +150,6 @@ export default function TernoaConnect() {
             projectId: PROJECT_ID,
             metadata: DEFAULT_APP_METADATA,
           });
-
           // Here we subscribe to the events
           await subscribeToEvents(_client);
 
