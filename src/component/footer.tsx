@@ -67,8 +67,8 @@ export default function Footer() {
                         <p>{t('footer.subscribe.message')}</p>
                         <div className="d-flex flex-column flex-sm-row w-100 gap-2">
                             <label htmlFor="newsletter1" className="visually-hidden">{t('footer.subscribe.placeholder')}</label>
-                            <input id="newsletter1" type="text" className="form-control" placeholder={t('footer.subscribe.placeholder')} disabled />
-                            <button className="btn bg-gradient" type="button" disabled>{t('footer.subscribe.button')}</button>
+                            <input id="newsletter1" type="text" className="form-control rounded-pill" placeholder={t('footer.subscribe.placeholder')} disabled />
+                            <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="button" disabled>{t('footer.subscribe.button')}</button>
                         </div>
                     </form>
                 </div>

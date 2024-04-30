@@ -186,7 +186,7 @@ export default function Register() {
             <label className="form-label size-text-label" htmlFor="country">{t('register.country')}</label>
             <select 
               style={{background: `url(${country}) no-repeat`}}
-              className={`form-select shadow_background-input position-flag-select design ${activeMarge}`} 
+              className={`form-select shadow_background-input position-flag-select design rounded-pill ${activeMarge}`} 
               name="country"
               id="country"
               onChange={handleChange}
@@ -199,45 +199,45 @@ export default function Register() {
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="city">{t('register.city')}</label>
-            <input className={`form-control shadow_background-input ${errorCity ? 'border-danger' : ''}`} placeholder={t('register.placeholder.city')} type="text" name="city" id="city" onChange={handleChange} />
+            <input className={`form-control shadow_background-input rounded-pill ${errorCity ? 'border-danger' : ''}`} placeholder={t('register.placeholder.city')} type="text" name="city" id="city" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="pseudo">{t('register.pseudo')}</label>
-            <input className={`form-control shadow_background-input ${errorPseudo ? 'border-danger' : ''}`} placeholder={t('register.placeholder.pseudo')} type="text" name="pseudo" id="pseudo" onChange={handleChange} required />
+            <input className={`form-control shadow_background-input rounded-pill ${errorPseudo ? 'border-danger' : ''}`} placeholder={t('register.placeholder.pseudo')} type="text" name="pseudo" id="pseudo" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="firstName">{t('register.first-name')}</label>
-            <input className={`form-control shadow_background-input ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.first-name')} type="text" name="firstName" id="firstName" onChange={handleChange} />
+            <input className={`form-control shadow_background-input rounded-pill ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.first-name')} type="text" name="firstName" id="firstName" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="lastName">{t('register.last-name')}</label>
-            <input className={`form-control shadow_background-input ${errorLastName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.last-name')} type="text" name="lastName" id="lastName" onChange={handleChange} />
+            <input className={`form-control shadow_background-input rounded-pill ${errorLastName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.last-name')} type="text" name="lastName" id="lastName" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="email">{t('register.email')}</label>
-            <input className={`form-control shadow_background-input ${errorEmail ? 'border-danger' : ''}`} placeholder={t('register.placeholder.email')} type="email" name="email" id="email" onChange={handleChange} required />
+            <input className={`form-control shadow_background-input rounded-pill ${errorEmail ? 'border-danger' : ''}`} placeholder={t('register.placeholder.email')} type="email" name="email" id="email" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="wallet">{t('register.wallet')}</label>
-            <input className='form-control shadow_background-input' type="text" name="wallet" id="wallet" onChange={handleChange} value='WALLET' required readOnly/>
+            <input className='form-control shadow_background-input rounded-pill' type="text" name="wallet" id="wallet" onChange={handleChange} value='WALLET' required readOnly/>
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="discord">Discord</label>
-            <input className={`form-control shadow_background-input ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('register.placeholder.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
+            <input className={`form-control shadow_background-input rounded-pill ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('register.placeholder.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="referral">{t('register.referral')}</label>
-            <input className={`form-control shadow_background-input ${errorReferral ? 'border-danger' : ''}`} placeholder="PUT EXEMPLE REFERRAL" type="text" name="referral" id="referral" onChange={handleChange} />
+            <input className={`form-control shadow_background-input rounded-pill ${errorReferral ? 'border-danger' : ''}`} placeholder="PUT EXEMPLE REFERRAL" type="text" name="referral" id="referral" onChange={handleChange} />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="aboutUs">{t('register.aboutUs')}</label>
-            <select className="form-select shadow_background-input" name="aboutUs" id="aboutUs" onChange={handleChange}>
+            <select className="form-select shadow_background-input rounded-pill" name="aboutUs" id="aboutUs" onChange={handleChange}>
               <option defaultValue="">{t('register.placeholder.select')}</option>
               <option value="discord">Discord</option>
               <option value="telegram">Telegram</option>
@@ -249,7 +249,7 @@ export default function Register() {
           </div> 
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="contribution">{t('register.contribution')}</label>
-            <select className="form-select shadow_background-input" name="contribution" id="contribution" onChange={handleChange}>
+            <select className="form-select shadow_background-input rounded-pill" name="contribution" id="contribution" onChange={handleChange}>
               <option defaultValue="">{t('register.placeholder.contribution')}</option>
               <option value="30CHF">30 CHF/3mois</option>
               <option value="60CHF">60 CHF/6mois</option>
@@ -265,8 +265,8 @@ export default function Register() {
                 link2: <LinkText href="#" title="Privacy Policy" />
               }
             }/>
-          </div>
-          <button className="btn bg-gradient rounded-pill border border-secondary me-3 text-white padding-button" type="submit" >{t('register.send')}</button> {/* disabled={disabledButton}*/}
+          </p>
+          <button className="btn bg-gradient rounded-pill border border-secondary me-3 text-white padding-button" type="submit" disabled={disabledButton}>{t('register.send')}</button>
         </div>
       </form>
     </div>

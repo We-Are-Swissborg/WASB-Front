@@ -3,7 +3,7 @@ import { useCallback, useState, useEffect } from "react";
 import Client from "@walletconnect/sign-client";
 import { SessionTypes } from "@walletconnect/types";
 import QRCodeModal from "@walletconnect/legacy-modal";
-// import { ERROR } from "@walletconnect/utils";
+import { ERROR } from "@walletconnect/utils";
 import {
   cryptoWaitReady,
   decodeAddress,
@@ -79,8 +79,6 @@ export default function TernoaConnect() {
             QRCodeModal.open(uri, () => {});
           }
           // Here we will await the Wallet's response to the pairing proposal
-          console.log("BUG HERE :")
-          console.log({approval})
           const session = await approval();
           onSessionConnected(session);
           return session;
@@ -254,10 +252,10 @@ export default function TernoaConnect() {
   } else {
     return (
       <>
-        <div className="dropdown">
-        <button type="button" className="btn btn-outline-secondary" id="navbarConnection" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {addressSplited}
-        </button>
+        <div className="dropdown bg-gradient gradient-div">
+          <button type="button" className="btn bg-white radius-button" id="navbarConnection" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {addressSplited}
+          </button>
           <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarConnection">
             <li>Account certified: {isAccountCertified + ""}</li>
             <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i> Test sign</button></li>
