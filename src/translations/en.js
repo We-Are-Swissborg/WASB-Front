@@ -80,7 +80,6 @@ const global_en = {
         "last-name": "Last Name",
         "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association. 
                     To register, please fill out the form below (all fields with * are mandatory):`,
-        "other": "In another way",
         "placeholder": {
             "city": "Enter your city",
             "contribution": "Become a member for...",
@@ -90,19 +89,50 @@ const global_en = {
             "last-name": "Enter your last name",
             "pseudo": "Enter your pseudo",
             "select": "Choose...",
-            "texte-area": "Enter your answer here please"
         },
         "pseudo": "Pseudo*",
         "referral": "Referral",
         "send": "Join",
-        "social": "Link to your social media accounts",
         "title": "Become a member",
-        "wallet": "Your wallet address*"
+        "wallet": "Your wallet address*",
     },
     "setting": {
-        "linked-accounts": "Linked accounts",
-        "manage-membership": "Manage my membership",
-        "my-account": "My account",
+        "linked-accounts": {
+            "discord": "Enter your Discord pseudo",
+            "title": "Linked accounts",
+        },
+        "manage-membership": {
+            "cancel": "Cancel your contribution",
+            "contribution": "Contribution",
+            "contribution-end": "Contribution end date",
+            "contribution-start": "Contribution start date",
+            "donations": "Donations",
+            "message-1": "You currently have a WASB Genesis membership (annual). Your membership will be renewed on #######.",
+            "message-2": "As a WASB Genesis member and holder of the Ternoa NFT, you benefit from our best features.",
+            "modify": "Modify my contribution",
+            "nft-wallet": "Adress of your Ternoa NFT",
+            "title": "Manage my membership",
+            "status": "Status of your contribution"
+        },
+        "my-account": {
+            "aboutUs": "How did you hear about the association ?",
+            "city": "City",
+            "city_placeholder": "Enter your city",
+            "confidentiality": "By submitting this form, you agree to be contacted by WeAreSwissBorg and accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
+            "country": "Choose your country",
+            "email": "Email*",
+            "first-name": "First Name",
+            "first-name_placeholder": "Enter your first name",
+            "last-name": "Last Name",
+            "last-name_placeholder": "Enter your last name",
+            "pseudo": "Pseudo*",
+            "referral": "Referral",
+            "select_placeholder": "Choose...",
+            "send": "Rejoindre",
+            "title": "My account",
+            "update": "Update",
+            "wallet": "Your wallet address*"
+        },
         "title": "Setting",
     },
     "whoarewe": {

@@ -10,6 +10,7 @@ export default function Register() {
   const [t] = useTranslation("global");
   const [disabledButton, setDisabledButton] = useState(true);
   const [wallet, setWallet] = useState(true);
+  const defaultStyleIpunt = "form-control shadow_background-input rounded-pill";
 
   // Try to transform in array later for a best develop
   const [errorCity, setErrorCity] = useState(false);
@@ -199,39 +200,39 @@ export default function Register() {
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="city">{t('register.city')}</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorCity ? 'border-danger' : ''}`} placeholder={t('register.placeholder.city')} type="text" name="city" id="city" onChange={handleChange} />
+            <input className={`${defaultStyleIpunt} ${errorCity ? 'border-danger' : ''}`} placeholder={t('register.placeholder.city')} type="text" name="city" id="city" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="pseudo">{t('register.pseudo')}</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorPseudo ? 'border-danger' : ''}`} placeholder={t('register.placeholder.pseudo')} type="text" name="pseudo" id="pseudo" onChange={handleChange} required />
+            <input className={`${defaultStyleIpunt} ${errorPseudo ? 'border-danger' : ''}`} placeholder={t('register.placeholder.pseudo')} type="text" name="pseudo" id="pseudo" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="firstName">{t('register.first-name')}</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.first-name')} type="text" name="firstName" id="firstName" onChange={handleChange} />
+            <input className={`${defaultStyleIpunt} ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.first-name')} type="text" name="firstName" id="firstName" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="lastName">{t('register.last-name')}</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorLastName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.last-name')} type="text" name="lastName" id="lastName" onChange={handleChange} />
+            <input className={`${defaultStyleIpunt} ${errorLastName ? 'border-danger' : ''}`} placeholder={t('register.placeholder.last-name')} type="text" name="lastName" id="lastName" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="email">{t('register.email')}</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorEmail ? 'border-danger' : ''}`} placeholder={t('register.placeholder.email')} type="email" name="email" id="email" onChange={handleChange} required />
+            <input className={`${defaultStyleIpunt} ${errorEmail ? 'border-danger' : ''}`} placeholder={t('register.placeholder.email')} type="email" name="email" id="email" onChange={handleChange} required />
           </div>
         </div>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="wallet">{t('register.wallet')}</label>
-            <input className='form-control shadow_background-input rounded-pill' type="text" name="wallet" id="wallet" onChange={handleChange} value='WALLET' required readOnly/>
+            <input className={`${defaultStyleIpunt} pe-none read-only`} type="text" name="wallet" id="wallet" onChange={handleChange} value='WALLET' required readOnly/>
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="discord">Discord</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('register.placeholder.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
+            <input className={`${defaultStyleIpunt} ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('register.placeholder.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
           </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="referral">{t('register.referral')}</label>
-            <input className={`form-control shadow_background-input rounded-pill ${errorReferral ? 'border-danger' : ''}`} placeholder="PUT EXEMPLE REFERRAL" type="text" name="referral" id="referral" onChange={handleChange} />
+            <input className={`${defaultStyleIpunt} ${errorReferral ? 'border-danger' : ''}`} placeholder="PUT EXEMPLE REFERRAL" type="text" name="referral" id="referral" onChange={handleChange} />
           </div>
         </div>
         <div className="d-flex w-100">
