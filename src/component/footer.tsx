@@ -48,7 +48,7 @@ export default function Footer() {
                             <a href="#"><i className="fa-brands fa-x-twitter fa-2x"></i></a>
                         </li>
                         <li className="list-group-item">
-                            <a href='https://discord.gg/hCekNVzGSM' target='_blank'><i className="fa-brands fa-discord fa-2x"></i></a>
+                            <a href='' target='_blank'><i className="fa-brands fa-discord fa-2x"></i></a>
                         </li>
                         <li className="list-group-item">
                             <a href="#"><i className="fa-brands fa-youtube fa-2x"></i></a>
@@ -77,7 +77,7 @@ export default function Footer() {
                 <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
                 <ul className="list-unstyled d-flex">
                     <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-x-twitter"></i></a></li>
-                    <li className="ms-3"><a className="link-light" href='https://discord.gg/hCekNVzGSM' target='_blank'><i className="fa-brands fa-discord"></i></a></li>
+                    <li className="ms-3"><a className="link-light" href='#' target='_blank'><i className="fa-brands fa-discord"></i></a></li>
                     <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-youtube"></i></a></li>
                     <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-facebook"></i></a></li>
                     <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-twitch"></i></a></li>
