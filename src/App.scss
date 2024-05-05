@@ -24,6 +24,10 @@ select {
   cursor: pointer;
 }
 
+label {
+  font-weight: 600;
+}
+
 .appGsap {
   display: flex;
   align-items: center;

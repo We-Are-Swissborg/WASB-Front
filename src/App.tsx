@@ -2,11 +2,11 @@ import './App.scss'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Root from './routes/root.tsx'
 import ErrorPage from './hook/Error-page.tsx'
-import Blog from './component/blog.tsx'
-import Home from './component/home.tsx'
-import Contact from './component/contact.tsx'
-import Register from './component/register.tsx'
-import Setting from './component/setting.tsx'
+import Blog from './component/Blog.tsx'
+import Home from './component/Home.tsx'
+import Contact from './component/Contact.tsx'
+import Register from './component/Register.tsx'
+import Setting from './component/Setting.tsx'
 
 const router = createBrowserRouter([
   {

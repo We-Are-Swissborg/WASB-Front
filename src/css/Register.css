@@ -1,0 +1,11 @@
+.register-form {
+  min-width: 600px;
+}
+
+.submit {
+  margin-bottom: 120px;
+}
+
+.submit p {
+  font-size: 11px;
+}

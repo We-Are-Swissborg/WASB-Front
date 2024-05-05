@@ -1,0 +1,12 @@
+.first-container + div {
+  background-color: #E4E6C3;
+}
+
+.img-fluid {
+  width: 186px;
+}
+
+.article-whoarewe {
+  background: linear-gradient(135deg, rgb(183, 101, 0) 0%, rgb(212, 131, 30) 19.89%, rgb(218, 162, 65) 34.61%, rgb(242, 188, 93) 51.18%, rgb(218, 162, 65) 66.53%, rgb(184, 115, 29) 85.51%, rgb(183, 101, 0) 100%);
+  border-radius: 3rem 0.5rem;
+}

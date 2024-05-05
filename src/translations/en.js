@@ -11,7 +11,7 @@ const global_en = {
         "contact": "Contact",
         "donation": "Make a donation",
         "join": "Join our community",
-        "message": `WeAreSwissBorg is an association that aims to promote the use of blockchain and crypto-assets, ` + 
+        "message": `WeAreSwissBorg is an association that aims to promote the use of blockchain and crypto-assets, ` +
                    `provide educational content on these technologies, particularly related to Swissborg, and support actions related to this ecosystem.`,
         "rights-reserved": "All rights reserved",
         "subscribe": {
@@ -63,7 +63,7 @@ const global_en = {
             "title": "Democratizing Crypto-Actives"
         },
         "education": {
-            "content": `Education is at the heart of our approach.` + 
+            "content": `Education is at the heart of our approach.` +
                        `We provide clear, accessible educational content, so that everyone can understand and make informed decisions`,
             "title": "Educate and Inform"
         },
@@ -78,7 +78,7 @@ const global_en = {
         "email": "Email*",
         "first-name": "First Name",
         "last-name": "Last Name",
-        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association. 
+        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
                     To register, please fill out the form below (all fields with * are mandatory):`,
         "placeholder": {
             "city": "Enter your city",

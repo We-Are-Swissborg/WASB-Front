@@ -1,9 +1,18 @@
 import { useEffect, useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { LinkText } from "./LinksTranslate";
-import { Registration } from "../types/Registration";
+
 import Countries from "../hook/Countries";
+import { LinkText } from "../hook/LinksTranslate";
+
+import { Registration } from "../types/Registration";
 import regex from "../services/regex";
+
+import twitterIcon from "../assets/images/icon/twitter-icon.png";
+import discordIcon from "../assets/images/icon/discord-icon.png";
+import tiktokIcon from "../assets/images/icon/tiktok-icon.png";
+import telegramIcon from "../assets/images/icon/telegram-icon.png";
+
+import '../css/Setting.css';
 
 export default function Setting () {
   const {t} = useTranslation('global');
@@ -14,31 +23,9 @@ export default function Setting () {
   const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
   const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
 
-  // CSS
-  const styleNavSetting = {
-    fontWeight: '600',
-  } as React.CSSProperties;
-
-  const styleFirstColumnForm = {
-    width: '335px', 
-    marginRight: '25px'
-  } as React.CSSProperties;
-
-  const styleSecondColumnForm = {
-    width: '335px',
-  } as React.CSSProperties;
-
-  const styleTextTerm = {
-    fontSize: '11px',
-    position: 'relative',
-    left: '-100px',
-    top: '-75px',
-    margin: '0 12%',
-  } as React.CSSProperties;
-
   const [wallet, setWallet] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
-  
+
   // Management input
 
   // Try to transform in array later for a best develop
@@ -57,7 +44,7 @@ export default function Setting () {
   const [country, setCountry] = useState('');
   const activeMarge = country ? 'ps-5' : '';
   const listCountries = Countries();
-  
+
   const [registration, setRegistration] = useState<Registration>({
     country: '',
     city: '',
@@ -211,28 +198,28 @@ export default function Setting () {
   }
 
   return (
-    <div className="container d-flex flex-column align-items-center mt-5" style={{maxWidth: '1125px', padding: '0px 50px'}}>
+    <div className="setting-container container d-flex flex-column align-items-center mt-5">
       <h1 className="border-bottom border-dark-subtle pb-2 fw-bold w-100">{t('setting.title')}</h1>
       <div className="d-flex justify-content-between w-100">
-        <div style={{marginRight: "50px", width: "265px"}}>
-          <h2 className="mb-3 fw-normal">{t('setting.title')}</h2>
-          <ul className="list-inline d-flex flex-column justify-content-between" style={{height: "150px", minWidth: "225px"}}>
+        <div className="container-main-input">
+          <h2 className=" mb-3 fw-normal">{t('setting.title')}</h2>
+          <ul className="list-inline d-flex flex-column justify-content-between">
             <li>
-              <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${myAccountClass}`} style={styleNavSetting} htmlFor="my-account">
-                <input style={{display: "none"}} type="button" name="my-account" id="my-account" onClick={() => setChoiceSetting(1)} /> 
+              <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${myAccountClass}`} htmlFor="my-account">
+                <input type="button" name="my-account" id="my-account" onClick={() => setChoiceSetting(1)} /> 
                 {t('setting.my-account.title')}
               </label>
             </li>
             <li>
-              <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${membershipClass}`} style={styleNavSetting} htmlFor="manage-membership" >
-                <input style={{display: "none"}} type="button" name="manage-membership" id="manage-membership" onClick={() => setChoiceSetting(2)} /> 
+              <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${membershipClass}`} htmlFor="manage-membership" >
+                <input type="button" name="manage-membership" id="manage-membership" onClick={() => setChoiceSetting(2)} /> 
                 {t('setting.manage-membership.title')}
               </label>
             </li>
             <li>
-              <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClass}`} style={styleNavSetting} htmlFor="linked-accounts">
+              <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClass}`} htmlFor="linked-accounts">
                 {t('setting.linked-accounts.title')}
-                <input style={{display: "none"}} type="button" name="linked-accounts" id="linked-accounts" onClick={() => setChoiceSetting(3)} /> 
+                <input type="button" name="linked-accounts" id="linked-accounts" onClick={() => setChoiceSetting(3)} /> 
               </label>
             </li>
           </ul>
@@ -240,9 +227,9 @@ export default function Setting () {
           { choiceSetting === 1 &&
             <div>
               <h2 className="fw-normal">{t('setting.my-account.title')}</h2>
-              <form className="d-flex flex-column w-100 mt-5 align-items-end" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
+              <form className="all-form d-flex flex-column w-100 mt-4 align-items-end" method='post' onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-between flex-wrap">
-                  <div className="d-flex flex-column" style={styleFirstColumnForm}>
+                  <div className="sub-part-one d-flex flex-column">
                     <div className="mb-3 me-3 w-100">
                       <label className="form-label size-text-label" htmlFor="firstName">{t('setting.my-account.first-name')}</label>
                       <input className={`${defaultStyleIpunt} ${errorFirstName ? 'border-danger' : ''}`} placeholder={t('setting.my-account.first-name_placeholder')} type="text" name="firstName" id="firstName" onChange={handleChange} required />
@@ -272,7 +259,7 @@ export default function Setting () {
                       <input className={`${defaultStyleIpunt} pe-none read-only`} value="PUT REFERRAL" type="text" name="referral" id="referral" readOnly />
                     </div>
                   </div>
-                  <div className="d-flex flex-column" style={styleSecondColumnForm}>
+                  <div className="sub-part-two d-flex flex-column">
                     <div className="mb-3 me-3 w-100">
                       <label className="form-label size-text-label" htmlFor="lastName">{t('setting.my-account.last-name')}</label>
                       <input className={`${defaultStyleIpunt} ${errorLastName ? 'border-danger' : ''}`} placeholder={t('setting.my-account.last-name_placeholder')} type="text" name="lastName" id="lastName" onChange={handleChange} required />
@@ -285,10 +272,10 @@ export default function Setting () {
                       <label className="form-label size-text-label" htmlFor="country">{t('setting.my-account.country')}</label>
                       <select 
                         style={{background: `url(${country}) no-repeat`}} 
-                        className={`form-select shadow_background-input position-flag-select design rounded-pill ${activeMarge}`} 
-                        name="country" 
-                        id="country" 
-                        onChange={handleChange} 
+                        className={`form-select shadow_background-input position-flag-select design rounded-pill ${activeMarge}`}
+                        name="country"
+                        id="country"
+                        onChange={handleChange}
                         required
                       >
                         <option defaultValue=''>{t('setting.my-account.select_placeholder')}</option>
@@ -311,12 +298,12 @@ export default function Setting () {
             <div>
               <div>
                 <h2 className="fw-normal">{t('setting.manage-membership.title')}</h2>
-                <p className="text-nowrap" style={{fontSize: '12px'}}>{t('setting.manage-membership.message-1')}</p>
-                <p className="text-nowrap" style={{fontSize: '12px'}}>{t('setting.manage-membership.message-2')}</p>
+                <p className="message-membership text-nowrap">{t('setting.manage-membership.message-1')}</p>
+                <p className="message-membership text-nowrap">{t('setting.manage-membership.message-2')}</p>
               </div>
-              <form className="d-flex flex-column w-100 mt-5 align-items-end" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
+              <form className="all-form d-flex flex-column w-100 mt-5 align-items-end" method='post' onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-between flex-wrap">
-                  <div className="d-flex flex-column" style={styleFirstColumnForm}>
+                  <div className="sub-part-one d-flex flex-column">
                     <div className="mb-3 me-3 w-100">
                       <label className="form-label size-text-label" htmlFor="contributionStatus">{t('setting.manage-membership.status')}</label>
                       <input className={`${defaultStyleIpunt} pe-none read-only`} value='STATUS' type="text" name="contributionStatus" id="contributionStatus" onChange={handleChange} readOnly />
@@ -330,7 +317,7 @@ export default function Setting () {
                       <input className={defaultStyleIpunt} value='DONATIONS' type="text" name="donations" id="donations" onChange={handleChange} />
                     </div>
                   </div>
-                  <div className="d-flex flex-column" style={styleSecondColumnForm}>
+                  <div className="sub-part-two d-flex flex-column">
                     <div className="mb-3 me-3 w-100">
                       <label className="form-label size-text-label" htmlFor="contribution">{t('setting.manage-membership.contribution')}</label>
                       <input className={defaultStyleIpunt} value='CONTRIBUTION' type="text" name="contribution" id="contribution" onChange={handleChange} />
@@ -355,51 +342,52 @@ export default function Setting () {
           { choiceSetting === 3 &&
             <div>
               <h2 className="fw-normal">{t('setting.linked-accounts.title')}</h2>
-              <div className="d-flex flex-column w-100 mb-5 mt-5" style={{minWidth: '700px'}}>
+              <form className="social-form d-flex flex-column w-100 mt-4 mb-5 align-items-start" method='post' onSubmit={handleSubmit}>
                 <div>
                   <div className="d-flex align-items-end mb-3 me-3">
-                    <div className="me-4" style={{width: '315px'}}>
+                    <div className="me-4 social-input">
                       <label className="form-label size-text-label" htmlFor="twitter">Twitter</label>
                       <input className={`${defaultStyleIpunt} me-5 ${errorTwitter ? 'border-danger' : ''}`} placeholder="twitter.com/WeAreSwissBorg" type="text" name="twitter" id="twitter" onChange={handleChange} />
                     </div>
-                    <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="submit" disabled={disabledButton}>Mise à jour</button>
+                    <img src={twitterIcon} alt="Twitter logo" />
                   </div>
                   <div className="d-flex align-items-end mb-3 me-3">
-                    <div className="me-4" style={{width: '315px'}}>
+                    <div className="me-4 social-input">
                       <label className="form-label size-text-label" htmlFor="discord">Discord</label>
                       <input className={`${defaultStyleIpunt} ${errorDiscord ? 'border-danger' : ''}`} placeholder={t('setting.linked-accounts.discord')} type="text" name="discord" id="discord" onChange={handleChange} />
                     </div>
-                    <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="submit" disabled={disabledButton}>Se déconnecter</button>
+                    <img src={discordIcon} alt="Discord logo" />
                   </div>
                   <div className="d-flex align-items-end mb-3 me-3">
-                    <div className="me-4" style={{width: '315px'}}>
+                    <div className="me-4 social-input">
                       <label className="form-label size-text-label" htmlFor="tiktok">TikTok</label>
                       <input className={`${defaultStyleIpunt} ${errorTiktok ? 'border-danger' : ''}`} placeholder="tiktok.com/@weareswissborg.eth" type="text" name="tiktok" id="tiktok" onChange={handleChange} />
                     </div>
-                    <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="submit" disabled={disabledButton}>Se déconnecter</button>
+                    <img src={tiktokIcon} alt="TikTok logo" />
                   </div>
                   <div className="d-flex align-items-end mb-3 me-3">
-                    <div className="me-4" style={{width: '315px'}}>
+                    <div className="me-4 social-input">
                       <label className="form-label size-text-label" htmlFor="telegram">Telegram</label>
                       <input className={`${defaultStyleIpunt} ${errorTelegram ? 'border-danger' : ''}`} placeholder="t.me/WeAreSwissBorg" type="text" name="telegram" id="telegram" onChange={handleChange} />
                     </div>
-                    <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="submit" disabled={disabledButton}>Connexion</button>
+                    <img src={telegramIcon} alt="Telegram logo" />
                   </div>
                 </div>
-              </div> 
+                <button className="btn bg-gradient rounded-pill border border-secondary text-white mt-4" type="submit" disabled={disabledButton}>{t('setting.linked-accounts.update')}</button>
+              </form> 
             </div>
           }
         
       </div>
-      { choiceSetting === 1 && 
-        <p style={styleTextTerm}>
+      { choiceSetting === 1 &&
+        <p className="term-text">
           <Trans i18nKey="setting.my-account.confidentiality" t={t} components={
-            { 
-              link1: <LinkText href="#" title="Terms of Use" />, 
-              link2: <LinkText href="#" title="Privacy Policy" /> 
+            {
+              link1: <LinkText href="#" title="Terms of Use" />,
+              link2: <LinkText href="#" title="Privacy Policy" />
             }
           }/>
-        </p> 
+        </p>
       }
     </div>
   )

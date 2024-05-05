@@ -1,0 +1,51 @@
+.setting-container {
+  max-width: 1125px;
+  padding: 0 50px;
+}
+
+.container-main-input {
+  margin-right: 50px;
+  width: 265px;
+}
+
+.container-main-input ul {
+  height: 150px;
+  min-width: 225px;
+}
+
+.container-main-input input {
+  display: none;
+}
+
+.all-form {
+  min-width: 600px;
+}
+
+.social-form {
+  min-width: 700px;
+}
+
+.sub-part-one {
+  margin-right: 25px;
+}
+
+.sub-part-one, .sub-part-two {
+  width: 335px;
+}
+
+.message-membership {
+  font-size: 12px;
+}
+
+.social-input {
+  width: 315px;
+}
+
+.term-text {
+  font-size: 11px;
+  position: relative;
+  left: -100px;
+  top: -75px;
+  margin: 0 12%;
+}
+

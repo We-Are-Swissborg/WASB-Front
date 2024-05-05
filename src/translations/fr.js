@@ -98,6 +98,7 @@ const global_fr = {
         "linked-accounts": {
             "discord": "Entrer votre pseudo Discord",
             "title": "Compte liés",
+            "update": "Mise à jour"
         },
         "manage-membership": {
             "cancel": "Annuler mon adhésion",
@@ -133,7 +134,7 @@ const global_fr = {
         "title": "Réglages",
     },
     "whoarewe": {
-        "content": `WeAreSwissBorg est bien plus qu'une simple association. ` + 
+        "content": `WeAreSwissBorg est bien plus qu'une simple association. ` +
                    `Nous sommes une communauté passionnée, engagée à partager la connaissance et à démocratiser l'utilisation des crypto-actifs et de l'écosystème SwissBorg.`,
         "title": "Qui sommes-nous ?"
     },

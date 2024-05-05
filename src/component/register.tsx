@@ -1,10 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { LinkText } from "./LinksTranslate";
-import { Registration } from "../types/Registration";
-import Countries from "../hook/Countries";
+
 import regex from "../services/regex";
 import { register } from "../services/user.service";
+
+import { LinkText } from "../hook/LinksTranslate";
+import { Registration } from "../types/Registration";
+import Countries from "../hook/Countries";
+
+import '../css/Register.css';
 
 export default function Register() {
   const [t] = useTranslation("global");
@@ -181,7 +185,7 @@ export default function Register() {
     <div className="container d-flex flex-column align-items-center">
       <h1 className="my-5 text-secondary">{t('register.title')}</h1>
       <p className="text-center">{t('register.message')}</p>
-      <form className="d-flex flex-column align-items-center w-100 px-5 mb-3 mt-5" style={{minWidth: '600px'}} method='post' onSubmit={handleSubmit}>
+      <form className="register-form d-flex flex-column align-items-center w-100 px-5 mb-3 mt-5" method='post' onSubmit={handleSubmit}>
         <div className="d-flex w-100">
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="country">{t('register.country')}</label>
@@ -258,8 +262,8 @@ export default function Register() {
             </select>
           </div> 
         </div>
-        <div className="d-flex justify-content-between align-items-center w-100 mt-4" style={{marginBottom: '120px'}}>
-          <p style={{fontSize: '11px'}}>
+        <div className="submit d-flex justify-content-between align-items-center w-100 mt-4">
+          <p>
             <Trans i18nKey="register.confidentiality" t={t} components= {
               {
                 link1: <LinkText href="#" title="Terms of Use" />,

@@ -38,7 +38,7 @@ if (!PROJECT_ID) {
 }
 
 export default function TernoaConnect() {
-  const { t } = useTranslation('global'); 
+  const { t } = useTranslation('global');
 
   const reset = () => {
     //   setPairings([]);

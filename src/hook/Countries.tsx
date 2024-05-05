@@ -99,7 +99,7 @@ export default function Countries() {
     {iso: 'TH', name: t('countries.thailand'), urlImg: TH},
     {iso: 'AE', name: t('countries.uae'), urlImg: AE},
     {iso: 'GB', name: t('countries.united-kingdom'), urlImg: GB},
-  ] 
+  ]
 
   return listCountries;
 }
