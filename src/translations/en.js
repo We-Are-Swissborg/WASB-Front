@@ -72,7 +72,8 @@ const global_en = {
     "register": {
         "aboutUs": "How did you hear about the association ?",
         "city": "City",
-        "confidentiality": "By submitting this form, you agree to be contacted by WeAreSwissBorg and accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
+        "confidentiality": "*Check, if you accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
+        "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
         "contribution": "Contribution",
         "country": "Choose your country",
         "email": "Email*",

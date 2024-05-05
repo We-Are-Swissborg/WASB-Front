@@ -18,10 +18,13 @@ export default function Setting () {
   const {t} = useTranslation('global');
   
   const [choiceSetting, setChoiceSetting] = useState(1);
+  const lang = localStorage.getItem('language');
+
   const defaultStyleIpunt = "form-control shadow_background-input rounded-pill";
   const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
   const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
   const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
+  const positionLeft = lang === 'fr' ? 'big-width' : 'little-width';
 
   const [wallet, setWallet] = useState(true);
   const [disabledButton, setDisabledButton] = useState(true);
@@ -380,14 +383,25 @@ export default function Setting () {
         
       </div>
       { choiceSetting === 1 &&
-        <p className="term-text">
-          <Trans i18nKey="setting.my-account.confidentiality" t={t} components={
-            {
-              link1: <LinkText href="#" title="Terms of Use" />,
-              link2: <LinkText href="#" title="Privacy Policy" />
-            }
-          }/>
-        </p>
+        <div className={`container-checkbox d-flex flex-column ${positionLeft}`}>
+          <div className="d-flex mb-2">
+            <input className="me-2" type="checkbox" value="" />
+            <p className="mb-0">
+              <Trans i18nKey="register.confidentiality" t={t} components= {
+                {
+                  link1: <LinkText href="#" title="Terms of Use" />,
+                  link2: <LinkText href="#" title="Privacy Policy" />
+                }
+              }/>
+            </p>
+          </div>
+          <div className="d-flex">
+            <input className="me-2" type="checkbox" value=''/>
+            <p className="mb-0">
+              {t('register.be-contacted')}
+            </p>
+          </div>
+       </div>
       }
     </div>
   )

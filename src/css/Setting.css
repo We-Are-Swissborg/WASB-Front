@@ -41,11 +41,16 @@
   width: 315px;
 }
 
-.term-text {
+.container-checkbox {
   font-size: 11px;
   position: relative;
-  left: -100px;
-  top: -75px;
-  margin: 0 12%;
+  top: -96px;
 }
 
+.little-width {
+  left: -33px;
+}
+
+.big-width {
+  left: 45px;
+}

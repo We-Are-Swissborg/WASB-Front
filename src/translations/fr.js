@@ -70,7 +70,8 @@ const global_fr = {
     "register": {
         "aboutUs": "Comment avez-vous entendu parler de l’association ?",
         "city": "Ville",
-        "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+        "confidentiality": "*Cochez, si vous acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+        "be-contacted": "Cochez, si vous acceptez d'être contacté par WeAreSwissBorg.",
         "contribution": "Cotisation",
         "country": "Choisissez votre pays",
         "email": "E-mail*",

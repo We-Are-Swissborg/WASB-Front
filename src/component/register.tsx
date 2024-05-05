@@ -191,7 +191,7 @@ export default function Register() {
             <label className="form-label size-text-label" htmlFor="country">{t('register.country')}</label>
             <select 
               style={{background: `url(${country}) no-repeat`}}
-              className={`form-select shadow_background-input position-flag-select design rounded-pill ${activeMarge}`} 
+              className={`form-select shadow_background-input position-flag-select design rounded-pill ${activeMarge}`}
               name="country"
               id="country"
               onChange={handleChange}
@@ -251,7 +251,7 @@ export default function Register() {
               <option value="youtube">Youtube</option>
               <option value="other">{t('register.other')}</option>
             </select>
-          </div> 
+          </div>
           <div className="mb-3 me-3 w-100">
             <label className="form-label size-text-label" htmlFor="contribution">{t('register.contribution')}</label>
             <select className="form-select shadow_background-input rounded-pill" name="contribution" id="contribution" onChange={handleChange}>
@@ -260,17 +260,28 @@ export default function Register() {
               <option value="60CHF">60 CHF/6mois</option>
               <option value="100CHF">100 CHF/1an</option>
             </select>
-          </div> 
+          </div>
         </div>
         <div className="submit d-flex justify-content-between align-items-center w-100 mt-4">
-          <p>
-            <Trans i18nKey="register.confidentiality" t={t} components= {
-              {
-                link1: <LinkText href="#" title="Terms of Use" />,
-                link2: <LinkText href="#" title="Privacy Policy" />
-              }
-            }/>
-          </p>
+          <div className="d-flex flex-column">
+            <div className="d-flex mb-2">
+              <input className="me-2" type="checkbox" value="" />
+              <p className="mb-0">
+                <Trans i18nKey="register.confidentiality" t={t} components= {
+                  {
+                    link1: <LinkText href="#" title="Terms of Use" />,
+                    link2: <LinkText href="#" title="Privacy Policy" />
+                  }
+                }/>
+              </p>
+            </div>
+            <div className="d-flex">
+              <input className="me-2" type="checkbox" value=''/>
+              <p className="mb-0">
+                {t('register.be-contacted')}
+              </p>
+            </div>
+          </div>
           <button className="btn bg-gradient rounded-pill border border-secondary me-3 text-white padding-button" type="submit" disabled={disabledButton}>{t('register.send')}</button>
         </div>
       </form>
