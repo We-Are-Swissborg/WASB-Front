@@ -4,17 +4,17 @@ import gsap from "gsap"; // <-- import GSAP
 import { useGSAP } from "@gsap/react"; // <-- import the hook from our React package
 
 export default function Contact() {
-  const container = useRef();
+    const container = useRef();
 
-  useGSAP(() => {
+    useGSAP(() => {
     // gsap code here...
-    gsap.to(".box", {rotation: 180}); // <-- automatically reverted
+        gsap.to(".box", {rotation: 180}); // <-- automatically reverted
 
-  }, { scope: container }); // <-- scope for selector text (optional)
+    }, { scope: container }); // <-- scope for selector text (optional)
 
- return (
-  <div className="container">
-    <h1 className="title mt-4">Page de Contact</h1>
-  </div>
- );
+    return (
+        <div className="container">
+            <h1 className="title mt-4">Page de Contact</h1>
+        </div>
+    );
 }

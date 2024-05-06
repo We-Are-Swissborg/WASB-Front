@@ -104,8 +104,8 @@ const global_fr = {
     },
 
     // For all components
-       // For all components
-       "countries": {
+    // For all components
+    "countries": {
         "argentina": "Argentine",
         "austria": "Autriche",
         "belgium": "Belgique",
