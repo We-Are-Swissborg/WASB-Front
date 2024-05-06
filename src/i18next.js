@@ -16,6 +16,6 @@ i18next.use(initReactI18next).init({
       global: global_fr,
     }
   }
-})
+});
 
 export default i18next;

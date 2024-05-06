@@ -10,7 +10,7 @@ export default function Contact() {
     // gsap code here...
     gsap.to(".box", {rotation: 180}); // <-- automatically reverted
 
-  }, { scope: container }) // <-- scope for selector text (optional)
+  }, { scope: container }); // <-- scope for selector text (optional)
 
  return (
   <div className="container">

@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import Client from "@walletconnect/sign-client";
-import { SessionTypes } from "@walletconnect/types";
+import { SessionTypes, PairingTypes } from "@walletconnect/types";
 import QRCodeModal from "@walletconnect/legacy-modal";
 import { ERROR } from "@walletconnect/utils";
 import {
@@ -64,7 +64,8 @@ export default function TernoaConnect() {
     }, []);
 
     const connect = useCallback(
-      async (pairing: any) => {
+      async (pairing: PairingTypes.Struct) => {
+		console.log('pairing', typeof pairing);
         if (typeof client === "undefined") {
           throw new Error("WalletConnect is not initialized");
         }

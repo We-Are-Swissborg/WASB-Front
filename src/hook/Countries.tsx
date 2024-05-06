@@ -46,11 +46,11 @@ import CH from '../assets/images/countries/switzerland.svg';
 import TW from '../assets/images/countries/taiwan.svg';
 import TH from '../assets/images/countries/thailand.svg';
 import AE from '../assets/images/countries/uae.svg';
-import GB from '../assets/images/countries/united-kingdom.svg';
+import GB from '../assets/images/countries/united-kingdom.svg'
 
 export default function Countries() {
   const [t] = useTranslation("global");
-  
+
   const listCountries = [
     {iso: 'AR', name: t('countries.argentina'), urlImg: AR},
     {iso: 'AU', name: t('countries.austria'), urlImg: AU},
@@ -99,7 +99,7 @@ export default function Countries() {
     {iso: 'TH', name: t('countries.thailand'), urlImg: TH},
     {iso: 'AE', name: t('countries.uae'), urlImg: AE},
     {iso: 'GB', name: t('countries.united-kingdom'), urlImg: GB},
-  ] 
+  ];
 
   return listCountries;
 }

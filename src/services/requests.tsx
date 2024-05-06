@@ -6,7 +6,7 @@ export function userRegistration(registration: Registration) {
   const error = "Registration fail";
   const reponse = post(url, body, error);
 
-  reponse.then((res: any) => {
+  reponse.then((res: Response) => {
     console.log({res});
     window.alert('Send to server OK');
   }).catch((error) => {
@@ -14,7 +14,7 @@ export function userRegistration(registration: Registration) {
   });
 }
 
-function post(req: string, body: any, textErr: string) {
+function post(req: string, body: string, textErr: string) {
   const request = new Request(req, {
     headers: {
       "Content-Type": "application/json",

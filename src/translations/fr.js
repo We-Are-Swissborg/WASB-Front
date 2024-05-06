@@ -154,6 +154,6 @@ const global_fr = {
         "uae": "Emirats Arabes Unis",
         "united-kingdom": "Royaume-Uni"
     }
-}
+};
 
 export default global_fr;

@@ -1,11 +1,11 @@
-import './App.scss'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Root from './routes/root.tsx'
-import ErrorPage from './hook/Error-page.tsx'
-import Blog from './component/blog.tsx'
-import Home from './component/home.tsx'
-import Contact from './component/contact.tsx'
-import Register from './component/register.tsx'
+import './App.scss';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Root from './routes/root.tsx';
+import ErrorPage from './hook/Error-page.tsx';
+import Blog from './component/blog.tsx';
+import Home from './component/home.tsx';
+import Contact from './component/contact.tsx';
+import Register from './component/register.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       }
     ]
   },
-])
+]);
 // console.log('import.meta.env.VITE_CHAIN_PROVIDER', import.meta.env.VITE_CHAIN_PROVIDER);
 
 function App() {
@@ -116,7 +116,7 @@ function App() {
       <button onClick={signMessage}>Sign Message</button> */}
       <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

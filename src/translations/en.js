@@ -155,6 +155,6 @@ const global_en = {
         "uae": "United Arab Emirates",
         "united-kingdom": "United Kingdom"
     }
-}
+};
 
 export default global_en;

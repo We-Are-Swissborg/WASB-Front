@@ -151,7 +151,7 @@ export default function Register() {
     }
   }
 
-  const activeRegex = async (formData: any) => {
+  const activeRegex = async (formData: FormData) => {
     const regexName = new RegExp(regex.name);
     const regexPseudo = new RegExp(regex.pseudo);
     const regexEmail = new RegExp(regex.email);
@@ -234,7 +234,7 @@ export default function Register() {
           <div className="mb-3 me-3 w-100">
             <label className="form-label" htmlFor="country">{t('register.country')}</label>
             <select
-              style={{background: `url(${country}) no-repeat`}} 
+              style={{background: `url(${country}) no-repeat`}}
               className={`form-select shadow_background-input position-flag-select design ${activeMarge}`}
               name="country"
               id="country"
