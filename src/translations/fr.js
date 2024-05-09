@@ -104,8 +104,8 @@ const global_fr = {
     },
 
     // For all components
-       // For all components
-       "countries": {
+    // For all components
+    "countries": {
         "argentina": "Argentine",
         "austria": "Autriche",
         "belgium": "Belgique",
@@ -154,6 +154,6 @@ const global_fr = {
         "uae": "Emirats Arabes Unis",
         "united-kingdom": "Royaume-Uni"
     }
-}
+};
 
 export default global_fr;
