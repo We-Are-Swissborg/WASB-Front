@@ -1,42 +1,42 @@
-import './App.scss'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Root from './routes/root.tsx'
-import ErrorPage from './hook/Error-page.tsx'
-import Blog from './component/Blog.tsx'
-import Home from './component/Home.tsx'
-import Contact from './component/Contact.tsx'
-import Register from './component/Register.tsx'
-import Setting from './component/Setting.tsx'
+import './App.scss';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Root from './routes/root.tsx';
+import ErrorPage from './hook/Error-page.tsx';
+import Blog from './component/Blog.tsx';
+import Home from './component/Home.tsx';
+import Contact from './component/Contact.tsx';
+import Register from './component/Register.tsx';
+import Setting from './component/Setting.tsx';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '',
-        element: <Home />
-      },
-      {
-        path: '/blog',
-        element: <Blog />
-      },
-      {
-        path: '/contact',
-        element: <Contact />
-      },
-      {
-        path: '/register',
-        element: <Register />
-      },
-      {
-        path: '/setting',
-        element: <Setting />
-      }
-    ]
-  },
-])
+    {
+        path: '/',
+        element: <Root />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: '',
+                element: <Home />
+            },
+            {
+                path: '/blog',
+                element: <Blog />
+            },
+            {
+                path: '/contact',
+                element: <Contact />
+            },
+            {
+                path: '/register',
+                element: <Register />
+            },
+            {
+                path: '/setting',
+                element: <Setting />
+            }
+        ]
+    },
+]);
 // console.log('import.meta.env.VITE_CHAIN_PROVIDER', import.meta.env.VITE_CHAIN_PROVIDER);
 
 function App() {

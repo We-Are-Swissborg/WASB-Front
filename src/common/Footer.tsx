@@ -25,11 +25,11 @@ export default function Footer() {
         <footer className="text-muted py-5 bg-primary">
             <div className="container">
                 <button ref={backToUp}
-                        type="button"
-                        className="btn btn-danger btn-floating btn-lg"
-                        id="btn-back-to-top"
-                        onClick={() => window.scrollTo(0, 0)}
-                        >
+                    type="button"
+                    className="btn btn-danger btn-floating btn-lg"
+                    id="btn-back-to-top"
+                    onClick={() => window.scrollTo(0, 0)}
+                >
                     <i className="fas fa-arrow-up"></i>
                 </button>
                 <p className="mb-3">{t("footer.message")}</p>

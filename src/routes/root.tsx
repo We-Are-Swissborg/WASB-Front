@@ -5,13 +5,13 @@ import Footer from "../common/Footer.tsx";
 
 export default function Root() {
 
-  return (
-    <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <Header />
+            <main>
+                <Outlet />
+            </main>
+            <Footer />
+        </>
+    );
 }
