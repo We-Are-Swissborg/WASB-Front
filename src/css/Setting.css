@@ -17,40 +17,10 @@
   display: none;
 }
 
-.all-form {
-  min-width: 600px;
+.all-form-setting {
+  padding: 0;
 }
 
-.social-form {
-  min-width: 700px;
-}
-
-.sub-part-one {
-  margin-right: 25px;
-}
-
-.sub-part-one, .sub-part-two {
-  width: 335px;
-}
-
-.message-membership {
-  font-size: 12px;
-}
-
-.social-input {
+.input-setting {
   width: 315px;
-}
-
-.container-checkbox {
-  font-size: 11px;
-  position: relative;
-  top: -96px;
-}
-
-.little-width {
-  left: -33px;
-}
-
-.big-width {
-  left: 45px;
 }

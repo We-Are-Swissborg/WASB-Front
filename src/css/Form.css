@@ -1,0 +1,83 @@
+.form {
+  min-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
+}
+
+.div-under-form {
+  display: flex;
+  width: 100%;
+}
+
+.container-input-and-select {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  width: 100%;
+}
+
+.label-form {
+  font-size: smaller;
+  margin-bottom: 0.5rem;
+}
+
+.input-form {
+  border-radius: 50rem;
+}
+
+.container-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 120px;
+  margin-top: 1.5rem;
+}
+
+.div-under-container-submit {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-confidentiality {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.container-be-contacted {
+  display: flex;
+}
+
+.input-container-submit {
+  margin-right: 1rem;
+  padding-right: auto;
+}
+
+.text-container-submit {
+  margin-bottom: 0;
+  font-size: 11px;
+}
+
+.btn-form {
+  border: 1px solid #dee2e6;
+  border-color: #1AD9BC;
+  color: #fffffe;
+  background-image: linear-gradient(180deg, #1AD9BC, #1DBFBC);
+  margin-right: 1rem;
+  border-radius: 50rem;
+}
+
+.btn-form:disabled {
+  border-color: #1AD9BC;
+  color: #fffffe;
+}
+
+.btn-cancel {
+  background: #EDEFF1;
+  border-radius: 50rem;
+}

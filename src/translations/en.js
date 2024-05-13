@@ -81,6 +81,7 @@ const global_en = {
         "last-name": "Last Name",
         "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
                     To register, please fill out the form below (all fields with * are mandatory):`,
+        "other": "In another way",
         "placeholder": {
             "city": "Enter your city",
             "contribution": "Become a member for...",
@@ -101,6 +102,7 @@ const global_en = {
         "linked-accounts": {
             "discord": "Enter your Discord pseudo",
             "title": "Linked accounts",
+            "update": "Update"
         },
         "manage-membership": {
             "cancel": "Cancel your contribution",

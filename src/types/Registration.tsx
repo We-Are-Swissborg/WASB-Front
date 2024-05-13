@@ -16,4 +16,6 @@ export interface Registration {
   };
   referral?: string;
   aboutUs?: string;
+  confidentiality: boolean;
+  beContacted?: boolean;
 }

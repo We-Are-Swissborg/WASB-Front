@@ -79,6 +79,7 @@ const global_fr = {
         "last-name": "Nom",
         "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
                     Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
+        "other": "D'une autre façon",
         "placeholder": {
             "city": "Entrer votre ville",
             "contribution": "Devenir adhérent pour...",
