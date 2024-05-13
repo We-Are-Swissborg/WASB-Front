@@ -17,6 +17,6 @@ const register = async (data: Registration) => {
     }).catch(error => {
         console.error(error);
     });
-}
+};
 
-export { register }
+export { register };

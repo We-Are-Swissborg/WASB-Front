@@ -29,18 +29,60 @@ export default function Footer() {
                     className="btn btn-danger btn-floating btn-lg"
                     id="btn-back-to-top"
                     onClick={() => window.scrollTo(0, 0)}
-                    >
-                <i className="fas fa-arrow-up"></i>
-            </button>
-            <p className="mb-3">{t("footer.message")}</p>
-            <div className="row">
-                <div className="col-6 col-md-2 mb-3">
-                    <h5>{t("footer.subtitle")}</h5>
-                    <ul className="nav flex-column">
-                        <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.whoarewe")}</a></li>
-                        <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.team")}</a></li>
-                        <li className="nav-item mb-2"><NavLink className="nav-link p-0 link-light" to="/contact">{t("footer.contact")}</NavLink></li>
-                        <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.donation")}</a></li>
+                >
+                    <i className="fas fa-arrow-up"></i>
+                </button>
+                <p className="mb-3">{t("footer.message")}</p>
+                <div className="row">
+                    <div className="col-6 col-md-2 mb-3">
+                        <h5>{t("footer.subtitle")}</h5>
+                        <ul className="nav flex-column">
+                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.whoarewe")}</a></li>
+                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.team")}</a></li>
+                            <li className="nav-item mb-2"><NavLink className="nav-link p-0 link-light" to="/contact">{t("footer.contact")}</NavLink></li>
+                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.donation")}</a></li>
+                        </ul>
+                    </div>
+                    <div className="col">
+                        <h5>{t("footer.join")}</h5>
+                        <ul className="list-group list-group-horizontal">
+                            <li className="list-group-item">
+                                <a href="#"><i className="fa-brands fa-x-twitter fa-2x"></i></a>
+                            </li>
+                            <li className="list-group-item">
+                                <a href='' target='_blank'><i className="fa-brands fa-discord fa-2x"></i></a>
+                            </li>
+                            <li className="list-group-item">
+                                <a href="#"><i className="fa-brands fa-youtube fa-2x"></i></a>
+                            </li>
+                            <li className="list-group-item">
+                                <a href="#"><i className="fa-brands fa-facebook fa-2x"></i></a>
+                            </li>
+                            <li className="list-group-item">
+                                <a href="#"><i className="fa-brands fa-twitch fa-2x"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="col-md-5 offset-md-1 mb-3">
+                        <form>
+                            <h5>{t('footer.subscribe.title')}</h5>
+                            <p>{t('footer.subscribe.message')}</p>
+                            <div className="d-flex flex-column flex-sm-row w-100 gap-2">
+                                <label htmlFor="newsletter1" className="visually-hidden">{t('footer.subscribe.placeholder')}</label>
+                                <input id="newsletter1" type="text" className="form-control" placeholder={t('footer.subscribe.placeholder')} disabled />
+                                <button className="btn btn-secondary" type="button" disabled>{t('footer.subscribe.button')}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                    <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
+                    <ul className="list-unstyled d-flex">
+                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-x-twitter"></i></a></li>
+                        <li className="ms-3"><a className="link-light" href='#' target='_blank'><i className="fa-brands fa-discord"></i></a></li>
+                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-youtube"></i></a></li>
+                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-facebook"></i></a></li>
+                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-twitch"></i></a></li>
                     </ul>
                 </div>
                 <div className="col">
@@ -75,17 +117,6 @@ export default function Footer() {
                     </form>
                 </div>
             </div>
-            <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
-                <ul className="list-unstyled d-flex">
-                    <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-x-twitter"></i></a></li>
-                    <li className="ms-3"><a className="link-light" href='https://discord.gg/hCekNVzGSM' target='_blank'><i className="fa-brands fa-discord"></i></a></li>
-                    <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-youtube"></i></a></li>
-                    <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-facebook"></i></a></li>
-                    <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-twitch"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
- );
+        </footer>
+    );
 }

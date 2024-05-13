@@ -10,12 +10,12 @@ import thecryptophil from '../assets/images/thecryptophil.jpg';
 import '../css/Home.css';
 
 export default function Home() {
-  const [t] = useTranslation("global");
-  const container = useRef(null);
+    const [t] = useTranslation("global");
+    const container = useRef(null);
 
-  useGSAP(() => {
-      gsap.from(".community",  {duration: 1.5, stagger: 0.2,  opacity: 0, y: 100});
-  }, { scope: container }); // <-- magic
+    useGSAP(() => {
+        gsap.from(".community",  {duration: 1.5, stagger: 0.2,  opacity: 0, y: 100});
+    }, { scope: container }); // <-- magic
 
   return (
     <>
