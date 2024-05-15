@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 
+import '../css/Footer.css';
+
 export default function Footer() {
     const [t] = useTranslation("global");
     const backToUp = useRef(null);
@@ -21,7 +23,7 @@ export default function Footer() {
 
     return (
         <footer className="text-muted py-5 bg-primary">
-            <div className="container"  style={{color: "#FFF"}}>
+            <div className="container">
                 <button ref={backToUp}
                     type="button"
                     className="btn btn-danger btn-floating btn-lg"
@@ -48,7 +50,7 @@ export default function Footer() {
                                 <a href="#"><i className="fa-brands fa-x-twitter fa-2x"></i></a>
                             </li>
                             <li className="list-group-item">
-                                <a href='' target='_blank'><i className="fa-brands fa-discord fa-2x"></i></a>
+                                <a href="#" target='_blank'><i className="fa-brands fa-discord fa-2x"></i></a>
                             </li>
                             <li className="list-group-item">
                                 <a href="#"><i className="fa-brands fa-youtube fa-2x"></i></a>
@@ -67,8 +69,8 @@ export default function Footer() {
                             <p>{t('footer.subscribe.message')}</p>
                             <div className="d-flex flex-column flex-sm-row w-100 gap-2">
                                 <label htmlFor="newsletter1" className="visually-hidden">{t('footer.subscribe.placeholder')}</label>
-                                <input id="newsletter1" type="text" className="form-control" placeholder={t('footer.subscribe.placeholder')} disabled />
-                                <button className="btn btn-secondary" type="button" disabled>{t('footer.subscribe.button')}</button>
+                                <input id="newsletter1" type="text" className="form-control rounded-pill" placeholder={t('footer.subscribe.placeholder')} disabled />
+                                <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="button" disabled>{t('footer.subscribe.button')}</button>
                             </div>
                         </form>
                     </div>
@@ -77,7 +79,7 @@ export default function Footer() {
                     <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
                     <ul className="list-unstyled d-flex">
                         <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-x-twitter"></i></a></li>
-                        <li className="ms-3"><a className="link-light" href='#' target='_blank'><i className="fa-brands fa-discord"></i></a></li>
+                        <li className="ms-3"><a className="link-light" href="#" target='_blank'><i className="fa-brands fa-discord"></i></a></li>
                         <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-youtube"></i></a></li>
                         <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-facebook"></i></a></li>
                         <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-twitch"></i></a></li>

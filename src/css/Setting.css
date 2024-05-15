@@ -1,0 +1,26 @@
+.setting-container {
+  max-width: 1125px;
+  padding: 0 50px;
+}
+
+.container-main-input {
+  margin-right: 50px;
+  width: 265px;
+}
+
+.container-main-input ul {
+  height: 150px;
+  min-width: 225px;
+}
+
+.container-main-input input {
+  display: none;
+}
+
+.all-form-setting {
+  padding: 0;
+}
+
+.input-setting {
+  width: 315px;
+}

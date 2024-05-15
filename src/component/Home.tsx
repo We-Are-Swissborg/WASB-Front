@@ -1,9 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import swissborgmania from '../assets/images/swissborgmania.jpg';
-import thecryptophil from '../assets/images/thecryptophil.jpg';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
+import { useTranslation } from 'react-i18next';
+
 import gsap from "gsap";
+
+import swissborgmania from '../assets/images/swissborgmania.jpg';
+import thecryptophil from '../assets/images/thecryptophil.jpg';
+
+import '../css/Home.css';
 
 export default function Home() {
     const [t] = useTranslation("global");
@@ -13,11 +17,6 @@ export default function Home() {
         gsap.from(".community",  {duration: 1.5, stagger: 0.2,  opacity: 0, y: 100});
     }, { scope: container }); // <-- magic
 
-    const myStyle = {
-        background: "linear-gradient(135deg, rgb(183, 101, 0) 0%, rgb(212, 131, 30) 19.89%, rgb(218, 162, 65) 34.61%, rgb(242, 188, 93) 51.18%, rgb(218, 162, 65) 66.53%, rgb(184, 115, 29) 85.51%, rgb(183, 101, 0) 100%)",
-        borderRadius: "3rem 0.5rem",
-    };
-
     return (
         <>
             <div className="p-3 mb-4 bg-body-secondary">
@@ -25,11 +24,11 @@ export default function Home() {
                     <h1 className="display-5 fw-bold text-center">{t("home.title")}</h1>
                     <p className="text-body-secondary fs-4 text-center" >{t("home.subtitle")}</p>
                     <div className='text-center'>
-                        <a href='' target='_blank' className="btn btn-outline-primary bg-opacity-10 text-end" type="button">{t("common.join")} <i className='fa fa-chevron-right'></i></a>
+                        <a href="#" target='_blank' className="btn btn-outline-primary bg-opacity-10 text-end" type="button">{t("common.join")} <i className='fa fa-chevron-right'></i></a>
                     </div>
                 </div>
             </div>
-            <div className='container'>
+            <div className='first-container container'>
                 <section className="row mb-3">
                     <h2 className="text-center text-body-primary pb-4 h1 text-primary text-opacity-75">{t("home.mission")}</h2>
                     <div className="card-group">
@@ -86,14 +85,14 @@ export default function Home() {
                     </div>
                 </section>
             </div>
-            <div style={{backgroundColor: '#E4E6C3'}}>
+            <div>
                 <div className='container'>
                     <section ref={container} className="row row-cols-2 row-cols-md-2 py-5 mb-4" >
                         <div className="col community">
                             <article className="card text-body-secondary">
                                 <div className="row g-0">
                                     <div className="col-md-4 m-0 p-0">
-                                        <img src={swissborgmania} className="img-fluid rounded-start" alt="SwissBorgMania" width="186"/>
+                                        <img src={swissborgmania} className="img-fluid rounded-start" alt="SwissBorgMania"/>
                                     </div>
                                     <div className="col-md-8 col-xs-4">
                                         <div className="card-body ">
@@ -110,7 +109,7 @@ export default function Home() {
                             <article className="card text-body-secondary">
                                 <div className="row g-0">
                                     <div className="col-md-4">
-                                        <img src={thecryptophil} className="img-fluid rounded-start" alt="TheCryptoPhil" width="186"/>
+                                        <img src={thecryptophil} className="img-fluid rounded-start" alt="TheCryptoPhil"/>
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
@@ -128,11 +127,9 @@ export default function Home() {
             </div>
             <div className='container'>
                 <section className="row justify-content-center">
-                    <article style={myStyle} className='col-8 p-4 text-center'>
+                    <article className='article-whoarewe col-8 p-4 text-center'>
                         <h3 className='text-center h1 text-primary'>{t("whoarewe.title")}</h3>
-
                         <p className='blockquote'>{t("whoarewe.content")}</p>
-
                     </article>
                 </section>
                 <section className="row">

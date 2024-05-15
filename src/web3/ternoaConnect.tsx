@@ -1,4 +1,7 @@
 import { useCallback, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+
 import Client from "@walletconnect/sign-client";
 import { SessionTypes, PairingTypes } from "@walletconnect/types";
 import QRCodeModal from "@walletconnect/legacy-modal";
@@ -9,7 +12,8 @@ import {
     signatureVerify,
 } from "@polkadot/util-crypto";
 import { u8aToHex } from "@polkadot/util";
-import wasb_favicon from '../assets/svg/wasb_favicon.svg';
+import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
+import iconWalletconnect from '../assets/images/svg/walletconnect_icon.svg';
 
 const DEFAULT_APP_METADATA = {
     name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
@@ -34,6 +38,8 @@ if (!PROJECT_ID) {
 }
 
 export default function TernoaConnect() {
+    const { t } = useTranslation('global');
+
     const reset = () => {
     //   setPairings([]);
         setSession(undefined);
@@ -65,7 +71,6 @@ export default function TernoaConnect() {
 
     const connect = useCallback(
         async (pairing: PairingTypes.Struct) => {
-            console.log('pairing', typeof pairing);
             if (typeof client === "undefined") {
                 throw new Error("WalletConnect is not initialized");
             }
@@ -147,7 +152,6 @@ export default function TernoaConnect() {
                 projectId: PROJECT_ID,
                 metadata: DEFAULT_APP_METADATA,
             });
-
             // Here we subscribe to the events
             await subscribeToEvents(_client);
 
@@ -193,8 +197,7 @@ export default function TernoaConnect() {
         // This could be any message, but will be rejected by the Wallet if it is a transaction hash
         const message = "Confirm your registration to join our community #WeAreSwissborg";
 
-        try
-        {
+        try {
             const response = await client.request<string>({
                 chainId: TERNOA_CHAIN,
                 topic: session.topic,
@@ -220,7 +223,7 @@ export default function TernoaConnect() {
         } catch {
             console.log("ERROR: invalid signature");
         } finally {
-        // setIsLoading(false);
+            // setIsLoading(false);
         }
     }, [client, session, address]);
 
@@ -235,7 +238,7 @@ export default function TernoaConnect() {
                 setAddressSplited(generatePartialString(localStorage.getItem("walletTernoa") || "",0,4));
             }
         }
-    }, []);
+    }, [client]);
 
     const isValidSignaturePolkadot = (signedMessage: string, signature: string, address: string) => {
         const publicKey = decodeAddress(address);
@@ -245,21 +248,23 @@ export default function TernoaConnect() {
 
     if(!isInitializing && !address) {
         return (
-            <>
-                <button className="btn btn-secondary" onClick={connect}>Login</button>
-            </>
+            <div className="bg-gradient gradient-div">
+                <button className="btn bg-white radius-button" onClick={connect}> <img className='me-2' src={iconWalletconnect} />WalletConnect</button>
+            </div>
         );
     } else {
         return (
             <>
-                <div className="dropdown">
-                    <button type="button" className="btn btn-outline-secondary" id="navbarConnection" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div className="dropdown bg-gradient gradient-div">
+                    <button type="button" className="btn bg-white radius-button" id="navbarConnection" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {addressSplited}
                     </button>
                     <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarConnection">
-                        <li>Account certified: {isAccountCertified + ""}</li>
-                        <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i> Test sign</button></li>
-                        <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i> Logout</button></li>
+                        <li>{t('ternoa.account-certified') + isAccountCertified + ""}</li>
+                        <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i>{t('ternoa.test-signed')}</button></li>
+                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
+                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>}
+                        <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i>{t('ternoa.logout')}</button></li>
                     </ul>
                 </div>
             </>

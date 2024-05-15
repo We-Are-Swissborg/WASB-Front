@@ -25,6 +25,8 @@ const global_fr = {
         "whoarewe": "Qui sommes-nous ?"
     },
     "header": {
+        "en": "Anglais",
+        "fr": "Français",
         "message": "Bienvenue en francais"
     },
     "home": {
@@ -43,6 +45,7 @@ const global_fr = {
         "contact": "Contact",
         "home": "Accueil",
         "language": "Langue",
+        "profile": "Profil",
         "register": "S'inscrire"
     },
     "ourmission": {
@@ -68,42 +71,84 @@ const global_fr = {
         "title": "Nos objectifs"
     },
     "register": {
-        "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
-        "country": "Choisissez votre pays*",
+        "aboutUs": "Comment avez-vous entendu parler de l’association ?",
+        "city": "Ville",
+        "confidentiality": "*Cochez, si vous acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+        "be-contacted": "Cochez, si vous acceptez d'être contacté par WeAreSwissBorg.",
+        "contribution": "Cotisation",
+        "country": "Choisissez votre pays",
         "email": "E-mail*",
-        "first-name": "Prénom*",
-        "last-name": "Nom*",
+        "first-name": "Prénom",
+        "last-name": "Nom",
         "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
                     Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
-        "other": "Dites-nous en plus sur cette découverte*",
-        "people": "Qui vous à parler de nous ? (entrer son/leur pseudo)*",
+        "other": "D'une autre façon",
         "placeholder": {
+            "city": "Entrer votre ville",
+            "contribution": "Devenir adhérent pour...",
             "discord": "Entrer votre pseudo Discord",
             "email": "Entrer votre e-mail",
             "first-name": "Entrer votre prénom",
             "last-name": "Entrer votre nom",
             "pseudo": "Entrer votre pseudo",
             "select": "Choisir...",
-            "texte-area": "Entrer votre réponse ici s'il vous plaît"
         },
         "pseudo": "Pseudo*",
-        "referral": {
-            "label": "Comment avez-vous entendu parler de l’association ?",
-            "other": "D'une autre manière",
-            "people": "Personne de la communauté",
-        },
-        "send": "Envoyer mon inscription",
-        "social": "Lien vers vos comptes de médias sociaux",
+        "referral": "Référent",
+        "send": "Rejoindre",
         "title": "Devenir membre",
         "wallet": "Adresse de votre wallet*"
     },
+    "setting": {
+        "linked-accounts": {
+            "discord": "Entrer votre pseudo Discord",
+            "title": "Compte liés",
+            "update": "Mise à jour"
+        },
+        "manage-membership": {
+            "cancel": "Annuler mon adhésion",
+            "contribution": "Cotisation",
+            "contribution-end": "Fin de l’adhésion",
+            "contribution-start": "Date de l’adhésion",
+            "donations": "Dons",
+            "message-1": "Vous avez actuellement une adhésion WASB Genesis (annuel). Votre adhésion sera renouvelé le #######.",
+            "message-2": "En tant que membre WASB Genesis et détenteur du NFT Ternoa, vous bénéficiez de nos meilleures fonctionnalités.",
+            "modify": "Modifier mon adhésion",
+            "nft-wallet": "Adresse de votre NFT Ternoa",
+            "title": "Gérer mon adhésion",
+            "status": "Statut de votre adhésion"
+        },
+        "my-account": {
+            "aboutUs": "Comment avez-vous entendu parler de l’association ?",
+            "city": "Ville",
+            "city_placeholder": "Entrer votre ville",
+            "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+            "country": "Choisissez votre pays",
+            "email": "E-mail*",
+            "first-name": "Prénom",
+            "first-name_placeholder": "Entrer votre prénom",
+            "last-name": "Nom",
+            "last-name_placeholder": "Entrer votre nom",
+            "pseudo": "Pseudo*",
+            "referral": "Référent",
+            "select_placeholder": "Choisir...",
+            "title": "Mon compte",
+            "update": "Mise à jour",
+            "wallet": "Adresse de votre wallet*"
+        },
+        "title": "Réglages",
+    },
+    "ternoa": {
+        "account-certified": "Compte certifié: ",
+        "logout": " Déconnexion",
+        "test-signed": " Essai signé"
+    },
     "whoarewe": {
-        "content": `WeAreSwissBorg est bien plus qu'une simple association. ` + 
+        "content": `WeAreSwissBorg est bien plus qu'une simple association. ` +
                    `Nous sommes une communauté passionnée, engagée à partager la connaissance et à démocratiser l'utilisation des crypto-actifs et de l'écosystème SwissBorg.`,
         "title": "Qui sommes-nous ?"
     },
 
-    // For all components
     // For all components
     "countries": {
         "argentina": "Argentine",

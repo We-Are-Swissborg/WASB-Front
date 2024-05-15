@@ -11,7 +11,7 @@ const global_en = {
         "contact": "Contact",
         "donation": "Make a donation",
         "join": "Join our community",
-        "message": `WeAreSwissBorg is an association that aims to promote the use of blockchain and crypto-assets, ` + 
+        "message": `WeAreSwissBorg is an association that aims to promote the use of blockchain and crypto-assets, ` +
                    `provide educational content on these technologies, particularly related to Swissborg, and support actions related to this ecosystem.`,
         "rights-reserved": "All rights reserved",
         "subscribe": {
@@ -25,7 +25,9 @@ const global_en = {
         "whoarewe": "Who are we ?"
     },
     "header": {
-        "message": "Welcome in english"
+        "en": "English",
+        "fr": "French",
+        "message": "Welcome in english",
     },
     "home": {
         "community": "Community",
@@ -43,6 +45,7 @@ const global_en = {
         "contact": "Contact",
         "home": "Home",
         "language": "Language",
+        "profile": "Profile",
         "register": "Register"
     },
     "ourmission": {
@@ -63,41 +66,85 @@ const global_en = {
             "title": "Democratizing Crypto-Actives"
         },
         "education": {
-            "content": `Education is at the heart of our approach.` + 
+            "content": `Education is at the heart of our approach.` +
                        `We provide clear, accessible educational content, so that everyone can understand and make informed decisions`,
             "title": "Educate and Inform"
         },
         "title": "Our objectives"
     },
     "register": {
-        "confidentiality": "By submitting this form, you agree to be contacted by WeAreSwissBorg and accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
-        "country": "Choose your country*",
+        "aboutUs": "How did you hear about the association ?",
+        "city": "City",
+        "confidentiality": "*Check, if you accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
+        "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
+        "contribution": "Contribution",
+        "country": "Choose your country",
         "email": "Email*",
-        "first-name": "First Name*",
-        "last-name": "Last Name*",
-        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association. 
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
                     To register, please fill out the form below (all fields with * are mandatory):`,
-        "other": "Tell us more about this discovery*",
-        "people": "Who told you about us ? (enter its/their pseudo)*",
+        "other": "In another way",
         "placeholder": {
+            "city": "Enter your city",
+            "contribution": "Become a member for...",
             "discord": "Enter your Discord pseudo",
             "email": "Enter your email",
             "first-name": "Enter your first name",
             "last-name": "Enter your last name",
             "pseudo": "Enter your pseudo",
             "select": "Choose...",
-            "texte-area": "Enter your answer here please"
         },
         "pseudo": "Pseudo*",
-        "referral": {
-            "label": "How did you hear about the association ?",
-            "other": "In another way",
-            "people": "Someone from the community",
-        },
-        "send": "Send my registration",
-        "social": "Link to your social media accounts",
+        "referral": "Referral",
+        "send": "Join",
         "title": "Become a member",
-        "wallet": "Your wallet address*"
+        "wallet": "Your wallet address*",
+    },
+    "setting": {
+        "linked-accounts": {
+            "discord": "Enter your Discord pseudo",
+            "title": "Linked accounts",
+            "update": "Update"
+        },
+        "manage-membership": {
+            "cancel": "Cancel your contribution",
+            "contribution": "Contribution",
+            "contribution-end": "Contribution end date",
+            "contribution-start": "Contribution start date",
+            "donations": "Donations",
+            "message-1": "You currently have a WASB Genesis membership (annual). Your membership will be renewed on #######.",
+            "message-2": "As a WASB Genesis member and holder of the Ternoa NFT, you benefit from our best features.",
+            "modify": "Modify my contribution",
+            "nft-wallet": "Adress of your Ternoa NFT",
+            "title": "Manage my membership",
+            "status": "Status of your contribution"
+        },
+        "my-account": {
+            "aboutUs": "How did you hear about the association ?",
+            "city": "City",
+            "city_placeholder": "Enter your city",
+            "confidentiality": "By submitting this form, you agree to be contacted by WeAreSwissBorg and accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
+            "country": "Choose your country",
+            "email": "Email*",
+            "first-name": "First Name",
+            "first-name_placeholder": "Enter your first name",
+            "last-name": "Last Name",
+            "last-name_placeholder": "Enter your last name",
+            "pseudo": "Pseudo*",
+            "referral": "Referral",
+            "select_placeholder": "Choose...",
+            "send": "Rejoindre",
+            "title": "My account",
+            "update": "Update",
+            "wallet": "Your wallet address*"
+        },
+        "title": "Setting",
+    },
+    "ternoa": {
+        "account-certified": "Account certified: ",
+        "logout": " Logout",
+        "test-signed": " Test signed"
     },
     "whoarewe": {
         "content": `WeAreSwissBorg is much more than just an association. ` +
