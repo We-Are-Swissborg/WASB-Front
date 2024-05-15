@@ -2,8 +2,11 @@ import './App.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Root from './routes/root.tsx';
 import ErrorPage from './hook/Error-page.tsx';
-import Home from './component/home.tsx';
-
+import Blog from './component/Blog.tsx';
+import Home from './component/Home.tsx';
+import Contact from './component/Contact.tsx';
+import Register from './component/Register.tsx';
+import Setting from './component/Setting.tsx';
 
 const router = createBrowserRouter([
     {

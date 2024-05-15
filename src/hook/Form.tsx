@@ -308,9 +308,9 @@ export default function Form (props: IForm) {
                 >
                     <option defaultValue=''>{element.name === 'contribution' ? t('register.placeholder.contribution') : t('register.placeholder.select')}</option>
                     {
-                        optionSelect(element.name).map((option: IOptionsSelect) => {
+                        optionSelect(element.name).map((option: IOptionsSelect, id) => {
                             return (
-                                <option value={option.value}>{option.name}</option>
+                                <option key={'option-'+id} value={option.value}>{option.name}</option>
                             );
                         })
                     }

@@ -59,7 +59,6 @@ export default function Header () {
                                 <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
                                 <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>English</button></li>
                                 <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>Français</button></li>
-                                {/* <li><button className="dropdown-item">{theme === 'light' ? 'Dark' : 'Light'}</button></li> */}
                             </ul>
                         </div>
                     </div>
