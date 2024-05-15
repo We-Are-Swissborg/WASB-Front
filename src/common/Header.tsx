@@ -57,8 +57,8 @@ export default function Header () {
                             </button>
                             <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarParams">
                                 <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
-                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>English</button></li>
-                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>Français</button></li>
+                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>{t("header.en")}</button></li>
+                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>{t("header.fr")}</button></li>
                             </ul>
                         </div>
                     </div>

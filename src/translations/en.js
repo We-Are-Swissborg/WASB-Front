@@ -25,7 +25,9 @@ const global_en = {
         "whoarewe": "Who are we ?"
     },
     "header": {
-        "message": "Welcome in english"
+        "en": "English",
+        "fr": "French",
+        "message": "Welcome in english",
     },
     "home": {
         "community": "Community",
@@ -43,6 +45,7 @@ const global_en = {
         "contact": "Contact",
         "home": "Home",
         "language": "Language",
+        "profile": "Profile",
         "register": "Register"
     },
     "ourmission": {
@@ -137,6 +140,11 @@ const global_en = {
             "wallet": "Your wallet address*"
         },
         "title": "Setting",
+    },
+    "ternoa": {
+        "account-certified": "Account certified: ",
+        "logout": " Logout",
+        "test-signed": " Test signed"
     },
     "whoarewe": {
         "content": `WeAreSwissBorg is much more than just an association. ` +

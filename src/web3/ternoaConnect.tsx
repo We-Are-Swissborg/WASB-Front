@@ -249,7 +249,7 @@ export default function TernoaConnect() {
     if(!isInitializing && !address) {
         return (
             <div className="bg-gradient gradient-div">
-                <button className="btn bg-white radius-button" onClick={connect}> <img className='me-2' src={iconWalletconnect} />Connect wallet</button>
+                <button className="btn bg-white radius-button" onClick={connect}> <img className='me-2' src={iconWalletconnect} />WalletConnect</button>
             </div>
         );
     } else {
@@ -260,11 +260,11 @@ export default function TernoaConnect() {
                         {addressSplited}
                     </button>
                     <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarConnection">
-                        <li>Account certified: {isAccountCertified + ""}</li>
-                        <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i> Test sign</button></li>
+                        <li>{t('ternoa.account-certified') + isAccountCertified + ""}</li>
+                        <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i>{t('ternoa.test-signed')}</button></li>
                         {!isAccountCertified && <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
-                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/setting">Profile</NavLink></li>}
-                        <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i> Logout</button></li>
+                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>}
+                        <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i>{t('ternoa.logout')}</button></li>
                     </ul>
                 </div>
             </>

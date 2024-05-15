@@ -24,7 +24,7 @@ export default function Home() {
                     <h1 className="display-5 fw-bold text-center">{t("home.title")}</h1>
                     <p className="text-body-secondary fs-4 text-center" >{t("home.subtitle")}</p>
                     <div className='text-center'>
-                        <a href='https://discord.gg/hCekNVzGSM' target='_blank' className="btn btn-outline-primary bg-opacity-10 text-end" type="button">{t("common.join")} <i className='fa fa-chevron-right'></i></a>
+                        <a href="#" target='_blank' className="btn btn-outline-primary bg-opacity-10 text-end" type="button">{t("common.join")} <i className='fa fa-chevron-right'></i></a>
                     </div>
                 </div>
             </div>
