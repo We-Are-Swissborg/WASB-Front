@@ -10,7 +10,6 @@ import '../css/Header.css';
 export default function Header () {
     const [t, i18n] = useTranslation("global");
     const [isHovering, setIsHovering] = useState<boolean>(false);
-    const [theme, setTheme] = useState('light');
 
     const handleChangeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);

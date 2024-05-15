@@ -70,7 +70,7 @@ export default function TernoaConnect() {
     }, []);
 
     const connect = useCallback(
-        async (pairing: any) => {
+        async (pairing: PairingTypes.Struct) => {
             if (typeof client === "undefined") {
                 throw new Error("WalletConnect is not initialized");
             }

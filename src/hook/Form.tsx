@@ -10,7 +10,7 @@ import { Registration } from "../types/Registration";
 import Countries from "../hook/Countries";
 import '../css/Form.css';
 
-interface Form {
+interface IForm {
   structure: {
     btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
     nbSection: number,
@@ -24,27 +24,37 @@ interface Form {
   };
 }
 
-interface Element {
+interface IElement {
   balise: string;
   name: string;
   type?: string;
   label?: string;
   placeholder?: string;
   readOnly?: boolean;
-  value?: any;
+  value?: string | readonly string[] | number | undefined;
 }
 
-export default function Form (props: Form) {
+interface IOptionsSelect {
+    value: string,
+    name: string,
+    urlImg?: string
+}
+
+export default function Form (props: IForm) {
     const { t } = useTranslation('global');
 
     // Options for select element.
-    const countriesOptions = Countries();
-    const contributionOptions = [
+    const countriesOptions: IOptionsSelect[] = Countries().map(item => ({
+        value: item.iso,
+        name: item.name,
+        urlImg: item.urlImg
+    }));
+    const contributionOptions: IOptionsSelect[] = [
         {value: '30CHF', name: '30 CHF/3mois'},
         {value: '60CHF', name: '60 CHF/6mois'},
         {value: '100CHF', name: '100 CHF/1an'},
     ];
-    const aboutUsOptions = [
+    const aboutUsOptions: IOptionsSelect[] = [
         {value: 'discord', name: 'Discord'},
         {value: 'telegram', name: 'Telegram'},
         {value: 'tiktok', name: 'Tiktok'},
@@ -141,14 +151,14 @@ export default function Form (props: Form) {
             break;
         }
     }, [registration]);
-    console.log(registration);
+
     const activeButton = useCallback((name: string = '', value: string = '', checked: boolean = false) => {
         const activation = registration.email && registration.pseudo && registration.wallet && registration.confidentiality;
-    
+
         createObjectToSend(name, value, checked);
-  
+
         if(name === 'country') {
-            const flag = countriesOptions.find((country) => country.iso === value);
+            const flag = countriesOptions.find((country) => country.value === value);
             const urlImg = flag?.urlImg || '';
             setCountry(urlImg);
         }
@@ -158,32 +168,40 @@ export default function Form (props: Form) {
             setDisabledButton(true);
         }
     }, [registration, countriesOptions, createObjectToSend]);
-  
+
     const guardRegex = (check: boolean, name: string, value: string) => {
         if(check) {
             createObjectToSend(name, value);
             return;
         } else {
-      
+
             checkError(name, true);
             return name;
         }
     };
-  
-    const handleChange = useCallback((e: any) => {
+
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
         const checked = e.target.checked;
-  
+
         checkError(name, false);
         activeButton(name, value, checked);
+    }, [activeButton]);
+
+    const handleChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        checkError(name, false);
+        activeButton(name, value);
     }, [activeButton]);
 
     useEffect(() => {
         activeButton();
     }, [activeButton]);
 
-    const activeRegex = (formData: any) => {
+    const activeRegex = (formData: FormData) => {
         const regexName = new RegExp(regex.name);
         const regexPseudo = new RegExp(regex.pseudo);
         const regexEmail = new RegExp(regex.email);
@@ -191,47 +209,46 @@ export default function Form (props: Form) {
         // const regexReferral = new RegExp(regex.referral);
 
         const errors = [];
-    
+
         for(const infoUser of formData.entries()) {
             if(infoUser[1] && infoUser[0] !== 'referral' && infoUser[0] !== 'userReferral') {
                 if(infoUser[0] === 'firstName' || infoUser[0] === 'lastName' || infoUser[0] === 'city') {
-                    const nameCheck = regexName.test(infoUser[1]);
-                    errors.push(guardRegex(nameCheck, infoUser[0], infoUser[1]));
+                    const nameCheck = regexName.test(infoUser[1].toString());
+                    errors.push(guardRegex(nameCheck, infoUser[0], infoUser[1].toString()));
                 } else if(infoUser[0] === 'pseudo') {
-                    const pseudoCheck = regexPseudo.test(infoUser[1]);
-                    errors.push(guardRegex(pseudoCheck, infoUser[0], infoUser[1]));
+                    const pseudoCheck = regexPseudo.test(infoUser[1].toString());
+                    errors.push(guardRegex(pseudoCheck, infoUser[0], infoUser[1].toString()));
                 } else if(infoUser[0] === 'email') {
-                    const emailCheck = regexEmail.test(infoUser[1]);
-                    errors.push(guardRegex(emailCheck, infoUser[0], infoUser[1]));
+                    const emailCheck = regexEmail.test(infoUser[1].toString());
+                    errors.push(guardRegex(emailCheck, infoUser[0], infoUser[1].toString()));
                 } else if(infoUser[0] === 'discord') {
-                    const discordCheck = regexDiscord.test(infoUser[1]);
-                    errors.push(guardRegex(discordCheck, infoUser[0], infoUser[1]));
+                    const discordCheck = regexDiscord.test(infoUser[1].toString());
+                    errors.push(guardRegex(discordCheck, infoUser[0], infoUser[1].toString()));
                 } else {
-                    createObjectToSend(infoUser[0], infoUser[1]);
+                    createObjectToSend(infoUser[0], infoUser[1].toString());
                 }
             }
         }
-    
+
         const checkErr = errors.every((error) => error === undefined);
-  
+
         return checkErr;
     };
-  
+
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-  
+
         const form = e.target;
         const formData = new FormData(form);
         const noError = activeRegex(formData);
-  
-        console.log(registration);
+
         if (noError) {
             await register(registration);
         }
     };
 
     /* Part-2 Creation element to display. */
-  
+
     const InputClassName = (name: string) => {
         let defaultClass = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
 
@@ -250,7 +267,7 @@ export default function Form (props: Form) {
         return defaultClass;
     };
 
-    const createInput = (element: Element, id: number) => {
+    const createInput = (element: IElement, id: number) => {
         return (
             <div key={'input-'+id} className={`container-input-and-select`}>
                 <label className={`label-form`} htmlFor={element.name}>{element.label}</label>
@@ -268,8 +285,8 @@ export default function Form (props: Form) {
         );
     };
 
-    const optionSelect = (name: string) => {
-        let options = [{}];
+    const optionSelect = (name: string): IOptionsSelect[] => {
+        let options: IOptionsSelect[] = [];
 
         if (name === 'country') options = countriesOptions;
         if (name === 'contribution') options = contributionOptions;
@@ -278,7 +295,7 @@ export default function Form (props: Form) {
         return options;
     };
 
-    const createSelect = (element: Element, id: number) => {
+    const createSelect = (element: IElement, id: number) => {
         return (
             <div key={'select-'+id} className={`container-input-and-select`}>
                 <label className={`label-form`} htmlFor={element.name}>{element.label}</label>
@@ -287,20 +304,14 @@ export default function Form (props: Form) {
                     name={element.name}
                     id={element.name}
                     style={ element.name === 'country' ? {background: `url(${country}) no-repeat`} : {}}
-                    onChange={handleChange}
+                    onChange={handleChangeSelect}
                 >
                     <option defaultValue=''>{element.name === 'contribution' ? t('register.placeholder.contribution') : t('register.placeholder.select')}</option>
                     {
-                        optionSelect(element.name).map((option: any, id: number) => {
-                            if(option.iso) {
-                                return (
-                                    <option key={option.iso} value={option.iso}>{option.name}</option>
-                                );
-                            } else {
-                                return (
-                                    <option key={'option-'+id} value={option.value}>{option.name}</option>
-                                );
-                            }
+                        optionSelect(element.name).map((option: IOptionsSelect) => {
+                            return (
+                                <option value={option.value}>{option.name}</option>
+                            );
                         })
                     }
                 </select>
@@ -309,14 +320,14 @@ export default function Form (props: Form) {
     };
 
     const createStructure = () => {
-        let arrayData = props.dataForm;
+        let arrayData: object[] = props.dataForm;
         const elementsToDisplay = [];
-    
+
         for(let i = 0; i < props.structure.nbSection; ++i) {
             elementsToDisplay.push(
                 <div key={'section-'+i} className={`div-under-form`}>
                     {
-                        arrayData.map((element: any, id) => {
+                        arrayData.map((element, id) => {
                             while(id < props.structure.nbBySection) {
                                 if(element.balise === 'input') return createInput(element, id);
                                 if(element.balise === 'select') return createSelect(element, id);
