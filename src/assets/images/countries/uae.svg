@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/UAE</title>
+    <g id="Assets/Flags/UAE" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="united-arab-emirates" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <path d="M6.782625,16.1738906 L7.82610937,23.2537031 C9.12604687,23.7360937 10.5321562,24 12,24 C17.1595313,24 21.5580938,20.7435 23.2535625,16.1738906 L6.782625,16.1738906 Z" id="Path" fill="#000000"></path>
+            <path d="M6.782625,7.82610937 L7.82610937,0.746296875 C9.12604687,0.26390625 10.5321562,0 12,0 C17.1595313,0 21.5580938,3.2565 23.2535625,7.82610937 L6.782625,7.82610937 Z" id="Path" fill="#6DA544"></path>
+            <path d="M0,12 C0,17.1595781 3.25654688,21.5580937 7.82610937,23.2536094 L7.82610937,0.746390625 C3.25654688,2.44190625 0,6.84042188 0,12 Z" id="Path" fill="#A2001D"></path>
+        </g>
+    </g>
+</svg>

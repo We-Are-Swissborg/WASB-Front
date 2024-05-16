@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/luxembourg</title>
+    <g id="Assets/Flags/luxembourg" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="luxembourg" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <path d="M12,0 C6.84042187,0 2.44190625,3.2565 0.746390625,7.82610937 L23.2536562,7.82610937 C21.5580938,3.2565 17.1595781,0 12,0 Z" id="Path" fill="#D80027"></path>
+            <path d="M12,24 C17.1595781,24 21.5580937,20.7435 23.2536094,16.1738906 L0.746390625,16.1738906 C2.44190625,20.7435 6.84042188,24 12,24 Z" id="Path" fill="#338AF3"></path>
+        </g>
+    </g>
+</svg>

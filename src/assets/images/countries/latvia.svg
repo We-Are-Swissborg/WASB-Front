@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Assets/Flags/latvia</title>
+    <g id="Assets/Flags/latvia" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="latvia" fill-rule="nonzero">
+            <circle id="Oval" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+            <g id="Group" transform="translate(0.375000, 0.000000)" fill="#A2001D">
+                <path d="M11.625,0 C6.08067188,0 1.41539062,3.76035938 0.038390625,8.86954688 L23.2116563,8.86954688 C21.8346094,3.76035938 17.1693281,0 11.625,0 Z" id="Path"></path>
+                <path d="M11.625,24 C17.1693281,24 21.8346094,20.2396406 23.2116094,15.1304531 L0.038390625,15.1304531 C1.41539062,20.2395938 6.08067188,24 11.625,24 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
