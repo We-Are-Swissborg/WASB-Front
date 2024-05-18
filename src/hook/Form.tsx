@@ -9,6 +9,7 @@ import { Registration } from "../types/Registration";
 
 import Countries from "../hook/Countries";
 import '../css/Form.css';
+import { DataForm } from "../types/DataForm";
 
 interface IForm {
   structure: {
@@ -16,7 +17,7 @@ interface IForm {
     nbSection: number,
     nbBySection: number,
   };
-  dataForm: object[];
+  dataForm: DataForm[];
   styleForm?: {
     form?: string,
     input?: string,
@@ -320,14 +321,14 @@ export default function Form (props: IForm) {
     };
 
     const createStructure = () => {
-        let arrayData: object[] = props.dataForm;
+        let arrayData: DataForm[] = props.dataForm;
         const elementsToDisplay = [];
 
         for(let i = 0; i < props.structure.nbSection; ++i) {
             elementsToDisplay.push(
                 <div key={'section-'+i} className={`div-under-form`}>
                     {
-                        arrayData.map((element, id) => {
+                        arrayData.map((element: DataForm, id) => {
                             while(id < props.structure.nbBySection) {
                                 if(element.balise === 'input') return createInput(element, id);
                                 if(element.balise === 'select') return createSelect(element, id);
