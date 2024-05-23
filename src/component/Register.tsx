@@ -18,7 +18,7 @@ export default function Register() {
         {balise: 'input', name: 'lastName', label: t('register.last-name'), type: 'text', placeholder: t('register.placeholder.last-name')},
         {balise: 'input', name: 'email', label: t('register.email'), type: 'text', placeholder: t('register.placeholder.email')},
         {balise: 'input', name: 'pseudo', label: t('register.pseudo'), type: 'text', placeholder: t('register.placeholder.pseudo')},
-        {balise: 'input', name: 'wallet', label: t('register.wallet'), type: 'text', value: 'WALLET', readOnly: true},
+        {balise: 'input', name: 'walletAddress', label: t('register.wallet-address'), type: 'text', value: 'WALLET', readOnly: true},
         {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('register.placeholder.discord')},
         {balise: 'select', name: 'contribution', label: t('register.contribution')},
         {balise: 'input', name: 'referral', label: t('register.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},

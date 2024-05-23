@@ -99,7 +99,7 @@ const global_en = {
         "referral": "Referral",
         "send": "Join",
         "title": "Become a member",
-        "wallet": "Your wallet address*",
+        "wallet-address": "Your wallet address*",
     },
     "setting": {
         "linked-accounts": {
@@ -137,7 +137,7 @@ const global_en = {
             "send": "Rejoindre",
             "title": "My account",
             "update": "Update",
-            "wallet": "Your wallet address*"
+            "wallet-address": "Your wallet address*"
         },
         "title": "Setting",
     },

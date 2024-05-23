@@ -1,7 +1,7 @@
 import { Registration } from './../types/Registration';
 
 const register = async (data: Registration) => {
-    fetch('http://localhost:3000/api/register', {
+    fetch('http://localhost:3000/api/users/register', {
         method: "POST",
         mode: "cors",
         cache: "no-cache",

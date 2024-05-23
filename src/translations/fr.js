@@ -97,7 +97,7 @@ const global_fr = {
         "referral": "Référent",
         "send": "Rejoindre",
         "title": "Devenir membre",
-        "wallet": "Adresse de votre wallet*"
+        "walletAddress": "Adresse de votre wallet*"
     },
     "setting": {
         "linked-accounts": {
@@ -134,7 +134,7 @@ const global_fr = {
             "select_placeholder": "Choisir...",
             "title": "Mon compte",
             "update": "Mise à jour",
-            "wallet": "Adresse de votre wallet*"
+            "wallet-address": "Adresse de votre wallet*"
         },
         "title": "Réglages",
     },

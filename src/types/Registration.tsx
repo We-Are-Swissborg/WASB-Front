@@ -6,7 +6,7 @@ export interface Registration {
   lastName?: string;
   pseudo: string;
   email: string;
-  wallet: string;
+  walletAddress: string;
   contribution?: string;
   socialMedias?: {
     twitter?: string,

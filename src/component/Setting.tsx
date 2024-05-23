@@ -50,7 +50,7 @@ export default function Setting () {
         {balise: 'input', name: 'referral', label: t('register.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
         {balise: 'select', name: 'country', label: t('register.country')},
         {balise: 'input', name: 'city', label: t('register.city'), type: 'text', placeholder: t('register.placeholder.city')},
-        {balise: 'input', name: 'wallet', label: t('register.wallet'), type: 'text', value: 'WALLET', readOnly: true},
+        {balise: 'input', name: 'walletAddress', label: t('register.wallet-address'), type: 'text', value: 'WALLET', readOnly: true},
     ];
     const dataFormTwo = [
         {balise: 'input', name: 'contributionStatus', label: t('setting.manage-membership.status'), type: 'text', value: 'STATUS', readOnly: true},
