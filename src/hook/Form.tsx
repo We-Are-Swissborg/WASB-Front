@@ -60,7 +60,7 @@ export default function Form (props: IForm) {
         {value: 'tiktok', name: 'Tiktok'},
         {value: 'twitter', name: 'Twitter'},
         {value: 'youtube', name: 'Youtube'},
-        {value: 'other', name: t('register.other')},
+        {value: 'other', name: t('form.other')},
     ];
 
     const [disabledButton, setDisabledButton] = useState(true);
@@ -306,7 +306,7 @@ export default function Form (props: IForm) {
                     style={ element.name === 'country' ? {background: `url(${country}) no-repeat`} : {}}
                     onChange={handleChangeSelect}
                 >
-                    <option defaultValue=''>{element.name === 'contribution' ? t('register.placeholder.contribution') : t('register.placeholder.select')}</option>
+                    <option defaultValue=''>{element.name === 'contribution' ? t('form.placeholder.contribution') : t('form.placeholder.select')}</option>
                     {
                         optionSelect(element.name).map((option: IOptionsSelect, id) => {
                             return (
@@ -356,7 +356,7 @@ export default function Form (props: IForm) {
                                 onChange={handleChange}
                             />
                             <p className={`text-container-submit`}>
-                                <Trans i18nKey="register.confidentiality" t={t} components= {
+                                <Trans i18nKey="form.confidentiality" t={t} components= {
                                     {
                                         link1: <LinkText href="#" title="Terms of Use" />,
                                         link2: <LinkText href="#" title="Privacy Policy" />
@@ -372,7 +372,7 @@ export default function Form (props: IForm) {
                                 onChange={handleChange}
                             />
                             <p className={`text-container-submit`}>
-                                {t('register.be-contacted')}
+                                {t('form.be-contacted')}
                             </p>
                         </div>
                     </div>
@@ -381,7 +381,7 @@ export default function Form (props: IForm) {
                         type='submit'
                         disabled={disabledButton}
                     >
-                        {props.structure.btn === 'register' ? t('register.send') : t('setting.my-account.update')}
+                        {props.structure.btn === 'register' ? t('form.btn.send') : t('form.btn.update')}
                     </button>
                 </div>
             );
@@ -390,8 +390,8 @@ export default function Form (props: IForm) {
         if (props.structure.btn === 'confirmAndCancel') {
             return (
                 <div className={`container-submit`}>
-                    <button className={`btn padding-button btn-cancel`}>{t('setting.manage-membership.cancel')}</button>
-                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('setting.manage-membership.modify')}</button>
+                    <button className={`btn padding-button btn-cancel`}>{t('form.btn.cancel')}</button>
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('form.btn.modify')}</button>
                 </div>
             );
         }
@@ -399,7 +399,7 @@ export default function Form (props: IForm) {
         if (props.structure.btn === 'update') {
             return (
                 <div className={`container-submit`}>
-                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('setting.linked-accounts.update')}</button>
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('form.btn.update')}</button>
                 </div>
             );
         }
