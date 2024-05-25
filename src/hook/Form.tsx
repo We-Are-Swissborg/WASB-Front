@@ -4,37 +4,37 @@ import { Trans, useTranslation } from "react-i18next";
 import regex from "../services/regex";
 import { register } from "../services/user.service";
 
-import { LinkText } from "./LinksTranslate";
 import { Registration } from "../types/Registration";
+import { DataForm } from "../types/DataForm";
 
+import { LinkText } from "./LinksTranslate";
 import Countries from "../hook/Countries";
+import Modal from "../common/Modal";
 import '../css/Form.css';
 
-import Modal from "../common/Modal";
-
 interface IForm {
-  structure: {
-    formFor: string,
-    btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
-    nbSection: number,
-    nbBySection: number,
-  };
-  dataForm: object[];
-  styleForm?: {
-    form?: string,
-    input?: string,
-    containerSumbit?: string,
-  };
+    structure: {
+        formFor: string,
+        btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
+        nbSection: number,
+        nbBySection: number,
+    };
+    dataForm: DataForm[];
+    styleForm?: {
+        form?: string,
+        input?: string,
+        containerSumbit?: string,
+    };
 }
 
 interface IElement {
-  balise: string;
-  name: string;
-  type?: string;
-  label?: string;
-  placeholder?: string;
-  readOnly?: boolean;
-  value?: string | readonly string[] | number | undefined;
+    balise: string;
+    name: string;
+    type?: string;
+    label?: string;
+    placeholder?: string;
+    readOnly?: boolean;
+    value?: string | readonly string[] | number | undefined;
 }
 
 interface IOptionsSelect {
@@ -344,14 +344,14 @@ export default function Form (props: IForm) {
     };
 
     const createStructure = () => {
-        let arrayData: object[] = props.dataForm;
+        let arrayData: DataForm[] = props.dataForm;
         const elementsToDisplay = [];
 
         for(let i = 0; i < props.structure.nbSection; ++i) {
             elementsToDisplay.push(
                 <div key={'section-'+i} className={`div-under-form`}>
                     {
-                        arrayData.map((element, id) => {
+                        arrayData.map((element: DataForm, id) => {
                             while(id < props.structure.nbBySection) {
                                 if(element.balise === 'input') return createInput(element, id);
                                 if(element.balise === 'select') return createSelect(element, id);

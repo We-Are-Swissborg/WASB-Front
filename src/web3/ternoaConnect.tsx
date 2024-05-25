@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 
 import Client from "@walletconnect/sign-client";
-import { SessionTypes, PairingTypes } from "@walletconnect/types";
+import { SessionTypes } from "@walletconnect/types";
 import QRCodeModal from "@walletconnect/legacy-modal";
 import { ERROR } from "@walletconnect/utils";
 import {
@@ -76,13 +76,13 @@ export default function TernoaConnect() {
     }, []);
 
     const connect = useCallback(
-        async (pairing: PairingTypes.Struct) => {
+        async () => {
             if (typeof client === "undefined") {
                 throw new Error("WalletConnect is not initialized");
             }
             try {
+
                 const { uri, approval } = await client.connect({
-                    pairingTopic: pairing?.topic,
                     requiredNamespaces: requiredNamespaces,
                 });
                 if (uri) {

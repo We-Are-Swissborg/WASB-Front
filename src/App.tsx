@@ -36,7 +36,6 @@ const router = createBrowserRouter([
         ]
     },
 ]);
-// console.log('import.meta.env.VITE_CHAIN_PROVIDER', import.meta.env.VITE_CHAIN_PROVIDER);
 
 function App() {
 

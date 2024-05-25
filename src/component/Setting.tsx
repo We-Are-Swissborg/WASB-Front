@@ -53,7 +53,7 @@ export default function Setting () {
         {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
         {balise: 'select', name: 'country', label: t('form.country')},
         {balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city')},
-        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: localStorage.getItem('walletTernoa'), readOnly: true},
+        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: localStorage.getItem('walletTernoa') || '', readOnly: true},
     ];
     const dataFormTwo = [
         {balise: 'input', name: 'contributionStatus', label: t('form.status'), type: 'text', value: 'STATUS', readOnly: true},

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Post } from '../types/Post';
 import { getPosts } from "../services/blog.service";
-
+import { testBack } from "../services/test.services";
 
 export default function Blog() {
     const [data, setData] = useState<Post[]>([]);
@@ -10,6 +10,14 @@ export default function Blog() {
         getPosts().then(
             result => {
                 setData(result);
+            }
+        );
+    }, []);
+
+    useEffect(() => {
+        testBack().then(
+            result => {
+                console.info(result);
             }
         );
     }, []);
