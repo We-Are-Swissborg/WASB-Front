@@ -101,6 +101,9 @@ const global_fr = {
     },
 
     // For all components
+    "back": {
+        "user-add": "Utilisateur ajouté avec succès 😁" 
+    },
     "countries": {
         "argentina": "Argentine",
         "austria": "Autriche",

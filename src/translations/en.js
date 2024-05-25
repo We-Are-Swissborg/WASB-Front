@@ -103,6 +103,9 @@ const global_en = {
     },
     
     // For all components
+    "back": {
+        "user-add": "User successfully added 😁"
+    },
     "countries": {
         "argentina": "Argentina",
         "austria": "Austria",

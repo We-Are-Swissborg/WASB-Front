@@ -13,16 +13,19 @@ export default function Setting () {
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
   
     const structureFormOne = {
+        formFor: 'Setting',
         btn: 'btnWithConfidentiality',
         nbSection: 5,
         nbBySection: 2,
     };
     const structureFormTwo = {
+        formFor: 'Setting',
         btn: 'confirmAndCancel',
         nbSection: 3,
         nbBySection: 2,
     };
     const structureFormThree = {
+        formFor: 'Setting',
         btn: 'update',
         nbSection: 4,
         nbBySection: 1,
@@ -50,7 +53,7 @@ export default function Setting () {
         {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
         {balise: 'select', name: 'country', label: t('form.country')},
         {balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city')},
-        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: 'WALLET', readOnly: true},
+        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: localStorage.getItem('walletTernoa'), readOnly: true},
     ];
     const dataFormTwo = [
         {balise: 'input', name: 'contributionStatus', label: t('form.status'), type: 'text', value: 'STATUS', readOnly: true},

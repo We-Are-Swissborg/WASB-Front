@@ -14,6 +14,7 @@ import {
 import { u8aToHex } from "@polkadot/util";
 import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
 import iconWalletconnect from '../assets/images/svg/walletconnect_icon.svg';
+import { authenticate } from "../services/user.service";
 
 const DEFAULT_APP_METADATA = {
     name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
@@ -46,6 +47,10 @@ export default function TernoaConnect() {
         localStorage.removeItem("walletTernoa");
         setAddress(undefined);
         localStorage.removeItem("sessionTernoa");
+        setIsAccountCertified(false);
+        localStorage.removeItem("accountCertified");
+        localStorage.removeItem('token');
+        window.location.reload();
     };
 
     const [client, setClient] = useState<Client>();
@@ -56,6 +61,7 @@ export default function TernoaConnect() {
     // const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const [isAccountCertified, setIsAccountCertified] = useState<boolean>(false);
+    const [isMember, setIsMember] = useState<string>('');
 
     const onSessionConnected = useCallback((_session: SessionTypes.Struct) => {
         const _pubKey = Object.values(_session.namespaces)
@@ -219,7 +225,11 @@ export default function TernoaConnect() {
                 responseObj.signedMessageHash,
                 address
             );
-            setIsAccountCertified(isValid);
+            localStorage.setItem('accountCertified', JSON.stringify(isValid));
+            if(!isAccountCertified) setIsAccountCertified(!isAccountCertified);
+            const auth = await authenticate();
+            localStorage.setItem('token', auth.token);
+            if(response) setIsMember(auth.token);
         } catch {
             console.log("ERROR: invalid signature");
         } finally {
@@ -238,7 +248,10 @@ export default function TernoaConnect() {
                 setAddressSplited(generatePartialString(localStorage.getItem("walletTernoa") || "",0,4));
             }
         }
-    }, [client]);
+
+        if(!isAccountCertified) setIsAccountCertified(JSON.parse(localStorage.getItem('accountCertified') || JSON.stringify('')));
+        if(!isMember) setIsMember(localStorage.getItem('token') || '');
+    }, [client, isAccountCertified]);
 
     const isValidSignaturePolkadot = (signedMessage: string, signature: string, address: string) => {
         const publicKey = decodeAddress(address);
@@ -262,8 +275,8 @@ export default function TernoaConnect() {
                     <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarConnection">
                         <li>{t('ternoa.account-certified') + isAccountCertified + ""}</li>
                         <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i>{t('ternoa.test-signed')}</button></li>
-                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
-                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>}
+                        {(isAccountCertified && !isMember) && <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
+                        {(isAccountCertified && isMember) && <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>}
                         <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i>{t('ternoa.logout')}</button></li>
                     </ul>
                 </div>

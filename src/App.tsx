@@ -5,8 +5,7 @@ import ErrorPage from './hook/Error-page.tsx';
 import Blog from './component/Blog.tsx';
 import Home from './component/Home.tsx';
 import Contact from './component/Contact.tsx';
-import Register from './component/Register.tsx';
-import Setting from './component/Setting.tsx';
+import PrivateRoutes from './common/PrivateRoutes.tsx';
 
 const router = createBrowserRouter([
     {
@@ -28,11 +27,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <PrivateRoutes />
             },
             {
                 path: '/setting',
-                element: <Setting />
+                element: <PrivateRoutes />
             }
         ]
     },

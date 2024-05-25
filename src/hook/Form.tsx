@@ -10,8 +10,11 @@ import { Registration } from "../types/Registration";
 import Countries from "../hook/Countries";
 import '../css/Form.css';
 
+import Modal from "../common/Modal";
+
 interface IForm {
   structure: {
+    formFor: string,
     btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
     nbSection: number,
     nbBySection: number,
@@ -63,16 +66,17 @@ export default function Form (props: IForm) {
         {value: 'other', name: t('form.other')},
     ];
 
-    const [disabledButton, setDisabledButton] = useState(true);
+    const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
     // Try to transform in array later for a best develop.
-    const [errorCity, setErrorCity] = useState(false);
-    const [errorFirstName, setErrorFirstName] = useState(false);
-    const [errorLastName, setErrorLastName] = useState(false);
-    const [errorPseudo, setErrorPseudo] = useState(false);
-    const [errorEmail, setErrorEmail] = useState(false);
-    const [errorDiscord, setErrorDiscord] = useState(false);
-    const [errorReferral, setErrorReferral] = useState(false);
+    const [errorCity, setErrorCity] = useState<boolean>(false);
+    const [errorFirstName, setErrorFirstName] = useState<boolean>(false);
+    const [errorLastName, setErrorLastName] = useState<boolean>(false);
+    const [errorPseudo, setErrorPseudo] = useState<boolean>(false);
+    const [errorEmail, setErrorEmail] = useState<boolean>(false);
+    const [errorDiscord, setErrorDiscord] = useState<boolean>(false);
+    const [errorReferral, setErrorReferral] = useState<boolean>(false);
+    const [checkConfidentiality, setCheckConfidentiality] = useState<boolean>(false);
 
     // For the element countries select.
     const [country, setCountry] = useState('');
@@ -85,7 +89,7 @@ export default function Form (props: IForm) {
         lastName: '',
         email: '',
         pseudo: '',
-        walletAddress: 'ENTER WALLET HERE',
+        walletAddress: localStorage.getItem('walletTernoa') || '',
         contribution: '0CHF',
         socialMedias: {
             twitter: '',
@@ -98,6 +102,10 @@ export default function Form (props: IForm) {
         confidentiality: false,
         beContacted: false,
     });
+
+    // For the modal.
+    const [msgForModal, setMsgForModal] = useState<string>('');
+    const heightModal = () => props.structure.formFor ? '70px' : '';
 
     /* Part-1 - Fonctionnalities for the element to display. */
 
@@ -187,7 +195,9 @@ export default function Form (props: IForm) {
 
         checkError(name, false);
         activeButton(name, value, checked);
-    }, [activeButton]);
+
+        if(name === 'confidentiality') setCheckConfidentiality(!checkConfidentiality); 
+    }, [activeButton, checkConfidentiality]);
 
     const handleChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         const name = e.target.name;
@@ -232,6 +242,8 @@ export default function Form (props: IForm) {
 
         const checkErr = errors.every((error) => error === undefined);
 
+        if(!checkErr) setCheckConfidentiality(!checkConfidentiality);
+
         return checkErr;
     };
 
@@ -243,17 +255,29 @@ export default function Form (props: IForm) {
         const noError = activeRegex(formData);
 
         if (noError) {
-            await register(registration);
+            const response = await register(registration);
+        
+            localStorage.setItem('token', response.token);
+            setMsgForModal(response.messageToTrans);
+
+            setTimeout(() => {
+                window.location.replace(`${window.location.protocol}//${window.location.host}`);
+            }, 500);
         }
     };
 
     /* Part-2 Creation element to display. */
 
     const InputClassName = (name: string) => {
-        let defaultClass = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
 
+        // Class for all
+        let defaultClass = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
+        
         const readOnlyClass = 'pe-none read-only';
         const errorClass = 'border-danger';
+        
+        // Class Custom
+        const walletAddressClass = ' text-truncate pe-5';
 
         if(name === 'city') defaultClass =  errorCity ? defaultClass + errorClass : defaultClass;
         if(name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
@@ -262,7 +286,7 @@ export default function Form (props: IForm) {
         if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
         if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
         if(name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
-        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass;
+        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
 
         return defaultClass;
     };
@@ -354,6 +378,7 @@ export default function Form (props: IForm) {
                                 type='checkbox'
                                 name='confidentiality'
                                 onChange={handleChange}
+                                checked={checkConfidentiality}
                             />
                             <p className={`text-container-submit`}>
                                 <Trans i18nKey="form.confidentiality" t={t} components= {
@@ -406,13 +431,16 @@ export default function Form (props: IForm) {
     };
 
     return (
-        <form className={`form ${props.styleForm?.form}`} method="post" onSubmit={handleSubmit}>
-            {
-                createStructure().map((element) => element)
-            }
-            {
-                setUpButton()
-            }
-        </form>
+        <>
+            <form className={`form ${props.styleForm?.form}`} method="post" onSubmit={handleSubmit}>
+                {
+                    createStructure().map((element) => element)
+                }
+                {
+                    setUpButton()
+                }
+            </form>
+            <Modal msgModal={msgForModal} heightModal={heightModal()} />
+        </>
     );
 }
