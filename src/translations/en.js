@@ -103,9 +103,6 @@ const global_en = {
     },
     
     // For all components
-    "back": {
-        "user-add": "User successfully added 😁"
-    },
     "countries": {
         "argentina": "Argentina",
         "austria": "Austria",
@@ -191,7 +188,11 @@ const global_en = {
         "referral": "Referral",
         "status": "Status of your contribution",
         "wallet-address": "Your wallet address*",
-    }
+    },
+    "modal": {
+        "confirm-registration": "Please confirm on your wallet your registration 😀",
+        "user-add": "User successfully added 😁"
+    },
 };
 
 export default global_en;

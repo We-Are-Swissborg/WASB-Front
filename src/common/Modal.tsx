@@ -22,7 +22,7 @@ export default function Modal(props: IModal) {
         <div className="container-modal" style={styleContainerModal}>
             <div className="modal-custom" id="exampleModal" style={styleModal}>
                 <p className="msg-modal-custom">
-                    {t(`back.${props.msgModal}`)}
+                    {t(`modal.${props.msgModal}`)}
                 </p>
             </div>
         </div>

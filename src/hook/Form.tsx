@@ -11,6 +11,9 @@ import { LinkText } from "./LinksTranslate";
 import Countries from "../hook/Countries";
 import Modal from "../common/Modal";
 import '../css/Form.css';
+import SignMessage from "../web3/SignMessage";
+import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
+import Client from "@walletconnect/sign-client";
 
 interface IForm {
     structure: {
@@ -42,6 +45,20 @@ interface IOptionsSelect {
     name: string,
     urlImg?: string
 }
+
+interface IAuth {
+    token: string,
+    messageToTrans: string,
+}
+
+const DEFAULT_APP_METADATA = {
+    name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
+    description: "The association that supports you in your crypto adventure!",
+    url: window.location.origin,
+    icons: [`${window.location.origin}/${wasb_favicon}`],
+};
+const RELAY_URL = "wss://wallet-connectrelay.ternoa.network/";
+const PROJECT_ID = import.meta.env.VITE_PROJECT_ID; // Get your project id by applying to the form, link in the introduction
 
 export default function Form (props: IForm) {
     const { t } = useTranslation('global');
@@ -79,8 +96,8 @@ export default function Form (props: IForm) {
     const [checkConfidentiality, setCheckConfidentiality] = useState<boolean>(false);
 
     // For the element countries select.
-    const [country, setCountry] = useState('');
-    const activeMarge = country ? 'ps-5' : '';
+    const [country, setCountry] = useState<string>('');
+    const activeMarge: string = country ? 'ps-5' : '';
 
     const [registration, setRegistration] = useState<Registration>({
         country: '',
@@ -161,7 +178,7 @@ export default function Form (props: IForm) {
     }, [registration]);
 
     const activeButton = useCallback((name: string = '', value: string = '', checked: boolean = false) => {
-        const activation = registration.email && registration.pseudo && registration.walletAddress && registration.confidentiality;
+        const activation:boolean = (registration.email && registration.pseudo && registration.walletAddress && registration.confidentiality) || false;
 
         createObjectToSend(name, value, checked);
 
@@ -189,9 +206,9 @@ export default function Form (props: IForm) {
     };
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        const checked = e.target.checked;
+        const name: string = e.target.name;
+        const value: string | number | boolean | undefined = e.target.value;
+        const checked: boolean = e.target.checked;
 
         checkError(name, false);
         activeButton(name, value, checked);
@@ -200,8 +217,8 @@ export default function Form (props: IForm) {
     }, [activeButton, checkConfidentiality]);
 
     const handleChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-        const name = e.target.name;
-        const value = e.target.value;
+        const name: string = e.target.name;
+        const value: string | number | boolean | undefined = e.target.value;
 
         checkError(name, false);
         activeButton(name, value);
@@ -212,10 +229,10 @@ export default function Form (props: IForm) {
     }, [activeButton]);
 
     const activeRegex = (formData: FormData) => {
-        const regexName = new RegExp(regex.name);
-        const regexPseudo = new RegExp(regex.pseudo);
-        const regexEmail = new RegExp(regex.email);
-        const regexDiscord = new RegExp(regex.discord);
+        const regexName: RegExp = new RegExp(regex.name);
+        const regexPseudo: RegExp = new RegExp(regex.pseudo);
+        const regexEmail: RegExp = new RegExp(regex.email);
+        const regexDiscord: RegExp = new RegExp(regex.discord);
         // const regexReferral = new RegExp(regex.referral);
 
         const errors = [];
@@ -240,7 +257,7 @@ export default function Form (props: IForm) {
             }
         }
 
-        const checkErr = errors.every((error) => error === undefined);
+        const checkErr = errors.every((error: string | undefined) => error === undefined);
 
         if(!checkErr) setCheckConfidentiality(!checkConfidentiality);
 
@@ -250,19 +267,34 @@ export default function Form (props: IForm) {
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const form = e.target;
-        const formData = new FormData(form);
-        const noError = activeRegex(formData);
+        const form: EventTarget & HTMLFormElement = e.target;
+        const formData: FormData = new FormData(form);
+        const noError: boolean = activeRegex(formData);
 
         if (noError) {
-            const response = await register(registration);
+            let response: IAuth = {messageToTrans: '', token: ''};
+            const client = await Client.init({
+                relayUrl: RELAY_URL,
+                projectId: PROJECT_ID,
+                metadata: DEFAULT_APP_METADATA,
+            });
+            const session = JSON.parse(localStorage.getItem('sessionTernoa') || '') || undefined; 
+            const address = localStorage.getItem('walletTernoa') || undefined; 
+
+            setMsgForModal('confirm-registration');
+
+            await SignMessage(client, session, address);
+            
+            const certification = localStorage.getItem('accountCertified'); 
+            
+            if(certification) response = await register(registration);
         
             localStorage.setItem('token', response.token);
             setMsgForModal(response.messageToTrans);
 
             setTimeout(() => {
                 window.location.replace(`${window.location.protocol}//${window.location.host}`);
-            }, 500);
+            }, 1000);
         }
     };
 
@@ -271,13 +303,13 @@ export default function Form (props: IForm) {
     const InputClassName = (name: string) => {
 
         // Class for all
-        let defaultClass = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
+        let defaultClass: string = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
         
-        const readOnlyClass = 'pe-none read-only';
-        const errorClass = 'border-danger';
+        const readOnlyClass: string = 'pe-none read-only';
+        const errorClass: string = 'border-danger';
         
         // Class Custom
-        const walletAddressClass = ' text-truncate pe-5';
+        const walletAddressClass: string = ' text-truncate pe-5';
 
         if(name === 'city') defaultClass =  errorCity ? defaultClass + errorClass : defaultClass;
         if(name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;

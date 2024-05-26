@@ -101,9 +101,6 @@ const global_fr = {
     },
 
     // For all components
-    "back": {
-        "user-add": "Utilisateur ajouté avec succès 😁" 
-    },
     "countries": {
         "argentina": "Argentine",
         "austria": "Autriche",
@@ -190,7 +187,11 @@ const global_fr = {
         "status": "Statut de votre adhésion",
         "title": "Réglages",
         "wallet-address": "Adresse de votre wallet*",
-    }
+    },
+    "modal": {
+        "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
+        "user-add": "Utilisateur ajouté avec succès 😁",
+    },
 };
 
 export default global_fr;
