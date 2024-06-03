@@ -47,8 +47,8 @@ interface IOptionsSelect {
 }
 
 interface IAuth {
+    status: number,
     token: string,
-    messageToTrans: string,
 }
 
 const DEFAULT_APP_METADATA = {
@@ -272,7 +272,7 @@ export default function Form (props: IForm) {
         const noError: boolean = activeRegex(formData);
 
         if (noError) {
-            let response: IAuth = {messageToTrans: '', token: ''};
+            let response: IAuth = {status: 0, token: ''};
             const client = await Client.init({
                 relayUrl: RELAY_URL,
                 projectId: PROJECT_ID,
@@ -290,7 +290,7 @@ export default function Form (props: IForm) {
             if(certification) response = await register(registration);
         
             localStorage.setItem('token', response.token);
-            setMsgForModal(response.messageToTrans);
+            if(response.status === 201) setMsgForModal('user-add');
 
             setTimeout(() => {
                 window.location.replace(`${window.location.protocol}//${window.location.host}`);

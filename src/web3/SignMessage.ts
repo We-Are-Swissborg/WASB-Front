@@ -15,12 +15,12 @@ export default function SignMessage (client: Client | undefined, session: Sessio
         const publicKey = decodeAddress(address);
         const hexPublicKey = u8aToHex(publicKey);
 
-        console.log(signatureVerify(signedMessage, signature, hexPublicKey));
-
         return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
     };
 
     const sign = async () => {
+        const pathname = window.location.pathname;
+
         if (typeof client === "undefined") {
             throw new Error("WalletConnect is not initialized");
         }
@@ -58,8 +58,11 @@ export default function SignMessage (client: Client | undefined, session: Sessio
                 address
             );
             localStorage.setItem('accountCertified', JSON.stringify(isValid));
-            const auth = await authenticate();
-            localStorage.setItem('token', auth.token);
+
+            if(!pathname.includes('register')) {
+                const auth = await authenticate();
+                localStorage.setItem('token', auth.token);
+            }
         } catch {
             console.log("ERROR: invalid signature");
         } finally {

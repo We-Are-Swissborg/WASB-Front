@@ -10,7 +10,7 @@ const testBack = async (): Promise<string> => {
             "Content-Type": "application/json",
         }
     };
-    const response: Response = await fetch(`${backend}/test/withoutAuth`, options);
+    const response: Response = await fetch(`${backend}api/test/withoutAuth`, options);
 
     if (!response.ok) {
         // Adhere to proper handling of unseemly situations
