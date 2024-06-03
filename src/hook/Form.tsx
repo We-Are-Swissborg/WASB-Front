@@ -86,7 +86,7 @@ export default function Form (props: IForm) {
         lastName: '',
         email: '',
         pseudo: '',
-        wallet: 'ENTER WALLET HERE',
+        walletAddress: localStorage.getItem('walletTernoa') || '',
         contribution: '0CHF',
         socialMedias: {
             twitter: '',
@@ -154,7 +154,7 @@ export default function Form (props: IForm) {
     }, [registration]);
 
     const activeButton = useCallback((name: string = '', value: string = '', checked: boolean = false) => {
-        const activation = registration.email && registration.pseudo && registration.wallet && registration.confidentiality;
+        const activation = registration.email && registration.pseudo && registration.walletAddress && registration.confidentiality;
 
         createObjectToSend(name, value, checked);
 
@@ -263,7 +263,7 @@ export default function Form (props: IForm) {
         if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
         if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
         if(name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
-        if(name === 'wallet') defaultClass = defaultClass + readOnlyClass;
+        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass;
 
         return defaultClass;
     };

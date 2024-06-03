@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Post } from '../types/Post';
 import { getPosts } from "../services/blog.service";
-import { testBack } from "../services/test.services";
+import { testBack, testBack2Auth } from "../services/test.services";
 
 export default function Blog() {
     const [data, setData] = useState<Post[]>([]);
@@ -14,8 +14,15 @@ export default function Blog() {
         );
     }, []);
 
+    // TODO: delete this later, when the tests are successful
     useEffect(() => {
         testBack().then(
+            result => {
+                console.info(result);
+            }
+        );
+
+        testBack2Auth().then(
             result => {
                 console.info(result);
             }
