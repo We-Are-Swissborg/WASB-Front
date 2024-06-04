@@ -1,4 +1,5 @@
 import { Registration } from './../types/Registration';
+import { postFetch } from './baseAPI.services';
 
 const register = async (data: Registration) => {
     return fetch('http://localhost:3000/api/users/register', {
