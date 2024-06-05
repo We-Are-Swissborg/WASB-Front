@@ -8,12 +8,11 @@ import QRCodeModal from "@walletconnect/legacy-modal";
 import { ERROR } from "@walletconnect/utils";
 import {
     cryptoWaitReady,
-    decodeAddress,
-    signatureVerify,
 } from "@polkadot/util-crypto";
-import { u8aToHex } from "@polkadot/util";
 import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
 import iconWalletconnect from '../assets/images/svg/walletconnect_icon.svg';
+import { authenticate, generateNonce } from "../services/auth.services";
+import { Nonce } from "../types/Security";
 
 const DEFAULT_APP_METADATA = {
     name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
@@ -46,6 +45,7 @@ export default function TernoaConnect() {
         localStorage.removeItem("walletTernoa");
         setAddress(undefined);
         localStorage.removeItem("sessionTernoa");
+        localStorage.removeItem("token");
     };
 
     const [client, setClient] = useState<Client>();
@@ -53,6 +53,7 @@ export default function TernoaConnect() {
     const [session, setSession] = useState<SessionTypes.Struct>();
     const [address, setAddress] = useState<string>();
     const [addressSplited, setAddressSplited] = useState<string>();
+    const [nonce, setNonce] = useState<Nonce>();
     // const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const [isAccountCertified, setIsAccountCertified] = useState<boolean>(false);
@@ -69,13 +70,60 @@ export default function TernoaConnect() {
         localStorage.setItem("sessionTernoa", JSON.stringify(_session));
     }, []);
 
+    const signMessage = useCallback(async () => {
+        if (typeof client === "undefined") {
+            throw new Error("WalletConnect is not initialized");
+        }
+        if (typeof address === "undefined") {
+            throw new Error("Not connected");
+        }
+        if (typeof session === "undefined") {
+            throw new Error("Session not connected");
+        }
+        if (typeof nonce === "undefined") {
+            throw new Error("Nonce not initialized");
+        }
+        //   setIsLoading(true);
+
+        // This could be any message, but will be rejected by the Wallet if it is a transaction hash
+        const message = `Confirm your authentication to our community #WeAreSwissborg \nNONCE : ${nonce.nonce}`;
+
+        try {
+            const response = await client.request<string>({
+                chainId: TERNOA_CHAIN,
+                topic: session.topic,
+                request: {
+                    method: "sign_message",
+                    params: {
+                        pubKey: address,
+                        request: {
+                            message,
+                        },
+                    },
+                },
+            });
+
+            const responseObj = JSON.parse(response);
+
+            await cryptoWaitReady();
+            const token = await authenticate(address, responseObj.signedMessageHash);
+            localStorage.setItem("token", JSON.stringify(token));
+
+            setIsAccountCertified(true);
+        } catch {
+            console.log("ERROR: invalid signature");
+            reset();
+        } finally {
+            // setIsLoading(false);
+        }
+    }, [client, session, address, nonce]);
+
     const connect = useCallback(
         async () => {
             if (typeof client === "undefined") {
                 throw new Error("WalletConnect is not initialized");
             }
             try {
-
                 const { uri, approval } = await client.connect({
                     requiredNamespaces: requiredNamespaces,
                 });
@@ -85,6 +133,8 @@ export default function TernoaConnect() {
                 // Here we will await the Wallet's response to the pairing proposal
                 const session = await approval();
                 onSessionConnected(session);
+                const nonce = await generateNonce(localStorage.getItem("walletTernoa"));
+                setNonce(nonce);
                 return session;
             } catch (e) {
                 console.error(e);
@@ -101,7 +151,7 @@ export default function TernoaConnect() {
             if (typeof _client === "undefined") {
                 throw new Error("WalletConnect is not initialized");
             }
-            // here we can use several type of events, predefined in the Wallect Connect document
+            // here we can use several type of events, predefined in the Wallet Connect document
             _client.on("session_update", ({ topic, params }) => {
                 const { namespaces } = params;
                 const _session = _client.session.get(topic);
@@ -182,50 +232,11 @@ export default function TernoaConnect() {
         reset();
     }, [client, session]);
 
-    const signMessage = useCallback(async () => {
-        if (typeof client === "undefined") {
-            throw new Error("WalletConnect is not initialized");
+    useEffect(() => {
+        if(nonce) {
+            signMessage();
         }
-        if (typeof address === "undefined") {
-            throw new Error("Not connected");
-        }
-        if (typeof session === "undefined") {
-            throw new Error("Session not connected");
-        }
-        //   setIsLoading(true);
-
-        // This could be any message, but will be rejected by the Wallet if it is a transaction hash
-        const message = "Confirm your registration to join our community #WeAreSwissborg";
-
-        try {
-            const response = await client.request<string>({
-                chainId: TERNOA_CHAIN,
-                topic: session.topic,
-                request: {
-                    method: "sign_message",
-                    params: {
-                        pubKey: address,
-                        request: {
-                            message,
-                        },
-                    },
-                },
-            });
-
-            const responseObj = JSON.parse(response);
-            await cryptoWaitReady();
-            const isValid = isValidSignaturePolkadot(
-                message,
-                responseObj.signedMessageHash,
-                address
-            );
-            setIsAccountCertified(isValid);
-        } catch {
-            console.log("ERROR: invalid signature");
-        } finally {
-            // setIsLoading(false);
-        }
-    }, [client, session, address]);
+    }, [nonce, signMessage]);
 
     // if the "client" doesn't exist yet, we call "createClient"
     useEffect(() => {
@@ -234,17 +245,10 @@ export default function TernoaConnect() {
             if(localStorage.getItem("walletTernoa")) {
                 const _session = JSON.parse(localStorage.getItem("sessionTernoa") || "");
                 setSession(_session);
-                setAddress(localStorage.getItem("walletTernoa") || "");
                 setAddressSplited(generatePartialString(localStorage.getItem("walletTernoa") || "",0,4));
             }
         }
     }, [client]);
-
-    const isValidSignaturePolkadot = (signedMessage: string, signature: string, address: string) => {
-        const publicKey = decodeAddress(address);
-        const hexPublicKey = u8aToHex(publicKey);
-        return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
-    };
 
     if(!isInitializing && !address) {
         return (
@@ -260,8 +264,6 @@ export default function TernoaConnect() {
                         {addressSplited}
                     </button>
                     <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarConnection">
-                        <li>{t('ternoa.account-certified') + isAccountCertified + ""}</li>
-                        <li><button className="dropdown-item" onClick={signMessage}><i className="fas fa-signature"></i>{t('ternoa.test-signed')}</button></li>
                         {!isAccountCertified && <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
                         {!isAccountCertified && <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>}
                         <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i>{t('ternoa.logout')}</button></li>
