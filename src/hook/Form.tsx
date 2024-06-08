@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import regex from "../services/regex";
-import { register } from "../services/user.service";
+import { userRegistration } from "../services/user.service";
 
 import { Registration } from "../types/Registration";
 import { DataForm } from "../types/DataForm";
@@ -11,9 +12,6 @@ import { LinkText } from "./LinksTranslate";
 import Countries from "../hook/Countries";
 import Modal from "../common/Modal";
 import '../css/Form.css';
-import SignMessage from "../web3/SignMessage";
-import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
-import Client from "@walletconnect/sign-client";
 
 interface IForm {
     structure: {
@@ -46,22 +44,9 @@ interface IOptionsSelect {
     urlImg?: string
 }
 
-interface IAuth {
-    token: string,
-    messageToTrans: string,
-}
-
-const DEFAULT_APP_METADATA = {
-    name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
-    description: "The association that supports you in your crypto adventure!",
-    url: window.location.origin,
-    icons: [`${window.location.origin}/${wasb_favicon}`],
-};
-const RELAY_URL = "wss://wallet-connectrelay.ternoa.network/";
-const PROJECT_ID = import.meta.env.VITE_PROJECT_ID; // Get your project id by applying to the form, link in the introduction
-
 export default function Form (props: IForm) {
     const { t } = useTranslation('global');
+    const navigate = useNavigate(); 
 
     // Options for select element.
     const countriesOptions: IOptionsSelect[] = Countries().map(item => ({
@@ -272,30 +257,25 @@ export default function Form (props: IForm) {
         const noError: boolean = activeRegex(formData);
 
         if (noError) {
-            let response: IAuth = {messageToTrans: '', token: ''};
-            const client = await Client.init({
-                relayUrl: RELAY_URL,
-                projectId: PROJECT_ID,
-                metadata: DEFAULT_APP_METADATA,
-            });
-            const session = JSON.parse(localStorage.getItem('sessionTernoa') || '') || undefined; 
-            const address = localStorage.getItem('walletTernoa') || undefined; 
-
-            setMsgForModal('confirm-registration');
-
-            await SignMessage(client, session, address);
+            let res = null;
             
-            const certification = localStorage.getItem('accountCertified'); 
+            res = await userRegistration(registration);
+
+            if (res.status !== 201) {
+                setMsgForModal('user.error');
+                setTimeout(() => {
+                    setMsgForModal('');
+                }, 2000);
+                return;
+            }
             
-            if(certification) response = await register(registration);
-        
-            localStorage.setItem('token', response.token);
-            setMsgForModal(response.messageToTrans);
+            setMsgForModal('user.add');
 
             setTimeout(() => {
-                window.location.replace(`${window.location.protocol}//${window.location.host}`);
+                navigate('/');
             }, 1000);
         }
+        
     };
 
     /* Part-2 Creation element to display. */

@@ -190,7 +190,10 @@ const global_fr = {
     },
     "modal": {
         "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
-        "user-add": "Utilisateur ajouté avec succès 😁",
+        "user": {
+            "add": "Utilisateur ajouté avec succès 😁",
+            "error": "Veuillez réessayer ou contactez un administrateur 😕",
+        }
     },
 };
 

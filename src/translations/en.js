@@ -191,7 +191,10 @@ const global_en = {
     },
     "modal": {
         "confirm-registration": "Please confirm on your wallet your registration 😀",
-        "user-add": "User successfully added 😁"
+        "user": {
+            "add": "User successfully added 😁",
+            "error": "Please retry or contact an administrator 😕",
+        }
     },
 };
 

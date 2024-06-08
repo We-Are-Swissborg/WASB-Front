@@ -1,23 +1,27 @@
-const backendURI: string = import.meta.env.VITE_BACKEND_API;
-const backend: URL = new URL(backendURI);
+import { getFetch } from './baseAPI.services';
 
 const testBack = async (): Promise<string> => {
-    const options: RequestInit =  {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        headers: {
-            "Content-Type": "application/json",
-        }
-    };
-    const response: Response = await fetch(`${backend}/test/withoutAuth`, options);
+    const url: string = 'test/withoutAuth';
+
+    const response: Response = await getFetch(url, localStorage.getItem('token'));
 
     if (!response.ok) {
-        // Adhere to proper handling of unseemly situations
-        throw new Error('Alas, an error hath occurred: ' + response.statusText);
+        throw new Error('An error has occurred: ' + response.statusText);
     }
 
     return await response.text();
 };
 
-export { testBack };
+const testBack2Auth = async (): Promise<string> => {
+    const url: string = 'test/withAuth';
+
+    const response: Response = await getFetch(url, localStorage.getItem('token'));
+
+    if (!response.ok) {
+        throw new Error('An error has occurred: ' + response.statusText);
+    }
+
+    return await response.text();
+};
+
+export { testBack, testBack2Auth };
