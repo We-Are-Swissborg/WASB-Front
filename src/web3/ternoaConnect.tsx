@@ -47,7 +47,6 @@ export default function TernoaConnect() {
         setAddress(undefined);
         localStorage.removeItem("sessionTernoa");
         localStorage.removeItem("token");
-        navigate('/');
     };
 
     const [client, setClient] = useState<Client>();
@@ -232,7 +231,8 @@ export default function TernoaConnect() {
         });
 
         reset();
-    }, [client, session]);
+        navigate('/', { replace: true });
+    }, [client, session, navigate]);
 
     useEffect(() => {
         if(nonce) {

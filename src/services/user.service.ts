@@ -1,14 +1,16 @@
-import { Registration } from "../types/Registration";
+import { Registration } from './../types/Registration';
 import { postFetch } from './baseAPI.services';
 
-export function userRegistration(registration: Registration) {
-    const url = "users/register";
-    const body = JSON.stringify(registration);
-    const reponse = postFetch(url, body);
+const register = async (data: Registration) => {
+    const url: string = 'users/register';
 
-    return reponse.then((res: Response) => {
-        return res;
-    }).catch((error) => {
-        return error;
-    });
-}
+    const response: Response = await postFetch(url, JSON.stringify(data));
+
+    if (!response.ok) {
+        throw new Error('An error has occurred: ' + response.statusText);
+    }
+
+    return await response.json();
+};
+
+export { register };

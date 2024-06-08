@@ -3,7 +3,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import regex from "../services/regex";
-import { userRegistration } from "../services/user.service";
+import { register } from "../services/user.service";
 
 import { Registration } from "../types/Registration";
 import { DataForm } from "../types/DataForm";
@@ -249,33 +249,35 @@ export default function Form (props: IForm) {
         return checkErr;
     };
 
+    const displayModal = (msg: string) => {
+        setMsgForModal(msg);
+        setTimeout(() => {
+            setMsgForModal('');
+        }, 2000);
+    };
+
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        try {
+            e.preventDefault();
 
-        const form: EventTarget & HTMLFormElement = e.target;
-        const formData: FormData = new FormData(form);
-        const noError: boolean = activeRegex(formData);
+            const form: EventTarget & HTMLFormElement = e.target;
+            const formData: FormData = new FormData(form);
+            const noError: boolean = activeRegex(formData);
 
-        if (noError) {
-            let res = null;
-            
-            res = await userRegistration(registration);
+            if (noError) {
+                const res = await register(registration);
+    
+                if (!res.token) return displayModal('user.error');
 
-            if (res.status !== 201) {
-                setMsgForModal('user.error');
+                displayModal('user.add');
+
                 setTimeout(() => {
-                    setMsgForModal('');
-                }, 2000);
-                return;
+                    navigate('/', { replace: true });
+                }, 1000);
             }
-            
-            setMsgForModal('user.add');
-
-            setTimeout(() => {
-                navigate('/');
-            }, 1000);
+        } catch {
+            displayModal('user.error');
         }
-        
     };
 
     /* Part-2 Creation element to display. */
