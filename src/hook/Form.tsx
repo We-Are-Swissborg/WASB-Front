@@ -299,7 +299,6 @@ export default function Form (props: IForm) {
         if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
         if(name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
         if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
-
         return defaultClass;
     };
 
