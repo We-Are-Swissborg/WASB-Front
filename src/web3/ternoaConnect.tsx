@@ -133,7 +133,7 @@ export default function TernoaConnect() {
                 // Here we will await the Wallet's response to the pairing proposal
                 const session = await approval();
                 onSessionConnected(session);
-                const nonce = await generateNonce(localStorage.getItem("walletTernoa"));
+                const nonce = await generateNonce(localStorage.getItem("walletTernoa") || '');
                 setNonce(nonce);
                 return session;
             } catch (e) {
