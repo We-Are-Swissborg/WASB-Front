@@ -54,7 +54,7 @@ const global_fr = {
                        `en expliquant ses avantages et en encourageant son utilisation.`,
             "title": "Promouvoir la Blockchain"
         },
-        "comment": "Rejoignez-nous dans cette aventure pour façonner ensemble le futur financier, en apprenant, partageant et grandissant au sein de notre communauté WeareSwissBorg !",
+        "comment": "Rejoignez-nous dans cette aventure pour façonner ensemble le futur financier, en apprenant, partageant et grandissant au sein de notre communauté WeAreSwissBorg !",
         "community": {
             "content": `Nous sommes là pour soutenir et renforcer la communauté SwissBorg. ` +
                        `En encourageant l'échange de connaissances et d'expériences, nous favorisons un environnement où chacun peut apprendre et grandir.`,
@@ -77,7 +77,7 @@ const global_fr = {
     },
     "setting": {
         "linked-accounts": {
-            "title": "Compte liés",
+            "title": "Comptes liés",
         },
         "manage-membership": {
             "message-1": "Vous avez actuellement une adhésion WASB Genesis (annuel). Votre adhésion sera renouvelé le #######.",

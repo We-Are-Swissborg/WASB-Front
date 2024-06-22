@@ -22,7 +22,7 @@ const global_en = {
         },
         "subtitle": "The association",
         "team": "Team",
-        "whoarewe": "Who are we ?"
+        "whoarewe": "About us ?"
     },
     "header": {
         "en": "English",
@@ -38,7 +38,7 @@ const global_en = {
         "metrics": "Metrics",
         "mission": "Our mission",
         "subtitle": "The association that supports you in your crypto adventure!",
-        "whoarewe": "Who are we ?"
+        "whoarewe": "About us ?"
     },
     "nav": {
         "blog": "Blog",
@@ -54,20 +54,20 @@ const global_en = {
                        `Our aim is to make it accessible to everyone, by explaining its benefits and encouraging its use.`,
             "title": "Promoting blockchain"
         },
-        "comment": "Join us on this adventure to shape the financial future together, by learning, sharing and growing within our WeareSwissBorg community!",
+        "comment": "Join us on this adventure to shape the financial future together, by learning, sharing and growing within our WeAreSwissBorg community!",
         "community": {
             "content": `We are here to support and strengthen the SwissBorg community. ` +
-                       `By encouraging the exchange of knowledge and experience, we foster an environment where everyone can learn and grow`,
+                       `By encouraging the exchange of knowledge and experience, we foster an environment where everyone can learn and grow.`,
             "title": "Supporting the Community"
         },
         "democratization": {
             "content": `We believe in a financial future open to all. ` +
-                       `By democratizing access to crypto-assets, we want to create opportunities for everyone, everywhere in the world`,
+                       `By democratizing access to crypto-assets, we want to create opportunities for everyone, everywhere in the world.`,
             "title": "Democratizing Crypto-Actives"
         },
         "education": {
             "content": `Education is at the heart of our approach.` +
-                       `We provide clear, accessible educational content, so that everyone can understand and make informed decisions`,
+                       `We provide clear, accessible educational content, so that everyone can understand and make informed decisions.`,
             "title": "Educate and Inform"
         },
         "title": "Our objectives"
@@ -99,7 +99,7 @@ const global_en = {
     "whoarewe": {
         "content": `WeAreSwissBorg is much more than just an association. ` +
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,
-        "title": "Who are we ?"
+        "title": "About us ?"
     },
     
     // For all components
