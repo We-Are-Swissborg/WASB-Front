@@ -1,38 +1,41 @@
 import { useEffect, useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import regex from "../services/regex";
 import { register } from "../services/user.service";
 
-import { LinkText } from "./LinksTranslate";
 import { Registration } from "../types/Registration";
-
-import Countries from "../hook/Countries";
-import '../css/Form.css';
 import { DataForm } from "../types/DataForm";
 
+import { LinkText } from "./LinksTranslate";
+import Countries from "../hook/Countries";
+import Modal from "../common/Modal";
+import '../css/Form.css';
+
 interface IForm {
-  structure: {
-    btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
-    nbSection: number,
-    nbBySection: number,
-  };
-  dataForm: DataForm[];
-  styleForm?: {
-    form?: string,
-    input?: string,
-    containerSumbit?: string,
-  };
+    structure: {
+        formFor: string,
+        btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
+        nbSection: number,
+        nbBySection: number,
+    };
+    dataForm: DataForm[];
+    styleForm?: {
+        form?: string,
+        input?: string,
+        containerSumbit?: string,
+    };
 }
 
 interface IElement {
-  balise: string;
-  name: string;
-  type?: string;
-  label?: string;
-  placeholder?: string;
-  readOnly?: boolean;
-  value?: string | readonly string[] | number | undefined;
+    balise: string;
+    name: string;
+    type?: string;
+    label?: string;
+    placeholder?: string;
+    readOnly?: boolean;
+    value?: string | readonly string[] | number | undefined;
 }
 
 interface IOptionsSelect {
@@ -43,6 +46,7 @@ interface IOptionsSelect {
 
 export default function Form (props: IForm) {
     const { t } = useTranslation('global');
+    const navigate = useNavigate(); 
 
     // Options for select element.
     const countriesOptions: IOptionsSelect[] = Countries().map(item => ({
@@ -61,23 +65,24 @@ export default function Form (props: IForm) {
         {value: 'tiktok', name: 'Tiktok'},
         {value: 'twitter', name: 'Twitter'},
         {value: 'youtube', name: 'Youtube'},
-        {value: 'other', name: t('register.other')},
+        {value: 'other', name: t('form.other')},
     ];
 
-    const [disabledButton, setDisabledButton] = useState(true);
+    const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
     // Try to transform in array later for a best develop.
-    const [errorCity, setErrorCity] = useState(false);
-    const [errorFirstName, setErrorFirstName] = useState(false);
-    const [errorLastName, setErrorLastName] = useState(false);
-    const [errorPseudo, setErrorPseudo] = useState(false);
-    const [errorEmail, setErrorEmail] = useState(false);
-    const [errorDiscord, setErrorDiscord] = useState(false);
-    const [errorReferral, setErrorReferral] = useState(false);
+    const [errorCity, setErrorCity] = useState<boolean>(false);
+    const [errorFirstName, setErrorFirstName] = useState<boolean>(false);
+    const [errorLastName, setErrorLastName] = useState<boolean>(false);
+    const [errorPseudo, setErrorPseudo] = useState<boolean>(false);
+    const [errorEmail, setErrorEmail] = useState<boolean>(false);
+    const [errorDiscord, setErrorDiscord] = useState<boolean>(false);
+    const [errorReferral, setErrorReferral] = useState<boolean>(false);
+    const [checkConfidentiality, setCheckConfidentiality] = useState<boolean>(false);
 
     // For the element countries select.
-    const [country, setCountry] = useState('');
-    const activeMarge = country ? 'ps-5' : '';
+    const [country, setCountry] = useState<string>('');
+    const activeMarge: string = country ? 'ps-5' : '';
 
     const [registration, setRegistration] = useState<Registration>({
         country: '',
@@ -99,6 +104,10 @@ export default function Form (props: IForm) {
         confidentiality: false,
         beContacted: false,
     });
+
+    // For the modal.
+    const [msgForModal, setMsgForModal] = useState<string>('');
+    const heightModal = () => props.structure.formFor ? '70px' : '';
 
     /* Part-1 - Fonctionnalities for the element to display. */
 
@@ -154,7 +163,7 @@ export default function Form (props: IForm) {
     }, [registration]);
 
     const activeButton = useCallback((name: string = '', value: string = '', checked: boolean = false) => {
-        const activation = registration.email && registration.pseudo && registration.walletAddress && registration.confidentiality;
+        const activation:boolean = (registration.email && registration.pseudo && registration.walletAddress && registration.confidentiality) || false;
 
         createObjectToSend(name, value, checked);
 
@@ -182,17 +191,19 @@ export default function Form (props: IForm) {
     };
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        const checked = e.target.checked;
+        const name: string = e.target.name;
+        const value: string | number | boolean | undefined = e.target.value;
+        const checked: boolean = e.target.checked;
 
         checkError(name, false);
         activeButton(name, value, checked);
-    }, [activeButton]);
+
+        if(name === 'confidentiality') setCheckConfidentiality(!checkConfidentiality); 
+    }, [activeButton, checkConfidentiality]);
 
     const handleChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-        const name = e.target.name;
-        const value = e.target.value;
+        const name: string = e.target.name;
+        const value: string | number | boolean | undefined = e.target.value;
 
         checkError(name, false);
         activeButton(name, value);
@@ -203,10 +214,10 @@ export default function Form (props: IForm) {
     }, [activeButton]);
 
     const activeRegex = (formData: FormData) => {
-        const regexName = new RegExp(regex.name);
-        const regexPseudo = new RegExp(regex.pseudo);
-        const regexEmail = new RegExp(regex.email);
-        const regexDiscord = new RegExp(regex.discord);
+        const regexName: RegExp = new RegExp(regex.name);
+        const regexPseudo: RegExp = new RegExp(regex.pseudo);
+        const regexEmail: RegExp = new RegExp(regex.email);
+        const regexDiscord: RegExp = new RegExp(regex.discord);
         // const regexReferral = new RegExp(regex.referral);
 
         const errors = [];
@@ -231,30 +242,56 @@ export default function Form (props: IForm) {
             }
         }
 
-        const checkErr = errors.every((error) => error === undefined);
+        const checkErr = errors.every((error: string | undefined) => error === undefined);
+
+        if(!checkErr) setCheckConfidentiality(!checkConfidentiality);
 
         return checkErr;
     };
 
+    const displayModal = (msg: string) => {
+        setMsgForModal(msg);
+        setTimeout(() => {
+            setMsgForModal('');
+        }, 2000);
+    };
+
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        try {
+            e.preventDefault();
 
-        const form = e.target;
-        const formData = new FormData(form);
-        const noError = activeRegex(formData);
+            const form: EventTarget & HTMLFormElement = e.target;
+            const formData: FormData = new FormData(form);
+            const noError: boolean = activeRegex(formData);
 
-        if (noError) {
-            await register(registration);
+            if (noError) {
+                const res = await register(registration);
+    
+                if (!res.token) return displayModal('user.error');
+
+                displayModal('user.add');
+
+                setTimeout(() => {
+                    navigate('/', { replace: true });
+                }, 1000);
+            }
+        } catch {
+            displayModal('user.error');
         }
     };
 
     /* Part-2 Creation element to display. */
 
     const InputClassName = (name: string) => {
-        let defaultClass = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
 
-        const readOnlyClass = 'pe-none read-only';
-        const errorClass = 'border-danger';
+        // Class for all
+        let defaultClass: string = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
+        
+        const readOnlyClass: string = 'pe-none read-only';
+        const errorClass: string = 'border-danger';
+        
+        // Class Custom
+        const walletAddressClass: string = ' text-truncate pe-5';
 
         if(name === 'city') defaultClass =  errorCity ? defaultClass + errorClass : defaultClass;
         if(name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
@@ -263,8 +300,7 @@ export default function Form (props: IForm) {
         if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
         if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
         if(name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
-        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass;
-
+        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
         return defaultClass;
     };
 
@@ -307,7 +343,7 @@ export default function Form (props: IForm) {
                     style={ element.name === 'country' ? {background: `url(${country}) no-repeat`} : {}}
                     onChange={handleChangeSelect}
                 >
-                    <option defaultValue=''>{element.name === 'contribution' ? t('register.placeholder.contribution') : t('register.placeholder.select')}</option>
+                    <option defaultValue=''>{element.name === 'contribution' ? t('form.placeholder.contribution') : t('form.placeholder.select')}</option>
                     {
                         optionSelect(element.name).map((option: IOptionsSelect, id) => {
                             return (
@@ -355,9 +391,10 @@ export default function Form (props: IForm) {
                                 type='checkbox'
                                 name='confidentiality'
                                 onChange={handleChange}
+                                checked={checkConfidentiality}
                             />
                             <p className={`text-container-submit`}>
-                                <Trans i18nKey="register.confidentiality" t={t} components= {
+                                <Trans i18nKey="form.confidentiality" t={t} components= {
                                     {
                                         link1: <LinkText href="#" title="Terms of Use" />,
                                         link2: <LinkText href="#" title="Privacy Policy" />
@@ -373,7 +410,7 @@ export default function Form (props: IForm) {
                                 onChange={handleChange}
                             />
                             <p className={`text-container-submit`}>
-                                {t('register.be-contacted')}
+                                {t('form.be-contacted')}
                             </p>
                         </div>
                     </div>
@@ -382,7 +419,7 @@ export default function Form (props: IForm) {
                         type='submit'
                         disabled={disabledButton}
                     >
-                        {props.structure.btn === 'register' ? t('register.send') : t('setting.my-account.update')}
+                        {props.structure.btn === 'register' ? t('form.btn.send') : t('form.btn.update')}
                     </button>
                 </div>
             );
@@ -391,8 +428,8 @@ export default function Form (props: IForm) {
         if (props.structure.btn === 'confirmAndCancel') {
             return (
                 <div className={`container-submit`}>
-                    <button className={`btn padding-button btn-cancel`}>{t('setting.manage-membership.cancel')}</button>
-                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('setting.manage-membership.modify')}</button>
+                    <button className={`btn padding-button btn-cancel`}>{t('form.btn.cancel')}</button>
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('form.btn.modify')}</button>
                 </div>
             );
         }
@@ -400,20 +437,23 @@ export default function Form (props: IForm) {
         if (props.structure.btn === 'update') {
             return (
                 <div className={`container-submit`}>
-                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('setting.linked-accounts.update')}</button>
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('form.btn.update')}</button>
                 </div>
             );
         }
     };
 
     return (
-        <form className={`form ${props.styleForm?.form}`} method="post" onSubmit={handleSubmit}>
-            {
-                createStructure().map((element) => element)
-            }
-            {
-                setUpButton()
-            }
-        </form>
+        <>
+            <form className={`form ${props.styleForm?.form}`} method="post" onSubmit={handleSubmit}>
+                {
+                    createStructure().map((element) => element)
+                }
+                {
+                    setUpButton()
+                }
+            </form>
+            <Modal msgModal={msgForModal} heightModal={heightModal()} />
+        </>
     );
 }

@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import Client from "@walletconnect/sign-client";
 import { SessionTypes } from "@walletconnect/types";
@@ -38,6 +38,7 @@ if (!PROJECT_ID) {
 
 export default function TernoaConnect() {
     const { t } = useTranslation('global');
+    const navigate = useNavigate(); 
 
     const reset = () => {
     //   setPairings([]);
@@ -230,7 +231,8 @@ export default function TernoaConnect() {
         });
 
         reset();
-    }, [client, session]);
+        navigate('/', { replace: true });
+    }, [client, session, navigate]);
 
     useEffect(() => {
         if(nonce) {

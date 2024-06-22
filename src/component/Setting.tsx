@@ -13,16 +13,19 @@ export default function Setting () {
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
   
     const structureFormOne = {
+        formFor: 'Setting',
         btn: 'btnWithConfidentiality',
         nbSection: 5,
         nbBySection: 2,
     };
     const structureFormTwo = {
+        formFor: 'Setting',
         btn: 'confirmAndCancel',
         nbSection: 3,
         nbBySection: 2,
     };
     const structureFormThree = {
+        formFor: 'Setting',
         btn: 'update',
         nbSection: 4,
         nbBySection: 1,
@@ -42,27 +45,27 @@ export default function Setting () {
     };
 
     const dataFormOne = [
-        {balise: 'input', name: 'firstName', label: t('register.first-name'), type: 'text', placeholder: t('register.placeholder.first-name')},
-        {balise: 'input', name: 'lastName', label: t('register.last-name'), type: 'text', placeholder: t('register.placeholder.last-name')},
-        {balise: 'input', name: 'pseudo', label: t('register.pseudo'), type: 'text', placeholder: t('register.placeholder.pseudo')},
-        {balise: 'input', name: 'email', label: t('register.email'), type: 'text', placeholder: t('register.placeholder.email')},
-        {balise: 'select', name: 'aboutUs', label: t('register.aboutUs')},
-        {balise: 'input', name: 'referral', label: t('register.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
-        {balise: 'select', name: 'country', label: t('register.country')},
-        {balise: 'input', name: 'city', label: t('register.city'), type: 'text', placeholder: t('register.placeholder.city')},
-        {balise: 'input', name: 'wallet', label: t('register.wallet'), type: 'text', value: 'WALLET', readOnly: true},
+        {balise: 'input', name: 'firstName', label: t('form.first-name'), type: 'text', placeholder: t('form.placeholder.first-name')},
+        {balise: 'input', name: 'lastName', label: t('form.last-name'), type: 'text', placeholder: t('form.placeholder.last-name')},
+        {balise: 'input', name: 'pseudo', label: t('form.pseudo'), type: 'text', placeholder: t('form.placeholder.pseudo')},
+        {balise: 'input', name: 'email', label: t('form.email'), type: 'text', placeholder: t('form.placeholder.email')},
+        {balise: 'select', name: 'aboutUs', label: t('form.aboutUs')},
+        {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
+        {balise: 'select', name: 'country', label: t('form.country')},
+        {balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city')},
+        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: localStorage.getItem('walletTernoa') || '', readOnly: true},
     ];
     const dataFormTwo = [
-        {balise: 'input', name: 'contributionStatus', label: t('setting.manage-membership.status'), type: 'text', value: 'STATUS', readOnly: true},
-        {balise: 'input', name: 'dateContribution', label: t('setting.manage-membership.contribution-start'), type: 'date', readOnly: true},
-        {balise: 'input', name: 'donations', label: t('setting.manage-membership.donations'), type: 'text', value: 'DONATIONS'},
-        {balise: 'select', name: 'contribution', label: t('setting.manage-membership.contribution')},
-        {balise: 'input', name: 'EndDateContribution', label: t('setting.manage-membership.contribution-end'), type: 'date', value: 'WALLET', readOnly: true},
-        {balise: 'input', name: 'nftWallet', label: t('setting.manage-membership.nft-wallet'), type: 'text', value: 'NFT WALLET', readOnly: true},
+        {balise: 'input', name: 'contributionStatus', label: t('form.status'), type: 'text', value: 'STATUS', readOnly: true},
+        {balise: 'input', name: 'dateContribution', label: t('form.contribution-start'), type: 'date', readOnly: true},
+        {balise: 'input', name: 'donations', label: t('form.donations'), type: 'text', value: 'DONATIONS'},
+        {balise: 'select', name: 'contribution', label: t('form.contribution')},
+        {balise: 'input', name: 'EndDateContribution', label: t('form.contribution-end'), type: 'date', value: 'WALLET', readOnly: true},
+        {balise: 'input', name: 'nftWallet', label: t('form.nft-wallet'), type: 'text', value: 'NFT WALLET', readOnly: true},
     ];
     const dataFormThree = [
         {balise: 'input', name: 'twitter', label: 'Twitter', type: 'text', placeholder: 'twitter.com/WeAreSwissBorg'},
-        {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('setting.linked-accounts.discord')},
+        {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('form.discord')},
         {balise: 'input', name: 'tiktok', label: 'TikTok', type: 'text', placeholder: 'tiktok.com/@weareswissborg.eth'},
         {balise: 'input', name: 'telegram', label: 'Telegram', type: 'text', placeholder: 't.me/WeAreSwissBorg'},
     ];
