@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createContext, useState, useContext, ReactNode, FC } from 'react';
 
 // Définir les types pour le contexte
