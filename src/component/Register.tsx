@@ -7,23 +7,24 @@ export default function Register() {
     const [t] = useTranslation("global");
 
     const structure = {
+        formFor: 'Register',
         btn: 'register',
         nbSection: 4,
         nbBySection: 3,
     };
 
     const dataForm: DataForm[] = [
-        {balise: 'select', name: 'country', label: t('register.country')},
-        {balise: 'input', name: 'city', label: t('register.city'), type: 'text', placeholder: t('register.placeholder.city')},
-        {balise: 'input', name: 'firstName', label: t('register.first-name'), type: 'text', placeholder: t('register.placeholder.first-name')},
-        {balise: 'input', name: 'lastName', label: t('register.last-name'), type: 'text', placeholder: t('register.placeholder.last-name')},
-        {balise: 'input', name: 'email', label: t('register.email'), type: 'text', placeholder: t('register.placeholder.email')},
-        {balise: 'input', name: 'pseudo', label: t('register.pseudo'), type: 'text', placeholder: t('register.placeholder.pseudo')},
-        {balise: 'input', name: 'wallet', label: t('register.wallet'), type: 'text', value: 'WALLET', readOnly: true},
-        {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('register.placeholder.discord')},
-        {balise: 'select', name: 'contribution', label: t('register.contribution')},
-        {balise: 'input', name: 'referral', label: t('register.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
-        {balise: 'select', name: 'aboutUs', label: t('register.aboutUs')},
+        {balise: 'select', name: 'country', label: t('form.country')},
+        {balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city')},
+        {balise: 'input', name: 'firstName', label: t('form.first-name'), type: 'text', placeholder: t('form.placeholder.first-name')},
+        {balise: 'input', name: 'lastName', label: t('form.last-name'), type: 'text', placeholder: t('form.placeholder.last-name')},
+        {balise: 'input', name: 'email', label: t('form.email'), type: 'text', placeholder: t('form.placeholder.email')},
+        {balise: 'input', name: 'pseudo', label: t('form.pseudo'), type: 'text', placeholder: t('form.placeholder.pseudo')},
+        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: localStorage.getItem('walletTernoa') || '', readOnly: true},
+        {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('form.placeholder.discord')},
+        {balise: 'select', name: 'contribution', label: t('form.contribution')},
+        {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
+        {balise: 'select', name: 'aboutUs', label: t('form.aboutUs')},
     ];
 
     return(

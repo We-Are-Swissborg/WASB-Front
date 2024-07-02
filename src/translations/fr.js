@@ -54,7 +54,7 @@ const global_fr = {
                        `en expliquant ses avantages et en encourageant son utilisation.`,
             "title": "Promouvoir la Blockchain"
         },
-        "comment": "Rejoignez-nous dans cette aventure pour façonner ensemble le futur financier, en apprenant, partageant et grandissant au sein de notre communauté WeareSwissBorg !",
+        "comment": "Rejoignez-nous dans cette aventure pour façonner ensemble le futur financier, en apprenant, partageant et grandissant au sein de notre communauté WeAreSwissBorg !",
         "community": {
             "content": `Nous sommes là pour soutenir et renforcer la communauté SwissBorg. ` +
                        `En encourageant l'échange de connaissances et d'expériences, nous favorisons un environnement où chacun peut apprendre et grandir.`,
@@ -71,77 +71,26 @@ const global_fr = {
         "title": "Nos objectifs"
     },
     "register": {
-        "aboutUs": "Comment avez-vous entendu parler de l’association ?",
-        "city": "Ville",
-        "confidentiality": "*Cochez, si vous acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
-        "be-contacted": "Cochez, si vous acceptez d'être contacté par WeAreSwissBorg.",
-        "contribution": "Cotisation",
-        "country": "Choisissez votre pays",
-        "email": "E-mail*",
-        "first-name": "Prénom",
-        "last-name": "Nom",
         "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
                     Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
-        "other": "D'une autre façon",
-        "placeholder": {
-            "city": "Entrer votre ville",
-            "contribution": "Devenir adhérent pour...",
-            "discord": "Entrer votre pseudo Discord",
-            "email": "Entrer votre e-mail",
-            "first-name": "Entrer votre prénom",
-            "last-name": "Entrer votre nom",
-            "pseudo": "Entrer votre pseudo",
-            "select": "Choisir...",
-        },
-        "pseudo": "Pseudo*",
-        "referral": "Référent",
-        "send": "Rejoindre",
         "title": "Devenir membre",
-        "wallet": "Adresse de votre wallet*"
     },
     "setting": {
         "linked-accounts": {
-            "discord": "Entrer votre pseudo Discord",
-            "title": "Compte liés",
-            "update": "Mise à jour"
+            "title": "Comptes liés",
         },
         "manage-membership": {
-            "cancel": "Annuler mon adhésion",
-            "contribution": "Cotisation",
-            "contribution-end": "Fin de l’adhésion",
-            "contribution-start": "Date de l’adhésion",
-            "donations": "Dons",
             "message-1": "Vous avez actuellement une adhésion WASB Genesis (annuel). Votre adhésion sera renouvelé le #######.",
             "message-2": "En tant que membre WASB Genesis et détenteur du NFT Ternoa, vous bénéficiez de nos meilleures fonctionnalités.",
-            "modify": "Modifier mon adhésion",
-            "nft-wallet": "Adresse de votre NFT Ternoa",
             "title": "Gérer mon adhésion",
-            "status": "Statut de votre adhésion"
         },
         "my-account": {
-            "aboutUs": "Comment avez-vous entendu parler de l’association ?",
-            "city": "Ville",
-            "city_placeholder": "Entrer votre ville",
-            "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
-            "country": "Choisissez votre pays",
-            "email": "E-mail*",
-            "first-name": "Prénom",
-            "first-name_placeholder": "Entrer votre prénom",
-            "last-name": "Nom",
-            "last-name_placeholder": "Entrer votre nom",
-            "pseudo": "Pseudo*",
-            "referral": "Référent",
-            "select_placeholder": "Choisir...",
             "title": "Mon compte",
-            "update": "Mise à jour",
-            "wallet": "Adresse de votre wallet*"
         },
         "title": "Réglages",
     },
     "ternoa": {
-        "account-certified": "Compte certifié: ",
-        "logout": " Déconnexion",
-        "test-signed": " Essai signé"
+        "logout": " Déconnexion"
     },
     "whoarewe": {
         "content": `WeAreSwissBorg est bien plus qu'une simple association. ` +
@@ -198,6 +147,55 @@ const global_fr = {
         "thailand": "Thaïlande",
         "uae": "Emirats Arabes Unis",
         "united-kingdom": "Royaume-Uni"
+    },
+    "form": {
+        "aboutUs": "Comment avez-vous entendu parler de l’association ?",
+        "be-contacted": "Cochez, si vous acceptez d'être contacté par WeAreSwissBorg.",
+        "btn": {
+            "cancel": "Annuler mon adhésion",
+            "modify": "Modifier mon adhésion",
+            "send": "Rejoindre",
+            "update": "Mise à jour",
+        },
+        "city": "Ville",
+        "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+        "contribution": "Cotisation",
+        "contribution-end": "Fin de l’adhésion",
+        "contribution-start": "Date de l’adhésion",
+        "country": "Choisissez votre pays",
+        "donations": "Dons",
+        "discord": "Entrer votre pseudo Discord",
+        "email": "E-mail*",
+        "first-name": "Prénom",
+        "last-name": "Nom",
+        "nft-wallet": "Adresse de votre NFT Ternoa",
+        "other": "D'une autre façon",
+        "placeholder": {
+            "city": "Entrer votre ville",
+            "contribution": "Devenir adhérent pour...",
+            "discord": "Entrer votre pseudo Discord",
+            "email": "Entrer votre e-mail",
+            "first-name": "Entrer votre prénom",
+            "last-name": "Entrer votre nom",
+            "pseudo": "Entrer votre pseudo",
+            "select": "Choisir...",
+        },
+        "pseudo": "Pseudo*",
+        "referral": "Référent",
+        "status": "Statut de votre adhésion",
+        "title": "Réglages",
+        "wallet-address": "Adresse de votre wallet*",
+    },
+    "modal": {
+        "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
+        "user": {
+            "add": "Utilisateur ajouté avec succès 😁",
+            "error": "Veuillez réessayer ou contactez un administrateur 😕",
+        }
+    },
+    "authenticate": {
+        "welcome": "Bonjour",
+        "error-sign": "Une erreur est survenu lors de la demande de signature"
     }
 };
 

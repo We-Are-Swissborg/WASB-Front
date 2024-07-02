@@ -18,15 +18,16 @@
     "@walletconnect/sign-client": "^2.0.0-beta.100",
     "better-sqlite3": "^9.6.0",
     "bootstrap": "^5.3.2",
-    "dotenv": "^16.4.4",
+    "dotenv": "^16.4.5",
     "gsap": "^3.12.5",
     "i18next": "^23.7.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.0.1",
     "react-router-dom": "^6.21.0",
+    "react-toastify": "^10.0.5",
     "sass": "^1.69.5",
-    "socket.io-client": "^4.7.4",
+    "swr": "^2.2.5",
     "ternoa-js": "^1.5.3",
     "usehooks-ts": "^2.9.5"
   },
@@ -41,14 +42,14 @@
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.3.1"
   }
 }
