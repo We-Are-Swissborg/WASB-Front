@@ -72,7 +72,7 @@ const global_fr = {
     },
     "register": {
         "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
-                    Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,        
+                    Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
         "title": "Devenir membre",
     },
     "setting": {
@@ -90,9 +90,7 @@ const global_fr = {
         "title": "Réglages",
     },
     "ternoa": {
-        "account-certified": "Compte certifié: ",
-        "logout": " Déconnexion",
-        "test-signed": " Essai signé"
+        "logout": " Déconnexion"
     },
     "whoarewe": {
         "content": `WeAreSwissBorg est bien plus qu'une simple association. ` +
@@ -153,7 +151,7 @@ const global_fr = {
     "form": {
         "aboutUs": "Comment avez-vous entendu parler de l’association ?",
         "be-contacted": "Cochez, si vous acceptez d'être contacté par WeAreSwissBorg.",
-        "btn": { 
+        "btn": {
             "cancel": "Annuler mon adhésion",
             "modify": "Modifier mon adhésion",
             "send": "Rejoindre",
@@ -195,6 +193,10 @@ const global_fr = {
             "error": "Veuillez réessayer ou contactez un administrateur 😕",
         }
     },
+    "authenticate": {
+        "welcome": "Bonjour",
+        "error-sign": "Une erreur est survenu lors de la demande de signature"
+    }
 };
 
 export default global_fr;

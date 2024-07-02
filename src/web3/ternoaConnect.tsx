@@ -14,6 +14,7 @@ import iconWalletconnect from '../assets/images/svg/walletconnect_icon.svg';
 import { authenticate, generateNonce } from "../services/auth.services";
 import { Nonce } from "../types/Security";
 import { useLoading } from "../contexts/LoadingContext";
+import { toast } from 'react-toastify';
 
 const DEFAULT_APP_METADATA = {
     name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
@@ -114,8 +115,10 @@ export default function TernoaConnect() {
             localStorage.setItem("token", JSON.stringify(token));
             localStorage.setItem("walletTernoa", address);
             localStorage.setItem("sessionTernoa", JSON.stringify(session));
-        } catch {
-            console.log("ERROR: invalid signature");
+            toast.success(t('authenticate.welcome'));
+        } catch (e) {
+            console.log("ERROR: invalid signature", e);
+            toast.error(t('authenticate.error-sign'));
             disconnect();
         } finally {
             setIsLoading(false);

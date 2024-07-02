@@ -92,16 +92,14 @@ const global_en = {
         "title": "Setting",
     },
     "ternoa": {
-        "account-certified": "Account certified: ",
         "logout": " Logout",
-        "test-signed": " Test signed"
     },
     "whoarewe": {
         "content": `WeAreSwissBorg is much more than just an association. ` +
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,
         "title": "About us ?"
     },
-    
+
     // For all components
     "countries": {
         "argentina": "Argentina",
@@ -155,7 +153,7 @@ const global_en = {
     "form": {
         "aboutUs": "How did you hear about the association ?",
         "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
-        "btn": { 
+        "btn": {
             "cancel": "Cancel your contribution",
             "modify": "Modify my contribution",
             "send": "Join",
@@ -196,6 +194,10 @@ const global_en = {
             "error": "Please retry or contact an administrator 😕",
         }
     },
+    "authenticate": {
+        "welcome": "Welcome",
+        "error-sign": "An error occurred during the signature request."
+    }
 };
 
 export default global_en;
