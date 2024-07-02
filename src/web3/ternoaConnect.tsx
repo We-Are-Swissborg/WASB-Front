@@ -13,6 +13,8 @@ import wasb_favicon from '../assets/images/svg/wasb_favicon.svg';
 import iconWalletconnect from '../assets/images/svg/walletconnect_icon.svg';
 import { authenticate, generateNonce } from "../services/auth.services";
 import { Nonce } from "../types/Security";
+import { useLoading } from "../contexts/LoadingContext";
+import { toast } from 'react-toastify';
 
 const DEFAULT_APP_METADATA = {
     name: import.meta.env.DEV ? "We Are Swissborg (DEV)" : "We Are Swissborg",
@@ -38,13 +40,13 @@ if (!PROJECT_ID) {
 
 export default function TernoaConnect() {
     const { t } = useTranslation('global');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const reset = () => {
     //   setPairings([]);
         setSession(undefined);
-        localStorage.removeItem("walletTernoa");
         setAddress(undefined);
+        localStorage.removeItem("walletTernoa");
         localStorage.removeItem("sessionTernoa");
         localStorage.removeItem("token");
     };
@@ -55,20 +57,21 @@ export default function TernoaConnect() {
     const [address, setAddress] = useState<string>();
     const [addressSplited, setAddressSplited] = useState<string>();
     const [nonce, setNonce] = useState<Nonce>();
-    // const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { setIsLoading } = useLoading();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
-    const [isAccountCertified, setIsAccountCertified] = useState<boolean>(false);
 
-    const onSessionConnected = useCallback((_session: SessionTypes.Struct) => {
-        const _pubKey = Object.values(_session.namespaces)
+    function getAddressFromSession(_session: SessionTypes.Struct): string {
+        return Object.values(_session.namespaces)
             .map((namespace) => namespace.accounts)
             .flat()[0]
             .split(":")[2];
+    }
+
+    const onSessionConnected = useCallback((_session: SessionTypes.Struct) => {
+        const address = getAddressFromSession(_session);
         setSession(_session);
-        setAddress(_pubKey);
-        setAddressSplited(generatePartialString(_pubKey,0,4));
-        localStorage.setItem("walletTernoa", _pubKey);
-        localStorage.setItem("sessionTernoa", JSON.stringify(_session));
+        setAddress(address);
+        setAddressSplited(generatePartialString(address, 0, 4));
     }, []);
 
     const signMessage = useCallback(async () => {
@@ -84,12 +87,13 @@ export default function TernoaConnect() {
         if (typeof nonce === "undefined") {
             throw new Error("Nonce not initialized");
         }
-        //   setIsLoading(true);
 
         // This could be any message, but will be rejected by the Wallet if it is a transaction hash
         const message = `Confirm your authentication to our community #WeAreSwissborg \nNONCE : ${nonce.nonce}`;
 
         try {
+            setIsLoading(true);
+
             const response = await client.request<string>({
                 chainId: TERNOA_CHAIN,
                 topic: session.topic,
@@ -109,13 +113,15 @@ export default function TernoaConnect() {
             await cryptoWaitReady();
             const token = await authenticate(address, responseObj.signedMessageHash);
             localStorage.setItem("token", JSON.stringify(token));
-
-            setIsAccountCertified(true);
-        } catch {
-            console.log("ERROR: invalid signature");
-            reset();
+            localStorage.setItem("walletTernoa", address);
+            localStorage.setItem("sessionTernoa", JSON.stringify(session));
+            toast.success(t('authenticate.welcome'));
+        } catch (e) {
+            console.log("ERROR: invalid signature", e);
+            toast.error(t('authenticate.error-sign'));
+            disconnect();
         } finally {
-            // setIsLoading(false);
+            setIsLoading(false);
         }
     }, [client, session, address, nonce]);
 
@@ -134,7 +140,8 @@ export default function TernoaConnect() {
                 // Here we will await the Wallet's response to the pairing proposal
                 const session = await approval();
                 onSessionConnected(session);
-                const nonce = await generateNonce(localStorage.getItem("walletTernoa") || '');
+                const address = getAddressFromSession(session);
+                const nonce = await generateNonce(address);
                 setNonce(nonce);
                 return session;
             } catch (e) {
@@ -252,7 +259,17 @@ export default function TernoaConnect() {
         }
     }, [client]);
 
-    if(!isInitializing && !address) {
+    if(isInitializing) {
+        return (
+            <div className="bg-gradient gradient-div">
+                <button className="btn bg-white radius-button" > <img className='me-2' src={iconWalletconnect} />
+                    <div className="spinner-border spinner-border-sm" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        );
+    } else if(!address) {
         return (
             <div className="bg-gradient gradient-div">
                 <button className="btn bg-white radius-button" onClick={connect}> <img className='me-2' src={iconWalletconnect} />WalletConnect</button>
@@ -266,8 +283,8 @@ export default function TernoaConnect() {
                         {addressSplited}
                     </button>
                     <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarConnection">
-                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>}
-                        {!isAccountCertified && <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>}
+                        <li><NavLink className="dropdown-item" to="/register">{t("nav.register")}</NavLink></li>
+                        <li><NavLink className="dropdown-item" to="/setting">{t('nav.profile')}</NavLink></li>
                         <li><button className="dropdown-item" onClick={disconnect}><i className="fas fa-right-from-bracket"></i>{t('ternoa.logout')}</button></li>
                     </ul>
                 </div>
