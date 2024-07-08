@@ -1,5 +1,5 @@
 import './App.scss';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Root from './routes/root.tsx';
 import ErrorPage from './hook/Error-page.tsx';
 import Blog from './component/Blog.tsx';
@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { LoadingProvider, useLoading } from './contexts/LoadingContext.tsx';
 import Loading from './component/Loading.tsx';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: '/',
         element: <Root />,
