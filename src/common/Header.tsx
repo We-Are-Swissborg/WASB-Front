@@ -5,7 +5,7 @@ import TernoaConnect from "../web3/ternoaConnect.tsx";
 import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
-import Settings from "./Settings.tsx";
+import Settings from "../component/Settings.tsx";
 
 export default function Header () {
     const { t } = useTranslation("global");
