@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Form from "../hook/Form";
+import Form from "./Member";
 import '../css/Setting.css';
 
 export default function Profile () {

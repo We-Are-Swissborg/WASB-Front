@@ -33,7 +33,15 @@ export default function Header () {
                             </li>
                         </ul>
                         <div className="d-flex" role="connect">
-                            <TernoaConnect />
+                            {/* <TernoaConnect /> */}
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">Sign In</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/register">Sign Up</NavLink>
+                                </li>
+                            </ul>
                         </div>
                         <Settings />
                     </div>

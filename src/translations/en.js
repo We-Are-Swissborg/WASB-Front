@@ -73,9 +73,11 @@ const global_en = {
         "title": "Our objectives"
     },
     "register": {
-        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
-                    To register, please fill out the form below (all fields with * are mandatory):`,
+        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.`,
         "title": "Become a member",
+        "register": "Register",
+        "welcome": "Welcome to our website!",
+        "error": "An error has occurred during registration."
     },
     "setting": {
         "linked-accounts": {
