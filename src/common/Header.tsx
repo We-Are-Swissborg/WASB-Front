@@ -36,10 +36,10 @@ export default function Header () {
                             {/* <TernoaConnect /> */}
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to="/login">Sign In</NavLink>
+                                    <NavLink className="nav-link" to="/login">{t("nav.sign-in")}</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to="/register">Sign Up</NavLink>
+                                    <NavLink className="nav-link" to="/register">{t("nav.sign-up")}</NavLink>
                                 </li>
                             </ul>
                         </div>

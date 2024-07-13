@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { LoadingProvider, useLoading } from './contexts/LoadingContext.tsx';
 import Loading from './component/Loading.tsx';
 import Profile from './component/Profile.tsx';
+import Login from './component/Login.tsx';
 
 const router = createHashRouter([
     {
@@ -37,6 +38,10 @@ const router = createHashRouter([
             {
                 path: '/profile',
                 element: <Profile />
+            },
+            {
+                path: '/login',
+                element: <Login />
             }
         ]
     },

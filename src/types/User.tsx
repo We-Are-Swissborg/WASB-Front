@@ -8,6 +8,7 @@ export interface User {
 	lastName?: string;
 	pseudo: string;
 	email: string;
+    password: string;
 	walletAddress: string;
 	contribution?: string;
 	socialMedias?: SocialMedias;

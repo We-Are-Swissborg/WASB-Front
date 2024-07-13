@@ -111,8 +111,7 @@ export default function TernoaConnect() {
             const responseObj = JSON.parse(response);
 
             await cryptoWaitReady();
-            const token = await authenticate(address, responseObj.signedMessageHash);
-            localStorage.setItem("token", JSON.stringify(token));
+            await authenticate(address, responseObj.signedMessageHash);
             localStorage.setItem("walletTernoa", address);
             localStorage.setItem("sessionTernoa", JSON.stringify(session));
             toast.success(t('authenticate.welcome'));

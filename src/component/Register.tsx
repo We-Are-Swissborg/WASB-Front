@@ -28,6 +28,7 @@ export default function Register() {
             toast.error(t('register.error'));
         }
     };
+
     return(
         <div className="container d-flex flex-column align-items-center">
             <h1 className="my-5 text-secondary">{t('register.title')}</h1>

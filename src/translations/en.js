@@ -46,7 +46,8 @@ const global_en = {
         "home": "Home",
         "language": "Language",
         "profile": "Profile",
-        "register": "Register"
+        "sign-up": "Sign Up",
+        "sign-in": "Sign In",
     },
     "ourmission": {
         "blockchain": {
@@ -197,8 +198,16 @@ const global_en = {
         }
     },
     "authenticate": {
+        "title": "Login",
         "welcome": "Welcome",
-        "error-sign": "An error occurred during the signature request."
+        "error-sign": "An error occurred during the signature request.",
+        "login": "Login",
+        "error": "Authentication is not valid for this pseudo or password",
+        "password": "Password",
+        "placeholder-password": "Enter your password",
+        "username": "Username",
+        "placeholder-username": "Enter your username",
+        "sign-up": "Don't have an account? ? <link1>Sign Up</link1>",
     }
 };
 
