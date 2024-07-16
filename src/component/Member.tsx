@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import regex from "../services/regex";
 import { register } from "../services/user.service";
 
-import { Registration } from "../types/Registration";
+import { User } from "../types/User";
 import { DataForm } from "../types/DataForm";
 
-import { LinkText } from "./LinksTranslate";
+import { LinkText } from "../hook/LinksTranslate";
 import Countries from "../hook/Countries";
 import Modal from "../common/Modal";
 import '../css/Form.css';
@@ -46,7 +46,7 @@ interface IOptionsSelect {
 
 export default function Form (props: IForm) {
     const { t } = useTranslation('global');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     // Options for select element.
     const countriesOptions: IOptionsSelect[] = Countries().map(item => ({
@@ -84,7 +84,7 @@ export default function Form (props: IForm) {
     const [country, setCountry] = useState<string>('');
     const activeMarge: string = country ? 'ps-5' : '';
 
-    const [registration, setRegistration] = useState<Registration>({
+    const [registration, setRegistration] = useState<User>({
         country: '',
         city: '',
         firstName: '',
@@ -198,7 +198,7 @@ export default function Form (props: IForm) {
         checkError(name, false);
         activeButton(name, value, checked);
 
-        if(name === 'confidentiality') setCheckConfidentiality(!checkConfidentiality); 
+        if(name === 'confidentiality') setCheckConfidentiality(!checkConfidentiality);
     }, [activeButton, checkConfidentiality]);
 
     const handleChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -265,8 +265,8 @@ export default function Form (props: IForm) {
             const noError: boolean = activeRegex(formData);
 
             if (noError) {
-                const res = await register(registration);
-    
+                const res = {}; //await register(registration);
+
                 if (!res.token) return displayModal('user.error');
 
                 displayModal('user.add');
@@ -286,10 +286,10 @@ export default function Form (props: IForm) {
 
         // Class for all
         let defaultClass: string = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
-        
+
         const readOnlyClass: string = 'pe-none read-only';
         const errorClass: string = 'border-danger';
-        
+
         // Class Custom
         const walletAddressClass: string = ' text-truncate pe-5';
 

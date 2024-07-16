@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Form from "../hook/Form";
+import Form from "./Member";
 import '../css/Setting.css';
 
-export default function Setting () {
+export default function Profile () {
     const {t} = useTranslation('global');
     const [choiceSetting, setChoiceSetting] = useState(1);
 
     const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-  
+
     const structureFormOne = {
         formFor: 'Setting',
         btn: 'btnWithConfidentiality',
@@ -79,20 +79,20 @@ export default function Setting () {
                     <ul className="list-inline d-flex flex-column justify-content-between">
                         <li>
                             <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${myAccountClass}`} htmlFor="my-account">
-                                <input type="button" name="my-account" id="my-account" onClick={() => setChoiceSetting(1)} /> 
+                                <input type="button" name="my-account" id="my-account" onClick={() => setChoiceSetting(1)} />
                                 {t('setting.my-account.title')}
                             </label>
                         </li>
                         <li>
                             <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${membershipClass}`} htmlFor="manage-membership" >
-                                <input type="button" name="manage-membership" id="manage-membership" onClick={() => setChoiceSetting(2)} /> 
+                                <input type="button" name="manage-membership" id="manage-membership" onClick={() => setChoiceSetting(2)} />
                                 {t('setting.manage-membership.title')}
                             </label>
                         </li>
                         <li>
                             <label className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClass}`} htmlFor="linked-accounts">
                                 {t('setting.linked-accounts.title')}
-                                <input type="button" name="linked-accounts" id="linked-accounts" onClick={() => setChoiceSetting(3)} /> 
+                                <input type="button" name="linked-accounts" id="linked-accounts" onClick={() => setChoiceSetting(3)} />
                             </label>
                         </li>
                     </ul>
@@ -131,7 +131,7 @@ export default function Setting () {
                 />
             </div>
                 }
-        
+
             </div>
         </div>
     );
