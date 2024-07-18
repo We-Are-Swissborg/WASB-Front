@@ -5,7 +5,8 @@ import { LinkText } from "../hook/LinksTranslate";
 import { useForm  } from 'react-hook-form';
 import { register } from "../services/user.service";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const registration = async (data: Registration) => {
     await register(data);
@@ -14,6 +15,8 @@ const registration = async (data: Registration) => {
 export default function Register() {
     const {t} = useTranslation("global");
     const navigate = useNavigate();
+    const { referralId }  = useParams();
+    const [referral, setReferral] = useState(localStorage.getItem('referralId') || '');
 
     // getting the event handlers from our custom hook
     const { register, handleSubmit, formState } = useForm<Registration>({mode: 'onTouched'});
@@ -22,6 +25,7 @@ export default function Register() {
     const onSubmit = async (data: Registration) => {
         try {
             await registration(data);
+            localStorage.removeItem('referralId');
             toast.success(t('register.welcome'));
             navigate('/', { replace: true });
         } catch(e) {
@@ -29,29 +33,12 @@ export default function Register() {
         }
     };
 
-    // const referralLine = () => {
-    //     const id = localStorage.getItem('referralId');
-
-    //     if(id || referralId) {
-    //         referralId && localStorage.setItem("referralId", `${referralId}`);
-    //         return  {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', value: `${id}`, readOnly: true};
-    //     }
-    //     return {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'No referral', readOnly: true};
-    // };
-
-    // const dataForm: DataForm[] = [
-    //     {balise: 'select', name: 'country', label: t('form.country')},
-    //     {balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city')},
-    //     {balise: 'input', name: 'firstName', label: t('form.first-name'), type: 'text', placeholder: t('form.placeholder.first-name')},
-    //     {balise: 'input', name: 'lastName', label: t('form.last-name'), type: 'text', placeholder: t('form.placeholder.last-name')},
-    //     {balise: 'input', name: 'email', label: t('form.email'), type: 'text', placeholder: t('form.placeholder.email')},
-    //     {balise: 'input', name: 'pseudo', label: t('form.pseudo'), type: 'text', placeholder: t('form.placeholder.pseudo')},
-    //     {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: `${localStorage.getItem('walletTernoa')}`, readOnly: true},
-    //     {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('form.placeholder.discord')},
-    //     {balise: 'select', name: 'contribution', label: t('form.contribution')},
-    //     referralLine(),
-    //     {balise: 'select', name: 'aboutUs', label: t('form.aboutUs')},
-    // ];
+    useEffect(() => {
+        if(referralId && referralId !== referral) {
+            localStorage.setItem("referralId", `${referralId}`);
+            setReferral(referralId);
+        }
+    }, [referralId, referral]);
 
     return(
         <div className="container d-flex flex-column align-items-center">
@@ -124,6 +111,29 @@ export default function Register() {
                             required
                         />
                         {errors?.password && <div className="text-danger">{errors.password.message}</div >}
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <label htmlFor="referral" className="col-sm-2 col-form-label">Referral</label>
+                    <div className="col-10">
+                        <input
+                            className="form-control"
+                            id='referral'
+                            type='text'
+                            defaultValue={referralId || referral}
+                            placeholder='Referral'
+                            {...register('referral', {
+                                maxLength: {
+                                    value: 5,
+                                    message: 'Length referral Incorrect',
+                                },
+                                minLength: {
+                                    value: 5,
+                                    message: 'Length referral Incorrect',
+                                },
+                            })}
+                        />
+                        {errors?.referral && <div className="text-danger">{errors.referral.message}</div >}
                     </div>
                 </div>
 
