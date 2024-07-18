@@ -46,7 +46,8 @@ const global_en = {
         "home": "Home",
         "language": "Language",
         "profile": "Profile",
-        "register": "Register"
+        "sign-up": "Sign Up",
+        "sign-in": "Sign In",
     },
     "ourmission": {
         "blockchain": {
@@ -73,9 +74,11 @@ const global_en = {
         "title": "Our objectives"
     },
     "register": {
-        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
-                    To register, please fill out the form below (all fields with * are mandatory):`,
+        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.`,
         "title": "Become a member",
+        "register": "Register",
+        "welcome": "Welcome to our website!",
+        "error": "An error has occurred during registration."
     },
     "setting": {
         "linked-accounts": {
@@ -196,8 +199,16 @@ const global_en = {
         }
     },
     "authenticate": {
+        "title": "Login",
         "welcome": "Welcome",
-        "error-sign": "An error occurred during the signature request."
+        "error-sign": "An error occurred during the signature request.",
+        "login": "Login",
+        "error": "Authentication is not valid for this pseudo or password",
+        "password": "Password",
+        "placeholder-password": "Enter your password",
+        "username": "Username",
+        "placeholder-username": "Enter your username",
+        "sign-up": "Don't have an account? ? <link1>Sign Up</link1>",
     }
 };
 

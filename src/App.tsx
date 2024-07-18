@@ -6,11 +6,12 @@ import Blog from './component/Blog.tsx';
 import Home from './component/Home.tsx';
 import Contact from './component/Contact.tsx';
 import Register from './component/Register.tsx';
-import Setting from './component/Setting.tsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LoadingProvider, useLoading } from './contexts/LoadingContext.tsx';
 import Loading from './component/Loading.tsx';
+import Profile from './component/Profile.tsx';
+import Login from './component/Login.tsx';
 
 const router = createHashRouter([
     {
@@ -41,8 +42,12 @@ const router = createHashRouter([
                 ]
             },
             {
-                path: '/setting',
-                element: <Setting />
+                path: '/profile',
+                element: <Profile />
+            },
+            {
+                path: '/login',
+                element: <Login />
             }
         ]
     },

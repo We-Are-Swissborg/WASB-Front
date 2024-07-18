@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -6,23 +5,10 @@ import TernoaConnect from "../web3/ternoaConnect.tsx";
 import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
+import Settings from "../component/Settings.tsx";
 
 export default function Header () {
-    const [t, i18n] = useTranslation("global");
-    const [isHovering, setIsHovering] = useState<boolean>(false);
-
-    const handleChangeLanguage = (lang: string) => {
-        i18n.changeLanguage(lang);
-        localStorage.setItem("language", lang);
-    };
-
-    const handleMouseEnter = () => {
-        setIsHovering(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovering(false);
-    };
+    const { t } = useTranslation("global");
 
     return (
         <header>
@@ -47,20 +33,17 @@ export default function Header () {
                             </li>
                         </ul>
                         <div className="d-flex" role="connect">
-                            <TernoaConnect />
-                        </div>
-                        <div className="dropdown">
-                            <button type="button" className="btn btn-outline-secondary" id="navbarParams" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}>
-                                <i className={isHovering ? 'fa fa-spin fa-gear' : 'fa fa-gear'}></i>
-                            </button>
-                            <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarParams">
-                                <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
-                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>{t("header.en")}</button></li>
-                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>{t("header.fr")}</button></li>
+                            {/* <TernoaConnect /> */}
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">{t("nav.sign-in")}</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/register">{t("nav.sign-up")}</NavLink>
+                                </li>
                             </ul>
                         </div>
+                        <Settings />
                     </div>
                 </div>
             </nav>

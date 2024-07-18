@@ -46,7 +46,8 @@ const global_fr = {
         "home": "Accueil",
         "language": "Langue",
         "profile": "Profil",
-        "register": "S'inscrire"
+        "sign-up": "S'inscrire",
+        "sign-in": "Se connecter",
     },
     "ourmission": {
         "blockchain": {
@@ -71,9 +72,11 @@ const global_fr = {
         "title": "Nos objectifs"
     },
     "register": {
-        "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
-                    Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
+        "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.`,
         "title": "Devenir membre",
+        "register": "S'inscrire",
+        "welcome": "Bienvenue parmi nous !",
+        "error": "Une erreur est survenue lors de votre enregistrement."
     },
     "setting": {
         "linked-accounts": {
@@ -158,7 +161,7 @@ const global_fr = {
             "update": "Mise à jour",
         },
         "city": "Ville",
-        "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+        "confidentiality": "En soumettant ce formulaire, vous acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
         "contribution": "Cotisation",
         "contribution-end": "Fin de l’adhésion",
         "contribution-start": "Date de l’adhésion",
@@ -195,8 +198,16 @@ const global_fr = {
         }
     },
     "authenticate": {
+        "title": "Se connecter",
         "welcome": "Bonjour",
-        "error-sign": "Une erreur est survenu lors de la demande de signature"
+        "error-sign": "Une erreur est survenu lors de la demande de signature",
+        "login": "Se connecter",
+        "error": "L'authentification n'est pas valide pour ce pseudo ou ce mot de passe",
+        "password": "Mot de passe",
+        "placeholder-password": "Entrez votre mot de passe",
+        "username": "Pseudo",
+        "placeholder-username": "Entrez votre pseudo",
+        "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
     }
 };
 
