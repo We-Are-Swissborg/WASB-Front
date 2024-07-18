@@ -77,7 +77,6 @@ export default function Form (props: IForm) {
     const [errorPseudo, setErrorPseudo] = useState<boolean>(false);
     const [errorEmail, setErrorEmail] = useState<boolean>(false);
     const [errorDiscord, setErrorDiscord] = useState<boolean>(false);
-    const [errorReferral, setErrorReferral] = useState<boolean>(false);
     const [checkConfidentiality, setCheckConfidentiality] = useState<boolean>(false);
 
     // For the element countries select.
@@ -118,7 +117,6 @@ export default function Form (props: IForm) {
         if(name === 'pseudo') setErrorPseudo(boolean);
         if(name === 'email') setErrorEmail(boolean);
         if(name === 'discord') setErrorDiscord(boolean);
-        if(name === 'referral') setErrorReferral(boolean);
     };
 
     const createObjectToSend = useCallback((name: string, value: string, checked: boolean = false) => {
@@ -218,7 +216,6 @@ export default function Form (props: IForm) {
         const regexPseudo: RegExp = new RegExp(regex.pseudo);
         const regexEmail: RegExp = new RegExp(regex.email);
         const regexDiscord: RegExp = new RegExp(regex.discord);
-        // const regexReferral = new RegExp(regex.referral);
 
         const errors = [];
 
@@ -271,6 +268,8 @@ export default function Form (props: IForm) {
 
                 displayModal('user.add');
 
+                localStorage.removeItem('referralId');
+
                 setTimeout(() => {
                     navigate('/', { replace: true });
                 }, 1000);
@@ -299,7 +298,7 @@ export default function Form (props: IForm) {
         if(name === 'lastName') defaultClass = errorLastName ? defaultClass + errorClass : defaultClass;
         if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
         if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
-        if(name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
+        if(name === 'referral') defaultClass = defaultClass + readOnlyClass;
         if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
         return defaultClass;
     };

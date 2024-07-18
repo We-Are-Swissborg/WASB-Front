@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Form from "../hook/Form";
@@ -5,12 +6,23 @@ import { DataForm } from "../types/DataForm";
 
 export default function Register() {
     const [t] = useTranslation("global");
+    const { referralId }  = useParams();
 
     const structure = {
         formFor: 'Register',
         btn: 'register',
         nbSection: 4,
         nbBySection: 3,
+    };
+
+    const referralLine = () => {
+        const id = localStorage.getItem('referralId');
+
+        if(id || referralId) {
+            referralId && localStorage.setItem("referralId", `${referralId}`);
+            return  {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', value: `${id}`, readOnly: true};
+        }
+        return {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'No referral', readOnly: true};
     };
 
     const dataForm: DataForm[] = [
@@ -20,10 +32,10 @@ export default function Register() {
         {balise: 'input', name: 'lastName', label: t('form.last-name'), type: 'text', placeholder: t('form.placeholder.last-name')},
         {balise: 'input', name: 'email', label: t('form.email'), type: 'text', placeholder: t('form.placeholder.email')},
         {balise: 'input', name: 'pseudo', label: t('form.pseudo'), type: 'text', placeholder: t('form.placeholder.pseudo')},
-        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: localStorage.getItem('walletTernoa') || '', readOnly: true},
+        {balise: 'input', name: 'walletAddress', label: t('form.wallet-address'), type: 'text', value: `${localStorage.getItem('walletTernoa')}`, readOnly: true},
         {balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('form.placeholder.discord')},
         {balise: 'select', name: 'contribution', label: t('form.contribution')},
-        {balise: 'input', name: 'referral', label: t('form.referral'), type: 'text', placeholder: 'PUT EXEMPLE REFERRAL'},
+        referralLine(),
         {balise: 'select', name: 'aboutUs', label: t('form.aboutUs')},
     ];
 

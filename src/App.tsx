@@ -32,7 +32,13 @@ const router = createHashRouter([
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <Register />,
+                children: [
+                    {
+                        path: ':referralId',
+                        element: <Register />,
+                    }
+                ]
             },
             {
                 path: '/setting',

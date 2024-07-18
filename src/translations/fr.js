@@ -191,6 +191,7 @@ const global_fr = {
         "user": {
             "add": "Utilisateur ajouté avec succès 😁",
             "error": "Veuillez réessayer ou contactez un administrateur 😕",
+            "referral-error": "L'id référent est incorrect 😕",
         }
     },
     "authenticate": {

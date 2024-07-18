@@ -192,6 +192,7 @@ const global_en = {
         "user": {
             "add": "User successfully added 😁",
             "error": "Please retry or contact an administrator 😕",
+            "referral-error": "Referral id is incorrect 😕",
         }
     },
     "authenticate": {
