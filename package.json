@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
     "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\", \"**/*.tsx\""
   },
   "dependencies": {
     "@gsap/react": "^2.1.0",
