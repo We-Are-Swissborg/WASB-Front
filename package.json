@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
     "@gsap/react": "^2.1.0",
@@ -50,6 +51,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"
   }

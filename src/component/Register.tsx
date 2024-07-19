@@ -140,7 +140,7 @@ export default function Register() {
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end my-3">
                     <button type='submit' className="btn btn-form px-4 py-3" disabled={isSubmitting}>
                         {isSubmitting &&
-                        <div className="spinner-border spinner-border-sm" role="status">
+                        <div className="spinner-border spinner-border-sm mx-2" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>
                         }

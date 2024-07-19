@@ -79,10 +79,11 @@ export default function Login() {
                                     <div className="text-center text-lg-start mt-4 pt-2">
                                         <button type="submit" className="btn btn-form px-4 py-3" disabled={isSubmitting}>
                                             {isSubmitting &&
-                                    <div className="spinner-border spinner-border-sm" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>}
-                                            {t("authenticate.login")}
+                                            <div className="spinner-border spinner-border-sm mx-2" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                            }
+                                           {t("authenticate.login")}
                                         </button>
                                         <p className="small fw-bold mt-2 pt-1 mb-0">
                                             <Trans i18nKey="authenticate.sign-up" t={t} components= {

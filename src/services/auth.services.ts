@@ -1,4 +1,3 @@
-
 import { Nonce } from '../types/Security';
 import { postFetch } from './baseAPI.services';
 
@@ -10,7 +9,7 @@ import { postFetch } from './baseAPI.services';
 const generateNonce = async (walletAddress: string): Promise<Nonce> => {
     const url: string = 'users/nonce';
     const data = {
-        walletAddress: walletAddress
+        walletAddress: walletAddress,
     };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
@@ -30,7 +29,7 @@ const generateNonce = async (walletAddress: string): Promise<Nonce> => {
  */
 const authenticate = async (walletAddress: string, signedHash: string): Promise<void> => {
     const url: string = 'users/authWallet';
-    const data = {walletAddress: walletAddress, signedMessageHash:signedHash};
+    const data = { walletAddress: walletAddress, signedMessageHash: signedHash };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
     const json = await response.json();
@@ -49,7 +48,7 @@ const authenticate = async (walletAddress: string, signedHash: string): Promise<
  */
 const auth = async (username: string, password: string): Promise<void> => {
     const url: string = 'users/auth';
-    const data = {username: username, password:password};
+    const data = { username: username, password: password };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
     const json = await response.json();
