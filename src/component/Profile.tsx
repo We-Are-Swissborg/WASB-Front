@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import Form from "./Member";
 import '../css/Setting.css';
@@ -7,7 +8,7 @@ import '../css/Setting.css';
 export default function Profile () {
     const {t} = useTranslation('global');
     const [choiceSetting, setChoiceSetting] = useState(1);
-
+    const navigate = useNavigate();
     const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
@@ -69,6 +70,11 @@ export default function Profile () {
         {balise: 'input', name: 'tiktok', label: 'TikTok', type: 'text', placeholder: 'tiktok.com/@weareswissborg.eth'},
         {balise: 'input', name: 'telegram', label: 'Telegram', type: 'text', placeholder: 't.me/WeAreSwissBorg'},
     ];
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(!token) navigate('../');
+    }, []);
 
     return (
         <div className="setting-container container d-flex flex-column align-items-center mt-5">

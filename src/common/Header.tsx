@@ -6,9 +6,18 @@ import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
 import Settings from "../component/Settings.tsx";
+import { useEffect, useState } from "react";
 
 export default function Header () {
     const { t } = useTranslation("global");
+    const [token, setToken] = useState('');
+
+    useEffect(() => {
+        console.log(token);
+        if(!token) {
+            setToken(localStorage.getItem('token') || '');
+        }
+    }, [token]);
 
     return (
         <header>
@@ -35,12 +44,20 @@ export default function Header () {
                         <div className="d-flex" role="connect">
                             {/* <TernoaConnect /> */}
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/login">{t("nav.sign-in")}</NavLink>
-                                </li>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/register">{t("nav.sign-up")}</NavLink>
-                                </li>
+                                { !token ?
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/login">{t("nav.sign-in")}</NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/register">{t("nav.sign-up")}</NavLink>
+                                        </li> 
+                                        
+                                    </> :                   
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/profile">{t("nav.profile")}</NavLink>
+                                    </li>
+                                }
                             </ul>
                         </div>
                         <Settings />
