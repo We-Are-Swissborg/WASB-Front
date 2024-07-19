@@ -43,7 +43,7 @@ export default function Footer() {
                             <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.donation")}</a></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col  mb-3">
                         <h5>{t("footer.join")}</h5>
                         <ul className="list-group list-group-horizontal">
                             <li className="list-group-item">
@@ -64,8 +64,8 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div className="col-md-5 offset-md-1 mb-3">
+                        <h5>{t('footer.subscribe.title')}</h5>
                         <form>
-                            <h5>{t('footer.subscribe.title')}</h5>
                             <p>{t('footer.subscribe.message')}</p>
                             <div className="d-flex flex-column flex-sm-row w-100 gap-2">
                                 <label htmlFor="newsletter1" className="visually-hidden">{t('footer.subscribe.placeholder')}</label>
