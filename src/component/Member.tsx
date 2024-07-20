@@ -1,30 +1,30 @@
-import { useEffect, useState, useCallback } from "react";
-import { Trans, useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import regex from "../services/regex";
-import { register } from "../services/user.service";
+import regex from '../services/regex';
+import { register } from '../services/user.service';
 
-import { User } from "../types/User";
-import { DataForm } from "../types/DataForm";
+import { User } from '../types/User';
+import { DataForm } from '../types/DataForm';
 
-import { LinkText } from "../hook/LinksTranslate";
-import Countries from "../hook/Countries";
-import Modal from "../common/Modal";
+import { LinkText } from '../hook/LinksTranslate';
+import Countries from '../hook/Countries';
+import Modal from '../common/Modal';
 import '../css/Form.css';
 
 interface IForm {
     structure: {
-        formFor: string,
-        btn: string, // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
-        nbSection: number,
-        nbBySection: number,
+        formFor: string;
+        btn: string; // 'register' | 'btnWithConfidentiality' | 'confirmAndCancel' | 'upload'
+        nbSection: number;
+        nbBySection: number;
     };
     dataForm: DataForm[];
     styleForm?: {
-        form?: string,
-        input?: string,
-        containerSumbit?: string,
+        form?: string;
+        input?: string;
+        containerSumbit?: string;
     };
 }
 
@@ -39,33 +39,33 @@ interface IElement {
 }
 
 interface IOptionsSelect {
-    value: string,
-    name: string,
-    urlImg?: string
+    value: string;
+    name: string;
+    urlImg?: string;
 }
 
-export default function Form (props: IForm) {
+export default function Form(props: IForm) {
     const { t } = useTranslation('global');
     const navigate = useNavigate();
 
     // Options for select element.
-    const countriesOptions: IOptionsSelect[] = Countries().map(item => ({
+    const countriesOptions: IOptionsSelect[] = Countries().map((item) => ({
         value: item.iso,
         name: item.name,
-        urlImg: item.urlImg
+        urlImg: item.urlImg,
     }));
     const contributionOptions: IOptionsSelect[] = [
-        {value: '30CHF', name: '30 CHF/3mois'},
-        {value: '60CHF', name: '60 CHF/6mois'},
-        {value: '100CHF', name: '100 CHF/1an'},
+        { value: '30CHF', name: '30 CHF/3mois' },
+        { value: '60CHF', name: '60 CHF/6mois' },
+        { value: '100CHF', name: '100 CHF/1an' },
     ];
     const aboutUsOptions: IOptionsSelect[] = [
-        {value: 'discord', name: 'Discord'},
-        {value: 'telegram', name: 'Telegram'},
-        {value: 'tiktok', name: 'Tiktok'},
-        {value: 'twitter', name: 'Twitter'},
-        {value: 'youtube', name: 'Youtube'},
-        {value: 'other', name: t('form.other')},
+        { value: 'discord', name: 'Discord' },
+        { value: 'telegram', name: 'Telegram' },
+        { value: 'tiktok', name: 'Tiktok' },
+        { value: 'twitter', name: 'Twitter' },
+        { value: 'youtube', name: 'Youtube' },
+        { value: 'other', name: t('form.other') },
     ];
 
     const [disabledButton, setDisabledButton] = useState<boolean>(true);
@@ -97,7 +97,7 @@ export default function Form (props: IForm) {
             twitter: '',
             discord: '',
             tiktok: '',
-            telegram: ''
+            telegram: '',
         },
         referral: '',
         aboutUs: '',
@@ -107,107 +107,126 @@ export default function Form (props: IForm) {
 
     // For the modal.
     const [msgForModal, setMsgForModal] = useState<string>('');
-    const heightModal = () => props.structure.formFor ? '70px' : '';
+    const heightModal = () => (props.structure.formFor ? '70px' : '');
 
     /* Part-1 - Fonctionnalities for the element to display. */
 
     const checkError = (name: string, boolean: boolean) => {
-        if(name === 'city') setErrorCity(boolean);
-        if(name === 'firstName') setErrorFirstName(boolean);
-        if(name === 'lastName') setErrorLastName(boolean);
-        if(name === 'pseudo') setErrorPseudo(boolean);
-        if(name === 'email') setErrorEmail(boolean);
-        if(name === 'discord') setErrorDiscord(boolean);
-        if(name === 'referral') setErrorReferral(boolean);
+        if (name === 'city') setErrorCity(boolean);
+        if (name === 'firstName') setErrorFirstName(boolean);
+        if (name === 'lastName') setErrorLastName(boolean);
+        if (name === 'pseudo') setErrorPseudo(boolean);
+        if (name === 'email') setErrorEmail(boolean);
+        if (name === 'discord') setErrorDiscord(boolean);
+        if (name === 'referral') setErrorReferral(boolean);
     };
 
-    const createObjectToSend = useCallback((name: string, value: string, checked: boolean = false) => {
-        switch (name) {
-        case 'country':
-            setRegistration({...registration, country: value});
-            break;
-        case 'city':
-            setRegistration({...registration, city: value.trim()});
-            break;
-        case 'firstName':
-            setRegistration({...registration, firstName: value.trim()});
-            break;
-        case 'lastName':
-            setRegistration({...registration, lastName: value.trim()});
-            break;
-        case 'email':
-            setRegistration({...registration, email: value.trim()});
-            break;
-        case 'pseudo':
-            setRegistration({...registration, pseudo: value.trim()});
-            break;
-        case 'contribution':
-            setRegistration({...registration, contribution: value});
-            break;
-        case 'discord':
-            setRegistration({...registration, socialMedias: {...registration.socialMedias, discord: value.trim()}});
-            break;
-        case 'referral':
-            setRegistration({...registration, referral: value.trim()});
-            break;
-        case 'aboutUs':
-            setRegistration({...registration, aboutUs: value});
-            break;
-        case 'confidentiality':
-            setRegistration({...registration, confidentiality: checked});
-            break;
-        case 'beContacted':
-            setRegistration({...registration, beContacted: checked});
-            break;
-        }
-    }, [registration]);
+    const createObjectToSend = useCallback(
+        (name: string, value: string, checked: boolean = false) => {
+            switch (name) {
+                case 'country':
+                    setRegistration({ ...registration, country: value });
+                    break;
+                case 'city':
+                    setRegistration({ ...registration, city: value.trim() });
+                    break;
+                case 'firstName':
+                    setRegistration({ ...registration, firstName: value.trim() });
+                    break;
+                case 'lastName':
+                    setRegistration({ ...registration, lastName: value.trim() });
+                    break;
+                case 'email':
+                    setRegistration({ ...registration, email: value.trim() });
+                    break;
+                case 'pseudo':
+                    setRegistration({ ...registration, pseudo: value.trim() });
+                    break;
+                case 'contribution':
+                    setRegistration({ ...registration, contribution: value });
+                    break;
+                case 'discord':
+                    setRegistration({
+                        ...registration,
+                        socialMedias: { ...registration.socialMedias, discord: value.trim() },
+                    });
+                    break;
+                case 'referral':
+                    setRegistration({ ...registration, referral: value.trim() });
+                    break;
+                case 'aboutUs':
+                    setRegistration({ ...registration, aboutUs: value });
+                    break;
+                case 'confidentiality':
+                    setRegistration({ ...registration, confidentiality: checked });
+                    break;
+                case 'beContacted':
+                    setRegistration({ ...registration, beContacted: checked });
+                    break;
+            }
+        },
+        [registration],
+    );
 
-    const activeButton = useCallback((name: string = '', value: string = '', checked: boolean = false) => {
-        const activation:boolean = (registration.email && registration.pseudo && registration.walletAddress && registration.confidentiality) || false;
+    const activeButton = useCallback(
+        (name: string = '', value: string = '', checked: boolean = false) => {
+            const activation: boolean =
+                (registration.email &&
+                    registration.pseudo &&
+                    registration.walletAddress &&
+                    registration.confidentiality) ||
+                false;
 
-        createObjectToSend(name, value, checked);
+            createObjectToSend(name, value, checked);
 
-        if(name === 'country') {
-            const flag = countriesOptions.find((country) => country.value === value);
-            const urlImg = flag?.urlImg || '';
-            setCountry(urlImg);
-        }
-        if(activation) {
-            setDisabledButton(false);
-        } else {
-            setDisabledButton(true);
-        }
-    }, [registration, countriesOptions, createObjectToSend]);
+            if (name === 'country') {
+                const flag = countriesOptions.find((country) => country.value === value);
+                const urlImg = flag?.urlImg || '';
+                setCountry(urlImg);
+            }
+            if (activation) {
+                setDisabledButton(false);
+            } else {
+                setDisabledButton(true);
+            }
+        },
+        [registration, countriesOptions, createObjectToSend],
+    );
 
     const guardRegex = (check: boolean, name: string, value: string) => {
-        if(check) {
+        if (check) {
             createObjectToSend(name, value);
             return;
         } else {
-
             checkError(name, true);
             return name;
         }
     };
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const name: string = e.target.name;
-        const value: string | number | boolean | undefined = e.target.value;
-        const checked: boolean = e.target.checked;
+    const handleChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const name: string = e.target.name;
+            const value: string | number | boolean | undefined = e.target.value;
+            const checked: boolean = e.target.checked;
 
-        checkError(name, false);
-        activeButton(name, value, checked);
+            checkError(name, false);
+            activeButton(name, value, checked);
 
-        if(name === 'confidentiality') setCheckConfidentiality(!checkConfidentiality);
-    }, [activeButton, checkConfidentiality]);
+            if (name === 'confidentiality') setCheckConfidentiality(!checkConfidentiality);
+        },
+        [activeButton, checkConfidentiality],
+    );
 
-    const handleChangeSelect = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-        const name: string = e.target.name;
-        const value: string | number | boolean | undefined = e.target.value;
+    const handleChangeSelect = useCallback(
+        (e: React.ChangeEvent<HTMLSelectElement>) => {
+            const name: string = e.target.name;
+            const value: string | number | boolean | undefined = e.target.value;
 
-        checkError(name, false);
-        activeButton(name, value);
-    }, [activeButton]);
+            checkError(name, false);
+            activeButton(name, value);
+        },
+        [activeButton],
+    );
 
     useEffect(() => {
         activeButton();
@@ -222,18 +241,18 @@ export default function Form (props: IForm) {
 
         const errors = [];
 
-        for(const infoUser of formData.entries()) {
-            if(infoUser[1] && infoUser[0] !== 'referral' && infoUser[0] !== 'userReferral') {
-                if(infoUser[0] === 'firstName' || infoUser[0] === 'lastName' || infoUser[0] === 'city') {
+        for (const infoUser of formData.entries()) {
+            if (infoUser[1] && infoUser[0] !== 'referral' && infoUser[0] !== 'userReferral') {
+                if (infoUser[0] === 'firstName' || infoUser[0] === 'lastName' || infoUser[0] === 'city') {
                     const nameCheck = regexName.test(infoUser[1].toString());
                     errors.push(guardRegex(nameCheck, infoUser[0], infoUser[1].toString()));
-                } else if(infoUser[0] === 'pseudo') {
+                } else if (infoUser[0] === 'pseudo') {
                     const pseudoCheck = regexPseudo.test(infoUser[1].toString());
                     errors.push(guardRegex(pseudoCheck, infoUser[0], infoUser[1].toString()));
-                } else if(infoUser[0] === 'email') {
+                } else if (infoUser[0] === 'email') {
                     const emailCheck = regexEmail.test(infoUser[1].toString());
                     errors.push(guardRegex(emailCheck, infoUser[0], infoUser[1].toString()));
-                } else if(infoUser[0] === 'discord') {
+                } else if (infoUser[0] === 'discord') {
                     const discordCheck = regexDiscord.test(infoUser[1].toString());
                     errors.push(guardRegex(discordCheck, infoUser[0], infoUser[1].toString()));
                 } else {
@@ -244,7 +263,7 @@ export default function Form (props: IForm) {
 
         const checkErr = errors.every((error: string | undefined) => error === undefined);
 
-        if(!checkErr) setCheckConfidentiality(!checkConfidentiality);
+        if (!checkErr) setCheckConfidentiality(!checkConfidentiality);
 
         return checkErr;
     };
@@ -283,7 +302,6 @@ export default function Form (props: IForm) {
     /* Part-2 Creation element to display. */
 
     const InputClassName = (name: string) => {
-
         // Class for all
         let defaultClass: string = `form-control shadow_background-input input-form ${props.styleForm?.input} `;
 
@@ -293,21 +311,23 @@ export default function Form (props: IForm) {
         // Class Custom
         const walletAddressClass: string = ' text-truncate pe-5';
 
-        if(name === 'city') defaultClass =  errorCity ? defaultClass + errorClass : defaultClass;
-        if(name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
-        if(name === 'firstName') defaultClass = errorFirstName ? defaultClass + errorClass : defaultClass;
-        if(name === 'lastName') defaultClass = errorLastName ? defaultClass + errorClass : defaultClass;
-        if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
-        if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
-        if(name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
-        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
+        if (name === 'city') defaultClass = errorCity ? defaultClass + errorClass : defaultClass;
+        if (name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
+        if (name === 'firstName') defaultClass = errorFirstName ? defaultClass + errorClass : defaultClass;
+        if (name === 'lastName') defaultClass = errorLastName ? defaultClass + errorClass : defaultClass;
+        if (name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
+        if (name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
+        if (name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
+        if (name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
         return defaultClass;
     };
 
     const createInput = (element: IElement, id: number) => {
         return (
-            <div key={'input-'+id} className={`container-input-and-select`}>
-                <label className={`label-form`} htmlFor={element.name}>{element.label}</label>
+            <div key={'input-' + id} className={`container-input-and-select`}>
+                <label className={`label-form`} htmlFor={element.name}>
+                    {element.label}
+                </label>
                 <input
                     className={InputClassName(element.name)}
                     type={element.type}
@@ -334,23 +354,29 @@ export default function Form (props: IForm) {
 
     const createSelect = (element: IElement, id: number) => {
         return (
-            <div key={'select-'+id} className={`container-input-and-select`}>
-                <label className={`label-form`} htmlFor={element.name}>{element.label}</label>
+            <div key={'select-' + id} className={`container-input-and-select`}>
+                <label className={`label-form`} htmlFor={element.name}>
+                    {element.label}
+                </label>
                 <select
                     className={`form-select shadow_background-input position-flag-select design rounded-pill ${element.name === 'country' ? activeMarge : ''}`}
                     name={element.name}
                     id={element.name}
-                    style={ element.name === 'country' ? {background: `url(${country}) no-repeat`} : {}}
+                    style={element.name === 'country' ? { background: `url(${country}) no-repeat` } : {}}
                     onChange={handleChangeSelect}
                 >
-                    <option defaultValue=''>{element.name === 'contribution' ? t('form.placeholder.contribution') : t('form.placeholder.select')}</option>
-                    {
-                        optionSelect(element.name).map((option: IOptionsSelect, id) => {
-                            return (
-                                <option key={'option-'+id} value={option.value}>{option.name}</option>
-                            );
-                        })
-                    }
+                    <option defaultValue="">
+                        {element.name === 'contribution'
+                            ? t('form.placeholder.contribution')
+                            : t('form.placeholder.select')}
+                    </option>
+                    {optionSelect(element.name).map((option: IOptionsSelect, id) => {
+                        return (
+                            <option key={'option-' + id} value={option.value}>
+                                {option.name}
+                            </option>
+                        );
+                    })}
                 </select>
             </div>
         );
@@ -360,21 +386,19 @@ export default function Form (props: IForm) {
         let arrayData: DataForm[] = props.dataForm;
         const elementsToDisplay = [];
 
-        for(let i = 0; i < props.structure.nbSection; ++i) {
+        for (let i = 0; i < props.structure.nbSection; ++i) {
             elementsToDisplay.push(
-                <div key={'section-'+i} className={`div-under-form`}>
-                    {
-                        arrayData.map((element: DataForm, id) => {
-                            while(id < props.structure.nbBySection) {
-                                if(element.balise === 'input') return createInput(element, id);
-                                if(element.balise === 'select') return createSelect(element, id);
-                            }
-                            if(id === arrayData.length - 1) {
-                                arrayData = arrayData.slice(props.structure.nbBySection);
-                            }
-                        })
-                    }
-                </div>
+                <div key={'section-' + i} className={`div-under-form`}>
+                    {arrayData.map((element: DataForm, id) => {
+                        while (id < props.structure.nbBySection) {
+                            if (element.balise === 'input') return createInput(element, id);
+                            if (element.balise === 'select') return createSelect(element, id);
+                        }
+                        if (id === arrayData.length - 1) {
+                            arrayData = arrayData.slice(props.structure.nbBySection);
+                        }
+                    })}
+                </div>,
             );
         }
         return elementsToDisplay;
@@ -388,37 +412,33 @@ export default function Form (props: IForm) {
                         <div className={`container-confidentiality`}>
                             <input
                                 className={`input-container-submit`}
-                                type='checkbox'
-                                name='confidentiality'
+                                type="checkbox"
+                                name="confidentiality"
                                 onChange={handleChange}
                                 checked={checkConfidentiality}
                             />
                             <p className={`text-container-submit`}>
-                                <Trans i18nKey="form.confidentiality" t={t} components= {
-                                    {
+                                <Trans
+                                    i18nKey="form.confidentiality"
+                                    t={t}
+                                    components={{
                                         link1: <LinkText href="#" title="Terms of Use" />,
-                                        link2: <LinkText href="#" title="Privacy Policy" />
-                                    }
-                                }/>
+                                        link2: <LinkText href="#" title="Privacy Policy" />,
+                                    }}
+                                />
                             </p>
                         </div>
                         <div className={`container-be-contacted`}>
                             <input
                                 className={`input-container-submit`}
-                                type='checkbox'
-                                name='beContacted'
+                                type="checkbox"
+                                name="beContacted"
                                 onChange={handleChange}
                             />
-                            <p className={`text-container-submit`}>
-                                {t('form.be-contacted')}
-                            </p>
+                            <p className={`text-container-submit`}>{t('form.be-contacted')}</p>
                         </div>
                     </div>
-                    <button
-                        className={`btn btn-form padding-button`}
-                        type='submit'
-                        disabled={disabledButton}
-                    >
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>
                         {props.structure.btn === 'register' ? t('form.btn.send') : t('form.btn.update')}
                     </button>
                 </div>
@@ -429,7 +449,9 @@ export default function Form (props: IForm) {
             return (
                 <div className={`container-submit`}>
                     <button className={`btn padding-button btn-cancel`}>{t('form.btn.cancel')}</button>
-                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('form.btn.modify')}</button>
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>
+                        {t('form.btn.modify')}
+                    </button>
                 </div>
             );
         }
@@ -437,7 +459,9 @@ export default function Form (props: IForm) {
         if (props.structure.btn === 'update') {
             return (
                 <div className={`container-submit`}>
-                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>{t('form.btn.update')}</button>
+                    <button className={`btn btn-form padding-button`} type="submit" disabled={disabledButton}>
+                        {t('form.btn.update')}
+                    </button>
                 </div>
             );
         }
@@ -446,12 +470,8 @@ export default function Form (props: IForm) {
     return (
         <>
             <form className={`form ${props.styleForm?.form}`} method="post" onSubmit={handleSubmit}>
-                {
-                    createStructure().map((element) => element)
-                }
-                {
-                    setUpButton()
-                }
+                {createStructure().map((element) => element)}
+                {setUpButton()}
             </form>
             <Modal msgModal={msgForModal} heightModal={heightModal()} />
         </>
