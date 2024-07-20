@@ -76,7 +76,8 @@ const global_fr = {
         "title": "Devenir membre",
         "register": "S'inscrire",
         "welcome": "Bienvenue parmi nous !",
-        "error": "Une erreur est survenue lors de votre enregistrement."
+        "error": "Une erreur est survenue lors de votre enregistrement.",
+        "referral-error": "Le referral n'existe pas."
     },
     "setting": {
         "linked-accounts": {

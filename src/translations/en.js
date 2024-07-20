@@ -78,7 +78,8 @@ const global_en = {
         "title": "Become a member",
         "register": "Register",
         "welcome": "Welcome to our website!",
-        "error": "An error has occurred during registration."
+        "error": "An error has occurred during registration.",
+        "referral-error": "Referral not exist."
     },
     "setting": {
         "linked-accounts": {

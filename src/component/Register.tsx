@@ -3,7 +3,7 @@ import Registration from '../types/Registration';
 import '../css/Form.css';
 import { LinkText } from "../hook/LinksTranslate";
 import { useForm  } from 'react-hook-form';
-import { register } from "../services/user.service";
+import { checkReferralExist, register } from "../services/user.service";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -15,8 +15,8 @@ const registration = async (data: Registration) => {
 export default function Register() {
     const {t} = useTranslation("global");
     const navigate = useNavigate();
-    const { referralId }  = useParams();
-    const [referral, setReferral] = useState(localStorage.getItem('referralId') || '');
+    const { codeRef }  = useParams();
+    const [referral, setReferral] = useState(localStorage.getItem('codeRef') || '');
 
     // getting the event handlers from our custom hook
     const { register, handleSubmit, formState } = useForm<Registration>({mode: 'onTouched'});
@@ -25,7 +25,7 @@ export default function Register() {
     const onSubmit = async (data: Registration) => {
         try {
             await registration(data);
-            localStorage.removeItem('referralId');
+            localStorage.removeItem('codeRef');
             toast.success(t('register.welcome'));
             navigate('/', { replace: true });
         } catch(e) {
@@ -33,12 +33,29 @@ export default function Register() {
         }
     };
 
-    useEffect(() => {
-        if(referralId && referralId !== referral) {
-            localStorage.setItem("referralId", `${referralId}`);
-            setReferral(referralId);
+    const validateRef = async (value: string) => {
+        try {
+            let referral = 1;
+
+            if(value.length >= 1) referral = 0;
+            if(value.length === 5) referral = await checkReferralExist(value);
+
+            return !!referral;
+        } catch {
+            toast.error(t('register.referral-error'));
         }
-    }, [referralId, referral]);
+    };
+
+    useEffect(() => {
+        if(codeRef && codeRef !== referral) {
+            checkReferralExist(codeRef).then(() => {
+                localStorage.setItem("codeRef", `${codeRef}`);
+                setReferral(codeRef);
+            }).catch(() => {
+                toast.error(t('register.referral-error'));
+            });
+        }
+    }, [codeRef, referral, t]);
 
     return(
         <div className="container d-flex flex-column align-items-center">
@@ -120,7 +137,7 @@ export default function Register() {
                             className="form-control"
                             id='referral'
                             type='text'
-                            defaultValue={referralId || referral}
+                            defaultValue={codeRef || referral}
                             placeholder='Referral'
                             {...register('referral', {
                                 maxLength: {
@@ -131,6 +148,7 @@ export default function Register() {
                                     value: 5,
                                     message: 'Length referral Incorrect',
                                 },
+                                validate: validateRef,
                             })}
                         />
                         {errors?.referral && <div className="text-danger">{errors.referral.message}</div >}

@@ -36,7 +36,7 @@ const router = createHashRouter([
                 element: <Register />,
                 children: [
                     {
-                        path: ':referralId',
+                        path: ':codeRef',
                         element: <Register />,
                     }
                 ]

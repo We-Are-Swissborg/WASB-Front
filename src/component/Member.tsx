@@ -268,8 +268,6 @@ export default function Form (props: IForm) {
 
                 displayModal('user.add');
 
-                localStorage.removeItem('referralId');
-
                 setTimeout(() => {
                     navigate('/', { replace: true });
                 }, 1000);
