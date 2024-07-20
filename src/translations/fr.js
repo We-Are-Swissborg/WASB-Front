@@ -194,8 +194,7 @@ const global_fr = {
         "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
         "user": {
             "add": "Utilisateur ajouté avec succès 😁",
-            "error": "Veuillez réessayer ou contactez un administrateur 😕",
-            "referral-error": "L'id référent est incorrect 😕",
+            "error": "Veuillez réessayer ou contactez un administrateur 😕"
         }
     },
     "authenticate": {

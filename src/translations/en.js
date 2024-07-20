@@ -195,8 +195,7 @@ const global_en = {
         "confirm-registration": "Please confirm on your wallet your registration 😀",
         "user": {
             "add": "User successfully added 😁",
-            "error": "Please retry or contact an administrator 😕",
-            "referral-error": "Referral id is incorrect 😕",
+            "error": "Please retry or contact an administrator 😕"
         }
     },
     "authenticate": {
