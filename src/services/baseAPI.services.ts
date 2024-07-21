@@ -1,4 +1,5 @@
-const backendAPI: URL = new URL(import.meta.env.VITE_BACKEND_API, window.location.origin);
+const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
+const backendAPI: URL = new URL(serverURL, window.location.origin);
 
 const requestHeaders: HeadersInit = new Headers();
 requestHeaders.set('Content-Type', 'application/json');

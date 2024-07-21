@@ -4,13 +4,15 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { User } from '../types/User';
 import { auth } from '../services/auth.services';
+import { useAuth } from '../contexts/AuthContext';
 
-const authenticate = async (data: User) => {
+const authenticate = async (data: User): Promise<string> => {
     const { pseudo, password } = data;
-    await auth(pseudo, password);
+    return await auth(pseudo, password);
 };
 
 export default function Login() {
+    const { login } = useAuth();
     const { t } = useTranslation('global');
     const navigate = useNavigate();
 
@@ -20,7 +22,8 @@ export default function Login() {
 
     const onSubmit = async (data: User) => {
         try {
-            await authenticate(data);
+            const token = await authenticate(data);
+            login(token);
             toast.success(t('authenticate.welcome'));
             navigate('/', { replace: true });
         } catch (e) {

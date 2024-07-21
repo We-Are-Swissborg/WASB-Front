@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import TernoaConnect from '../web3/ternoaConnect.tsx';
 import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
