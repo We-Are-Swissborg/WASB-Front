@@ -21,29 +21,36 @@ const router = createHashRouter([
         children: [
             {
                 path: '',
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: '/blog',
-                element: <Blog />
+                element: <Blog />,
             },
             {
                 path: '/contact',
-                element: <Contact />
+                element: <Contact />,
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <Register />,
+                children: [
+                    {
+                        path: ':codeRef',
+                        element: <Register />,
+                    }
+                ]
+
             },
             {
                 path: '/profile',
-                element: <Profile />
+                element: <Profile />,
             },
             {
                 path: '/login',
-                element: <Login />
-            }
-        ]
+                element: <Login />,
+            },
+        ],
     },
 ]);
 

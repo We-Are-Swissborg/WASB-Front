@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import '../css/Modal.css';
 
 interface IModal {
-  msgModal: string,
-  heightModal: string,
+    msgModal: string;
+    heightModal: string;
 }
 
 export default function Modal(props: IModal) {
@@ -21,9 +21,7 @@ export default function Modal(props: IModal) {
     return (
         <div className="container-modal" style={styleContainerModal}>
             <div className="modal-custom" id="exampleModal" style={styleModal}>
-                <p className="msg-modal-custom">
-                    {t(`modal.${props.msgModal}`)}
-                </p>
+                <p className="msg-modal-custom">{t(`modal.${props.msgModal}`)}</p>
             </div>
         </div>
     );

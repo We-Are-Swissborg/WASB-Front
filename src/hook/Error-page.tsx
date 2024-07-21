@@ -1,14 +1,13 @@
-import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 
 export default function ErrorPage() {
     const error = useRouteError();
     console.error(error);
-  
+
     if (isRouteErrorResponse(error)) {
         if (error.status === 401) {
             // ...
-        }
-        else if (error.status === 404) {
+        } else if (error.status === 404) {
             // ...
         }
 

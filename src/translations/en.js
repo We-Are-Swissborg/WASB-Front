@@ -78,7 +78,8 @@ const global_en = {
         "title": "Become a member",
         "register": "Register",
         "welcome": "Welcome to our website!",
-        "error": "An error has occurred during registration."
+        "error": "An error has occurred during registration.",
+        "referral-error": "Referral not exist."
     },
     "setting": {
         "linked-accounts": {
@@ -194,7 +195,7 @@ const global_en = {
         "confirm-registration": "Please confirm on your wallet your registration 😀",
         "user": {
             "add": "User successfully added 😁",
-            "error": "Please retry or contact an administrator 😕",
+            "error": "Please retry or contact an administrator 😕"
         }
     },
     "authenticate": {
