@@ -77,7 +77,6 @@ export default function Form(props: IForm) {
     const [errorPseudo, setErrorPseudo] = useState<boolean>(false);
     const [errorEmail, setErrorEmail] = useState<boolean>(false);
     const [errorDiscord, setErrorDiscord] = useState<boolean>(false);
-    const [errorReferral, setErrorReferral] = useState<boolean>(false);
     const [checkConfidentiality, setCheckConfidentiality] = useState<boolean>(false);
 
     // For the element countries select.
@@ -112,13 +111,12 @@ export default function Form(props: IForm) {
     /* Part-1 - Fonctionnalities for the element to display. */
 
     const checkError = (name: string, boolean: boolean) => {
-        if (name === 'city') setErrorCity(boolean);
-        if (name === 'firstName') setErrorFirstName(boolean);
-        if (name === 'lastName') setErrorLastName(boolean);
-        if (name === 'pseudo') setErrorPseudo(boolean);
-        if (name === 'email') setErrorEmail(boolean);
-        if (name === 'discord') setErrorDiscord(boolean);
-        if (name === 'referral') setErrorReferral(boolean);
+        if(name === 'city') setErrorCity(boolean);
+        if(name === 'firstName') setErrorFirstName(boolean);
+        if(name === 'lastName') setErrorLastName(boolean);
+        if(name === 'pseudo') setErrorPseudo(boolean);
+        if(name === 'email') setErrorEmail(boolean);
+        if(name === 'discord') setErrorDiscord(boolean);
     };
 
     const createObjectToSend = useCallback(
@@ -237,7 +235,6 @@ export default function Form(props: IForm) {
         const regexPseudo: RegExp = new RegExp(regex.pseudo);
         const regexEmail: RegExp = new RegExp(regex.email);
         const regexDiscord: RegExp = new RegExp(regex.discord);
-        // const regexReferral = new RegExp(regex.referral);
 
         const errors = [];
 
@@ -311,14 +308,15 @@ export default function Form(props: IForm) {
         // Class Custom
         const walletAddressClass: string = ' text-truncate pe-5';
 
-        if (name === 'city') defaultClass = errorCity ? defaultClass + errorClass : defaultClass;
-        if (name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
-        if (name === 'firstName') defaultClass = errorFirstName ? defaultClass + errorClass : defaultClass;
-        if (name === 'lastName') defaultClass = errorLastName ? defaultClass + errorClass : defaultClass;
-        if (name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
-        if (name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
-        if (name === 'referral') defaultClass = errorReferral ? defaultClass + errorClass : defaultClass;
-        if (name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
+        if(name === 'city') defaultClass =  errorCity ? defaultClass + errorClass : defaultClass;
+        if(name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
+        if(name === 'firstName') defaultClass = errorFirstName ? defaultClass + errorClass : defaultClass;
+        if(name === 'lastName') defaultClass = errorLastName ? defaultClass + errorClass : defaultClass;
+        if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;
+        if(name === 'discord') defaultClass = errorDiscord ? defaultClass + errorClass : defaultClass;
+        if(name === 'referral') defaultClass = defaultClass + readOnlyClass;
+        if(name === 'walletAddress') defaultClass = defaultClass + readOnlyClass + walletAddressClass;
+        
         return defaultClass;
     };
 

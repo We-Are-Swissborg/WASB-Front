@@ -76,7 +76,8 @@ const global_fr = {
         "title": "Devenir membre",
         "register": "S'inscrire",
         "welcome": "Bienvenue parmi nous !",
-        "error": "Une erreur est survenue lors de votre enregistrement."
+        "error": "Une erreur est survenue lors de votre enregistrement.",
+        "referral-error": "Le referral n'existe pas."
     },
     "setting": {
         "linked-accounts": {
@@ -193,7 +194,7 @@ const global_fr = {
         "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
         "user": {
             "add": "Utilisateur ajouté avec succès 😁",
-            "error": "Veuillez réessayer ou contactez un administrateur 😕",
+            "error": "Veuillez réessayer ou contactez un administrateur 😕"
         }
     },
     "authenticate": {
