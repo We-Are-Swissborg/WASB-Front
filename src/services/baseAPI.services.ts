@@ -3,25 +3,23 @@ const backendAPI: URL = new URL(import.meta.env.VITE_BACKEND_API, window.locatio
 const requestHeaders: HeadersInit = new Headers();
 requestHeaders.set('Content-Type', 'application/json');
 
-const getOptions: RequestInit =  {
-    method: "GET",
-    mode: "cors",
-    cache: "no-cache"
+const getOptions: RequestInit = {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
 };
 
-const postOptions: RequestInit =  {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache"
+const postOptions: RequestInit = {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
 };
 
 const getFetch = (url: string, token?: string | null): Promise<Response> => {
     const options = getOptions;
 
-    if(token)
-        requestHeaders.set('Authorization', `Bearer ${token}`);
-    else
-        requestHeaders.delete('Authorization');
+    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
+    else requestHeaders.delete('Authorization');
 
     options.headers = requestHeaders;
 
@@ -31,10 +29,8 @@ const getFetch = (url: string, token?: string | null): Promise<Response> => {
 const postFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
     const options = postOptions;
 
-    if(token)
-        requestHeaders.set('Authorization', `Bearer ${token}`);
-    else
-        requestHeaders.delete('Authorization');
+    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
+    else requestHeaders.delete('Authorization');
 
     options.headers = requestHeaders;
     options.body = body;

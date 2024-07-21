@@ -20,9 +20,5 @@ export const useLoading = (): LoadingContextType => {
 export const LoadingProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    return (
-        <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-            {children}
-        </LoadingContext.Provider>
-    );
+    return <LoadingContext.Provider value={{ isLoading, setIsLoading }}>{children}</LoadingContext.Provider>;
 };
