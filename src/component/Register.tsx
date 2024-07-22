@@ -6,17 +6,19 @@ import { useForm  } from 'react-hook-form';
 import { checkReferralExist, register } from "../services/user.service";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from '../contexts/AuthContext';
 
 const registration = async (data: Registration) => {
-    await register(data);
+    return await register(data);
 };
 
 export default function Register() {
     const { t } = useTranslation('global');
     const navigate = useNavigate();
     const { codeRef }  = useParams();
-    const [referral, setReferral] = useState(localStorage.getItem('codeRef') || '');
+    const [referralCode, setReferral] = useState(localStorage.getItem('codeRef') || '');
+    const { setToken } = useContext(AuthContext);
 
     // getting the event handlers from our custom hook
     const { register, handleSubmit, formState } = useForm<Registration>({ mode: 'onTouched' });
@@ -24,30 +26,31 @@ export default function Register() {
 
     const onSubmit = async (data: Registration) => {
         try {
-            await registration(data);
+            const res = await registration(data);
             localStorage.removeItem('codeRef');
+            setToken(res.token);
             toast.success(t('register.welcome'));
             navigate('/', { replace: true });
         } catch (e) {
             toast.error(t('register.error'));
         }
     };
-
+    
     const validateRef = async (value: string) => {
         try {
-            let referral = 1;
-
-            if(value.length >= 1) referral = 0;
-            if(value.length === 5) referral = await checkReferralExist(value);
-
-            return !!referral;
+            let referralCode = 1;
+            
+            if(value.length >= 1) referralCode = 0;
+            if(value.length === 5) referralCode = await checkReferralExist(value);
+            
+            return !!referralCode;
         } catch {
             toast.error(t('register.referral-error'));
         }
     };
-
+    
     useEffect(() => {
-        if(codeRef && codeRef !== referral) {
+        if(codeRef && codeRef !== referralCode) {
             checkReferralExist(codeRef).then(() => {
                 localStorage.setItem("codeRef", `${codeRef}`);
                 setReferral(codeRef);
@@ -55,7 +58,7 @@ export default function Register() {
                 toast.error(t('register.referral-error'));
             });
         }
-    }, [codeRef, referral, t]);
+    }, [codeRef, referralCode, t]);
 
     return(
         <div className="container d-flex flex-column align-items-center">
@@ -85,17 +88,17 @@ export default function Register() {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label htmlFor="pseudo" className="col-sm-2 col-form-label">
+                    <label htmlFor="username" className="col-sm-2 col-form-label">
                         Pseudo
                     </label>
 
                     <div className="col-10">
                         <input
                             className="form-control"
-                            id="pseudo"
+                            id="username"
                             type="text"
                             placeholder="Pseudo"
-                            {...register('pseudo', {
+                            {...register('username', {
                                 required: 'this is a required',
                                 maxLength: {
                                     value: 100,
@@ -108,7 +111,7 @@ export default function Register() {
                             })}
                             required
                         />
-                        {errors?.pseudo && <div className="text-danger">{errors.pseudo.message}</div>}
+                        {errors?.username && <div className="text-danger">{errors.username.message}</div>}
                     </div>
                 </div>
                 <div className="row mb-3">
@@ -144,9 +147,9 @@ export default function Register() {
                             className="form-control"
                             id='referral'
                             type='text'
-                            defaultValue={codeRef || referral}
+                            defaultValue={codeRef || referralCode}
                             placeholder='Referral'
-                            {...register('referral', {
+                            {...register('referralCode', {
                                 maxLength: {
                                     value: 5,
                                     message: 'Length referral Incorrect',
@@ -158,7 +161,7 @@ export default function Register() {
                                 validate: validateRef,
                             })}
                         />
-                        {errors?.referral && <div className="text-danger">{errors.referral.message}</div >}
+                        {errors?.referralCode && <div className="text-danger">{errors.referralCode.message}</div >}
                     </div>
                 </div>
 

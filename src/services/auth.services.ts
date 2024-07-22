@@ -43,10 +43,10 @@ const authenticate = async (walletAddress: string, signedHash: string): Promise<
 
 /**
  * authenticate with credential username and password
- * @param username your pseudo
+ * @param username your username
  * @param password your password
  */
-const auth = async (username: string, password: string): Promise<void> => {
+const auth = async (username: string, password: string): Promise<string> => {
     const url: string = 'users/auth';
     const data = { username: username, password: password };
 
@@ -58,6 +58,7 @@ const auth = async (username: string, password: string): Promise<void> => {
     }
 
     localStorage.setItem('token', json.token);
+    return json.token;
 };
 
 export { generateNonce, auth, authenticate };

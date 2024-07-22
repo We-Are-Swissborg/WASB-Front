@@ -1,13 +1,16 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import Form from './Member';
 import '../css/Setting.css';
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Profile() {
     const { t } = useTranslation('global');
     const [choiceSetting, setChoiceSetting] = useState(1);
-
+    const navigate = useNavigate();
+    const { token } = useContext(AuthContext);
     const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
@@ -61,10 +64,10 @@ export default function Profile() {
         },
         {
             balise: 'input',
-            name: 'pseudo',
-            label: t('form.pseudo'),
+            name: 'username',
+            label: t('form.username'),
             type: 'text',
-            placeholder: t('form.placeholder.pseudo'),
+            placeholder: t('form.placeholder.username'),
         },
         {
             balise: 'input',
@@ -139,6 +142,10 @@ export default function Profile() {
         },
         { balise: 'input', name: 'telegram', label: 'Telegram', type: 'text', placeholder: 't.me/WeAreSwissBorg' },
     ];
+
+    useEffect(() => {
+        if(!token) navigate('../');
+    }, [token]);
 
     return (
         <div className="setting-container container d-flex flex-column align-items-center mt-5">

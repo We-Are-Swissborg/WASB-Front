@@ -4,15 +4,18 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { User } from '../types/User';
 import { auth } from '../services/auth.services';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
-const authenticate = async (data: User) => {
-    const { pseudo, password } = data;
-    await auth(pseudo, password);
+const authenticate = async (data: User): Promise<string> => {
+    const { username, password } = data;
+    return await auth(username, password);
 };
 
 export default function Login() {
     const { t } = useTranslation('global');
     const navigate = useNavigate();
+    const { setToken } = useContext(AuthContext);
 
     // getting the event handlers from our custom hook
     const { register, handleSubmit, formState } = useForm<User>({ mode: 'onTouched' });
@@ -20,7 +23,8 @@ export default function Login() {
 
     const onSubmit = async (data: User) => {
         try {
-            await authenticate(data);
+            const token = await authenticate(data);
+            setToken(token);
             toast.success(t('authenticate.welcome'));
             navigate('/', { replace: true });
         } catch (e) {
@@ -54,7 +58,7 @@ export default function Login() {
                                                 id="username"
                                                 type="text"
                                                 placeholder={t('authenticate.placeholder-username')}
-                                                {...register('pseudo', {
+                                                {...register('username', {
                                                     required: 'this is a required',
                                                     maxLength: {
                                                         value: 100,
@@ -63,8 +67,8 @@ export default function Login() {
                                                 })}
                                                 required
                                             />
-                                            {errors?.pseudo && (
-                                                <div className="text-danger">{errors.pseudo.message}</div>
+                                            {errors?.username && (
+                                                <div className="text-danger">{errors.username.message}</div>
                                             )}
                                         </div>
 

@@ -1,8 +1,8 @@
 interface Registration {
-  pseudo: string;
+  username: string;
   email: string;
   password: string;
-  referral: string;
+  referralCode: string;
   confidentiality: boolean;
   beContacted: boolean;
 }

@@ -5,10 +5,13 @@ import TernoaConnect from '../web3/ternoaConnect.tsx';
 import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
-import Settings from '../component/Settings.tsx';
+import Settings from "../component/Settings.tsx";
+import { useContext } from "react";
+import { AuthContext } from '../contexts/AuthContext.tsx';
 
-export default function Header() {
-    const { t } = useTranslation('global');
+export default function Header () {
+    const { t } = useTranslation("global");
+    const {token} = useContext(AuthContext);
 
     return (
         <header>

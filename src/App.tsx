@@ -12,6 +12,7 @@ import { LoadingProvider, useLoading } from './contexts/LoadingContext.tsx';
 import Loading from './component/Loading.tsx';
 import Profile from './component/Profile.tsx';
 import Login from './component/Login.tsx';
+import { AuthProvider } from './contexts/AuthContext.tsx';
 
 const router = createHashRouter([
     {
@@ -64,7 +65,9 @@ function App() {
         <>
             <LoadingProvider>
                 <ToastContainer />
-                <RouterProvider router={router} />
+                <AuthProvider>
+                    <RouterProvider router={router} />
+                </AuthProvider>
                 <LoadingOverlay />
             </LoadingProvider>
         </>

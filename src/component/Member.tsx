@@ -74,7 +74,7 @@ export default function Form(props: IForm) {
     const [errorCity, setErrorCity] = useState<boolean>(false);
     const [errorFirstName, setErrorFirstName] = useState<boolean>(false);
     const [errorLastName, setErrorLastName] = useState<boolean>(false);
-    const [errorPseudo, setErrorPseudo] = useState<boolean>(false);
+    const [errorUsername, setErrorUsername] = useState<boolean>(false);
     const [errorEmail, setErrorEmail] = useState<boolean>(false);
     const [errorDiscord, setErrorDiscord] = useState<boolean>(false);
     const [checkConfidentiality, setCheckConfidentiality] = useState<boolean>(false);
@@ -89,7 +89,7 @@ export default function Form(props: IForm) {
         firstName: '',
         lastName: '',
         email: '',
-        pseudo: '',
+        username: '',
         walletAddress: localStorage.getItem('walletTernoa') || '',
         contribution: '0CHF',
         socialMedias: {
@@ -114,7 +114,7 @@ export default function Form(props: IForm) {
         if(name === 'city') setErrorCity(boolean);
         if(name === 'firstName') setErrorFirstName(boolean);
         if(name === 'lastName') setErrorLastName(boolean);
-        if(name === 'pseudo') setErrorPseudo(boolean);
+        if(name === 'username') setErrorUsername(boolean);
         if(name === 'email') setErrorEmail(boolean);
         if(name === 'discord') setErrorDiscord(boolean);
     };
@@ -122,45 +122,45 @@ export default function Form(props: IForm) {
     const createObjectToSend = useCallback(
         (name: string, value: string, checked: boolean = false) => {
             switch (name) {
-                case 'country':
-                    setRegistration({ ...registration, country: value });
-                    break;
-                case 'city':
-                    setRegistration({ ...registration, city: value.trim() });
-                    break;
-                case 'firstName':
-                    setRegistration({ ...registration, firstName: value.trim() });
-                    break;
-                case 'lastName':
-                    setRegistration({ ...registration, lastName: value.trim() });
-                    break;
-                case 'email':
-                    setRegistration({ ...registration, email: value.trim() });
-                    break;
-                case 'pseudo':
-                    setRegistration({ ...registration, pseudo: value.trim() });
-                    break;
-                case 'contribution':
-                    setRegistration({ ...registration, contribution: value });
-                    break;
-                case 'discord':
-                    setRegistration({
-                        ...registration,
-                        socialMedias: { ...registration.socialMedias, discord: value.trim() },
-                    });
-                    break;
-                case 'referral':
-                    setRegistration({ ...registration, referral: value.trim() });
-                    break;
-                case 'aboutUs':
-                    setRegistration({ ...registration, aboutUs: value });
-                    break;
-                case 'confidentiality':
-                    setRegistration({ ...registration, confidentiality: checked });
-                    break;
-                case 'beContacted':
-                    setRegistration({ ...registration, beContacted: checked });
-                    break;
+            case 'country':
+                setRegistration({ ...registration, country: value });
+                break;
+            case 'city':
+                setRegistration({ ...registration, city: value.trim() });
+                break;
+            case 'firstName':
+                setRegistration({ ...registration, firstName: value.trim() });
+                break;
+            case 'lastName':
+                setRegistration({ ...registration, lastName: value.trim() });
+                break;
+            case 'email':
+                setRegistration({ ...registration, email: value.trim() });
+                break;
+            case 'username':
+                setRegistration({ ...registration, username: value.trim() });
+                break;
+            case 'contribution':
+                setRegistration({ ...registration, contribution: value });
+                break;
+            case 'discord':
+                setRegistration({
+                    ...registration,
+                    socialMedias: { ...registration.socialMedias, discord: value.trim() },
+                });
+                break;
+            case 'referral':
+                setRegistration({ ...registration, referral: value.trim() });
+                break;
+            case 'aboutUs':
+                setRegistration({ ...registration, aboutUs: value });
+                break;
+            case 'confidentiality':
+                setRegistration({ ...registration, confidentiality: checked });
+                break;
+            case 'beContacted':
+                setRegistration({ ...registration, beContacted: checked });
+                break;
             }
         },
         [registration],
@@ -170,7 +170,7 @@ export default function Form(props: IForm) {
         (name: string = '', value: string = '', checked: boolean = false) => {
             const activation: boolean =
                 (registration.email &&
-                    registration.pseudo &&
+                    registration.username &&
                     registration.walletAddress &&
                     registration.confidentiality) ||
                 false;
@@ -232,7 +232,7 @@ export default function Form(props: IForm) {
 
     const activeRegex = (formData: FormData) => {
         const regexName: RegExp = new RegExp(regex.name);
-        const regexPseudo: RegExp = new RegExp(regex.pseudo);
+        const regexUsername: RegExp = new RegExp(regex.username);
         const regexEmail: RegExp = new RegExp(regex.email);
         const regexDiscord: RegExp = new RegExp(regex.discord);
 
@@ -243,9 +243,9 @@ export default function Form(props: IForm) {
                 if (infoUser[0] === 'firstName' || infoUser[0] === 'lastName' || infoUser[0] === 'city') {
                     const nameCheck = regexName.test(infoUser[1].toString());
                     errors.push(guardRegex(nameCheck, infoUser[0], infoUser[1].toString()));
-                } else if (infoUser[0] === 'pseudo') {
-                    const pseudoCheck = regexPseudo.test(infoUser[1].toString());
-                    errors.push(guardRegex(pseudoCheck, infoUser[0], infoUser[1].toString()));
+                } else if (infoUser[0] === 'username') {
+                    const usernameCheck = regexUsername.test(infoUser[1].toString());
+                    errors.push(guardRegex(usernameCheck, infoUser[0], infoUser[1].toString()));
                 } else if (infoUser[0] === 'email') {
                     const emailCheck = regexEmail.test(infoUser[1].toString());
                     errors.push(guardRegex(emailCheck, infoUser[0], infoUser[1].toString()));
@@ -309,7 +309,7 @@ export default function Form(props: IForm) {
         const walletAddressClass: string = ' text-truncate pe-5';
 
         if(name === 'city') defaultClass =  errorCity ? defaultClass + errorClass : defaultClass;
-        if(name === 'pseudo') defaultClass = errorPseudo ? defaultClass + errorClass : defaultClass;
+        if(name === 'username') defaultClass = errorUsername ? defaultClass + errorClass : defaultClass;
         if(name === 'firstName') defaultClass = errorFirstName ? defaultClass + errorClass : defaultClass;
         if(name === 'lastName') defaultClass = errorLastName ? defaultClass + errorClass : defaultClass;
         if(name === 'email') defaultClass = errorEmail ? defaultClass + errorClass : defaultClass;

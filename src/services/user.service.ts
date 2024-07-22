@@ -11,6 +11,7 @@ const register = async (data: Registration) => {
         throw new Error('An error has occurred: ' + json.message);
     }
 
+    localStorage.setItem('token', json.token);
     return json;
 };
 
