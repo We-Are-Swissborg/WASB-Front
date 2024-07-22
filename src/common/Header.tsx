@@ -52,16 +52,20 @@ export default function Header () {
                         <div className="d-flex" role="connect">
                             {/* <TernoaConnect /> */}
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/login">
-                                        {t('nav.sign-in')}
-                                    </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/register">
-                                        {t('nav.sign-up')}
-                                    </NavLink>
-                                </li>
+                                { !token ?
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/login">{t("nav.sign-in")}</NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/register">{t("nav.sign-up")}</NavLink>
+                                        </li> 
+                                        
+                                    </> :                   
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/profile">{t("nav.profile")}</NavLink>
+                                    </li>
+                                }
                             </ul>
                         </div>
                         <Settings />
