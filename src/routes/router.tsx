@@ -4,10 +4,12 @@ import ErrorPage from '../hook/Error-page';
 import Home from '../component/Home';
 import Blog from '../component/Blog';
 import Contact from '../component/Contact';
-import Register from '../component/Register';
-import ProtectedRoute from '../component/ProtectedRouter';
+import ProtectedRoute from '../component/Route/ProtectedRouter';
 import Profile from '../component/Profile';
-import Login from '../component/Login';
+import Register from '../component/Security/Register';
+import Login from '../component/Security/Login';
+import Logout from '../component/Security/Logout';
+import OnlyAnonymousRouter from '../component/Route/OnlyAnonymousRouter';
 
 const router = createHashRouter([
     {
@@ -29,11 +31,11 @@ const router = createHashRouter([
             },
             {
                 path: '/register',
-                element: <Register />,
+                element: <OnlyAnonymousRouter element={<Register />} />,
                 children: [
                     {
                         path: ':codeRef',
-                        element: <Register />,
+                        element: <OnlyAnonymousRouter element={<Register />} />,
                     },
                 ],
             },
@@ -43,7 +45,11 @@ const router = createHashRouter([
             },
             {
                 path: '/login',
-                element: <Login />,
+                element: <OnlyAnonymousRouter element={<Login />} />,
+            },
+            {
+                path: '/logout',
+                element: <ProtectedRoute element={<Logout />} />,
             },
         ],
     },

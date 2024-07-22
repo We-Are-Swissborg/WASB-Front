@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { User } from '../types/User';
-import { auth } from '../services/auth.services';
-import { useAuth } from '../contexts/AuthContext';
+import { User } from '../../types/User';
+import { auth } from '../../services/auth.services';
+import { useAuth } from '../../contexts/AuthContext';
 
 const authenticate = async (data: User): Promise<string> => {
     const { username, password } = data;

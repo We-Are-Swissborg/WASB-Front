@@ -45,6 +45,7 @@ const global_fr = {
         "contact": "Contact",
         "home": "Accueil",
         "language": "Langue",
+        "logout": " Déconnexion",
         "profile": "Profil",
         "sign-up": "S'inscrire",
         "sign-in": "Se connecter",

@@ -45,6 +45,7 @@ const global_en = {
         "contact": "Contact",
         "home": "Home",
         "language": "Language",
+        "logout": " Logout",
         "profile": "Profile",
         "sign-up": "Sign Up",
         "sign-in": "Sign In",
