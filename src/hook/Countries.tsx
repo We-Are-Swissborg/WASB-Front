@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import AR from '../assets/images/countries/argentina.svg';
+import { AR as AR }  from '../assets/images/countries/argentina.svg';
 import AU from '../assets/images/countries/austria.svg';
 import BE from '../assets/images/countries/belgium.svg';
 import BR from '../assets/images/countries/brazil.svg';

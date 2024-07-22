@@ -1,3 +1,3 @@
-export interface Nonce {
+export type Nonce = {
     nonce: string;
 }

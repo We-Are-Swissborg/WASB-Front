@@ -1,4 +1,4 @@
-export interface SocialMedias {
+export type SocialMedias = {
     twitter?: string;
     discord?: string;
     tiktok?: string;

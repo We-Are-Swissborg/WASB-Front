@@ -1,4 +1,4 @@
-export interface DataForm {
+export type DataForm = {
     balise: string;
     name: string;
     label: string;

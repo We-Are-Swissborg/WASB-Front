@@ -34,8 +34,8 @@ const router = createHashRouter([
                     {
                         path: ':codeRef',
                         element: <Register />,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 path: '/profile',

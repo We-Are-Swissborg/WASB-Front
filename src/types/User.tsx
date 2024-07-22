@@ -1,14 +1,13 @@
 import { SocialMedias } from './SocialMedia';
 
-export interface User {
+export type User = {
     id?: number;
     country?: string;
     city?: string;
     firstName?: string;
     lastName?: string;
-    pseudo: string;
+    username: string;
     email: string;
-    password: string;
     walletAddress: string;
     contribution?: string;
     socialMedias?: SocialMedias;
