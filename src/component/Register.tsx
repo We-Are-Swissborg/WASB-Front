@@ -33,17 +33,16 @@ export default function Register() {
     };
 
     // TODO: execute la requête à chaque touche/clique cellule.
-    // Comment être sur que sera toujours 5 comme valeur ? 
+    // Comment être sur que sera toujours 5 comme valeur ?
     const validateReferralCode = async (value: string): Promise<boolean> => {
         try {
             if (value.length === 5) {
                 const response = await checkReferralExist(value);
                 return !!response;
-            }            
+            }
         } catch {
             toast.error(t('register.referral-error'));
-        }
-        finally {
+        } finally {
             return false;
         }
     };

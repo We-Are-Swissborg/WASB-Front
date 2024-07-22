@@ -5,6 +5,6 @@ type Registration = {
     referralCode: string;
     confidentiality: boolean;
     beContacted: boolean;
-}
+};
 
 export default Registration;

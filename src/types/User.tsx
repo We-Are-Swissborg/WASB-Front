@@ -8,6 +8,7 @@ export type User = {
     lastName?: string;
     username: string;
     email: string;
+    password?: string;
     walletAddress: string;
     contribution?: string;
     socialMedias?: SocialMedias;
@@ -15,4 +16,4 @@ export type User = {
     aboutUs?: string;
     confidentiality: boolean;
     beContacted?: boolean;
-}
+};

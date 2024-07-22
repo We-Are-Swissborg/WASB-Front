@@ -5,4 +5,4 @@ export type JwtPayload = {
     wallet: string;
     iat: number;
     exp: number;
-}
+};

@@ -21,7 +21,7 @@ const DEFAULT_APP_METADATA = {
     icons: [`${window.location.origin}/${wasb_favicon}`],
 };
 
-const TERNOA_CHAIN = import.meta.env.VITE_CHAIN_PROVIDER;
+const TERNOA_CHAIN = import.meta.env.VITE_CHAIN_PROVIDER || '';
 const RELAY_URL = 'wss://wallet-connectrelay.ternoa.network/';
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID; // Get your project id by applying to the form, link in the introduction
 const requiredNamespaces = {

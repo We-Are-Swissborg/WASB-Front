@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const authenticate = async (data: User): Promise<string> => {
     const { username, password } = data;
-    return await auth(username, password);
+    return await auth(username, password!);
 };
 
 export default function Login() {

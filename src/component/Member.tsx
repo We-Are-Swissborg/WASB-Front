@@ -3,7 +3,6 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import regex from '../services/regex';
-import { register } from '../services/user.service';
 
 import { User } from '../types/User';
 import { DataForm } from '../types/DataForm';
@@ -281,9 +280,9 @@ export default function Form(props: IForm) {
             const noError: boolean = activeRegex(formData);
 
             if (noError) {
-                const res = {}; //await register(registration);
+                //const res = {}; //await register(registration);
 
-                if (!res.token) return displayModal('user.error');
+                displayModal('user.error');
 
                 displayModal('user.add');
 

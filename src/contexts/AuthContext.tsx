@@ -9,7 +9,7 @@ type AuthContextType = {
     username: string | null;
     login: (newToken: string) => void;
     logout: () => void;
-}
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -42,7 +42,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     }, []);
 
-    return <AuthContext.Provider value={{ isAuthenticated, username, token, login, logout }}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, username, token, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => {

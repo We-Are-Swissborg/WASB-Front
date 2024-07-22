@@ -3,4 +3,4 @@ export type SocialMedias = {
     discord?: string;
     tiktok?: string;
     telegram?: string;
-}
+};

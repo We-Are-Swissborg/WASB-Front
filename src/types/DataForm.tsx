@@ -6,4 +6,4 @@ export type DataForm = {
     placeholder?: string;
     value?: string;
     readOnly?: boolean;
-}
+};
