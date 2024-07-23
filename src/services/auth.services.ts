@@ -27,7 +27,7 @@ const generateNonce = async (walletAddress: string): Promise<Nonce> => {
  * @param signedHash signed message hash
  * @returns
  */
-const authenticate = async (walletAddress: string, signedHash: string): Promise<void> => {
+const authenticate = async (walletAddress: string, signedHash: string): Promise<string> => {
     const url: string = 'users/authWallet';
     const data = { walletAddress: walletAddress, signedMessageHash: signedHash };
 
@@ -38,16 +38,16 @@ const authenticate = async (walletAddress: string, signedHash: string): Promise<
         throw new Error('An error has occurred: ' + json.message);
     }
 
-    localStorage.setItem('token', json.token);
+    return json.token;
 };
 
 /**
  * authenticate with credential username and password
- * @param username your pseudo
+ * @param username your username
  * @param password your password
  */
-const auth = async (username: string, password: string): Promise<void> => {
-    const url: string = 'users/auth';
+const auth = async (username: string, password: string): Promise<string> => {
+    const url = `users/auth`;
     const data = { username: username, password: password };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
@@ -57,7 +57,7 @@ const auth = async (username: string, password: string): Promise<void> => {
         throw new Error('An error has occurred: ' + json.message);
     }
 
-    localStorage.setItem('token', json.token);
+    return json.token;
 };
 
 export { generateNonce, auth, authenticate };

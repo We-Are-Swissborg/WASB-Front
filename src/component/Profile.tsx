@@ -61,10 +61,10 @@ export default function Profile() {
         },
         {
             balise: 'input',
-            name: 'pseudo',
-            label: t('form.pseudo'),
+            name: 'username',
+            label: t('form.username'),
             type: 'text',
-            placeholder: t('form.placeholder.pseudo'),
+            placeholder: t('form.placeholder.username'),
         },
         {
             balise: 'input',
