@@ -7,15 +7,23 @@ import { checkReferralExist, register } from '../../services/user.service';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { auth } from '../../services/auth.services';
+import { useAuth } from '../../contexts/AuthContext';
 
 const registration = async (data: Registration) => {
     await register(data);
+};
+
+const authenticate = async (data: Registration): Promise<string> => {
+    const { username, password } = data;
+    return await auth(username, password!);
 };
 
 export default function Register() {
     const { t } = useTranslation('global');
     const navigate = useNavigate();
     const { codeRef } = useParams();
+    const { login } = useAuth();
     const [referralCode, setReferralCode] = useState(localStorage.getItem('codeRef') || '');
 
     // getting the event handlers from our custom hook
@@ -26,25 +34,27 @@ export default function Register() {
         try {
             await registration(data);
             localStorage.removeItem('codeRef');
+            const token = await authenticate(data);
+            login(token);
             navigate('/', { replace: true });
         } catch (e) {
             toast.error(t('register.error'));
         }
     };
 
-    // TODO: execute la requête à chaque touche/clique cellule.
-    // Comment être sur que sera toujours 5 comme valeur ?
+    // TODO: execute the request on each keypress/click in the cell.
     const validateReferralCode = async (value: string): Promise<boolean> => {
         try {
             if (value.length === 5) {
                 const response = await checkReferralExist(value);
+                localStorage.setItem('codeRef', `${value}`);
                 return !!response;
             }
         } catch {
             toast.error(t('register.referral-error'));
-        } finally {
-            return false;
         }
+        if(value.length === 0) return true;
+        return false;
     };
 
     useEffect(() => {
