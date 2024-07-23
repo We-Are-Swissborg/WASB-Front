@@ -1,7 +1,7 @@
 {
   "name": "weareswissborg",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -54,6 +54,7 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "^3.3.3",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vite-plugin-mkcert": "^1.17.5"
   }
 }
