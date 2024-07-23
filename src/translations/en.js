@@ -187,7 +187,7 @@ const global_en = {
             "username": "Enter your username",
             "select": "Choose...",
         },
-        "username": "username*",
+        "username": "Username*",
         "referral": "Referral",
         "status": "Status of your contribution",
         "wallet-address": "Your wallet address*",
