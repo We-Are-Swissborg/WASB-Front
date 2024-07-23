@@ -185,7 +185,7 @@ const global_fr = {
             "username": "Entrer votre nom d'utilisateur",
             "select": "Choisir...",
         },
-        "username": "nom d'utilisateur*",
+        "username": "Nom d'utilisateur*",
         "referral": "Référent",
         "status": "Statut de votre adhésion",
         "title": "Réglages",
@@ -206,7 +206,7 @@ const global_fr = {
         "error": "L'authentification n'est pas valide pour ce nom d'utilisateur ou ce mot de passe",
         "password": "Mot de passe",
         "placeholder-password": "Entrez votre mot de passe",
-        "username": "nom d'utilisateur",
+        "username": "Nom d'utilisateur",
         "placeholder-username": "Entrez votre nom d'utilisateur",
         "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
     }
