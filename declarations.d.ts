@@ -21,3 +21,11 @@ declare module '*.svg' {
     const src: string;
     export default src;
 }
+
+type ImportMetaEnv = {
+    [x: string]: any;
+}
+  
+type ImportMeta = {
+    readonly env: ImportMetaEnv;
+}
