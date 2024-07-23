@@ -1,14 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import TernoaConnect from '../web3/ternoaConnect.tsx';
 import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
 import Settings from '../component/Settings.tsx';
+import { useAuth } from '../contexts/AuthContext.tsx';
 
 export default function Header() {
     const { t } = useTranslation('global');
+    const { isAuthenticated } = useAuth();
 
     return (
         <header>
@@ -49,16 +50,33 @@ export default function Header() {
                         <div className="d-flex" role="connect">
                             {/* <TernoaConnect /> */}
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/login">
-                                        {t('nav.sign-in')}
-                                    </NavLink>
-                                </li>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/register">
-                                        {t('nav.sign-up')}
-                                    </NavLink>
-                                </li>
+                                {isAuthenticated ? (
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/profile">
+                                                {t('nav.profile')}
+                                            </NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/logout">
+                                                {t('nav.logout')}
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/login">
+                                                {t('nav.sign-in')}
+                                            </NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/register">
+                                                {t('nav.sign-up')}
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
                         <Settings />

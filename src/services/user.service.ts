@@ -14,7 +14,7 @@ const register = async (data: Registration) => {
     return json;
 };
 
-const checkReferralExist = async (codeRef: string) => {
+const checkReferralExist = async (codeRef: string): Promise<string> => {
     const url: string = 'users/codeRef/' + codeRef;
 
     const response: Response = await BaseApi.getFetch(url);
