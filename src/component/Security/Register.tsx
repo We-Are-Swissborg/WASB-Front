@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { checkReferralExist, register } from '../../services/user.service';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { auth } from '../../services/auth.services';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -24,16 +24,16 @@ export default function Register() {
     const navigate = useNavigate();
     const { codeRef } = useParams();
     const { login } = useAuth();
-    const [referralCode, setReferralCode] = useState(localStorage.getItem('codeRef') || '');
 
     // getting the event handlers from our custom hook
     const { register, handleSubmit, formState } = useForm<Registration>({ mode: 'onTouched' });
     const { isSubmitting, errors } = formState;
+    const [correctReferral, setCorrectReferral] = useState<string[]>([]);
+    const [wrongReferral, setWrongReferral] = useState<string[]>([]);
 
     const onSubmit = async (data: Registration) => {
         try {
             await registration(data);
-            localStorage.removeItem('codeRef');
             const token = await authenticate(data);
             login(token);
             navigate('/', { replace: true });
@@ -42,33 +42,42 @@ export default function Register() {
         }
     };
 
+    const validReferral = useCallback( async (codeRef: string) => {
+        const res = await checkReferralExist(codeRef);
+
+        if (!correctReferral.includes(codeRef)) setCorrectReferral([...correctReferral, codeRef]); // Add correct value in an array for not request the server if user retape the same referral.
+        return res;
+    }, [correctReferral]);
+    
+    const errorReferral = useCallback((codeRef: string) => {
+        if(codeRef.length === 5 && !wrongReferral.includes(codeRef)) setWrongReferral([...wrongReferral, codeRef]); // Add wrong value in an array for not request the server if user retape the same referral.
+        toast.error(t('register.referral-error'));
+    }, [t, wrongReferral]);
+ 
     // TODO: execute the request on each keypress/click in the cell.
     const validateReferralCode = async (value: string): Promise<boolean> => {
         try {
-            if (value.length === 5) {
-                const response = await checkReferralExist(value);
-                localStorage.setItem('codeRef', `${value}`);
+            const correctValueExist = correctReferral.includes(value);
+            const wrongValueExist = wrongReferral.includes(value);
+
+            if(wrongValueExist) throw errors; // If value already exist in wrong array return error;
+            if(correctValueExist) return true; // If value already exist in correct array return true;
+
+            if (value.length === 5 && !correctValueExist && !wrongValueExist) {
+                const response = await validReferral(value);
+
                 return !!response;
             }
         } catch {
-            toast.error(t('register.referral-error'));
+            errorReferral(value);
         }
         if(value.length === 0) return true;
         return false;
     };
 
     useEffect(() => {
-        if (codeRef && codeRef !== referralCode) {
-            checkReferralExist(codeRef)
-                .then(() => {
-                    localStorage.setItem('codeRef', `${codeRef}`);
-                    setReferralCode(codeRef);
-                })
-                .catch(() => {
-                    toast.error(t('register.referral-error'));
-                });
-        }
-    }, [codeRef, referralCode, t]);
+        if (codeRef) validReferral(codeRef).catch(() => errorReferral(codeRef));
+    }, [t, codeRef]);
 
     return (
         <div className="container d-flex flex-column align-items-center">
@@ -159,7 +168,7 @@ export default function Register() {
                             className="form-control"
                             id="referralCode"
                             type="text"
-                            defaultValue={codeRef || referralCode}
+                            defaultValue={codeRef || ''}
                             placeholder="Referral"
                             {...register('referralCode', {
                                 maxLength: {
