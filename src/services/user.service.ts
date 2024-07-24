@@ -2,7 +2,7 @@ import Registration from '../types/Registration';
 import * as BaseApi from './baseAPI.services';
 
 const register = async (data: Registration) => {
-    const url: string = 'users/register';
+    const url: string = 'register';
 
     const response: Response = await BaseApi.postFetch(url, JSON.stringify(data));
     const json = await response.json();

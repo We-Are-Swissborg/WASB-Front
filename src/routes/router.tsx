@@ -23,7 +23,7 @@ const router = createHashRouter([
             },
             {
                 path: '/blog',
-                element: <ProtectedRoute element={<Blog />} />,
+                element: <Blog />,
             },
             {
                 path: '/contact',

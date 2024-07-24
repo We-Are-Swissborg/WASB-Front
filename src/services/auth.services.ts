@@ -28,7 +28,7 @@ const generateNonce = async (walletAddress: string): Promise<Nonce> => {
  * @returns
  */
 const authenticate = async (walletAddress: string, signedHash: string): Promise<string> => {
-    const url: string = 'users/authWallet';
+    const url: string = 'authWallet';
     const data = { walletAddress: walletAddress, signedMessageHash: signedHash };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
@@ -47,7 +47,7 @@ const authenticate = async (walletAddress: string, signedHash: string): Promise<
  * @param password your password
  */
 const auth = async (username: string, password: string): Promise<string> => {
-    const url = `users/auth`;
+    const url = `auth`;
     const data = { username: username, password: password };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
