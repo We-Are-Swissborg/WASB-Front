@@ -45,8 +45,10 @@ const global_en = {
         "contact": "Contact",
         "home": "Home",
         "language": "Language",
+        "logout": " Logout",
         "profile": "Profile",
-        "register": "Register"
+        "sign-up": "Sign Up",
+        "sign-in": "Sign In",
     },
     "ourmission": {
         "blockchain": {
@@ -73,9 +75,12 @@ const global_en = {
         "title": "Our objectives"
     },
     "register": {
-        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
-                    To register, please fill out the form below (all fields with * are mandatory):`,
+        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.`,
         "title": "Become a member",
+        "register": "Register",
+        "welcome": "Welcome to our website!",
+        "error": "An error has occurred during registration.",
+        "referral-error": "Referral not exist."
     },
     "setting": {
         "linked-accounts": {
@@ -179,10 +184,10 @@ const global_en = {
             "email": "Enter your email",
             "first-name": "Enter your first name",
             "last-name": "Enter your last name",
-            "pseudo": "Enter your pseudo",
+            "username": "Enter your username",
             "select": "Choose...",
         },
-        "pseudo": "Pseudo*",
+        "username": "Username*",
         "referral": "Referral",
         "status": "Status of your contribution",
         "wallet-address": "Your wallet address*",
@@ -191,12 +196,20 @@ const global_en = {
         "confirm-registration": "Please confirm on your wallet your registration 😀",
         "user": {
             "add": "User successfully added 😁",
-            "error": "Please retry or contact an administrator 😕",
+            "error": "Please retry or contact an administrator 😕"
         }
     },
     "authenticate": {
+        "title": "Login",
         "welcome": "Welcome",
-        "error-sign": "An error occurred during the signature request."
+        "error-sign": "An error occurred during the signature request.",
+        "login": "Login",
+        "error": "Authentication is not valid for this username or password",
+        "password": "Password",
+        "placeholder-password": "Enter your password",
+        "username": "Username",
+        "placeholder-username": "Enter your username",
+        "sign-up": "Don't have an account? ? <link1>Sign Up</link1>",
     }
 };
 

@@ -45,8 +45,10 @@ const global_fr = {
         "contact": "Contact",
         "home": "Accueil",
         "language": "Langue",
+        "logout": " Déconnexion",
         "profile": "Profil",
-        "register": "S'inscrire"
+        "sign-up": "S'inscrire",
+        "sign-in": "Se connecter",
     },
     "ourmission": {
         "blockchain": {
@@ -71,9 +73,12 @@ const global_fr = {
         "title": "Nos objectifs"
     },
     "register": {
-        "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.
-                    Pour vous inscrire, veuillez remplir le formulaire ci-dessous (tous les champs avec * sont obligatoires) :`,
+        "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.`,
         "title": "Devenir membre",
+        "register": "S'inscrire",
+        "welcome": "Bienvenue parmi nous !",
+        "error": "Une erreur est survenue lors de votre enregistrement.",
+        "referral-error": "Le referral n'existe pas."
     },
     "setting": {
         "linked-accounts": {
@@ -158,7 +163,7 @@ const global_fr = {
             "update": "Mise à jour",
         },
         "city": "Ville",
-        "confidentiality": "En soumettant ce formulaire, vous acceptez d'être contacté par WeAreSwissBorg et acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
+        "confidentiality": "En soumettant ce formulaire, vous acceptez nos <link1>conditions d'utilisation</link1> et notre <link2>politique de confidentialité</link2>.",
         "contribution": "Cotisation",
         "contribution-end": "Fin de l’adhésion",
         "contribution-start": "Date de l’adhésion",
@@ -177,10 +182,10 @@ const global_fr = {
             "email": "Entrer votre e-mail",
             "first-name": "Entrer votre prénom",
             "last-name": "Entrer votre nom",
-            "pseudo": "Entrer votre pseudo",
+            "username": "Entrer votre nom d'utilisateur",
             "select": "Choisir...",
         },
-        "pseudo": "Pseudo*",
+        "username": "Nom d'utilisateur*",
         "referral": "Référent",
         "status": "Statut de votre adhésion",
         "title": "Réglages",
@@ -190,12 +195,20 @@ const global_fr = {
         "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
         "user": {
             "add": "Utilisateur ajouté avec succès 😁",
-            "error": "Veuillez réessayer ou contactez un administrateur 😕",
+            "error": "Veuillez réessayer ou contactez un administrateur 😕"
         }
     },
     "authenticate": {
+        "title": "Se connecter",
         "welcome": "Bonjour",
-        "error-sign": "Une erreur est survenu lors de la demande de signature"
+        "error-sign": "Une erreur est survenu lors de la demande de signature",
+        "login": "Se connecter",
+        "error": "L'authentification n'est pas valide pour ce nom d'utilisateur ou ce mot de passe",
+        "password": "Mot de passe",
+        "placeholder-password": "Entrez votre mot de passe",
+        "username": "Nom d'utilisateur",
+        "placeholder-username": "Entrez votre nom d'utilisateur",
+        "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
     }
 };
 

@@ -1,10 +1,9 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
-import Header from "../common/Header.tsx";
-import Footer from "../common/Footer.tsx";
+import Header from '../common/Header.tsx';
+import Footer from '../common/Footer.tsx';
 
 export default function Root() {
-
     return (
         <>
             <Header />

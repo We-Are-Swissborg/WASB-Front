@@ -1,66 +1,85 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import TernoaConnect from "../web3/ternoaConnect.tsx";
 import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
+import Settings from '../component/Settings.tsx';
+import { useAuth } from '../contexts/AuthContext.tsx';
 
-export default function Header () {
-    const [t, i18n] = useTranslation("global");
-    const [isHovering, setIsHovering] = useState<boolean>(false);
-
-    const handleChangeLanguage = (lang: string) => {
-        i18n.changeLanguage(lang);
-        localStorage.setItem("language", lang);
-    };
-
-    const handleMouseEnter = () => {
-        setIsHovering(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovering(false);
-    };
+export default function Header() {
+    const { t } = useTranslation('global');
+    const { isAuthenticated } = useAuth();
 
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
                 <div className="container d-flex justify-content-between">
                     <NavLink className="navbar-brand" to="/">
-                        <img src={logo} className="logo-wasb" title="We are SwissBorg" alt="We are SwissBorg"/>
+                        <img src={logo} className="logo-wasb" title="We are SwissBorg" alt="We are SwissBorg" />
                     </NavLink>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/">{t("nav.home")}</NavLink>
+                                <NavLink className="nav-link" to="/">
+                                    {t('nav.home')}
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/blog">{t("nav.blog")}</NavLink>
+                                <NavLink className="nav-link" to="/blog">
+                                    {t('nav.blog')}
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/contact">{t("nav.contact")}</NavLink>
+                                <NavLink className="nav-link" to="/contact">
+                                    {t('nav.contact')}
+                                </NavLink>
                             </li>
                         </ul>
                         <div className="d-flex" role="connect">
-                            <TernoaConnect />
-                        </div>
-                        <div className="dropdown">
-                            <button type="button" className="btn btn-outline-secondary" id="navbarParams" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}>
-                                <i className={isHovering ? 'fa fa-spin fa-gear' : 'fa fa-gear'}></i>
-                            </button>
-                            <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarParams">
-                                <li><h6 className="dropdown-header">{t("nav.language")}</h6></li>
-                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('en')}>{t("header.en")}</button></li>
-                                <li><button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>{t("header.fr")}</button></li>
+                            {/* <TernoaConnect /> */}
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                {isAuthenticated ? (
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/profile">
+                                                {t('nav.profile')}
+                                            </NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/logout">
+                                                {t('nav.logout')}
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/login">
+                                                {t('nav.sign-in')}
+                                            </NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="/register">
+                                                {t('nav.sign-up')}
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
+                        <Settings />
                     </div>
                 </div>
             </nav>

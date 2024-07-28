@@ -1,14 +1,15 @@
 {
   "name": "weareswissborg",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\""
   },
   "dependencies": {
     "@gsap/react": "^2.1.0",
@@ -21,8 +22,10 @@
     "dotenv": "^16.4.5",
     "gsap": "^3.12.5",
     "i18next": "^23.7.18",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "jwt-decode": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.1",
     "react-i18next": "^14.0.1",
     "react-router-dom": "^6.21.0",
     "react-toastify": "^10.0.5",
@@ -49,7 +52,9 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vite-plugin-mkcert": "^1.17.5"
   }
 }

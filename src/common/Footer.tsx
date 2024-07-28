@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 import '../css/Footer.css';
 
 export default function Footer() {
-    const [t] = useTranslation("global");
+    const [t] = useTranslation('global');
     const backToUp = useRef(null);
 
     useEffect(() => {
@@ -24,7 +24,8 @@ export default function Footer() {
     return (
         <footer className="text-muted py-5 bg-primary">
             <div className="container">
-                <button ref={backToUp}
+                <button
+                    ref={backToUp}
                     type="button"
                     className="btn btn-danger btn-floating btn-lg"
                     id="btn-back-to-top"
@@ -32,45 +33,85 @@ export default function Footer() {
                 >
                     <i className="fas fa-arrow-up"></i>
                 </button>
-                <p className="mb-3">{t("footer.message")}</p>
+                <p className="mb-3">{t('footer.message')}</p>
                 <div className="row">
                     <div className="col-6 col-md-2 mb-3">
-                        <h5>{t("footer.subtitle")}</h5>
+                        <h5>{t('footer.subtitle')}</h5>
                         <ul className="nav flex-column">
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.whoarewe")}</a></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.team")}</a></li>
-                            <li className="nav-item mb-2"><NavLink className="nav-link p-0 link-light" to="/contact">{t("footer.contact")}</NavLink></li>
-                            <li className="nav-item mb-2"><a href="#" className="nav-link p-0 link-light">{t("footer.donation")}</a></li>
+                            <li className="nav-item mb-2">
+                                <a href="#" className="nav-link p-0 link-light">
+                                    {t('footer.whoarewe')}
+                                </a>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <a href="#" className="nav-link p-0 link-light">
+                                    {t('footer.team')}
+                                </a>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <NavLink className="nav-link p-0 link-light" to="/contact">
+                                    {t('footer.contact')}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <a href="#" className="nav-link p-0 link-light">
+                                    {t('footer.donation')}
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    <div className="col">
-                        <h5>{t("footer.join")}</h5>
+                    <div className="col  mb-3">
+                        <h5>{t('footer.join')}</h5>
                         <ul className="list-group list-group-horizontal">
                             <li className="list-group-item">
-                                <a href="#"><i className="fa-brands fa-x-twitter fa-2x"></i></a>
+                                <a href="#">
+                                    <i className="fa-brands fa-x-twitter fa-2x"></i>
+                                </a>
                             </li>
                             <li className="list-group-item">
-                                <a href="#" target='_blank'><i className="fa-brands fa-discord fa-2x"></i></a>
+                                <a href="#" target="_blank">
+                                    <i className="fa-brands fa-discord fa-2x"></i>
+                                </a>
                             </li>
                             <li className="list-group-item">
-                                <a href="#"><i className="fa-brands fa-youtube fa-2x"></i></a>
+                                <a href="#">
+                                    <i className="fa-brands fa-youtube fa-2x"></i>
+                                </a>
                             </li>
                             <li className="list-group-item">
-                                <a href="#"><i className="fa-brands fa-facebook fa-2x"></i></a>
+                                <a href="#">
+                                    <i className="fa-brands fa-facebook fa-2x"></i>
+                                </a>
                             </li>
                             <li className="list-group-item">
-                                <a href="#"><i className="fa-brands fa-twitch fa-2x"></i></a>
+                                <a href="#">
+                                    <i className="fa-brands fa-twitch fa-2x"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
                     <div className="col-md-5 offset-md-1 mb-3">
+                        <h5>{t('footer.subscribe.title')}</h5>
                         <form>
-                            <h5>{t('footer.subscribe.title')}</h5>
                             <p>{t('footer.subscribe.message')}</p>
                             <div className="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label htmlFor="newsletter1" className="visually-hidden">{t('footer.subscribe.placeholder')}</label>
-                                <input id="newsletter1" type="text" className="form-control rounded-pill" placeholder={t('footer.subscribe.placeholder')} disabled />
-                                <button className="btn bg-gradient rounded-pill border border-secondary text-white" type="button" disabled>{t('footer.subscribe.button')}</button>
+                                <label htmlFor="newsletter1" className="visually-hidden">
+                                    {t('footer.subscribe.placeholder')}
+                                </label>
+                                <input
+                                    id="newsletter1"
+                                    type="text"
+                                    className="form-control rounded-pill"
+                                    placeholder={t('footer.subscribe.placeholder')}
+                                    disabled
+                                />
+                                <button
+                                    className="btn bg-gradient rounded-pill border border-secondary text-white"
+                                    type="button"
+                                    disabled
+                                >
+                                    {t('footer.subscribe.button')}
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -78,11 +119,31 @@ export default function Footer() {
                 <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                     <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
                     <ul className="list-unstyled d-flex">
-                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-x-twitter"></i></a></li>
-                        <li className="ms-3"><a className="link-light" href="#" target='_blank'><i className="fa-brands fa-discord"></i></a></li>
-                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-youtube"></i></a></li>
-                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-facebook"></i></a></li>
-                        <li className="ms-3"><a className="link-light" href="#"><i className="fa-brands fa-twitch"></i></a></li>
+                        <li className="ms-3">
+                            <a className="link-light" href="#">
+                                <i className="fa-brands fa-x-twitter"></i>
+                            </a>
+                        </li>
+                        <li className="ms-3">
+                            <a className="link-light" href="#" target="_blank">
+                                <i className="fa-brands fa-discord"></i>
+                            </a>
+                        </li>
+                        <li className="ms-3">
+                            <a className="link-light" href="#">
+                                <i className="fa-brands fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li className="ms-3">
+                            <a className="link-light" href="#">
+                                <i className="fa-brands fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li className="ms-3">
+                            <a className="link-light" href="#">
+                                <i className="fa-brands fa-twitch"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 interface Link {
-  href: string,
-  title: string,
-  children?: string
+    href: string;
+    title: string;
+    children?: string;
 }
 
 export const LinkText = (props: Link) => {
