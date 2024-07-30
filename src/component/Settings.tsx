@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 export default function Settings() {
     const [t, i18n] = useTranslation('global');
@@ -46,6 +47,14 @@ export default function Settings() {
                         <button className="dropdown-item" onClick={() => handleChangeLanguage('fr')}>
                             {t('header.fr')}
                         </button>
+                    </li>
+                    <li>
+                        <h6 className="dropdown-header">Administration</h6>
+                    </li>
+                    <li>
+                        <NavLink className="dropdown-item" to="/admin">
+                            Administration
+                        </NavLink>
                     </li>
                 </ul>
             </div>
