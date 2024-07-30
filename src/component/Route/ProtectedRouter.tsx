@@ -7,15 +7,19 @@ type ProtectedRouteProps = {
     role?: string;
 }
 
+/**
+ * Enables the route to be taken by the user to be secured
+ * @param param The component that will be displayed and the role you need to have to access it.
+If no role is defined, we just check that it is authenticated. 
+ * @returns The component or redirect user to login
+ */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, role }) => {
     const { isAuthenticated, roles } = useAuth();
 
     if(!role) {
-        console.log('Pas de role définis, alors je vérifie juste si tu es auth');
         return isAuthenticated ? element : <Navigate to="/login" />;
     }
     else {
-        console.log('Role définis, alors je vérifie si tu as le droits');
         return roles?.includes(role) ? element : <Navigate to="/login" />;
     }
 };
