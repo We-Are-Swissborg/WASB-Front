@@ -1,9 +1,8 @@
 import { Outlet } from 'react-router-dom';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
 
-import Header from '../common/Header.tsx';
-import Footer from '../common/Footer.tsx';
-
-export default function Root() {
+function RootLayout() {
     return (
         <>
             <Header />
@@ -14,3 +13,5 @@ export default function Root() {
         </>
     );
 }
+
+export default RootLayout;
