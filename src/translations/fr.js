@@ -41,6 +41,7 @@ const global_fr = {
         "whoarewe": "Qui sommes-nous ?"
     },
     "nav": {
+        "admin": "Administration",
         "blog": "Blog",
         "contact": "Contact",
         "home": "Accueil",
