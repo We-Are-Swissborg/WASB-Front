@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 type ProtectedRouteProps = {
     element: JSX.Element;
     role?: string;
-}
+};
 
 /**
  * Enables the route to be taken by the user to be secured
@@ -16,10 +16,9 @@ If no role is defined, we just check that it is authenticated.
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, role }) => {
     const { isAuthenticated, roles } = useAuth();
 
-    if(!role) {
+    if (!role) {
         return isAuthenticated ? element : <Navigate to="/login" />;
-    }
-    else {
+    } else {
         return roles?.includes(role) ? element : <Navigate to="/login" />;
     }
 };

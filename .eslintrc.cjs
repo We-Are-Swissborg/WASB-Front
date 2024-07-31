@@ -18,6 +18,6 @@ module.exports = {
 	"prefer-const": "error",
 	eqeqeq: "off",
 	"no-unused-vars": "error",
-	"indent": ["error", 4]
+	"indent": ["error", 4, { "SwitchCase": 1 }]
   },
 };

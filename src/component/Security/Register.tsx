@@ -42,26 +42,32 @@ export default function Register() {
         }
     };
 
-    const validReferral = useCallback( async (codeRef: string) => {
-        const res = await checkReferralExist(codeRef);
+    const validReferral = useCallback(
+        async (codeRef: string) => {
+            const res = await checkReferralExist(codeRef);
 
-        if (!correctReferral.includes(codeRef)) setCorrectReferral([...correctReferral, codeRef]); // Add correct value in an array for not request the server if user retape the same referral.
-        return res;
-    }, [correctReferral]);
-    
-    const errorReferral = useCallback((codeRef: string) => {
-        if(codeRef.length === 5 && !wrongReferral.includes(codeRef)) setWrongReferral([...wrongReferral, codeRef]); // Add wrong value in an array for not request the server if user retape the same referral.
-        toast.error(t('register.referral-error'));
-    }, [t, wrongReferral]);
- 
+            if (!correctReferral.includes(codeRef)) setCorrectReferral([...correctReferral, codeRef]); // Add correct value in an array for not request the server if user retape the same referral.
+            return res;
+        },
+        [correctReferral],
+    );
+
+    const errorReferral = useCallback(
+        (codeRef: string) => {
+            if (codeRef.length === 5 && !wrongReferral.includes(codeRef)) setWrongReferral([...wrongReferral, codeRef]); // Add wrong value in an array for not request the server if user retape the same referral.
+            toast.error(t('register.referral-error'));
+        },
+        [t, wrongReferral],
+    );
+
     // TODO: execute the request on each keypress/click in the cell.
     const validateReferralCode = async (value: string): Promise<boolean> => {
         try {
             const correctValueExist = correctReferral.includes(value);
             const wrongValueExist = wrongReferral.includes(value);
 
-            if(wrongValueExist) throw errors; // If value already exist in wrong array return error;
-            if(correctValueExist) return true; // If value already exist in correct array return true;
+            if (wrongValueExist) throw errors; // If value already exist in wrong array return error;
+            if (correctValueExist) return true; // If value already exist in correct array return true;
 
             if (value.length === 5 && !correctValueExist && !wrongValueExist) {
                 const response = await validReferral(value);
@@ -71,7 +77,7 @@ export default function Register() {
         } catch {
             errorReferral(value);
         }
-        if(value.length === 0) return true;
+        if (value.length === 0) return true;
         return false;
     };
 
