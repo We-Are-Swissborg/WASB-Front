@@ -1,144 +1,36 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { useCallback, useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { User } from "../types/User";
+import { getUser } from '../services/user.service';
+import { tokenDecoded } from '../services/token.services';
+import AccountFom from './Form/AccountForm';
+import MembershipForm from './Form/MembershipForm';
+import SocialMediasForm from './Form/SocialMediasForm';
+import '../css/Profile.css';
+import QRCode from "react-qr-code";
 
-import Form from './Member';
-import '../css/Setting.css';
-
-export default function Profile() {
+export default function Profil() {
     const { t } = useTranslation('global');
     const [choiceSetting, setChoiceSetting] = useState(1);
+    const { token } = useAuth();
+    const [user, setUser] = useState<User>();
 
     const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
+    const linkedAccountClas = choiceSetting === 4 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
 
-    const structureFormOne = {
-        formFor: 'Setting',
-        btn: 'btnWithConfidentiality',
-        nbSection: 5,
-        nbBySection: 2,
-    };
-    const structureFormTwo = {
-        formFor: 'Setting',
-        btn: 'confirmAndCancel',
-        nbSection: 3,
-        nbBySection: 2,
-    };
-    const structureFormThree = {
-        formFor: 'Setting',
-        btn: 'update',
-        nbSection: 4,
-        nbBySection: 1,
-    };
+    const initUser = useCallback(() => {
+        if(token) {
+            const { userId } = tokenDecoded(token);
+            getUser(userId, token).then((user) => setUser(user));
+        }
+    }, [token]);
 
-    const styleFormOne = {
-        form: 'all-form-setting',
-    };
-
-    const styleFormTwo = {
-        form: 'all-form-setting',
-    };
-
-    const styleFormThree = {
-        form: 'all-form-setting',
-        input: 'input-setting',
-    };
-
-    const dataFormOne = [
-        {
-            balise: 'input',
-            name: 'firstName',
-            label: t('form.first-name'),
-            type: 'text',
-            placeholder: t('form.placeholder.first-name'),
-        },
-        {
-            balise: 'input',
-            name: 'lastName',
-            label: t('form.last-name'),
-            type: 'text',
-            placeholder: t('form.placeholder.last-name'),
-        },
-        {
-            balise: 'input',
-            name: 'username',
-            label: t('form.username'),
-            type: 'text',
-            placeholder: t('form.placeholder.username'),
-        },
-        {
-            balise: 'input',
-            name: 'email',
-            label: t('form.email'),
-            type: 'text',
-            placeholder: t('form.placeholder.email'),
-        },
-        { balise: 'select', name: 'aboutUs', label: t('form.aboutUs') },
-        {
-            balise: 'input',
-            name: 'referral',
-            label: t('form.referral'),
-            type: 'text',
-            placeholder: 'PUT EXEMPLE REFERRAL',
-        },
-        { balise: 'select', name: 'country', label: t('form.country') },
-        { balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city') },
-        {
-            balise: 'input',
-            name: 'walletAddress',
-            label: t('form.wallet-address'),
-            type: 'text',
-            value: localStorage.getItem('walletTernoa') || '',
-            readOnly: true,
-        },
-    ];
-    const dataFormTwo = [
-        {
-            balise: 'input',
-            name: 'contributionStatus',
-            label: t('form.status'),
-            type: 'text',
-            value: 'STATUS',
-            readOnly: true,
-        },
-        {
-            balise: 'input',
-            name: 'dateContribution',
-            label: t('form.contribution-start'),
-            type: 'date',
-            readOnly: true,
-        },
-        { balise: 'input', name: 'donations', label: t('form.donations'), type: 'text', value: 'DONATIONS' },
-        { balise: 'select', name: 'contribution', label: t('form.contribution') },
-        {
-            balise: 'input',
-            name: 'EndDateContribution',
-            label: t('form.contribution-end'),
-            type: 'date',
-            value: 'WALLET',
-            readOnly: true,
-        },
-        {
-            balise: 'input',
-            name: 'nftWallet',
-            label: t('form.nft-wallet'),
-            type: 'text',
-            value: 'NFT WALLET',
-            readOnly: true,
-        },
-    ];
-    const dataFormThree = [
-        { balise: 'input', name: 'twitter', label: 'Twitter', type: 'text', placeholder: 'twitter.com/WeAreSwissBorg' },
-        { balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('form.discord') },
-        {
-            balise: 'input',
-            name: 'tiktok',
-            label: 'TikTok',
-            type: 'text',
-            placeholder: 'tiktok.com/@weareswissborg.eth',
-        },
-        { balise: 'input', name: 'telegram', label: 'Telegram', type: 'text', placeholder: 't.me/WeAreSwissBorg' },
-    ];
+    useEffect(() => {
+        initUser();
+    }, [initUser]);
 
     return (
         <div className="setting-container container d-flex flex-column align-items-center mt-5">
@@ -189,28 +81,52 @@ export default function Profile() {
                                 />
                             </label>
                         </li>
+                        <li>
+                            <label
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClas}`}
+                                htmlFor="linked-account"
+                            >
+                                {t('setting.linked-accounts.title')}
+                                <input
+                                    type="button"
+                                    name="linked-account"
+                                    id="linked-account"
+                                    onClick={() => setChoiceSetting(4)}
+                                />
+                            </label>
+                        </li>
                     </ul>
                 </div>
                 {choiceSetting === 1 && (
                     <div className="w-100">
                         <h2 className="fw-normal">{t('setting.my-account.title')}</h2>
-                        <Form dataForm={dataFormOne} structure={structureFormOne} styleForm={styleFormOne} />
+                        <AccountFom user={user} setUser={setUser} />
                     </div>
                 )}
                 {choiceSetting === 2 && (
                     <div>
                         <div>
                             <h2 className="fw-normal">{t('setting.manage-membership.title')}</h2>
-                            <p className="message-membership text-nowrap">{t('setting.manage-membership.message-1')}</p>
-                            <p className="message-membership text-nowrap">{t('setting.manage-membership.message-2')}</p>
+                            <p className="message-membership">{t('setting.manage-membership.message-1')}</p>
+                            <p className="message-membership">{t('setting.manage-membership.message-2')}</p>
                         </div>
-                        <Form dataForm={dataFormTwo} structure={structureFormTwo} styleForm={styleFormTwo} />
+                        <MembershipForm membership={user?.membership} />
                     </div>
                 )}
                 {choiceSetting === 3 && (
                     <div>
                         <h2 className="fw-normal">{t('setting.linked-accounts.title')}</h2>
-                        <Form dataForm={dataFormThree} structure={structureFormThree} styleForm={styleFormThree} />
+                        <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user}/>
+                    </div>
+                )}
+                {choiceSetting === 4 && (
+                    <div>
+                        <h2 className="fw-normal">DONATIONS</h2>
+                        <div className="d-flex flex-column align-items-center mt-5 mb-5">
+                            <p>Scannez le QR code ci-dessous pour faire un don et aider à faire grandir notre association. Chaque contribution compte et fait une réelle différence.</p>
+                            <QRCode size={150} value="QR code for donation" />
+                            <p>Wallet : 0x75581e...</p>
+                        </div>
                     </div>
                 )}
             </div>

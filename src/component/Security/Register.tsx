@@ -1,6 +1,5 @@
 import { Trans, useTranslation } from 'react-i18next';
 import Registration from '../../types/Registration';
-import '../../css/Form.css';
 import { LinkText } from '../../hook/LinksTranslate';
 import { useForm } from 'react-hook-form';
 import { checkReferralExist, register } from '../../services/user.service';

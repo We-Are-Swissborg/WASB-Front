@@ -16,6 +16,12 @@ const postOptions: RequestInit = {
     cache: 'no-cache',
 };
 
+const putOptions: RequestInit = {
+    method: 'PUT',
+    mode: 'cors',
+    cache: 'no-cache',
+};
+
 const getFetch = (url: string, token?: string | null): Promise<Response> => {
     const options = getOptions;
 
@@ -39,4 +45,16 @@ const postFetch = (url: string, body: string, token?: string | null): Promise<Re
     return fetch(`${backendAPI.href}/${url}`, options);
 };
 
-export { getFetch, postFetch };
+const putFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
+    const options = putOptions;
+
+    if(token) requestHeaders.set('Authorization', `Bearer ${token}`);
+    else requestHeaders.delete('Authorization');
+
+    options.headers = requestHeaders;
+    options.body = body;
+
+    return fetch(`${backendAPI.href}/${url}`, options);
+};
+
+export { getFetch, postFetch, putFetch };

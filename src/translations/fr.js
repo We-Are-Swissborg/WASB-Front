@@ -191,13 +191,6 @@ const global_fr = {
         "title": "Réglages",
         "wallet-address": "Adresse de votre wallet*",
     },
-    "modal": {
-        "confirm-registration": "Veuillez confimer sur votre wallet votre inscription 😀",
-        "user": {
-            "add": "Utilisateur ajouté avec succès 😁",
-            "error": "Veuillez réessayer ou contactez un administrateur 😕"
-        }
-    },
     "authenticate": {
         "title": "Se connecter",
         "welcome": "Bonjour",

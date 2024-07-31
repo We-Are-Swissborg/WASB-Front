@@ -192,13 +192,6 @@ const global_en = {
         "status": "Status of your contribution",
         "wallet-address": "Your wallet address*",
     },
-    "modal": {
-        "confirm-registration": "Please confirm on your wallet your registration 😀",
-        "user": {
-            "add": "User successfully added 😁",
-            "error": "Please retry or contact an administrator 😕"
-        }
-    },
     "authenticate": {
         "title": "Login",
         "welcome": "Welcome",

@@ -1,4 +1,5 @@
-import { SocialMedias } from './SocialMedia';
+import { Membership } from './Membership';
+import { SocialMedias } from './SocialMedias';
 
 export type User = {
     id?: number;
@@ -10,10 +11,10 @@ export type User = {
     email: string;
     password?: string;
     walletAddress: string;
-    contribution?: string;
-    socialMedias?: SocialMedias;
-    referral?: string;
     aboutUs?: string;
+    membership?: Membership;
+    socialMedias?: SocialMedias;
     confidentiality: boolean;
-    beContacted?: boolean;
+    beContacted: boolean;
+    referralCode: string;
 };
