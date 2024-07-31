@@ -22,7 +22,7 @@ const putOptions: RequestInit = {
     cache: 'no-cache',
 };
 
-const getFetch = (url: string, token?: string | null): Promise<Response> => {
+const getFetch = async (url: string, token?: string | null): Promise<Response> => {
     const options = getOptions;
 
     if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
@@ -30,10 +30,10 @@ const getFetch = (url: string, token?: string | null): Promise<Response> => {
 
     options.headers = requestHeaders;
 
-    return fetch(`${backendAPI.href}/${url}`, options);
+    return await fetch(`${backendAPI.href}/${url}`, options);
 };
 
-const postFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
+const postFetch = async (url: string, body: string, token?: string | null): Promise<Response> => {
     const options = postOptions;
 
     if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
@@ -42,7 +42,7 @@ const postFetch = (url: string, body: string, token?: string | null): Promise<Re
     options.headers = requestHeaders;
     options.body = body;
 
-    return fetch(`${backendAPI.href}/${url}`, options);
+    return await fetch(`${backendAPI.href}/${url}`, options);
 };
 
 const putFetch = (url: string, body: string, token?: string | null): Promise<Response> => {

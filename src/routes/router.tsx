@@ -10,6 +10,8 @@ import Register from '../component/Security/Register';
 import Login from '../component/Security/Login';
 import Logout from '../component/Security/Logout';
 import OnlyAnonymousRouter from '../component/Route/OnlyAnonymousRouter';
+import Dashboard from '../component/Admin/Dashboard';
+import Role from '../types/Role';
 
 const router = createHashRouter([
     {
@@ -27,7 +29,7 @@ const router = createHashRouter([
             },
             {
                 path: '/contact',
-                element: <Contact />,
+                element: <ProtectedRoute element={<Contact />} />,
             },
             {
                 path: '/register',
@@ -50,6 +52,10 @@ const router = createHashRouter([
             {
                 path: '/logout',
                 element: <ProtectedRoute element={<Logout />} />,
+            },
+            {
+                path: '/admin',
+                element: <ProtectedRoute element={<Dashboard />} role={Role.Admin} />,
             },
         ],
     },
