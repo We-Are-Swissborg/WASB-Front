@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [username, setUsername] = useState<string>();
     const [roles, setRoles] = useState<string[]>();
 
-    const login = (newToken: string): void => {
+    const login = (newToken: string) => {
         setToken(newToken);
         localStorage.setItem('authToken', newToken);
         const payload = tokenDecoded(newToken);
