@@ -51,17 +51,18 @@ export default function Settings() {
                             {t('header.fr')}
                         </button>
                     </li>
-                    {roles?.includes(Role.Admin) && (<>
-                    <li>
-                        <h6 className="dropdown-header">{t('nav.admin')}</h6>
-                    </li>
-                    
-                    <li>                        
-                        <NavLink className="dropdown-item" to="/admin">
-                            {t('nav.admin')}
-                        </NavLink>                        
-                    </li>
-                    </>
+                    {roles?.includes(Role.Admin) && (
+                        <>
+                            <li>
+                                <h6 className="dropdown-header">{t('nav.admin')}</h6>
+                            </li>
+
+                            <li>
+                                <NavLink className="dropdown-item" to="/admin">
+                                    {t('nav.admin')}
+                                </NavLink>
+                            </li>
+                        </>
                     )}
                 </ul>
             </div>
