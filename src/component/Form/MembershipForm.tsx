@@ -11,13 +11,8 @@ type IMembershipForm = {
 export default function MembershipForm(props: IMembershipForm) {
     const { t } = useTranslation('global');
     const { register, handleSubmit, formState: { errors } } = useForm<Membership>();
-    const [init, setInit] = useState(true);
-    const [valueMembership, setValueMembership] = useState<Membership>({
-        contributionStatus: 'no adherent',
-        dateContribution: null,
-        endDateContribution: null,
-        contribution: '',
-    });
+    const [isInit, setIsInit] = useState(true);
+    const [valueMembership, setValueMembership] = useState<Membership>({} as Membership);
 
     const propValueMembership = Object.keys(valueMembership); // Properties for creating a field form
 
@@ -26,8 +21,9 @@ export default function MembershipForm(props: IMembershipForm) {
             setValueMembership({
                 ...valueMembership,
                 contributionStatus: props.membership?.contributionStatus || 'no adherent',
-                dateContribution: props.membership?.dateContribution || null,
-                endDateContribution: props.membership?.endDateContribution || null,
+                dateContribution: props.membership?.dateContribution || undefined,
+                endDateContribution: props.membership?.endDateContribution || undefined,
+                contribution: undefined,
             });
         }
     }, [valueMembership, props]);
@@ -95,11 +91,11 @@ export default function MembershipForm(props: IMembershipForm) {
     });
 
     useEffect(() => {
-        if(init && props.membership) {
+        if(isInit && props.membership) {
             initUser();
-            setInit(false);
+            setIsInit(false);
         }
-    }, [initUser, init, props]);
+    }, [initUser, isInit, props]);
 
     return (
         <form className='form all-form-setting' onSubmit={onSubmit}>

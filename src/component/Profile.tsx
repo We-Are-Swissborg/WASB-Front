@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { User } from "../types/User";
-import { getUser } from '../services/user.service';
+import { getUserWithAllInfo } from '../services/user.service';
 import { tokenDecoded } from '../services/token.services';
 import AccountFom from './Form/AccountForm';
 import MembershipForm from './Form/MembershipForm';
@@ -10,7 +10,7 @@ import SocialMediasForm from './Form/SocialMediasForm';
 import '../css/Profile.css';
 import QRCode from "react-qr-code";
 
-export default function Profil() {
+export default function Profile() {
     const { t } = useTranslation('global');
     const [choiceSetting, setChoiceSetting] = useState(1);
     const { token } = useAuth();
@@ -19,12 +19,12 @@ export default function Profil() {
     const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
     const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-    const linkedAccountClas = choiceSetting === 4 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
+    const contributionClass = choiceSetting === 4 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
 
     const initUser = useCallback(() => {
         if(token) {
             const { userId } = tokenDecoded(token);
-            getUser(userId, token).then((user) => setUser(user));
+            getUserWithAllInfo(userId, token).then((user) => setUser(user));
         }
     }, [token]);
 
@@ -83,14 +83,14 @@ export default function Profil() {
                         </li>
                         <li>
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClas}`}
-                                htmlFor="linked-account"
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${contributionClass}`}
+                                htmlFor="donations"
                             >
-                                {t('setting.linked-accounts.title')}
+                                Donations
                                 <input
                                     type="button"
-                                    name="linked-account"
-                                    id="linked-account"
+                                    name="donations"
+                                    id="donations"
                                     onClick={() => setChoiceSetting(4)}
                                 />
                             </label>

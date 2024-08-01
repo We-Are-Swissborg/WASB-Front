@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { SocialMedias } from "../../types/SocialMedias";
 import regex from '../../services/regex';
 import { useAuth } from "../../contexts/AuthContext";
-import { updateUser } from "../../services/user.service";
 import { toast } from "react-toastify";
 import { User } from "../../types/User";
+import { updateSocialMediasUser } from "../../services/socialMedias.service";
 
 type ISocialMediasForm = {
     socialMedias: SocialMedias | undefined;
@@ -17,14 +17,9 @@ type ISocialMediasForm = {
 export default function SocialMediasForm(props: ISocialMediasForm) {
     const { t } = useTranslation('global');
     const { register, handleSubmit, formState: { errors } } = useForm<SocialMedias>();
-    const [init, setInit] = useState(true);
+    const [isInit, setIsInit] = useState(true);
     const { token } = useAuth();
-    const [valueSocialMedias, setValueSocialMedias] = useState({
-        twitter: '',
-        discord: '',
-        tiktok: '',
-        telegram: '',
-    });
+    const [valueSocialMedias, setValueSocialMedias] = useState<SocialMedias>({} as SocialMedias);
     const propValueAccount = Object.keys(valueSocialMedias); // Properties for creating a field form
 
     const initUser = useCallback(() => {
@@ -75,23 +70,20 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
 
     const onSubmit = handleSubmit((data) => {
         if(token && props.user?.id) {
-            updateUser(props.user.id, token, data).then(() => {
-                if(props.user?.id) { // Without the condition we have an error
-                    props.setUser({...props.user, socialMedias: data});
-                    toast.success('SOCIAL MEDIA UPDATE');
-                }
-            }).catch(() => {
+            updateSocialMediasUser(props.user.id, token, data).catch(() => {
                 toast.error('USER ERROORR');
             });
+            props.setUser({...props.user, socialMedias: data});
+            toast.success('SOCIAL MEDIA UPDATE');
         }
     });
 
     useEffect(() => {
-        if(init && props.socialMedias) {
+        if(isInit && props.socialMedias) {
             initUser();
-            setInit(false);
+            setIsInit(false);
         }
-    }, [initUser, init, props]);
+    }, [initUser, isInit, props]);
 
     return (
         <form className='form all-form-setting' onSubmit={onSubmit}>

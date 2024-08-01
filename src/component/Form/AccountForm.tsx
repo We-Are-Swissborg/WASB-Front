@@ -8,6 +8,7 @@ import regex from '../../services/regex';
 import { updateUser } from "../../services/user.service";
 import { useAuth } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { Account } from "../../types/Account";
 
 type IAccountForm = {
   user: User | undefined;
@@ -18,21 +19,11 @@ export default function AccountFom(props: IAccountForm) {
     const { t } = useTranslation('global');
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { token } = useAuth();
-    const [init, setInit] = useState(true);
+    const [isInit, setIsInit] = useState(true);
     const [beContactedChanged, setBeContactedChanged] = useState(true);
     // const [country, setCountry] = useState<string>('');
     // const activeMarge: string = country ? 'ps-5' : ''; // Padding for country field
-    const [valueAccount, setValueAccount] = useState({
-        country: '',
-        city: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        username: '',
-        walletAddress: '',
-        aboutUs: '',
-        beContacted: false,
-    });
+    const [valueAccount, setValueAccount] = useState<Account>({} as Account);
     const urlReferral = `${window.location.origin}/#/register/${props.user?.referralCode}`;
 
     const propValueAccount = Object.keys(valueAccount); // Properties for creating a field form
@@ -60,7 +51,7 @@ export default function AccountFom(props: IAccountForm) {
         if(field === 'firstName' || field === 'lastName') {
             return {
                 value: regexName,
-                message: 'Error with the name'
+                message: 'Error with the ' + field
             };
         } else if(field === 'username') {
             return {
@@ -175,23 +166,20 @@ export default function AccountFom(props: IAccountForm) {
     const onSubmit = handleSubmit((data) => {
         if(token && props.user?.id) {
             if(beContactedChanged) data.beContacted = props.user.beContacted;
-            updateUser(props.user.id, token, data).then(() => {
-                if(props.user?.id) { // Without the condition we have an error
-                    props.setUser({...props.user, ...data});
-                    toast.success('USER UPDATE');
-                }
-            }).catch(() => {
+            updateUser(props.user.id, token, data as User).catch(() => {
                 toast.error('USER ERROORR');
             });
+            props.setUser({...props.user, ...data});
+            toast.success('USER UPDATE');
         }
     });
 
     useEffect(() => {
-        if(init && props.user) {
+        if(isInit && props.user) {
             initUser();
-            setInit(false);
+            setIsInit(false);
         }
-    }, [initUser, init, props]);
+    }, [initUser, isInit, props]);
 
     return (
         <form className='form all-form-setting mb-5' onSubmit={onSubmit}>
