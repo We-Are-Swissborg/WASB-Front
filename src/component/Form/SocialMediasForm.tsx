@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { SocialMedias } from "../../types/SocialMedias";
 import regex from '../../services/regex';
@@ -66,11 +66,34 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         );
     };
 
+    const correctUserToSend = (newData: FieldValues) => {
+        let sameValue = false;
+        const propsData = Object.keys(newData);
+        propsData.forEach((prop) => {
+            if(props.user?.socialMedias) sameValue = newData[prop] == props.user.socialMedias[prop as keyof SocialMedias];
+            if(sameValue) delete newData[prop];
+        });
+
+        if(!Object.keys(newData).length) {
+            toast.error('SOCIAL MEDIAS NOT CHANGED');
+            throw new Error;
+        }
+
+        return newData;
+    };
+
     const onSubmit = handleSubmit((data) => {
         if(token && props.user?.id) {
+            data = correctUserToSend(data);
             updateSocialMediasUser(props.user.id, token, data).then(() => {
                 if(props.user?.id) { // Without the condition we have an error
-                    props.setUser({...props.user, socialMedias: data});
+                    props.setUser({...props.user, socialMedias: {
+                        ...props.user.socialMedias,
+                        twitter: data.twitter !== undefined ? data.twitter : props.user.socialMedias?.twitter,
+                        discord: data.discord !== undefined ? data.discord : props.user.socialMedias?.discord,
+                        tiktok: data.tiktok !== undefined ? data.tiktok : props.user.socialMedias?.tiktok,
+                        telegram: data.telegram !== undefined ? data.telegram : props.user.socialMedias?.telegram
+                    }});
                     toast.success('SOCIAL MEDIA UPDATE');
                 }
             }).catch(() => {

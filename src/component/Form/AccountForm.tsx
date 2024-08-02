@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { User } from "../../types/User";
 import { useTranslation } from "react-i18next";
 import { OptionsSelect } from "../../types/OptionsSelect";
@@ -20,6 +20,7 @@ export default function AccountFom(props: IAccountForm) {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { token } = useAuth();
     const [isInit, setIsInit] = useState(true);
+    const [beContactedChanged, setBeContactedChanged] = useState(true);
     // const [country, setCountry] = useState<string>('');
     // const activeMarge: string = country ? 'ps-5' : ''; // Padding for country field
     const [valueAccount, setValueAccount] = useState<Account>({} as Account);
@@ -162,11 +163,29 @@ export default function AccountFom(props: IAccountForm) {
         );
     };
 
-    const onSubmit = handleSubmit((data) => {
+    const correctUserToSend = (newUser: FieldValues) => {
+        let sameValue = false;
+        const propsData = Object.keys(newUser);
+        propsData.forEach((prop) => {
+            if(props.user) sameValue = newUser[prop] == props.user[prop as keyof User];
+            if(sameValue) delete newUser[prop];
+        });
+
+        if(!Object.keys(newUser).length) {
+            toast.error('USER NOT CHANGED');
+            throw new Error;
+        }
+
+        return newUser;
+    };
+
+    const onSubmit = handleSubmit((user) => {
         if(token && props.user?.id) {
-            updateUser(props.user.id, token, data as User).then(() => {
+            if(beContactedChanged) user.beContacted = props.user.beContacted;
+            user = correctUserToSend(user);
+            updateUser(props.user.id, token, user as User).then(() => {
                 if(props.user?.id) { // Without the condition we have an error
-                    props.setUser({...props.user, ...data});
+                    props.setUser({...props.user, ...user});
                     toast.success('USER UPDATE');
                 }
             }).catch(() => {
@@ -203,7 +222,10 @@ export default function AccountFom(props: IAccountForm) {
                         type="checkbox"
                         name="beContacted"
                         id="beContacted"
-                        onClick={() => setValueAccount({...valueAccount, beContacted: !valueAccount.beContacted})}
+                        onClick={() => {
+                            setValueAccount({...valueAccount, beContacted: !valueAccount.beContacted});
+                            setBeContactedChanged(false);
+                        }}
                     />
                     <p className='text-container-submit'>{valueAccount.beContacted ? 'Uncheck, if you no longer wish to be contacted by WeAreSwissBorg' : t('form.be-contacted')}</p>
                 </div>
