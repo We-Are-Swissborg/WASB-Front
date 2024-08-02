@@ -41,17 +41,17 @@ const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
     return json;
 };
 
-const updateUser = async (id: number, token: string, data: User): Promise<undefined> => {
+const updateUser = async (id: number, token: string, data: User): Promise<boolean> => {
     const url: string = 'users/' + id;
 
     const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
-    const json = await response.json();
 
     if (!response.ok) {
+        const json = await response.json();
         throw new Error('An error has occurred: ' + json.message);
     }
 
-    return json;
+    return response.ok;
 };
 
 export { register, checkReferralExist, getUserWithAllInfo, updateUser };

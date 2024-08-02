@@ -20,18 +20,16 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     const [isInit, setIsInit] = useState(true);
     const { token } = useAuth();
     const [valueSocialMedias, setValueSocialMedias] = useState<SocialMedias>({} as SocialMedias);
-    const propValueAccount = Object.keys(valueSocialMedias); // Properties for creating a field form
+    const propValueSocialMedias = Object.keys(valueSocialMedias); // Properties for creating a field form
 
     const initUser = useCallback(() => {
-        if(valueSocialMedias) {
-            setValueSocialMedias({
-                ...valueSocialMedias || '',
-                twitter: props.socialMedias?.twitter || '',
-                discord: props.socialMedias?.discord || '',
-                tiktok: props.socialMedias?.tiktok || '',
-                telegram: props.socialMedias?.telegram || '',
-            });
-        }
+        setValueSocialMedias({
+            ...valueSocialMedias || '',
+            twitter: props.socialMedias?.twitter || '',
+            discord: props.socialMedias?.discord || '',
+            tiktok: props.socialMedias?.tiktok || '',
+            telegram: props.socialMedias?.telegram || '',
+        });
     }, [valueSocialMedias, props]);
 
     const patternField = (field: string) => {
@@ -70,16 +68,19 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
 
     const onSubmit = handleSubmit((data) => {
         if(token && props.user?.id) {
-            updateSocialMediasUser(props.user.id, token, data).catch(() => {
-                toast.error('USER ERROORR');
+            updateSocialMediasUser(props.user.id, token, data).then(() => {
+                if(props.user?.id) { // Without the condition we have an error
+                    props.setUser({...props.user, socialMedias: data});
+                    toast.success('SOCIAL MEDIA UPDATE');
+                }
+            }).catch(() => {
+                toast.error('SOCIAL MEDIA ERROORR');
             });
-            props.setUser({...props.user, socialMedias: data});
-            toast.success('SOCIAL MEDIA UPDATE');
         }
     });
 
     useEffect(() => {
-        if(isInit && props.socialMedias) {
+        if(isInit) {
             initUser();
             setIsInit(false);
         }
@@ -88,7 +89,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     return (
         <form className='form all-form-setting' onSubmit={onSubmit}>
             <div className='div-under-form'>
-                { propValueAccount.map((field: string, id: number) => displayInput(field as keyof SocialMedias, id)) }
+                { propValueSocialMedias.map((field: string, id: number) => displayInput(field as keyof SocialMedias, id)) }
             </div>
             <button className='btn btn-form padding-button mb-5  mt-3' type="submit">
                 SEND

@@ -20,7 +20,6 @@ export default function AccountFom(props: IAccountForm) {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { token } = useAuth();
     const [isInit, setIsInit] = useState(true);
-    const [beContactedChanged, setBeContactedChanged] = useState(true);
     // const [country, setCountry] = useState<string>('');
     // const activeMarge: string = country ? 'ps-5' : ''; // Padding for country field
     const [valueAccount, setValueAccount] = useState<Account>({} as Account);
@@ -165,12 +164,14 @@ export default function AccountFom(props: IAccountForm) {
 
     const onSubmit = handleSubmit((data) => {
         if(token && props.user?.id) {
-            if(beContactedChanged) data.beContacted = props.user.beContacted;
-            updateUser(props.user.id, token, data as User).catch(() => {
+            updateUser(props.user.id, token, data as User).then(() => {
+                if(props.user?.id) { // Without the condition we have an error
+                    props.setUser({...props.user, ...data});
+                    toast.success('USER UPDATE');
+                }
+            }).catch(() => {
                 toast.error('USER ERROORR');
             });
-            props.setUser({...props.user, ...data});
-            toast.success('USER UPDATE');
         }
     });
 
@@ -198,14 +199,11 @@ export default function AccountFom(props: IAccountForm) {
                 <div className='container-be-contacted'>
                     <input
                         {...register('beContacted')}
-                        checked={valueAccount.beContacted}
+                        defaultChecked={valueAccount.beContacted}
                         type="checkbox"
                         name="beContacted"
                         id="beContacted"
-                        onChange={() => {
-                            setValueAccount({...valueAccount, beContacted: !valueAccount.beContacted});
-                            setBeContactedChanged(false);
-                        }}
+                        onClick={() => setValueAccount({...valueAccount, beContacted: !valueAccount.beContacted})}
                     />
                     <p className='text-container-submit'>{valueAccount.beContacted ? 'Uncheck, if you no longer wish to be contacted by WeAreSwissBorg' : t('form.be-contacted')}</p>
                 </div>
