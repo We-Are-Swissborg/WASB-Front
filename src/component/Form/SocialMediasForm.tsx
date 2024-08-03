@@ -70,7 +70,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         let sameValue = false;
         const propsData = Object.keys(newData);
         propsData.forEach((prop) => {
-            if(props.user?.socialMedias) sameValue = newData[prop] == props.user.socialMedias[prop as keyof SocialMedias];
+            if(props.user?.socialMedias) sameValue = newData[prop] === props.user.socialMedias[prop as keyof SocialMedias] || (newData[prop] === '' && props.user[prop as keyof User] == undefined);
             if(sameValue) delete newData[prop];
         });
 

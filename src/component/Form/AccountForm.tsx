@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { User } from "../../types/User";
 import { useTranslation } from "react-i18next";
@@ -28,6 +28,9 @@ export default function AccountFom(props: IAccountForm) {
 
     const propValueAccount = Object.keys(valueAccount); // Properties for creating a field form
     propValueAccount.pop(); // Take off 'beContacted' property
+
+    const valueAccountRef = useRef(valueAccount);
+    const userRef = useRef(props.user);
 
     const initUser = useCallback(() => {
         setValueAccount({
@@ -124,11 +127,12 @@ export default function AccountFom(props: IAccountForm) {
         const value = e.target.value;
         if (name === 'country') {
             setValue('country', value); // For the autocomplete otherwise returns empty
- 
+            valueAccountRef.current.country = value;
             // const flag = countriesOptions.find((country) => country.value === value);
             // const urlImg = flag?.urlImg || '';
             // setCountry(urlImg);
         }
+        if(name === 'aboutUs') valueAccountRef.current.aboutUs = value;
     };
 
     const displaySelect = (field: keyof User, id: number) => {
@@ -163,20 +167,26 @@ export default function AccountFom(props: IAccountForm) {
         );
     };
 
-    const correctUserToSend = (newUser: FieldValues) => {
+    const checkUserWithOldUser = (newUser: FieldValues) => {
         let sameValue = false;
         const propsData = Object.keys(newUser);
         propsData.forEach((prop) => {
-            if(props.user) sameValue = newUser[prop] == props.user[prop as keyof User];
+            if(userRef.current) sameValue = newUser[prop] === userRef.current[prop as keyof User] || (newUser[prop] === '' && userRef.current[prop as keyof User] == undefined);
+            if(userRef.current) console.log(sameValue, prop, newUser[prop], userRef.current[prop as keyof User]);
             if(sameValue) delete newUser[prop];
         });
+        return newUser;
+    };
 
-        if(!Object.keys(newUser).length) {
+    const correctUserToSend = (newUser: FieldValues) => {
+        const newData = checkUserWithOldUser(newUser);
+
+        if(!Object.keys(newData).length) {
             toast.error('USER NOT CHANGED');
-            throw new Error;
+            throw new Error('USER NOT CHANGED');
         }
 
-        return newUser;
+        return newData;
     };
 
     const onSubmit = handleSubmit((user) => {
@@ -199,7 +209,21 @@ export default function AccountFom(props: IAccountForm) {
             initUser();
             setIsInit(false);
         }
+        valueAccountRef.current = valueAccount;
+        userRef.current = props.user;
     }, [initUser, isInit, props]);
+
+    useEffect(() => {
+        return () => {
+            if(userRef.current) {
+                const newData = checkUserWithOldUser(valueAccountRef.current);
+
+                if(Object.keys(newData).length) {
+                    toast.info('CHANGE MAKE BUT NOT SAVE');
+                }
+            }
+        };
+    }, []);
 
     return (
         <form className='form all-form-setting mb-5' onSubmit={onSubmit}>
