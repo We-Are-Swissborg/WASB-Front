@@ -143,7 +143,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
             <div className='div-under-form'>
                 { propValueSocialMedias.map((field: string, id: number) => displayInput(field as keyof SocialMedias, id)) }
             </div>
-            <button className='btn btn-form padding-button mb-5  mt-3' type="submit">
+            <button className='btn btn-form padding-button mt-3' type="submit">
                 SEND
             </button>
         </form>

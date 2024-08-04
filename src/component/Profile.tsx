@@ -106,7 +106,7 @@ export default function Profile() {
                     </div>
                 )}
                 {choiceSetting === 2 && (
-                    <div>
+                    <div className="w-100">
                         <div>
                             <h2 className="fw-normal">{t('setting.manage-membership.title')}</h2>
                             <p className="message-membership">{t('setting.manage-membership.message-1')}</p>
@@ -116,7 +116,7 @@ export default function Profile() {
                     </div>
                 )}
                 {choiceSetting === 3 && (
-                    <div>
+                    <div className="w-100">
                         <h2 className="fw-normal">{t('setting.linked-accounts.title')}</h2>
                         <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user}/>
                     </div>

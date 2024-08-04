@@ -110,7 +110,7 @@ export default function MembershipForm(props: IMembershipForm) {
                     );
                 })}
             </div>
-            <button disabled className='btn btn-form padding-button' type="submit">
+            <button disabled className='btn btn-form padding-button mt-3' type="submit">
                   SEND
             </button>
         </form>

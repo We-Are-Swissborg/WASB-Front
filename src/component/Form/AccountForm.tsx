@@ -221,7 +221,7 @@ export default function AccountFom(props: IAccountForm) {
     }, []);
 
     return (
-        <form className='form all-form-setting mb-5' onSubmit={onSubmit}>
+        <form className='form all-form-setting' onSubmit={onSubmit}>
             <div className='div-under-form'>
                 { propValueAccount.map((field: string, id: number) => {
                     return (
