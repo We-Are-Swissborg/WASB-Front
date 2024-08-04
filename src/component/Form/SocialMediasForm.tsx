@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { SocialMedias } from "../../types/SocialMedias";
@@ -21,6 +21,9 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     const { token } = useAuth();
     const [valueSocialMedias, setValueSocialMedias] = useState<SocialMedias>({} as SocialMedias);
     const propValueSocialMedias = Object.keys(valueSocialMedias); // Properties for creating a field form
+
+    const valueSocialMediasRef = useRef(valueSocialMedias);
+    const socialMediasRef = useRef(props.socialMedias);
 
     const initUser = useCallback(() => {
         setValueSocialMedias({
@@ -66,17 +69,25 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         );
     };
 
-    const correctUserToSend = (newData: FieldValues) => {
+    const checkSocialMediasWithOldSocial = (newSocialMedias: FieldValues) => {
         let sameValue = false;
-        const propsData = Object.keys(newData);
+        const propsData = Object.keys(newSocialMedias);
+        
+        // Compare the old value with the new value if the value is the same, this removes the property of the object to send to the BD. 
         propsData.forEach((prop) => {
-            if(props.user?.socialMedias) sameValue = newData[prop] === props.user.socialMedias[prop as keyof SocialMedias] || (newData[prop] === '' && props.user[prop as keyof User] == undefined);
-            if(sameValue) delete newData[prop];
+            if(socialMediasRef.current && newSocialMedias) sameValue = newSocialMedias[prop] === socialMediasRef.current[prop as keyof SocialMedias] || (newSocialMedias[prop] === '' && socialMediasRef.current[prop as keyof SocialMedias] == undefined);
+            if(sameValue) delete newSocialMedias[prop];
         });
+        return newSocialMedias;
+    };
 
-        if(!Object.keys(newData).length) {
+    const correctSocialMediasToSend = (newSocialMedias: FieldValues) => {
+        const newData = checkSocialMediasWithOldSocial(newSocialMedias);
+        const allValueEmpty = Object.values(newSocialMedias).every((value) => value === '');
+
+        if(allValueEmpty && !props.socialMedias || !Object.keys(newData).length) {
             toast.error('SOCIAL MEDIAS NOT CHANGED');
-            throw new Error;
+            throw new Error('SOCIAL MEDIAS NOT CHANGED');
         }
 
         return newData;
@@ -84,7 +95,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
 
     const onSubmit = handleSubmit((data) => {
         if(token && props.user?.id) {
-            data = correctUserToSend(data);
+            data = correctSocialMediasToSend(data);
             updateSocialMediasUser(props.user.id, token, data).then(() => {
                 if(props.user?.id) { // Without the condition we have an error
                     props.setUser({...props.user, socialMedias: {
@@ -107,7 +118,25 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
             initUser();
             setIsInit(false);
         }
+        valueSocialMediasRef.current = valueSocialMedias;
+        socialMediasRef.current = props.socialMedias;
     }, [initUser, isInit, props]);
+
+    useEffect(() => {
+        return () => {
+            if(socialMediasRef.current !== undefined) {
+                const newData = checkSocialMediasWithOldSocial(valueSocialMediasRef.current);
+                const nbPropsToUpdate = Object.keys(newData).length;
+
+                // Verfification new values don't have empty value and the user don't have social medias again. Is true if user never send these social medias.
+                const nothingIsDefine = Object.values(newData).every((data) => data == '') && props.socialMedias === null;
+
+                if(nbPropsToUpdate && !nothingIsDefine) {
+                    toast.info('CHANGE MAKE BUT NOT SAVE');
+                }
+            }
+        };
+    }, []);
 
     return (
         <form className='form all-form-setting' onSubmit={onSubmit}>

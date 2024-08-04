@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Membership } from "../../types/Membership";
 import { useTranslation } from "react-i18next";
 import { OptionsSelect } from '../../types/OptionsSelect';
+import toDownArrow from "../../assets/images/icon/to_down-arrow.png";
 
 type IMembershipForm = {
   membership: Membership | undefined;
@@ -65,9 +66,10 @@ export default function MembershipForm(props: IMembershipForm) {
                 </label>
                 <select
                     {...register(field)}
-                    className='form-select shadow_background-input position-flag-select design rounded-pill'
+                    className='form-select shadow_background-input position-arrow-select design rounded-pill'
                     name={field}
                     id={field}
+                    style={{ background: `url(${toDownArrow}) no-repeat` }}
                 >
                     <option value=''>
                         DEFAULT

@@ -14,12 +14,14 @@ export default function Profile() {
     const { t } = useTranslation('global');
     const [choiceSetting, setChoiceSetting] = useState(1);
     const { token } = useAuth();
-    const [user, setUser] = useState<User>();
+    const [user, setUser] = useState<User>();  
 
-    const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-    const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-    const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-    const contributionClass = choiceSetting === 4 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
+    const classNaV = (nav: number) => {
+        let namesClass = 'bg-secondary-subtle text-black';
+        if (nav === choiceSetting) return namesClass = 'btn-secondary text-white';
+
+        return namesClass;
+    };
 
     const initUser = useCallback(() => {
         if(token) {
@@ -39,9 +41,9 @@ export default function Profile() {
                 <div className="container-main-input">
                     <h2 className=" mb-3 fw-normal">{t('setting.title')}</h2>
                     <ul className="list-inline d-flex flex-column justify-content-between">
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${myAccountClass}`}
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(1)}`}
                                 htmlFor="my-account"
                             >
                                 <input
@@ -53,9 +55,9 @@ export default function Profile() {
                                 {t('setting.my-account.title')}
                             </label>
                         </li>
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${membershipClass}`}
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(2)}`}
                                 htmlFor="manage-membership"
                             >
                                 <input
@@ -67,9 +69,9 @@ export default function Profile() {
                                 {t('setting.manage-membership.title')}
                             </label>
                         </li>
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClass}`}
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(3)}`}
                                 htmlFor="linked-accounts"
                             >
                                 {t('setting.linked-accounts.title')}
@@ -81,9 +83,9 @@ export default function Profile() {
                                 />
                             </label>
                         </li>
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${contributionClass}`}
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(4)}`}
                                 htmlFor="donations"
                             >
                                 Donations

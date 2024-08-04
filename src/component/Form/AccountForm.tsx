@@ -9,6 +9,7 @@ import { updateUser } from "../../services/user.service";
 import { useAuth } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { Account } from "../../types/Account";
+import toDownArrow from "../../assets/images/icon/to_down-arrow.png";
 
 type IAccountForm = {
   user: User | undefined;
@@ -21,8 +22,6 @@ export default function AccountFom(props: IAccountForm) {
     const { token } = useAuth();
     const [isInit, setIsInit] = useState(true);
     const [beContactedChanged, setBeContactedChanged] = useState(true);
-    // const [country, setCountry] = useState<string>('');
-    // const activeMarge: string = country ? 'ps-5' : ''; // Padding for country field
     const [valueAccount, setValueAccount] = useState<Account>({} as Account);
     const urlReferral = `${window.location.origin}/#/register/${props.user?.referralCode}`;
 
@@ -128,9 +127,6 @@ export default function AccountFom(props: IAccountForm) {
         if (name === 'country') {
             setValue('country', value); // For the autocomplete otherwise returns empty
             valueAccountRef.current.country = value;
-            // const flag = countriesOptions.find((country) => country.value === value);
-            // const urlImg = flag?.urlImg || '';
-            // setCountry(urlImg);
         }
         if(name === 'aboutUs') valueAccountRef.current.aboutUs = value;
     };
@@ -145,10 +141,10 @@ export default function AccountFom(props: IAccountForm) {
                     {...register(field, {
                         value: props.user[field] ? props.user[field] : '',
                     })}
-                    className='form-select shadow_background-input position-flag-select design rounded-pill'
+                    className='form-select shadow_background-input position-arrow-select design rounded-pill'
                     name={field}
                     id={field}
-                    // style={field === 'country' ? { background: `url(${country}) no-repeat` } : {}}
+                    style={{ background: `url(${toDownArrow}) no-repeat` }}
                     onChange={handleChange}
                 >
                     <option value=''>
@@ -172,7 +168,6 @@ export default function AccountFom(props: IAccountForm) {
         const propsData = Object.keys(newUser);
         propsData.forEach((prop) => {
             if(userRef.current) sameValue = newUser[prop] === userRef.current[prop as keyof User] || (newUser[prop] === '' && userRef.current[prop as keyof User] == undefined);
-            if(userRef.current) console.log(sameValue, prop, newUser[prop], userRef.current[prop as keyof User]);
             if(sameValue) delete newUser[prop];
         });
         return newUser;
