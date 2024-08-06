@@ -1,216 +1,134 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
-import Form from './Member';
-import '../css/Setting.css';
+import { useTranslation } from "react-i18next";
+import { useCallback, useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { User } from "../types/User";
+import { getUserWithAllInfo } from '../services/user.service';
+import { tokenDecoded } from '../services/token.services';
+import AccountFom from './Form/AccountForm';
+import MembershipForm from './Form/MembershipForm';
+import SocialMediasForm from './Form/SocialMediasForm';
+import '../css/Profile.css';
+import QRCode from "react-qr-code";
 
 export default function Profile() {
     const { t } = useTranslation('global');
-    const [choiceSetting, setChoiceSetting] = useState(1);
+    const [profileCategory, setProfileCategory] = useState(1);
+    const { token } = useAuth();
+    const [user, setUser] = useState<User>();  
 
-    const myAccountClass = choiceSetting === 1 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-    const membershipClass = choiceSetting === 2 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
-    const linkedAccountClass = choiceSetting === 3 ? 'btn-secondary text-white' : 'bg-secondary-subtle text-black';
+    const classNaV = (nav: number) => {
+        let namesClass = 'bg-secondary-subtle text-black';
+        if (nav === profileCategory) return namesClass = 'btn-secondary text-white';
 
-    const structureFormOne = {
-        formFor: 'Setting',
-        btn: 'btnWithConfidentiality',
-        nbSection: 5,
-        nbBySection: 2,
-    };
-    const structureFormTwo = {
-        formFor: 'Setting',
-        btn: 'confirmAndCancel',
-        nbSection: 3,
-        nbBySection: 2,
-    };
-    const structureFormThree = {
-        formFor: 'Setting',
-        btn: 'update',
-        nbSection: 4,
-        nbBySection: 1,
+        return namesClass;
     };
 
-    const styleFormOne = {
-        form: 'all-form-setting',
-    };
+    const initUser = useCallback(() => {
+        if(token) {
+            const { userId } = tokenDecoded(token);
+            getUserWithAllInfo(userId, token).then((user) => setUser(user));
+        }
+    }, [token]);
 
-    const styleFormTwo = {
-        form: 'all-form-setting',
-    };
-
-    const styleFormThree = {
-        form: 'all-form-setting',
-        input: 'input-setting',
-    };
-
-    const dataFormOne = [
-        {
-            balise: 'input',
-            name: 'firstName',
-            label: t('form.first-name'),
-            type: 'text',
-            placeholder: t('form.placeholder.first-name'),
-        },
-        {
-            balise: 'input',
-            name: 'lastName',
-            label: t('form.last-name'),
-            type: 'text',
-            placeholder: t('form.placeholder.last-name'),
-        },
-        {
-            balise: 'input',
-            name: 'username',
-            label: t('form.username'),
-            type: 'text',
-            placeholder: t('form.placeholder.username'),
-        },
-        {
-            balise: 'input',
-            name: 'email',
-            label: t('form.email'),
-            type: 'text',
-            placeholder: t('form.placeholder.email'),
-        },
-        { balise: 'select', name: 'aboutUs', label: t('form.aboutUs') },
-        {
-            balise: 'input',
-            name: 'referral',
-            label: t('form.referral'),
-            type: 'text',
-            placeholder: 'PUT EXEMPLE REFERRAL',
-        },
-        { balise: 'select', name: 'country', label: t('form.country') },
-        { balise: 'input', name: 'city', label: t('form.city'), type: 'text', placeholder: t('form.placeholder.city') },
-        {
-            balise: 'input',
-            name: 'walletAddress',
-            label: t('form.wallet-address'),
-            type: 'text',
-            value: localStorage.getItem('walletTernoa') || '',
-            readOnly: true,
-        },
-    ];
-    const dataFormTwo = [
-        {
-            balise: 'input',
-            name: 'contributionStatus',
-            label: t('form.status'),
-            type: 'text',
-            value: 'STATUS',
-            readOnly: true,
-        },
-        {
-            balise: 'input',
-            name: 'dateContribution',
-            label: t('form.contribution-start'),
-            type: 'date',
-            readOnly: true,
-        },
-        { balise: 'input', name: 'donations', label: t('form.donations'), type: 'text', value: 'DONATIONS' },
-        { balise: 'select', name: 'contribution', label: t('form.contribution') },
-        {
-            balise: 'input',
-            name: 'EndDateContribution',
-            label: t('form.contribution-end'),
-            type: 'date',
-            value: 'WALLET',
-            readOnly: true,
-        },
-        {
-            balise: 'input',
-            name: 'nftWallet',
-            label: t('form.nft-wallet'),
-            type: 'text',
-            value: 'NFT WALLET',
-            readOnly: true,
-        },
-    ];
-    const dataFormThree = [
-        { balise: 'input', name: 'twitter', label: 'Twitter', type: 'text', placeholder: 'twitter.com/WeAreSwissBorg' },
-        { balise: 'input', name: 'discord', label: 'Discord', type: 'text', placeholder: t('form.discord') },
-        {
-            balise: 'input',
-            name: 'tiktok',
-            label: 'TikTok',
-            type: 'text',
-            placeholder: 'tiktok.com/@weareswissborg.eth',
-        },
-        { balise: 'input', name: 'telegram', label: 'Telegram', type: 'text', placeholder: 't.me/WeAreSwissBorg' },
-    ];
+    useEffect(() => {
+        initUser();
+    }, [initUser]);
 
     return (
-        <div className="setting-container container d-flex flex-column align-items-center mt-5">
-            <h1 className="border-bottom border-dark-subtle pb-2 fw-bold w-100">{t('setting.title')}</h1>
+        <div className="profile-container container d-flex flex-column align-items-center mt-5">
+            <h1 className="border-bottom border-dark-subtle pb-2 fw-bold w-100">{t('profile.title')}</h1>
             <div className="d-flex w-100">
                 <div className="container-main-input">
-                    <h2 className=" mb-3 fw-normal">{t('setting.title')}</h2>
+                    <h2 className=" mb-3 fw-normal">{t('profile.title')}</h2>
                     <ul className="list-inline d-flex flex-column justify-content-between">
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${myAccountClass}`}
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(1)}`}
                                 htmlFor="my-account"
                             >
                                 <input
                                     type="button"
                                     name="my-account"
                                     id="my-account"
-                                    onClick={() => setChoiceSetting(1)}
+                                    onClick={() => setProfileCategory(1)}
                                 />
-                                {t('setting.my-account.title')}
+                                {t('profile.my-account.title')}
                             </label>
                         </li>
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${membershipClass}`}
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(2)}`}
                                 htmlFor="manage-membership"
                             >
                                 <input
                                     type="button"
                                     name="manage-membership"
                                     id="manage-membership"
-                                    onClick={() => setChoiceSetting(2)}
+                                    onClick={() => setProfileCategory(2)}
                                 />
-                                {t('setting.manage-membership.title')}
+                                {t('profile.manage-membership.title')}
                             </label>
                         </li>
-                        <li>
+                        <li className="mb-3">
                             <label
-                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${linkedAccountClass}`}
-                                htmlFor="linked-accounts"
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(3)}`}
+                                htmlFor="social-medias"
                             >
-                                {t('setting.linked-accounts.title')}
+                                {t('profile.social-medias.title')}
                                 <input
                                     type="button"
-                                    name="linked-accounts"
-                                    id="linked-accounts"
-                                    onClick={() => setChoiceSetting(3)}
+                                    name="social-medias"
+                                    id="social-medias"
+                                    onClick={() => setProfileCategory(3)}
+                                />
+                            </label>
+                        </li>
+                        <li className="mb-3">
+                            <label
+                                className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(4)}`}
+                                htmlFor="donations"
+                            >
+                                {t('profile.donations.title')}
+                                <input
+                                    type="button"
+                                    name="donations"
+                                    id="donations"
+                                    onClick={() => setProfileCategory(4)}
                                 />
                             </label>
                         </li>
                     </ul>
                 </div>
-                {choiceSetting === 1 && (
+                {profileCategory === 1 && (
                     <div className="w-100">
-                        <h2 className="fw-normal">{t('setting.my-account.title')}</h2>
-                        <Form dataForm={dataFormOne} structure={structureFormOne} styleForm={styleFormOne} />
+                        <h2 className="fw-normal">{t('profile.my-account.title')}</h2>
+                        <AccountFom user={user} setUser={setUser} />
                     </div>
                 )}
-                {choiceSetting === 2 && (
-                    <div>
+                {profileCategory === 2 && (
+                    <div className="w-100">
                         <div>
-                            <h2 className="fw-normal">{t('setting.manage-membership.title')}</h2>
-                            <p className="message-membership text-nowrap">{t('setting.manage-membership.message-1')}</p>
-                            <p className="message-membership text-nowrap">{t('setting.manage-membership.message-2')}</p>
+                            <h2 className="fw-normal">{t('profile.manage-membership.title')}</h2>
+                            <p className="message-membership">{t('profile.manage-membership.message-1')}</p>
+                            <p className="message-membership">{t('profile.manage-membership.message-2')}</p>
                         </div>
-                        <Form dataForm={dataFormTwo} structure={structureFormTwo} styleForm={styleFormTwo} />
+                        <MembershipForm membership={user?.membership} />
                     </div>
                 )}
-                {choiceSetting === 3 && (
-                    <div>
-                        <h2 className="fw-normal">{t('setting.linked-accounts.title')}</h2>
-                        <Form dataForm={dataFormThree} structure={structureFormThree} styleForm={styleFormThree} />
+                {profileCategory === 3 && (
+                    <div className="w-100">
+                        <h2 className="fw-normal">{t('profile.social-medias.title')}</h2>
+                        <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user}/>
+                    </div>
+                )}
+                {profileCategory === 4 && (
+                    <div className="w-100">
+                        <h2 className="fw-normal">{t('profile.donations.title')}</h2>
+                        <div className="d-flex flex-column align-items-center mt-5 mb-5">
+                            <p className="align-self-start">{t('profile.donations.message')}</p>
+                            <QRCode size={150} value={t('profile.donations.qr-code')} />
+                            <p>Wallet : 0x75581e...</p>
+                        </div>
                     </div>
                 )}
             </div>

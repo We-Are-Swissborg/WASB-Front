@@ -294,7 +294,7 @@ export default function TernoaConnect() {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink className="dropdown-item" to="/setting">
+                            <NavLink className="dropdown-item" to="/profile">
                                 {t('nav.profile')}
                             </NavLink>
                         </li>

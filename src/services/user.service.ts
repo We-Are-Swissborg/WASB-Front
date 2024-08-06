@@ -1,4 +1,5 @@
 import Registration from '../types/Registration';
+import { User } from '../types/User';
 import * as BaseApi from './baseAPI.services';
 
 const register = async (data: Registration) => {
@@ -27,4 +28,30 @@ const checkReferralExist = async (codeRef: string): Promise<string> => {
     return json;
 };
 
-export { register, checkReferralExist };
+const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
+    const url: string = 'users/allInfo/' + id;
+
+    const response: Response = await BaseApi.getFetch(url, token);
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error('An error has occurred: ' + json.message);
+    }
+
+    return json;
+};
+
+const updateUser = async (id: number, token: string, data: User): Promise<boolean> => {
+    const url: string = 'users/' + id;
+
+    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
+
+    if (!response.ok) {
+        const json = await response.json();
+        throw new Error('An error has occurred: ' + json.message);
+    }
+
+    return response.ok;
+};
+
+export { register, checkReferralExist, getUserWithAllInfo, updateUser };
