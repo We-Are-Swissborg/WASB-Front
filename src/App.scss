@@ -82,3 +82,7 @@ label {
 .read-only {
   background: #bbbbbb;
 }
+
+.uppercase-first-letter::first-letter {
+  text-transform: uppercase;
+}

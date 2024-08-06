@@ -1,4 +1,4 @@
-.setting-container {
+.profile-container {
   max-width: 1125px;
   padding: 0 30px;
 }
@@ -15,7 +15,7 @@
   display: none;
 }
 
-.input-setting {
+.input-profile {
   width: 315px;
 }
 
@@ -121,7 +121,7 @@
     text-align: center !important;
   }
 
-  .setting-container > div {
+  .profile-container > div {
     flex-wrap: wrap;
   }
 }

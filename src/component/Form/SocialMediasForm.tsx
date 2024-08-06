@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { User } from "../../types/User";
 import { updateSocialMediasUser } from "../../services/socialMedias.service";
+import Regex from "../../types/Regex";
 
 type ISocialMediasForm = {
     socialMedias: SocialMedias | undefined;
@@ -24,6 +25,12 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
 
     const valueSocialMediasRef = useRef(valueSocialMedias);
     const socialMediasRef = useRef(props.socialMedias);
+    const placeholder = [
+        'twitter.com/WeAreSwissBorg',
+        t('profile.social-medias.discord'),
+        'tiktok.com/@weareswissborg.eth',
+        't.me/WeAreSwissBorg'
+    ];
 
     const initUser = useCallback(() => {
         setValueSocialMedias({
@@ -36,20 +43,18 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     }, [valueSocialMedias, props]);
 
     const patternField = (field: string) => {
-        const regexDiscord: RegExp = new RegExp(regex.discord);
+        const regexSocialMedias: RegExp = new RegExp(regex[field as keyof Regex]);
 
-        if(field === 'discord') {
-            return {
-                value: regexDiscord,
-                message: 'Error with your Discord'
-            };
-        }
+        return {
+            value: regexSocialMedias,
+            message: t('profile.social-medias.error-' + field)
+        };
     };
 
     const displayInput = (field: keyof SocialMedias, id: number) => {
         return (
             <div key={'input-' + id}  className='container-input-and-select'>
-                <label className='label-form' htmlFor={field}>
+                <label className='label-form uppercase-first-letter' htmlFor={field}>
                     {field} :
                 </label>
                 <input
@@ -60,7 +65,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
                     })}
                     className='form-control shadow_background-input input-form'
                     type='text'
-                    placeholder={'element.placeholder'}
+                    placeholder={placeholder[id]}
                     name={field}
                     id={field}
                 />
@@ -86,7 +91,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         const allValueEmpty = Object.values(newSocialMedias).every((value) => value === '');
 
         if(allValueEmpty && !props.socialMedias || !Object.keys(newData).length) {
-            toast.error('SOCIAL MEDIAS NOT CHANGED');
+            toast.error(t('profile.form-not-changed'));
             throw new Error('SOCIAL MEDIAS NOT CHANGED');
         }
 
@@ -105,10 +110,11 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
                         tiktok: data.tiktok !== undefined ? data.tiktok : props.user.socialMedias?.tiktok,
                         telegram: data.telegram !== undefined ? data.telegram : props.user.socialMedias?.telegram
                     }});
-                    toast.success('SOCIAL MEDIA UPDATE');
+                    toast.success(t('profile.success-update'));
                 }
             }).catch(() => {
-                toast.error('SOCIAL MEDIA ERROORR');
+                toast.error(t('profile.error-form'));
+                throw new Error('ERROR SOCIAL MEDIAS FORM');
             });
         }
     });
@@ -132,19 +138,19 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
                 const nothingIsDefine = Object.values(newData).every((data) => data == '') && props.socialMedias === null;
 
                 if(nbPropsToUpdate && !nothingIsDefine) {
-                    toast.info('CHANGE MAKE BUT NOT SAVE');
+                    toast.info(t('profile.form-not-saved'));
                 }
             }
         };
     }, []);
 
     return (
-        <form className='form all-form-setting' onSubmit={onSubmit}>
+        <form className='form all-form-profile' onSubmit={onSubmit}>
             <div className='div-under-form'>
                 { propValueSocialMedias.map((field: string, id: number) => displayInput(field as keyof SocialMedias, id)) }
             </div>
             <button className='btn btn-form padding-button mt-3' type="submit">
-                SEND
+                {t('profile.update')}
             </button>
         </form>
     ); 

@@ -12,13 +12,13 @@ import QRCode from "react-qr-code";
 
 export default function Profile() {
     const { t } = useTranslation('global');
-    const [choiceSetting, setChoiceSetting] = useState(1);
+    const [profileCategory, setProfileCategory] = useState(1);
     const { token } = useAuth();
     const [user, setUser] = useState<User>();  
 
     const classNaV = (nav: number) => {
         let namesClass = 'bg-secondary-subtle text-black';
-        if (nav === choiceSetting) return namesClass = 'btn-secondary text-white';
+        if (nav === profileCategory) return namesClass = 'btn-secondary text-white';
 
         return namesClass;
     };
@@ -35,11 +35,11 @@ export default function Profile() {
     }, [initUser]);
 
     return (
-        <div className="setting-container container d-flex flex-column align-items-center mt-5">
-            <h1 className="border-bottom border-dark-subtle pb-2 fw-bold w-100">{t('setting.title')}</h1>
+        <div className="profile-container container d-flex flex-column align-items-center mt-5">
+            <h1 className="border-bottom border-dark-subtle pb-2 fw-bold w-100">{t('profile.title')}</h1>
             <div className="d-flex w-100">
                 <div className="container-main-input">
-                    <h2 className=" mb-3 fw-normal">{t('setting.title')}</h2>
+                    <h2 className=" mb-3 fw-normal">{t('profile.title')}</h2>
                     <ul className="list-inline d-flex flex-column justify-content-between">
                         <li className="mb-3">
                             <label
@@ -50,9 +50,9 @@ export default function Profile() {
                                     type="button"
                                     name="my-account"
                                     id="my-account"
-                                    onClick={() => setChoiceSetting(1)}
+                                    onClick={() => setProfileCategory(1)}
                                 />
-                                {t('setting.my-account.title')}
+                                {t('profile.my-account.title')}
                             </label>
                         </li>
                         <li className="mb-3">
@@ -64,22 +64,22 @@ export default function Profile() {
                                     type="button"
                                     name="manage-membership"
                                     id="manage-membership"
-                                    onClick={() => setChoiceSetting(2)}
+                                    onClick={() => setProfileCategory(2)}
                                 />
-                                {t('setting.manage-membership.title')}
+                                {t('profile.manage-membership.title')}
                             </label>
                         </li>
                         <li className="mb-3">
                             <label
                                 className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(3)}`}
-                                htmlFor="linked-accounts"
+                                htmlFor="social-medias"
                             >
-                                {t('setting.linked-accounts.title')}
+                                {t('profile.social-medias.title')}
                                 <input
                                     type="button"
-                                    name="linked-accounts"
-                                    id="linked-accounts"
-                                    onClick={() => setChoiceSetting(3)}
+                                    name="social-medias"
+                                    id="social-medias"
+                                    onClick={() => setProfileCategory(3)}
                                 />
                             </label>
                         </li>
@@ -88,45 +88,45 @@ export default function Profile() {
                                 className={`btn bg-gradient rounded-pill border w-100 text-start text-nowrap ${classNaV(4)}`}
                                 htmlFor="donations"
                             >
-                                Donations
+                                {t('profile.donations.title')}
                                 <input
                                     type="button"
                                     name="donations"
                                     id="donations"
-                                    onClick={() => setChoiceSetting(4)}
+                                    onClick={() => setProfileCategory(4)}
                                 />
                             </label>
                         </li>
                     </ul>
                 </div>
-                {choiceSetting === 1 && (
+                {profileCategory === 1 && (
                     <div className="w-100">
-                        <h2 className="fw-normal">{t('setting.my-account.title')}</h2>
+                        <h2 className="fw-normal">{t('profile.my-account.title')}</h2>
                         <AccountFom user={user} setUser={setUser} />
                     </div>
                 )}
-                {choiceSetting === 2 && (
+                {profileCategory === 2 && (
                     <div className="w-100">
                         <div>
-                            <h2 className="fw-normal">{t('setting.manage-membership.title')}</h2>
-                            <p className="message-membership">{t('setting.manage-membership.message-1')}</p>
-                            <p className="message-membership">{t('setting.manage-membership.message-2')}</p>
+                            <h2 className="fw-normal">{t('profile.manage-membership.title')}</h2>
+                            <p className="message-membership">{t('profile.manage-membership.message-1')}</p>
+                            <p className="message-membership">{t('profile.manage-membership.message-2')}</p>
                         </div>
                         <MembershipForm membership={user?.membership} />
                     </div>
                 )}
-                {choiceSetting === 3 && (
+                {profileCategory === 3 && (
                     <div className="w-100">
-                        <h2 className="fw-normal">{t('setting.linked-accounts.title')}</h2>
+                        <h2 className="fw-normal">{t('profile.social-medias.title')}</h2>
                         <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user}/>
                     </div>
                 )}
-                {choiceSetting === 4 && (
-                    <div>
-                        <h2 className="fw-normal">DONATIONS</h2>
+                {profileCategory === 4 && (
+                    <div className="w-100">
+                        <h2 className="fw-normal">{t('profile.donations.title')}</h2>
                         <div className="d-flex flex-column align-items-center mt-5 mb-5">
-                            <p>Scannez le QR code ci-dessous pour faire un don et aider à faire grandir notre association. Chaque contribution compte et fait une réelle différence.</p>
-                            <QRCode size={150} value="QR code for donation" />
+                            <p className="align-self-start">{t('profile.donations.message')}</p>
+                            <QRCode size={150} value={t('profile.donations.qr-code')} />
                             <p>Wallet : 0x75581e...</p>
                         </div>
                     </div>

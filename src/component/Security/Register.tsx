@@ -203,7 +203,7 @@ export default function Register() {
                             />
                             <p className={`text-container-submit`}>
                                 <Trans
-                                    i18nKey="form.confidentiality"
+                                    i18nKey="register.confidentiality"
                                     t={t}
                                     components={{
                                         link1: <LinkText href="#" title="Terms of Use" />,
@@ -221,7 +221,7 @@ export default function Register() {
                                 id="beContacted"
                                 {...register('beContacted')}
                             />
-                            <p className={`text-container-submit`}>{t('form.be-contacted')}</p>
+                            <p className={`text-container-submit`}>{t('register.be-contacted')}</p>
                         </div>
                     </div>
                 </div>

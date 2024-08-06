@@ -31,6 +31,15 @@ export default function AccountFom(props: IAccountForm) {
     const valueAccountRef = useRef(valueAccount);
     const userRef = useRef(props.user);
 
+    const placeholderInput = [
+        t('profile.my-account.placeholder.city'),
+        t('profile.my-account.placeholder.first-name'),
+        t('profile.my-account.placeholder.last-name'),
+        t('profile.my-account.placeholder.email'),
+        t('profile.my-account.placeholder.username'),
+        t('profile.my-account.placeholder.wallet-address'),
+    ];
+
     const initUser = useCallback(() => {
         setValueAccount({
             ...valueAccount,
@@ -53,26 +62,26 @@ export default function AccountFom(props: IAccountForm) {
         if(field === 'firstName' || field === 'lastName') {
             return {
                 value: regexName,
-                message: 'Error with the ' + field
+                message: t('profile.my-account.error-' + field)
             };
         } else if(field === 'username') {
             return {
                 value: regexUsername,
-                message: 'Error with the username'
+                message: t('profile.my-account.error-' + field)
             };
         } else if(field === 'email') {
             return {
                 value: regexEmail,
-                message: 'Error with the email'
+                message: t('profile.my-account.error-' + field)
             };
         }
     };
 
     const displayInput = (field: keyof User, id: number) => {
         if(props.user) return (
-            <div key={'input-' + id}  className='container-input-and-select'>
+            <div key={'input-' + id} className='container-input-and-select'>
                 <label className='label-form' htmlFor={field}>
-                    {field} :
+                    {t('profile.my-account.' + field)} :
                 </label>
                 <input
                     {...register(field, 
@@ -81,14 +90,14 @@ export default function AccountFom(props: IAccountForm) {
                             pattern: patternField(field),
                             required: {
                                 value: field.includes('email') || field.includes('username')  ? true : false,
-                                message: "Value required"
+                                message: t('profile.required')
                             },
                             onChange: (e) => setValueAccount({...valueAccount, [field]: e.target.value})
                         }
                     )}
                     className='form-control shadow_background-input input-form'
                     type={field.includes('email') ? 'email' : 'text'}
-                    placeholder={'element.placeholder'}
+                    placeholder={placeholderInput[id - 1]}
                     name={field}
                     id={field}
                 />
@@ -109,7 +118,7 @@ export default function AccountFom(props: IAccountForm) {
         { value: 'tiktok', name: 'Tiktok' },
         { value: 'twitter', name: 'Twitter' },
         { value: 'youtube', name: 'Youtube' },
-        { value: 'other', name: t('form.other') },
+        { value: 'other', name: t('profile.my-account.other') },
     ];
 
     const optionSelect = (name: string): OptionsSelect[] => {
@@ -135,7 +144,7 @@ export default function AccountFom(props: IAccountForm) {
         if(props.user) return(
             <div key={'input-' + id}  className='container-input-and-select'>
                 <label className='label-form' htmlFor={field}>
-                    {field} :
+                    {t('profile.my-account.' + field)} :
                 </label>
                 <select
                     {...register(field, {
@@ -148,7 +157,7 @@ export default function AccountFom(props: IAccountForm) {
                     onChange={handleChange}
                 >
                     <option value=''>
-                        DEFAULT
+                        {t('profile.default-select')}
                     </option>
                     {optionSelect(field).map((option: OptionsSelect, id) => {
                         return (
@@ -177,7 +186,7 @@ export default function AccountFom(props: IAccountForm) {
         const newData = checkUserWithOldUser(newUser);
 
         if(!Object.keys(newData).length) {
-            toast.error('USER NOT CHANGED');
+            toast.error(t('profile.form-not-changed'));
             throw new Error('USER NOT CHANGED');
         }
 
@@ -191,10 +200,11 @@ export default function AccountFom(props: IAccountForm) {
             updateUser(props.user.id, token, user as User).then(() => {
                 if(props.user?.id) { // Without the condition we have an error
                     props.setUser({...props.user, ...user});
-                    toast.success('USER UPDATE');
+                    toast.success(t('profile.success-update'));
                 }
             }).catch(() => {
-                toast.error('USER ERROORR');
+                toast.error(t('profile.error-form'));
+                throw new Error('ERROR USER FORM');
             });
         }
     });
@@ -214,14 +224,14 @@ export default function AccountFom(props: IAccountForm) {
                 const newData = checkUserWithOldUser(valueAccountRef.current);
 
                 if(Object.keys(newData).length) {
-                    toast.info('CHANGE MAKE BUT NOT SAVE');
+                    toast.info(t('profile.form-not-saved'));
                 }
             }
         };
     }, []);
 
     return (
-        <form className='form all-form-setting' onSubmit={onSubmit}>
+        <form className='form all-form-profile' onSubmit={onSubmit}>
             <div className='div-under-form'>
                 { propValueAccount.map((field: string, id: number) => {
                     return (
@@ -232,7 +242,7 @@ export default function AccountFom(props: IAccountForm) {
                 })}
             </div>
 
-            <p className="align-self-start mt-3">Your referral : <a href={urlReferral}>{urlReferral}</a></p>
+            <p className="align-self-start mt-3">{t('profile.my-account.referral')} : <a href={urlReferral}>{urlReferral}</a></p>
             <div className='container-submit'>
                 <div className='container-be-contacted'>
                     <input
@@ -246,10 +256,10 @@ export default function AccountFom(props: IAccountForm) {
                             setBeContactedChanged(false);
                         }}
                     />
-                    <p className='text-container-submit'>{valueAccount.beContacted ? 'Uncheck, if you no longer wish to be contacted by WeAreSwissBorg' : t('form.be-contacted')}</p>
+                    <p className='text-container-submit'>{valueAccount.beContacted ? t('profile.my-account.not-be-contacted') : t('profile.my-account.be-contacted')}</p>
                 </div>
                 <button className='btn btn-form padding-button' type="submit">
-                     SEND
+                    {t('profile.update')}
                 </button>
             </div>
         </form>

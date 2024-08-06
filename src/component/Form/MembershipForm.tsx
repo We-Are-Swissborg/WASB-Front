@@ -21,7 +21,7 @@ export default function MembershipForm(props: IMembershipForm) {
         if(props.membership) {
             setValueMembership({
                 ...valueMembership,
-                contributionStatus: props.membership?.contributionStatus || 'no adherent',
+                contributionStatus: props.membership?.contributionStatus || t('profile.manage-membership.no-adherent'),
                 dateContribution: props.membership?.dateContribution || undefined,
                 endDateContribution: props.membership?.endDateContribution || undefined,
                 contribution: undefined,
@@ -31,9 +31,9 @@ export default function MembershipForm(props: IMembershipForm) {
 
     const disabledInput = (field: keyof Membership, id: number) => {
         return (
-            <div key={'input-' + id}  className='container-input-and-select'>
+            <div key={'input-' + id} className='container-input-and-select'>
                 <label className='label-form' htmlFor={field}>
-                    {field} :
+                    {t('profile.manage-membership.' + field)} :
                 </label>
                 <input
                     disabled
@@ -62,7 +62,7 @@ export default function MembershipForm(props: IMembershipForm) {
         return ( 
             <div key={'input-' + id}  className='container-input-and-select'>
                 <label className='label-form' htmlFor={field}>
-                    {field}
+                    {t('profile.manage-membership.' + field)} :
                 </label>
                 <select
                     {...register(field)}
@@ -72,7 +72,7 @@ export default function MembershipForm(props: IMembershipForm) {
                     style={{ background: `url(${toDownArrow}) no-repeat` }}
                 >
                     <option value=''>
-                        DEFAULT
+                        {t('profile.default-select')}
                     </option>
                     {optionSelect(field).map((option: OptionsSelect, id) => {
                         return (
@@ -100,7 +100,7 @@ export default function MembershipForm(props: IMembershipForm) {
     }, [initUser, isInit, props]);
 
     return (
-        <form className='form all-form-setting' onSubmit={onSubmit}>
+        <form className='form all-form-profile' onSubmit={onSubmit}>
             <div className='div-under-form'>
                 { propValueMembership.map((field: string, id: number) => {
                     return (
@@ -111,7 +111,7 @@ export default function MembershipForm(props: IMembershipForm) {
                 })}
             </div>
             <button disabled className='btn btn-form padding-button mt-3' type="submit">
-                  SEND
+                {t('profile.update')}
             </button>
         </form>
     ); 
