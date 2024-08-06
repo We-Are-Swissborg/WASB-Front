@@ -101,7 +101,7 @@ export default function AccountFom(props: IAccountForm) {
                     name={field}
                     id={field}
                 />
-                {errors[field] && <p className="m-0 text-danger">{errors[field].message?.toString()}</p>}
+                {errors[field] && <p className="m-0 text-danger">{errors[field].message?.toString() || 'ERROR FORM'}</p>}
             </div>
         );
     };
@@ -167,7 +167,7 @@ export default function AccountFom(props: IAccountForm) {
                         );
                     })}
                 </select>
-                {errors[field] && <p className="m-0 text-danger">{errors[field].message?.toString()}</p>}
+                {errors[field] && <p className="m-0 text-danger">{errors[field].message?.toString() || 'ERROR FORM'}</p>}
             </div>
         );
     };
