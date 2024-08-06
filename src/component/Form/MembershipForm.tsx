@@ -37,7 +37,7 @@ export default function MembershipForm(props: IMembershipForm) {
                 </label>
                 <input
                     disabled
-                    value={valueMembership[field] ? valueMembership[field].toString() : '' }
+                    value={valueMembership[field] ? valueMembership[field]?.toString() : undefined }
                     className='form-control shadow_background-input input-form'
                     type={field.includes('contributionStatus') ? 'Text' : 'Date'}
                     name={field}
@@ -82,7 +82,7 @@ export default function MembershipForm(props: IMembershipForm) {
                         );
                     })}
                 </select>
-                {errors[field] && <p className="m-0 text-danger">{errors[field].message?.toString() || 'Error in form'}</p>}
+                {errors[field] && <p className="m-0 text-danger">{errors[field]?.message?.toString()}</p>}
             </div>
         );
     };
