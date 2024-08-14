@@ -1,7 +1,7 @@
 const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
 const backendAPI: URL = new URL(serverURL, window.location.origin);
 
-const requestHeaders: HeadersInit = new Headers();
+const requestHeaders: Headers = new Headers();
 requestHeaders.set('Content-Type', 'application/json');
 
 const getOptions: RequestInit = {
@@ -22,13 +22,23 @@ const putOptions: RequestInit = {
     cache: 'no-cache',
 };
 
-const getFetch = async (url: string, token?: string | null): Promise<Response> => {
-    const options = getOptions;
+const patchOptions: RequestInit = {
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+};
 
+function addOptionHeaders(token?: string | null): Headers {
     if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
     else requestHeaders.delete('Authorization');
 
-    options.headers = requestHeaders;
+    return requestHeaders;
+}
+
+const getFetch = async (url: string, token?: string | null): Promise<Response> => {
+    const options = getOptions;
+
+    options.headers = addOptionHeaders(token);
 
     return await fetch(`${backendAPI.href}/${url}`, options);
 };
@@ -36,10 +46,7 @@ const getFetch = async (url: string, token?: string | null): Promise<Response> =
 const postFetch = async (url: string, body: string, token?: string | null): Promise<Response> => {
     const options = postOptions;
 
-    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
-
-    options.headers = requestHeaders;
+    options.headers = addOptionHeaders(token);
     options.body = body;
 
     return await fetch(`${backendAPI.href}/${url}`, options);
@@ -48,13 +55,19 @@ const postFetch = async (url: string, body: string, token?: string | null): Prom
 const putFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
     const options = putOptions;
 
-    if(token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
-
-    options.headers = requestHeaders;
+    options.headers = addOptionHeaders(token);
     options.body = body;
 
     return fetch(`${backendAPI.href}/${url}`, options);
 };
 
-export { getFetch, postFetch, putFetch };
+const patchFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
+    const options = patchOptions;
+
+    options.headers = addOptionHeaders(token);
+    options.body = body;
+
+    return fetch(`${backendAPI.href}/${url}`, options);
+};
+
+export { getFetch, postFetch, putFetch, patchFetch };

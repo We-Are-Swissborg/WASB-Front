@@ -15,6 +15,7 @@ import AdminLayout from '../component/Admin/AdminLayout';
 import RootLayout from '../component/RootLayout';
 import AdminUsers from '../component/Admin/AdminUsers';
 import AdminSettings from '../component/Admin/AdminSettings';
+import AdminUserEdit from '../component/Admin/AdminUserEdit';
 
 const router = createHashRouter([
     {
@@ -69,6 +70,10 @@ const router = createHashRouter([
             {
                 path: 'users',
                 element: <AdminUsers />,
+            },
+            {
+                path: 'users/:id/edit',
+                element: <AdminUserEdit />,
             },
             {
                 path: 'settings',
