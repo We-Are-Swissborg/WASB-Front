@@ -153,6 +153,11 @@ const global_en = {
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,
         "title": "About us ?"
     },
+    "blog": {
+        "post-form": { 
+            "title": "Title"
+        }
+    },
 
     // For all components
     "countries": {

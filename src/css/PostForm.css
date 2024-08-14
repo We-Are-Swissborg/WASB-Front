@@ -1,0 +1,9 @@
+
+.container-main-image {
+  width: 70%;
+  height: 445px;
+}
+
+.ql-snow img, .content-post img {
+  width: 325px;
+}

@@ -11,7 +11,7 @@ const global_fr = {
         "contact": "Contact",
         "donation": "Faire un don",
         "join":"Rejoignez notre communauté",
-        "message": `WeAreSwissBorg est une association qui vise à promouvoir l'utilisation de la blockchaine et des crypto-actifs, ` +
+        "message": `WeAreSwissBorg est une association qui vise à promouvoir l'utilisation de la blockchain et des crypto-actifs, ` +
                    `a fournir du contenu éducatif sur ces technologies, notamment liées à Swissborg, et à soutenir des actions en lien avec cet écosystème.`,
         "rights-reserved": "Tous droits réservés",
         "subscribe": {
@@ -150,6 +150,11 @@ const global_fr = {
         "content": `WeAreSwissBorg est bien plus qu'une simple association. ` +
                    `Nous sommes une communauté passionnée, engagée à partager la connaissance et à démocratiser l'utilisation des crypto-actifs et de l'écosystème SwissBorg.`,
         "title": "Qui sommes-nous ?"
+    },
+    "blog": {
+        "post-form": { 
+            "title": "Titre"
+        }
     },
 
     // For all components
