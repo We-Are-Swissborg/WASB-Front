@@ -157,7 +157,7 @@ export default function AdminUsers() {
             {
                 accessorKey: 'roles',
                 header: 'Roles',
-                cell: (info) => info.getValue().map((role: Role) => <span className="badge text-bg-info">{role}</span>),
+                cell: (info) => info.getValue().map((role: Role) => <span key={role} className="badge text-bg-info">{role}</span>),
                 enableColumnFilter: false,
             },
             {
