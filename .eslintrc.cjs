@@ -10,14 +10,17 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react'],
   rules: {
+    "@typescript-eslint/no-unused-vars": ["error"],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
+      
     ],
-	semi: "error",
-	"prefer-const": "error",
-	eqeqeq: "off",
-	"no-unused-vars": "error",
-	"indent": ["error", 4, { "SwitchCase": 1 }]
+    semi: "error",
+    "prefer-const": "error",
+    eqeqeq: "off",
+    "no-unused-vars": "error",
+    "indent": ["error", 4, { "SwitchCase": 1 }],
+    "no-extra-boolean-cast": 0
   },
 };

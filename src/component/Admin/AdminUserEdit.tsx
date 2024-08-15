@@ -1,12 +1,12 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { User } from '../../types/User';
-import AccountFom from '../Form/AccountForm';
 import { NavLink, useParams } from 'react-router-dom';
 import { getUserWithAllInfo, patchUser } from '../../services/user.service';
 import { useAuth } from '../../contexts/AuthContext';
 import MembershipForm from '../Form/MembershipForm';
 import SocialMediasForm from '../Form/SocialMediasForm';
 import Role from '../../types/Role';
+import AccountForm from '../Form/AccountForm';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
@@ -22,7 +22,7 @@ function AdminUserEdit() {
             setSelectedRoles(u.roles);
             setIsInit(true);
         }
-    }, [token]);
+    }, [token, id]);
 
     useEffect(() => {
         initUser();
@@ -46,7 +46,7 @@ function AdminUserEdit() {
                 patchUser(user.id, token, patch);
             }
         }
-    }, [selectedRoles]);
+    }, [selectedRoles, user, token]);
 
     const isRoleSelected = (role: Role): boolean => {
         return selectedRoles.includes(role);
@@ -81,12 +81,12 @@ function AdminUserEdit() {
                 </form>
             </header>
             <div className="row">
-                <AccountFom user={user} setUser={setUser} />
+                <AccountForm user={user} setUser={setUser} />
                 <MembershipForm membership={user?.membership} />
                 <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user} />
             </div>
 
-            <NavLink to="/admin/users" className={`btn btn-primary`}>
+            <NavLink to="/admin/users" className={`btn btn-primary mb-4`}>
                 <i className="fa fa-arrow-left"></i> Return to list
             </NavLink>
         </div>

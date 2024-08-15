@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function RowActions(cell: any) {
     return (
         <>

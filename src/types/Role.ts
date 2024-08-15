@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 enum Role {
     User = 'user',
     Member = 'member',

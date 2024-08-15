@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
     Column,
     ColumnDef,
@@ -22,17 +23,19 @@ import Role from '../../types/Role';
 
 declare module '@tanstack/react-table' {
     //allows us to define custom properties for our columns
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ColumnMeta<TData extends RowData, TValue> {
         filterVariant?: 'text' | 'range' | 'select';
     }
 }
 
-function Filter({ column }: { column: Column<any, unknown> }) {
+function Filter({ column }: { column: Column<User, unknown> }) {
     const columnFilterValue = column.getFilterValue();
     const { filterVariant } = column.columnDef.meta ?? {};
     const sortedUniqueValues = useMemo(
         () =>
             filterVariant === 'range' ? [] : Array.from(column.getFacetedUniqueValues().keys()).sort().slice(0, 5000),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [column.getFacetedUniqueValues(), filterVariant],
     );
 
@@ -103,7 +106,7 @@ function DebouncedInput({
         }, debounce);
 
         return () => clearTimeout(timeout);
-    }, [value]);
+    }, [value, debounce, onChange]);
 
     return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />;
 }
@@ -111,7 +114,6 @@ function DebouncedInput({
 export default function AdminUsers() {
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
     const [data, setData] = useState<User[]>(() => []);
 
     const initUser = useCallback(async () => {
@@ -131,6 +133,7 @@ export default function AdminUsers() {
         cell: (props) => <RowActions row={props.row} />,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const columns = useMemo<ColumnDef<User, any>[]>(
         () => [
             {
@@ -164,6 +167,7 @@ export default function AdminUsers() {
                 accessorKey: 'lastLogin',
                 header: 'Last login',
                 cell: (info) => new Date(info.getValue()).toLocaleString('fr-FR'),
+                enableColumnFilter: false,
             },
             columnsHelper,
         ],
@@ -184,8 +188,8 @@ export default function AdminUsers() {
         getPaginationRowModel: getPaginationRowModel(),
         getFacetedRowModel: getFacetedRowModel(), // client-side faceting
         getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select
-        debugTable: true,
-        debugHeaders: true,
+        debugTable: false,
+        debugHeaders: false,
         debugColumns: false,
     });
 

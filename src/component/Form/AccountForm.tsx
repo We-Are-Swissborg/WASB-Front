@@ -16,7 +16,7 @@ type IAccountForm = {
     setUser: Dispatch<SetStateAction<User | undefined>>;
 };
 
-export default function AccountFom(props: IAccountForm) {
+export default function AccountForm(props: IAccountForm) {
     const { t } = useTranslation('global');
     const {
         register,
@@ -231,8 +231,8 @@ export default function AccountFom(props: IAccountForm) {
         return () => {
             if (userRef.current) {
                 const newData = checkUserWithOldUser(valueAccountRef.current);
-
                 if (Object.keys(newData).length) {
+                    console.log('AccountForm', newData);
                     toast.info(t('profile.form-not-saved'));
                 }
             }

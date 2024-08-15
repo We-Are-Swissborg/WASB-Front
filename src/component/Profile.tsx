@@ -4,11 +4,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { User } from '../types/User';
 import { getUserWithAllInfo } from '../services/user.service';
 import { tokenDecoded } from '../services/token.services';
-import AccountFom from './Form/AccountForm';
 import MembershipForm from './Form/MembershipForm';
 import SocialMediasForm from './Form/SocialMediasForm';
 import '../css/Profile.css';
 import QRCode from 'react-qr-code';
+import AccountForm from './Form/AccountForm';
 
 export default function Profile() {
     const { t } = useTranslation('global');
@@ -102,7 +102,7 @@ export default function Profile() {
                 {profileCategory === 1 && (
                     <div className="w-100">
                         <h2 className="fw-normal">{t('profile.my-account.title')}</h2>
-                        <AccountFom user={user} setUser={setUser} />
+                        <AccountForm user={user} setUser={setUser} />
                     </div>
                 )}
                 {profileCategory === 2 && (
