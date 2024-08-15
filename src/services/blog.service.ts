@@ -7,7 +7,7 @@ const getAllPosts = async (url: string) => {
         throw new Error('An error has occurred: ' + json.message);
     }
 
-    return json.allPostsDTO;
+    return json;
 };
 
 const previewPost = async (token: string, data: string) => {
@@ -46,7 +46,7 @@ const getPost = async (id: string) => {
         throw new Error('An error has occurred: ' + json.message);
     }
 
-    return json.postDTO;
+    return json;
 };
 
 export { getAllPosts, previewPost, createPost, getPost };

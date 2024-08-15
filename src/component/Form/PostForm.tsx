@@ -68,7 +68,7 @@ export default function PostForm() {
             if(token) {
                 const formData = new FormData();
                 const dataPost = {
-                    userId: tokenDecoded(token).userId,
+                    author: tokenDecoded(token).userId,
                     title: fieldValues?.title,
                     content: fieldValues?.content
                 };
