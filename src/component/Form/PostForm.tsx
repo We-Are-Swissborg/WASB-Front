@@ -9,35 +9,23 @@ import { createPost, previewPost } from "../../services/blog.service";
 import { tokenDecoded } from "../../services/token.services";
 import { useNavigate } from "react-router-dom";
 import { TextChangeHandler } from '@types/quill';
+import arrayBufferToBase64 from "../../services/arrayBufferToBase64";
 import '../../css/PostForm.css';
 
 export default function PostForm() {
     const { t } = useTranslation('global');
-    const [preview, setPreview] = useState<string | ArrayBuffer | undefined | null>(null);
+    const [image, setImage] = useState<string | ArrayBuffer | undefined | null>(null);
     const { register, handleSubmit, setValue } = useForm();
     const [fieldValues, setFieldValues] = useState<FieldValues>();
     const [isForm, setIsForm] = useState<boolean>(true);
     const { token } = useAuth();
     const quillRef = useRef<Quill | null>(null);
     const navigate = useNavigate();
+    const isBuffer = typeof image !== 'string'; // Required for check if the image has changed.
 
     const onSubmit = handleSubmit((user, e) => {
         const nameTarget = e?.target.name;
         const propsForm = Object.keys(user);
-
-        // Display post before save post to BD
-        const previewClean = () => {
-            const nameFile = user.image;
-            const fileReader = new FileReader();
-
-            fileReader.onload = (event) => {
-                // The file's text will be printed here
-                setPreview(event.target?.result);
-            };
-            fileReader.readAsDataURL(nameFile);
-            setIsForm(false);
-            setFieldValues(user);
-        };
 
         propsForm.forEach((prop , id) => {
             const isEmptyValues = user[prop] === '' || user[prop] === undefined;
@@ -52,31 +40,41 @@ export default function PostForm() {
             }
         });
 
+        // Display post before save post to BD
         if(nameTarget === 'preview') {
             const isTheSame = user.content === fieldValues?.content;
 
-            if(token && !isTheSame) {
-                // Clean code before the preview
-                previewPost(token, user.content).then((res) => {
-                    user.content = res.clean;
-                    previewClean();
+            if(isBuffer) user.image = image;
+
+            if(token && (!isTheSame || !isBuffer)) {
+                const formData = new FormData();
+
+                if(!isTheSame) formData.append('contentPost', user.content);
+                if(!isBuffer) formData.append('imagePost', user.image);
+
+                previewPost(token, formData).then((res) => {
+                    if(res.clean) user.content = res.clean;
+                    if(res.convertToWebp) {
+                        user.image = res.convertToWebp;
+                        setImage(res.convertToWebp);
+                    }
+                    setIsForm(false);
+                    setFieldValues(user);
                 });
             } else {
-                previewClean();
+                setIsForm(false);
+                setFieldValues(user);
             }
         } else {
-            if(token) {
-                const formData = new FormData();
+            if(token && fieldValues) {
                 const dataPost = {
                     author: tokenDecoded(token).userId,
                     title: fieldValues?.title,
+                    image: fieldValues?.image,
                     content: fieldValues?.content
                 };
 
-                formData.append('dataPost', JSON.stringify(dataPost));
-                formData.append('imagePost', fieldValues?.image);
-
-                createPost(token, formData).then(() => {
+                createPost(token, dataPost).then(() => {
                     toast.success('POST CREATE');
                     navigate('/', {replace: true});
                 }).catch(() => {
@@ -87,26 +85,47 @@ export default function PostForm() {
     });
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const childNode = quillRef.current?.container.firstChild;
-        const textContent = childNode?.textContent;
-        let innerHTML = '';
-
         const nameTarget = e.target?.name;
-        const nameFile = e.target?.files && e.target?.files[0];
+        if(nameTarget === 'image') {
+            const nameFile = e.target?.files && e.target?.files[0];
+            const fileReader = new FileReader();
+    
+            fileReader.onload = (event) => {
+                // The file's text will be printed here
+                setImage(event.target?.result);
+            };
 
-        if(childNode instanceof HTMLElement) innerHTML = childNode?.innerHTML;
-        if(!textContent) innerHTML = '';
+            if(nameFile) fileReader.readAsDataURL(nameFile);
+            else setImage(null);
 
-        if(nameTarget === 'image') setValue('image', nameFile);
-        else setValue('content', innerHTML);
+            setValue('image', nameFile);
+        } else {
+            const childNode = quillRef.current?.container.firstChild;
+            const textContent = childNode?.textContent;
+            let innerHTML = '';
+
+            if(childNode instanceof HTMLElement) innerHTML = childNode?.innerHTML;
+            if(!textContent) innerHTML = '';
+
+            setValue('content', innerHTML);
+        }
+    };
+
+    const srcImageBeforePreview = () => {
+        if(!isBuffer) return image;
+        if(isBuffer) return arrayBufferToBase64(image as unknown as ArrayBuffer, 'image/webp');
     };
 
     return (
         <div className="container">
             <form className='form align-items-start' onSubmit={onSubmit}>
                 <div style={isForm ? {display: 'block', width: '100%'} : {display: 'none'}}>
-                    <textarea className="border border-0 border-bottom border-black h1 w-100" {...register('title')} id="title" required={true}/>
-
+                    <textarea className="border border-0 border-bottom border-black h1 w-100" {...register('title')} id="title" required={true} />
+                    {image &&
+                        <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
+                            <img src={srcImageBeforePreview()} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                        </div>
+                    }
                     <input type="file" id="image" name="image" accept="image/*" onChange={onChange}/>
                     <Editor
                         ref={quillRef}
@@ -115,12 +134,12 @@ export default function PostForm() {
                     />
                     <button className='btn btn-form padding-button align-self-end' type="submit" name="preview" onClick={onSubmit}>
                   PREVIEW
-                    </button> 
+                    </button>
                 </div>
                 <div style={isForm ? {display: 'none'} : {display: 'block', width: '100%'} }>
                     <h1>{fieldValues?.title}</h1>
                     <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                        <img src={preview as string} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                        <img src={arrayBufferToBase64(fieldValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
                     </div>
                     <div dangerouslySetInnerHTML={{__html: fieldValues?.content}} className="content-post"/>
                     <div className="align-self-end">
@@ -130,5 +149,5 @@ export default function PostForm() {
                 </div>
             </form>
         </div>
-    ); 
+    );
 }

@@ -8,5 +8,4 @@ type Regex = {
   telegram: RegExp
 };
 
-
 export default Regex;

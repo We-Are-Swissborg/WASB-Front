@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Post } from "../types/Post";
 import arrayBufferToBase64 from "../services/arrayBufferToBase64";
 
-export default function OnePost() {
+export default function Article() {
     const { t } = useTranslation('global');
     const [post, setPost] = useState<Post>();
     const { idPost } = useParams();
@@ -26,7 +26,7 @@ export default function OnePost() {
         <div className="container">
             <h1>{post?.title}</h1>
             <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                <img src={arrayBufferToBase64(post?.image as unknown as ArrayBuffer)} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                <img src={arrayBufferToBase64(post?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
             </div>
             <div dangerouslySetInnerHTML={{__html: post?.content ?? "DEFAULT"}} className="content-post"/>
         </div>

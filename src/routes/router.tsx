@@ -16,7 +16,7 @@ import RootLayout from '../component/RootLayout';
 import AdminUsers from '../component/Admin/AdminUsers';
 import AdminSettings from '../component/Admin/AdminSettings';
 import PostForm from '../component/Form/PostForm';
-import OnePost from '../component/OnePost';
+import Article from '../component/Article';
 
 const router = createHashRouter([
     {
@@ -37,11 +37,11 @@ const router = createHashRouter([
                     },
                     {
                         path: 'create-post',
-                        element: <ProtectedRoute element={<PostForm />} requiredRole={[Role.Admin, Role.Moderator]} />
+                        element: <ProtectedRoute element={<PostForm />} role={Role.Moderator} />
                     },
                     {
                         path: ':idPost',
-                        element:  <OnePost />,
+                        element:  <Article />,
                     }
                 ]
             },
@@ -75,7 +75,7 @@ const router = createHashRouter([
     },
     {
         path: 'admin',
-        element: <ProtectedRoute element={<AdminLayout />} requiredRole={[Role.Admin]} />,
+        element: <ProtectedRoute element={<AdminLayout />} role={Role.Admin} />,
         children: [
             {
                 path: '',

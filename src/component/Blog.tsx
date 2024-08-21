@@ -1,5 +1,5 @@
 import { Post } from '../types/Post';
-import { getAllPosts } from '../services/blog.service';
+import { getPostRange } from '../services/blog.service';
 import useSWR, { Fetcher } from 'swr';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
@@ -10,20 +10,28 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import arrayBufferToBase64 from '../services/arrayBufferToBase64';
+import { useAuth } from '../contexts/AuthContext';
+import { Pagination } from '@mui/material';
+import PostRange from '../types/PostRange';
 import '../css/Blog.css';
 
-const fetcher: Fetcher<Post[]> = (url: string) => getAllPosts(url);
+const fetcher: Fetcher<PostRange> = (url: string) => getPostRange(url);
 
 function Blog() {
-    const { data, error, isLoading } = useSWR<Post[]>(
-        'posts',
+    const { data, error, isLoading } = useSWR<PostRange>(
+        'posts/range/' + 1,
         fetcher,
     );
     const [dataReverse, setDataReverse] = useState<Post[]>([]);
+    const [totalPages, setTotalPages] = useState(1);
+    const [page, setPage] = useState(1);
+    const { roles } = useAuth();
 
     useEffect(() => {
         if(data) {
-            setDataReverse(data.reverse());
+            const nbPage = Math.ceil(data.totalPost / 9);
+            setDataReverse(data.postRangeDTO);
+            setTotalPages(nbPage ? nbPage : 1);
         }
     }, [data]);
 
@@ -33,14 +41,30 @@ function Blog() {
         return ( 'At summarize' );
     };
 
+    const onclick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        const target =  e.target as HTMLElement;
+        const arrow =  target.dataset.testid;
+        const innerText = target.innerText;
+
+        if(!arrow && !innerText) return;
+
+        const value = innerText ? Number(innerText) : arrow?.includes('Before') ? Number(page)-1 : Number(page)+1;
+        getPostRange('posts/range/' + value).then((data) => {
+            setDataReverse(data.postRangeDTO);
+            setPage(value);
+        });
+    };
+
     return (
         <>
             <div className="container">
                 <div className='d-flex align-items-center justify-content-between'>
                     <h1 className="title mt-4">Le blog</h1>
-                    <NavLink to='create-post'>
-                        CREATE POST
-                    </NavLink>
+                    {roles?.includes('moderator') &&
+                        <NavLink to='create-post'>
+                            CREATE POST
+                        </NavLink>
+                    }
                 </div>
                 <section className="row row-cols-1 row-cols-md-3 g-2 mb-5 mt-3 justify-content-center">
                     {isLoading && (
@@ -69,7 +93,7 @@ function Blog() {
                             <Card key={'post' + id} sx={{ maxWidth: 345 }} className="card mb-5" aria-hidden="true">
                                 <CardMedia
                                     sx={{ height: 140 }}
-                                    image={arrayBufferToBase64(post.image as unknown as ArrayBuffer)}
+                                    image={arrayBufferToBase64(post.image as unknown as ArrayBuffer, 'image/webp')}
                                     title={'post' + id}
                                 />
                                 <CardContent>
@@ -88,6 +112,11 @@ function Blog() {
                         );
                     })}
                 </section>
+                <Pagination
+                    count={totalPages}
+                    color="primary"
+                    onClick={onclick}
+                />
             </div>
         </>
     );
