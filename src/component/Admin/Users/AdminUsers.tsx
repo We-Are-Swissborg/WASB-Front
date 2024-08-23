@@ -3,75 +3,25 @@ import {
     Column,
     ColumnDef,
     ColumnFiltersState,
-    RowData,
     createColumnHelper,
     flexRender,
     getCoreRowModel,
-    getFacetedRowModel,
-    getFacetedUniqueValues,
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
 import { InputHTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react';
-import { User } from '../../types/User';
-import { getUsers } from '../../services/user.service';
-import { useAuth } from '../../contexts/AuthContext';
-import RowActions from '../Table/RowActions';
-import Role from '../../types/Role';
-
-declare module '@tanstack/react-table' {
-    //allows us to define custom properties for our columns
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface ColumnMeta<TData extends RowData, TValue> {
-        filterVariant?: 'text' | 'range' | 'select';
-    }
-}
+import { User } from '@/types/User';
+import { getUsers } from '@/services/user.service';
+import { useAuth } from '@/contexts/AuthContext';
+import RowActions from '@/component/Table/RowActions';
+import Role from '@/types/Role';
 
 function Filter({ column }: { column: Column<User, unknown> }) {
     const columnFilterValue = column.getFilterValue();
-    const { filterVariant } = column.columnDef.meta ?? {};
-    const sortedUniqueValues = useMemo(
-        () =>
-            filterVariant === 'range' ? [] : Array.from(column.getFacetedUniqueValues().keys()).sort().slice(0, 5000),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [column.getFacetedUniqueValues(), filterVariant],
-    );
 
-    return filterVariant === 'range' ? (
-        <div>
-            <div className="flex space-x-2">
-                {/* See faceted column filters example for min max values functionality */}
-                <DebouncedInput
-                    type="number"
-                    value={(columnFilterValue as [number, number])?.[0] ?? ''}
-                    onChange={(value) => column.setFilterValue((old: [number, number]) => [value, old?.[1]])}
-                    placeholder={`Min`}
-                    className="w-24 border shadow rounded"
-                />
-                <DebouncedInput
-                    type="number"
-                    value={(columnFilterValue as [number, number])?.[1] ?? ''}
-                    onChange={(value) => column.setFilterValue((old: [number, number]) => [old?.[0], value])}
-                    placeholder={`Max`}
-                    className="w-24 border shadow rounded"
-                />
-            </div>
-            <div className="h-1" />
-        </div>
-    ) : filterVariant === 'select' ? (
-        <select onChange={(e) => column.setFilterValue(e.target.value)} value={columnFilterValue?.toString()}>
-            {/* See faceted column filters example for dynamic select options */}
-            <option value="">All</option>
-            {sortedUniqueValues.map((value) => (
-                //dynamically generated select options from faceted values feature
-                <option value={value} key={value}>
-                    {value}
-                </option>
-            ))}
-        </select>
-    ) : (
+    return (
         <DebouncedInput
             className="w-36 border shadow rounded"
             onChange={(value) => column.setFilterValue(value)}
@@ -160,7 +110,12 @@ export default function AdminUsers() {
             {
                 accessorKey: 'roles',
                 header: 'Roles',
-                cell: (info) => info.getValue().map((role: Role) => <span key={role} className="badge text-bg-info">{role}</span>),
+                cell: (info) =>
+                    info.getValue().map((role: Role) => (
+                        <span key={role} className="badge text-bg-info">
+                            {role}
+                        </span>
+                    )),
                 enableColumnFilter: false,
             },
             {
@@ -171,7 +126,7 @@ export default function AdminUsers() {
             },
             columnsHelper,
         ],
-        [],
+        [columnsHelper],
     );
 
     const table = useReactTable({
@@ -186,8 +141,6 @@ export default function AdminUsers() {
         getFilteredRowModel: getFilteredRowModel(), //client side filtering
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        getFacetedRowModel: getFacetedRowModel(), // client-side faceting
-        getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select
         debugTable: false,
         debugHeaders: false,
         debugColumns: false,

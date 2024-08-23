@@ -21,6 +21,7 @@ module.exports = {
     eqeqeq: "off",
     "no-unused-vars": "error",
     "indent": ["error", 4, { "SwitchCase": 1 }],
-    "no-extra-boolean-cast": 0
+    "no-extra-boolean-cast": 0,
+    "react-refresh/only-export-components": "off"
   },
 };

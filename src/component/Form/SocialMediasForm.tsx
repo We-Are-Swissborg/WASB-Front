@@ -147,16 +147,13 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
 
             if (!!socialMediasRef.current) {
                 const newData = checkSocialMediasWithOldSocial(valueSocialMediasRef.current);
-                console.log('newData', newData);
 
                 const nbPropsToUpdate = Object.keys(newData).length;
-                console.log('nbPropsToUpdate', nbPropsToUpdate);
-
 
                 // Verfification new values don't have empty value and the user don't have social medias again. Is true if user never send these social medias.
                 const nothingIsDefine =
                     Object.values(newData).every((data) => data == '') && props.socialMedias === null;
-                    
+
                 if (nbPropsToUpdate && !nothingIsDefine) {
                     toast.info(t('profile.form-not-saved'));
                 }

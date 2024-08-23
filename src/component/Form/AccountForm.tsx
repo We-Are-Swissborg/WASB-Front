@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } fr
 import { FieldValues, useForm } from 'react-hook-form';
 import { User } from '../../types/User';
 import { useTranslation } from 'react-i18next';
-import { OptionsSelect } from '../../types/OptionsSelect';
+import { OptionsCountrySelect, OptionsSelect } from '../../types/OptionsSelect';
 import Countries from '../../hook/Countries';
 import regex from '../../services/regex';
 import { updateUser } from '../../services/user.service';
@@ -110,7 +110,7 @@ export default function AccountForm(props: IAccountForm) {
             );
     };
 
-    const countriesOptions: OptionsSelect[] = Countries().map((item) => ({
+    const countriesOptions: OptionsCountrySelect[] = Countries().map((item) => ({
         value: item.iso,
         name: item.name,
         urlImg: item.urlImg,
@@ -232,7 +232,6 @@ export default function AccountForm(props: IAccountForm) {
             if (userRef.current) {
                 const newData = checkUserWithOldUser(valueAccountRef.current);
                 if (Object.keys(newData).length) {
-                    console.log('AccountForm', newData);
                     toast.info(t('profile.form-not-saved'));
                 }
             }

@@ -1,5 +1,8 @@
 export type OptionsSelect = {
     value: string;
     name: string;
-    urlImg?: string;
+};
+
+export type OptionsCountrySelect = OptionsSelect & {
+    urlImg: string;
 };
