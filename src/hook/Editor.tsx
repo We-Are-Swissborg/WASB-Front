@@ -1,12 +1,11 @@
 import React, { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import Quill from 'quill';
-import { Delta, Op } from 'quill/core';
 import { TextChangeHandler, SelectionChangeHandler } from '@types/quill';
 import 'quill/dist/quill.snow.css';
 
 type EditorProps = {
   readOnly: boolean;
-  defaultValue?: Delta | Op[];
+  defaultValue?: string;
   onTextChange?: TextChangeHandler;
   onSelectionChange?: SelectionChangeHandler;
 }
@@ -57,8 +56,9 @@ const Editor = forwardRef<Quill | null, EditorProps>(
                 (ref as React.MutableRefObject<Quill | null>).current = quill;
             }
 
+            const delta = quill.clipboard.convert({html: defaultValueRef?.current});
             if (defaultValueRef.current) {
-                quill.setContents(defaultValueRef.current);
+                quill.setContents(delta);
             }
 
             quill.on('text-change', (...args) => {

@@ -1,7 +1,7 @@
-import { Post } from "./Post";
+import { CardPost } from "./Post";
 
 interface PostRange {
-  postRangeDTO: Post[],
+  postRangeDTO: CardPost[],
   totalPost: number
 }
 

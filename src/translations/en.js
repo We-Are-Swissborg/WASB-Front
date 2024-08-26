@@ -156,7 +156,8 @@ const global_en = {
     "blog": {
         "post-form": { 
             "title": "Title"
-        }
+        },
+        'localCode': 'en-US'
     },
 
     // For all components

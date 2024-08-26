@@ -16,7 +16,7 @@ export default function PostForm() {
     const { t } = useTranslation('global');
     const [image, setImage] = useState<string | ArrayBuffer | undefined | null>(null);
     const { register, handleSubmit, setValue } = useForm();
-    const [fieldValues, setFieldValues] = useState<FieldValues>();
+    const [previewValues, setPreviewValues] = useState<FieldValues>();
     const [isForm, setIsForm] = useState<boolean>(true);
     const { token } = useAuth();
     const quillRef = useRef<Quill | null>(null);
@@ -42,7 +42,7 @@ export default function PostForm() {
 
         // Display post before save post to BD
         if(nameTarget === 'preview') {
-            const isTheSame = user.content === fieldValues?.content;
+            const isTheSame = user.content === previewValues?.content;
 
             if(isBuffer) user.image = image;
 
@@ -59,19 +59,19 @@ export default function PostForm() {
                         setImage(res.convertToWebp);
                     }
                     setIsForm(false);
-                    setFieldValues(user);
+                    setPreviewValues(user);
                 });
             } else {
                 setIsForm(false);
-                setFieldValues(user);
+                setPreviewValues(user);
             }
         } else {
-            if(token && fieldValues) {
+            if(token && previewValues) {
                 const dataPost = {
                     author: tokenDecoded(token).userId,
-                    title: fieldValues?.title,
-                    image: fieldValues?.image,
-                    content: fieldValues?.content
+                    title: previewValues?.title,
+                    image: previewValues?.image,
+                    content: previewValues?.content
                 };
 
                 createPost(token, dataPost).then(() => {
@@ -87,7 +87,7 @@ export default function PostForm() {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const nameTarget = e.target?.name;
         if(nameTarget === 'image') {
-            const nameFile = e.target?.files && e.target?.files[0];
+            const file = e.target?.files && e.target?.files[0];
             const fileReader = new FileReader();
     
             fileReader.onload = (event) => {
@@ -95,10 +95,10 @@ export default function PostForm() {
                 setImage(event.target?.result);
             };
 
-            if(nameFile) fileReader.readAsDataURL(nameFile);
+            if(file) fileReader.readAsDataURL(file);
             else setImage(null);
 
-            setValue('image', nameFile);
+            setValue('image', file);
         } else {
             const childNode = quillRef.current?.container.firstChild;
             const textContent = childNode?.textContent;
@@ -137,11 +137,11 @@ export default function PostForm() {
                     </button>
                 </div>
                 <div style={isForm ? {display: 'none'} : {display: 'block', width: '100%'} }>
-                    <h1>{fieldValues?.title}</h1>
+                    <h1>{previewValues?.title}</h1>
                     <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                        <img src={arrayBufferToBase64(fieldValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                        <img src={arrayBufferToBase64(previewValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
                     </div>
-                    <div dangerouslySetInnerHTML={{__html: fieldValues?.content}} className="content-post"/>
+                    <div dangerouslySetInnerHTML={{__html: previewValues?.content}} className="content-post"/>
                     <div className="align-self-end">
                         <button className='btn btn-form padding-button' type="button" onClick={() => setIsForm(true)}>CANCEL</button>
                         <button className='btn btn-form padding-button' type="submit" name="submit" onClick={onSubmit}>CONFIRM</button>

@@ -21,6 +21,12 @@ const putOptions: RequestInit = {
     cache: 'no-cache',
 };
 
+const deleteOptions: RequestInit = {
+    method: 'DELETE',
+    mode: 'cors',
+    cache: 'no-cache',
+};
+
 const getFetch = async (url: string, token?: string | null): Promise<Response> => {
     const options = getOptions;
 
@@ -64,6 +70,7 @@ const putFetch = (url: string, body: string, token?: string | null): Promise<Res
 
     if(token) requestHeaders.set('Authorization', `Bearer ${token}`);
     else requestHeaders.delete('Authorization');
+    requestHeaders.set('Content-Type', 'application/json');
 
     options.headers = requestHeaders;
     options.body = body;
@@ -71,4 +78,15 @@ const putFetch = (url: string, body: string, token?: string | null): Promise<Res
     return fetch(`${backendAPI.href}/${url}`, options);
 };
 
-export { getFetch, postFetch, putFetch, postFetchWithFile };
+const deleteFetch = (url: string, token?: string | null): Promise<Response> => {
+    const options = deleteOptions;
+
+    if(token) requestHeaders.set('Authorization', `Bearer ${token}`);
+    else requestHeaders.delete('Authorization');
+
+    options.headers = requestHeaders;
+
+    return fetch(`${backendAPI.href}/${url}`, options);
+};
+
+export { getFetch, postFetch, putFetch, postFetchWithFile, deleteFetch };

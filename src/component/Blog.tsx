@@ -1,4 +1,4 @@
-import { Post } from '../types/Post';
+import { CardPost } from '../types/Post';
 import { getPostRange } from '../services/blog.service';
 import useSWR, { Fetcher } from 'swr';
 import { NavLink } from 'react-router-dom';
@@ -13,16 +13,18 @@ import arrayBufferToBase64 from '../services/arrayBufferToBase64';
 import { useAuth } from '../contexts/AuthContext';
 import { Pagination } from '@mui/material';
 import PostRange from '../types/PostRange';
+import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
 
 const fetcher: Fetcher<PostRange> = (url: string) => getPostRange(url);
 
 function Blog() {
+    const { t } = useTranslation('global');
     const { data, error, isLoading } = useSWR<PostRange>(
         'posts/range/' + 1,
         fetcher,
     );
-    const [dataReverse, setDataReverse] = useState<Post[]>([]);
+    const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const { roles } = useAuth();
@@ -36,10 +38,6 @@ function Blog() {
     }, [data]);
 
     if (error) return <div>échec du chargement</div>;
-
-    const summarizeContent = (content: string) => {
-        return ( 'At summarize' );
-    };
 
     const onclick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         const target =  e.target as HTMLElement;
@@ -88,7 +86,13 @@ function Blog() {
                             </CardActions>
                         </Card>
                     )}
-                    {dataReverse.map((post: Post, id: number) => {
+                    {dataReverse.map((post: CardPost, id: number) => {
+                        const date = new Date(post.updatedAt);
+                        const optionDate: Intl.DateTimeFormatOptions = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                        };
                         return (
                             <Card key={'post' + id} sx={{ maxWidth: 345 }} className="card mb-5" aria-hidden="true">
                                 <CardMedia
@@ -96,12 +100,15 @@ function Blog() {
                                     image={arrayBufferToBase64(post.image as unknown as ArrayBuffer, 'image/webp')}
                                     title={'post' + id}
                                 />
-                                <CardContent>
+                                <CardContent className='pb-0'>
                                     <Typography gutterBottom variant="h5" component="div">
                                         {post.title}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" className="card-text placeholder-glow">
-                                        {summarizeContent(post.content)}
+                                    <Typography variant="body2" className="card-text placeholder-glow">
+                                        Last update: {date.toLocaleDateString(`${t('blog.localCode')}`, optionDate)}
+                                    </Typography>
+                                    <Typography variant="body2" className="card-text placeholder-glow mt-2">
+                                        Created by: <strong>{post.infoAuthor.username}</strong> 
                                     </Typography>
                                 </CardContent>
                                 <CardActions>

@@ -154,7 +154,8 @@ const global_fr = {
     "blog": {
         "post-form": { 
             "title": "Titre"
-        }
+        },
+        'localCode': 'fr-FR'
     },
 
     // For all components
