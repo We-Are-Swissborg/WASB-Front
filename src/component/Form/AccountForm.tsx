@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { OptionsCountrySelect, OptionsSelect } from '../../types/OptionsSelect';
 import Countries from '../../hook/Countries';
 import regex from '../../services/regex';
-import { updateUser } from '../../services/user.service';
+import { patchUser } from '../../services/user.service';
 import { useAuth } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { Account } from '../../types/Account';
@@ -203,7 +203,7 @@ export default function AccountForm(props: IAccountForm) {
         if (token && props.user?.id) {
             if (beContactedChanged) user.beContacted = props.user.beContacted;
             user = correctUserToSend(user);
-            updateUser(props.user.id, token, user as User)
+            patchUser(props.user.id, token, user as User)
                 .then(() => {
                     if (props.user?.id) {
                         // Without the condition we have an error

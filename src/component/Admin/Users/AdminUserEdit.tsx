@@ -11,13 +11,11 @@ import CountrySelect from '@/component/Form/CountrySelect';
 import Countries from '@/hook/Countries';
 import { OptionsCountrySelect, OptionsSelect } from '@/types/OptionsSelect';
 import Select from '@/component/Form/SelectForm';
-import { useLoading } from '@/contexts/LoadingContext';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
     const { token } = useAuth();
     const { id } = useParams();
-    const { setIsLoading } = useLoading();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const { register, handleSubmit, control, formState } = useForm<User>({
         mode: 'onTouched',
@@ -27,7 +25,6 @@ function AdminUserEdit() {
 
     const initUser = useCallback(async () => {
         if (id) {
-            setIsLoading(true);
             try {
                 const u = await getUserWithAllInfo(Number(id), token!);
                 setUser(u);
@@ -35,7 +32,6 @@ function AdminUserEdit() {
                 toast.error(`Erreur lors du chargement de l'utisateur`);
                 console.log('ERROR: get user', e);
             } finally {
-                setIsLoading(false);
                 setIsInitializing(true);
             }
         }
