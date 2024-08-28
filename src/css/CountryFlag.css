@@ -1,0 +1,18 @@
+.custom-select {
+    position: relative;
+  }
+  
+  .selected-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .selected-input select {
+    appearance: none;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .selected-input img {
+    display: block;
+  }
