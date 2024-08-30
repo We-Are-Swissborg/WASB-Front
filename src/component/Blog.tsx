@@ -1,5 +1,5 @@
 import { CardPost } from '../types/Post';
-import { getPostRange } from '../services/blog.service';
+import { getPostList } from '../services/blog.service';
 import useSWR, { Fetcher } from 'swr';
 import { NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
@@ -12,16 +12,16 @@ import { useEffect, useState } from 'react';
 import arrayBufferToBase64 from '../services/arrayBufferToBase64';
 import { useAuth } from '../contexts/AuthContext';
 import { Pagination } from '@mui/material';
-import PostRange from '../types/PostRange';
+import PostList from '../types/PostList';
 import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
 
-const fetcher: Fetcher<PostRange> = (url: string) => getPostRange(url);
+const fetcher: Fetcher<PostList> = (url: string) => getPostList(url);
 
 function Blog() {
     const { t } = useTranslation('global');
-    const { data, error, isLoading } = useSWR<PostRange>(
-        'posts/range/' + 1,
+    const { data, error, isLoading } = useSWR<PostList>(
+        'posts/list/' + 1,
         fetcher,
     );
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
@@ -32,7 +32,7 @@ function Blog() {
     useEffect(() => {
         if(data) {
             const nbPage = Math.ceil(data.totalPost / 9);
-            setDataReverse(data.postRangeDTO);
+            setDataReverse(data.postListDTO);
             setTotalPages(nbPage ? nbPage : 1);
         }
     }, [data]);
@@ -47,8 +47,8 @@ function Blog() {
         if(!arrow && !innerText) return;
 
         const value = innerText ? Number(innerText) : arrow?.includes('Before') ? Number(page)-1 : Number(page)+1;
-        getPostRange('posts/range/' + value).then((data) => {
-            setDataReverse(data.postRangeDTO);
+        getPostList('posts/list/' + value).then((data) => {
+            setDataReverse(data.postListDTO);
             setPage(value);
         });
     };

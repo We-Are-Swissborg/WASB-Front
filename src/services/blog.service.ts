@@ -52,7 +52,7 @@ const getPost = async (id: string) => {
     return json;
 };
 
-const getPostRange = async (url: string) => {
+const getPostList = async (url: string) => {
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
 
@@ -88,7 +88,7 @@ export {
     previewPost,
     createPost,
     getPost,
-    getPostRange,
+    getPostList,
     deletePost,
     updatePost
 };
