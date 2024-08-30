@@ -13,8 +13,9 @@ import Dashboard from '../component/Admin/Dashboard';
 import Role from '../types/Role';
 import AdminLayout from '../component/Admin/AdminLayout';
 import RootLayout from '../component/RootLayout';
-import AdminUsers from '../component/Admin/AdminUsers';
-import AdminSettings from '../component/Admin/AdminSettings';
+import AdminSettings from '@/component/Admin/Settings/AdminSettings';
+import AdminUsers from '@/component/Admin/Users/AdminUsers';
+import AdminUserEdit from '@/component/Admin/Users/AdminUserEdit';
 import PostForm from '../component/Form/PostForm';
 import Article from '../component/Article';
 
@@ -84,6 +85,10 @@ const router = createHashRouter([
             {
                 path: 'users',
                 element: <AdminUsers />,
+            },
+            {
+                path: 'users/:id/edit',
+                element: <AdminUserEdit />,
             },
             {
                 path: 'settings',

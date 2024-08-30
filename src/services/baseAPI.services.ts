@@ -1,7 +1,7 @@
 const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
 const backendAPI: URL = new URL(serverURL, window.location.origin);
 
-const requestHeaders: HeadersInit = new Headers();
+const requestHeaders: Headers = new Headers();
 
 const getOptions: RequestInit = {
     method: 'GET',
@@ -27,14 +27,24 @@ const deleteOptions: RequestInit = {
     cache: 'no-cache',
 };
 
+const patchOptions: RequestInit = {
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+};
+
+function addOptionHeaders(token?: string | null, contentType = 'application/json'): Headers {
+    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
+    else requestHeaders.delete('Authorization');
+    requestHeaders.set('Content-Type', contentType);
+
+    return requestHeaders;
+}
+
 const getFetch = async (url: string, token?: string | null): Promise<Response> => {
     const options = getOptions;
 
-    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
-    requestHeaders.set('Content-Type', 'application/json');
-
-    options.headers = requestHeaders;
+    options.headers = addOptionHeaders(token);
 
     return await fetch(`${backendAPI.href}/${url}`, options);
 };
@@ -42,11 +52,7 @@ const getFetch = async (url: string, token?: string | null): Promise<Response> =
 const postFetch = async (url: string, body: string, token?: string | null): Promise<Response> => {
     const options = postOptions;
 
-    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
-    requestHeaders.set('Content-Type', 'application/json');
-
-    options.headers = requestHeaders;
+    options.headers = addOptionHeaders(token);
     options.body = body;
 
     return await fetch(`${backendAPI.href}/${url}`, options);
@@ -55,12 +61,10 @@ const postFetch = async (url: string, body: string, token?: string | null): Prom
 const postFetchWithFile = async (url: string, body: FormData, token?: string | null): Promise<Response> => {
     const options = postOptions;
 
-    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
+    options.headers = addOptionHeaders(token);
+    options.body = body;
 
     requestHeaders.delete('Content-Type'); // Not set with multipart/form-data
-    options.headers = requestHeaders;
-    options.body = body;
 
     return await fetch(`${backendAPI.href}/${url}`, options);
 };
@@ -68,11 +72,7 @@ const postFetchWithFile = async (url: string, body: FormData, token?: string | n
 const putFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
     const options = putOptions;
 
-    if(token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
-    requestHeaders.set('Content-Type', 'application/json');
-
-    options.headers = requestHeaders;
+    options.headers = addOptionHeaders(token);
     options.body = body;
 
     return fetch(`${backendAPI.href}/${url}`, options);
@@ -81,12 +81,18 @@ const putFetch = (url: string, body: string, token?: string | null): Promise<Res
 const deleteFetch = (url: string, token?: string | null): Promise<Response> => {
     const options = deleteOptions;
 
-    if(token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
-
-    options.headers = requestHeaders;
+    options.headers = addOptionHeaders(token);
 
     return fetch(`${backendAPI.href}/${url}`, options);
 };
 
-export { getFetch, postFetch, putFetch, postFetchWithFile, deleteFetch };
+const patchFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
+    const options = patchOptions;
+
+    options.headers = addOptionHeaders(token);
+    options.body = body;
+
+    return fetch(`${backendAPI.href}/${url}`, options);
+};
+
+export { getFetch, postFetch, putFetch, postFetchWithFile, deleteFetch, patchFetch };

@@ -1,30 +1,30 @@
-import { useTranslation } from "react-i18next";
-import { useCallback, useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { User } from "../types/User";
+import { useTranslation } from 'react-i18next';
+import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { User } from '../types/User';
 import { getUserWithAllInfo } from '../services/user.service';
 import { tokenDecoded } from '../services/token.services';
-import AccountFom from './Form/AccountForm';
 import MembershipForm from './Form/MembershipForm';
 import SocialMediasForm from './Form/SocialMediasForm';
 import '../css/Profile.css';
-import QRCode from "react-qr-code";
+import QRCode from 'react-qr-code';
+import AccountForm from './Form/AccountForm';
 
 export default function Profile() {
     const { t } = useTranslation('global');
     const [profileCategory, setProfileCategory] = useState(1);
     const { token } = useAuth();
-    const [user, setUser] = useState<User>();  
+    const [user, setUser] = useState<User>();
 
     const classNaV = (nav: number) => {
         let namesClass = 'bg-secondary-subtle text-black';
-        if (nav === profileCategory) return namesClass = 'btn-secondary text-white';
+        if (nav === profileCategory) return (namesClass = 'btn-secondary text-white');
 
         return namesClass;
     };
 
     const initUser = useCallback(() => {
-        if(token) {
+        if (token) {
             const { userId } = tokenDecoded(token);
             getUserWithAllInfo(userId, token).then((user) => setUser(user));
         }
@@ -102,7 +102,7 @@ export default function Profile() {
                 {profileCategory === 1 && (
                     <div className="w-100">
                         <h2 className="fw-normal">{t('profile.my-account.title')}</h2>
-                        <AccountFom user={user} setUser={setUser} />
+                        <AccountForm user={user} setUser={setUser} />
                     </div>
                 )}
                 {profileCategory === 2 && (
@@ -118,7 +118,7 @@ export default function Profile() {
                 {profileCategory === 3 && (
                     <div className="w-100">
                         <h2 className="fw-normal">{t('profile.social-medias.title')}</h2>
-                        <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user}/>
+                        <SocialMediasForm socialMedias={user?.socialMedias} setUser={setUser} user={user} />
                     </div>
                 )}
                 {profileCategory === 4 && (

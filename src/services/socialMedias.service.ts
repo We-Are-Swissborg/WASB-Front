@@ -1,7 +1,6 @@
 import { SocialMedias } from '../types/SocialMedias';
 import * as BaseApi from './baseAPI.services';
 
-
 const updateSocialMediasUser = async (userId: number, token: string, data: SocialMedias): Promise<boolean> => {
     const url: string = 'socialMedias/' + userId;
 

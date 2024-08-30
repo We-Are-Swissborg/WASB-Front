@@ -1,12 +1,14 @@
 import { Membership } from './Membership';
+import Role from './Role';
 import { SocialMedias } from './SocialMedias';
 
 export type User = {
-    id?: number;
+    id: number;
     country?: string;
     city?: string;
     firstName?: string;
     lastName?: string;
+    fullName?: string;
     username: string;
     email: string;
     password?: string;
@@ -17,4 +19,5 @@ export type User = {
     confidentiality: boolean;
     beContacted: boolean;
     referralCode: string;
+    roles: Array<Role>;
 };
