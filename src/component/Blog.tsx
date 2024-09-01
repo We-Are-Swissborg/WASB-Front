@@ -37,7 +37,7 @@ function Blog() {
         }
     }, [data]);
 
-    if (error) return <div>échec du chargement</div>;
+    if (error) return <div>{t('blog.loading-error')}</div>;
 
     const onclick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         const target =  e.target as HTMLElement;
@@ -57,17 +57,17 @@ function Blog() {
         <>
             <div className="container">
                 <div className='d-flex align-items-center justify-content-between'>
-                    <h1 className="title mt-4">Le blog</h1>
+                    <h1 className="title mt-4">{t('blog.title')}</h1>
                     {roles?.includes('moderator') &&
-                        <NavLink to='create-post'>
-                            CREATE POST
+                        <NavLink to='create-post' className="btn btn-form align-self-end py-2 px-3">
+                            {t('blog.create-post')}
                         </NavLink>
                     }
                 </div>
-                <section className="row row-cols-1 row-cols-md-3 g-2 mb-5 mt-3 justify-content-center">
+                <section className="row row-cols-1 row-cols-md-3 g-2 mb-0 mt-3 justify-content-center">
                     {isLoading && (
-                        <Card sx={{ maxWidth: 345 }} className="card" aria-hidden="true">
-                            <CardMedia sx={{ height: 140 }} src='#' />
+                        <Card className="card card-blog" aria-hidden="true">
+                            <CardMedia className='card-media' src='#' />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
                                     <span className="placeholder col-6"></span>
@@ -80,40 +80,48 @@ function Blog() {
                                     <span className="placeholder col-8"></span>
                                 </Typography>
                             </CardContent>
-                            <CardActions sx={{ maxWidth: 230 }}>
+                            <CardActions>
                                 <Button size="small" className="btn btn-primary disabled placeholder col-6" aria-disabled="true"></Button>
                                 <Button size="small" className="btn btn-primary disabled placeholder col-6" aria-disabled="true"></Button>
                             </CardActions>
                         </Card>
                     )}
                     {dataReverse.map((post: CardPost, id: number) => {
-                        const date = new Date(post.updatedAt);
                         const optionDate: Intl.DateTimeFormatOptions = {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric',
                         };
+                        const dateLastUpdate = new Date(post.updatedAt).toLocaleDateString(`${t('blog.localCode')}`, optionDate);
+
                         return (
-                            <Card key={'post' + id} sx={{ maxWidth: 345 }} className="card mb-5" aria-hidden="true">
+                            <Card key={'post' + id} className="card card-blog mb-5" aria-hidden="true">
                                 <CardMedia
-                                    sx={{ height: 140 }}
+                                    className='card-media'
                                     image={arrayBufferToBase64(post.image as unknown as ArrayBuffer, 'image/webp')}
                                     title={'post' + id}
                                 />
                                 <CardContent className='pb-0'>
-                                    <Typography gutterBottom variant="h5" component="div">
+                                    <Typography gutterBottom variant="h5" component="div" className='text-nowrap overflow-hidden text-truncate'>
                                         {post.title}
                                     </Typography>
                                     <Typography variant="body2" className="card-text placeholder-glow">
-                                        Last update: {date.toLocaleDateString(`${t('blog.localCode')}`, optionDate)}
+                                        <span className='text-decoration-underline'>{t('blog.last-update')}:</span> {dateLastUpdate}
                                     </Typography>
                                     <Typography variant="body2" className="card-text placeholder-glow mt-2">
-                                        Created by: <strong>{post.infoAuthor.username}</strong> 
+                                        <span className='text-decoration-underline'>{t('blog.created-by')}:</span> <strong>{post.infoAuthor.username}</strong> 
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" aria-disabled="true">SHARE</Button>
-                                    <NavLink role='button' aria-disabled="true" to={'post-' + post.id}>LEARN MORE</NavLink>
+                                    <Button size='small' aria-disabled="true">{t('blog.share')}</Button>
+                                    <strong style={{paddingBottom: '4px'}}>
+                                        <NavLink
+                                            role='button'
+                                            aria-disabled="true"
+                                            className='text-decoration-none btn-read-post'
+                                            to={'post-' + post.id}>{t('blog.read')}
+                                        </NavLink>
+                                    </strong>
                                 </CardActions>
                             </Card>
                         );
@@ -123,6 +131,7 @@ function Blog() {
                     count={totalPages}
                     color="primary"
                     onClick={onclick}
+                    className='d-flex justify-content-end m-5 mt-0'
                 />
             </div>
         </>

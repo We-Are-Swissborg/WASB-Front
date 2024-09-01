@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import { FieldValues, useForm } from "react-hook-form";
 import Quill from "quill";
 import Editor from "../hook/Editor";
-import { TextChangeHandler } from "quill";
+import { TextChangeHandler } from "@types/quill";
+import '../css/Blog.css';
 
 export default function Article() {
     const { t } = useTranslation('global');
@@ -43,10 +44,10 @@ export default function Article() {
             const id = idPost?.split('-')[1];
             setOpenModal(false);
             deletePost(id!, token!).then(() => {
-                toast.success('POST DELETE');
+                toast.success(t('article.post-delete'));
                 navigate('../');
             }).catch((e) => {
-                toast.error('ERROR POST DELETE');
+                toast.error(t('article.error-post-delete'));
                 throw new Error('ERROR POST DELETE : ' + e);
             });
         }
@@ -67,12 +68,22 @@ export default function Article() {
     const onSubmit = handleSubmit((user, e) => {
         const nameTarget = e?.target.name;
         const propsForm = Object.keys(user);
+        const lengthEditor = quillRef.current?.getLength();
 
         propsForm.forEach((prop) => {
             const isEmptyValues = user[prop] === '' || user[prop] === undefined;
             if(isEmptyValues) {
-                toast.error('ERROR : ' + prop);
-                throw new Error('ERROR : ' + prop);
+                toast.error(t(`post-form.${prop}-empty`));
+                throw new Error(prop + ' is empty');
+            }
+
+            if(user.title.length < 5) {
+                toast.error(t('post-form.title-length'));
+                throw new Error('ERROR: Title length too short.');
+            }
+            if(lengthEditor! < 250) {
+                toast.error(t('post-form.editor-length'));
+                throw new Error('ERROR: Editor length too short.');
             }
         });
 
@@ -103,12 +114,12 @@ export default function Article() {
         } else {
             if(token && previewValues && post?.id) {
                 updatePost(post.id, previewValues, token).then(() => {
-                    toast.success('POST UPDATE');
+                    toast.success(t('article.post-update'));
                     setEdit(false);
                     setInit(true);
                     setIsForm(true);
                 }).catch(() => {
-                    toast.error('ERROR UPDATE POST');
+                    toast.error(t('article.error-post-update'));
                 });
             }
         }
@@ -166,36 +177,43 @@ export default function Article() {
 
     return (
         <>
-            <div className="container">
+            <div className="container d-flex flex-column">
                 {!edit ?
                     <>
-                        <div className="d-flex align-items-center justify-content-between">
-                            <h1>{post?.title}</h1>
+                        <div className="d-flex align-items-start justify-content-between mb-5 mt-3 container-title-article">
+                            <h1 className="title-preview" style={post?.author === author ? {marginRight: '35px'} : {}}>{post?.title}</h1>
                             {post?.author === author &&
-                                <div>
-                                    <button onClick={() => setOpenModal(true)}>Delete</button>
-                                    <button onClick={onEdit}>Edit</button>
+                                <div className="d-flex justify-content-between flex-column-reverse container-btn-article mt-3">
+                                    <button className="btn btn-form align-self-end py-2 px-3 w-100 text-bg-danger delete-btn me-0" onClick={() => setOpenModal(true)}>{t('article.delete')}</button>
+                                    <button className="btn btn-form align-self-end py-2 px-3 w-100" onClick={onEdit}>{t('article.edit')}</button>
                                 </div>
                             }
                         </div>
-                        <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
+                        <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center mb-5">
                             <img src={arrayBufferToBase64(post?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
                         </div>
-                        <div dangerouslySetInnerHTML={{__html: post?.content ?? "DEFAULT"}} className="content-post"/>
-                        <div>
+                        <div dangerouslySetInnerHTML={{__html: post?.content ?? "DEFAULT"}} className="content-post text-break"/>
+                        <div className="d-flex justify-content-between mt-5 mb-3 container-about-post">
                             {post &&
                                 <>
-                                    <p>Author: {post?.infoAuthor.username}</p>
-                                    <p>Created at: {new Date(post?.createdAt).toLocaleDateString(`${t('blog.localCode')}`, optionDate)}</p>
-                                    <p>Last update: {new Date(post?.updatedAt).toLocaleDateString(`${t('blog.localCode')}`, optionDate)}</p>
+                                    <p>
+                                        <span className='text-decoration-underline'>{t('blog.created-by')}:</span>
+                                        <strong> {post?.infoAuthor.username}</strong>
+                                    </p>
+                                    <p>
+                                        <span className='text-decoration-underline'>{t('blog.created-at')}:</span> {new Date(post?.createdAt).toLocaleDateString(`${t('blog.localCode')}`, optionDate)}
+                                    </p>
+                                    <p>
+                                        <span className='text-decoration-underline'>{t('blog.last-update')}:</span> {new Date(post?.updatedAt).toLocaleDateString(`${t('blog.localCode')}`, optionDate)}
+                                    </p>
                                 </>
                             }
                         </div>
                     </> :
                     <form className='form align-items-start' onSubmit={onSubmit}>
-                        <div style={isForm ? {display: 'block', width: '100%'} : {display: 'none'}}>
+                        <div className="flex-column" style={isForm ? {display: 'flex', width: '100%'} : {display: 'none'}}>
                             <textarea
-                                className="border border-0 border-bottom border-black h1 w-100"
+                                className="border border-0 border-bottom border-black h1 w-100 mb-5 mt-3"
                                 {...register('title')}
                                 id="title"
                                 required={true}
@@ -203,9 +221,9 @@ export default function Article() {
                                 defaultValue={getValues()?.title}
                             />
                             <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                                <img src={srcImageBeforePreview()} className="w-100 h-100 object-fit-cover" alt="main image" />
+                                <img src={srcImageBeforePreview()} className="w-100 h-100 object-fit-fill" alt="main image" />
                             </div>
-                            <div className="d-flex align-items-center">
+                            <div className="d-flex align-items-center mb-4">
                                 <input
                                     type="file"
                                     id="image"
@@ -214,7 +232,7 @@ export default function Article() {
                                     onChange={onChange}
                                     style={getValues().image.name ? {width: 'initial'} : {width: '100px'}}
                                 />
-                                {!getValues().image.name && <p className="m-0 ms-1">{'Initial image'}</p>}
+                                {!getValues().image.name && <p className="m-0 ms-1 text-truncate overflow-hidden text-nowrap">{`image_${idPost}.webp`}</p>}
                             </div>
                             <Editor
                                 ref={quillRef}
@@ -222,19 +240,22 @@ export default function Article() {
                                 readOnly={false}
                                 defaultValue={getValues()?.content}
                             />
-                            <button className='btn btn-form padding-button align-self-end' type="submit" name="preview" onClick={onSubmit} disabled={disabledSubmit}>
-                  PREVIEW
-                            </button>
-                        </div>
-                        <div style={isForm ? {display: 'none'} : {display: 'block', width: '100%'} }>
-                            <h1>{previewValues?.title}</h1>
-                            <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                                <img src={arrayBufferToBase64(previewValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                            <div className="d-flex justify-content-end container-cancel-btn mt-5">
+                                <button className='btn btn-form padding-button cancel-btn text-bg-danger' type="button" name="cancel" onClick={() => setEdit(false)}>{t('post-form.cancel')}</button>
+                                <button className='btn btn-form padding-button' type="submit" name="preview" onClick={onSubmit} disabled={disabledSubmit}>
+                                    {t('post-form.preview')}
+                                </button>
                             </div>
-                            <div dangerouslySetInnerHTML={{__html: previewValues?.content}} className="content-post"/>
-                            <div className="align-self-end">
-                                <button className='btn btn-form padding-button' type="button" onClick={() => setIsForm(true)}>CANCEL</button>
-                                <button className='btn btn-form padding-button' type="submit" name="submit" onClick={onSubmit}>CONFIRM</button>
+                        </div>
+                        <div className="flex-column" style={isForm ? {display: 'none'} : {display: 'flex', width: '100%'} }>
+                            <h1 className="title-preview mb-5 mt-3">{previewValues?.title}</h1>
+                            <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center mb-5">
+                                <img src={arrayBufferToBase64(previewValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-fill" alt="main image"/>
+                            </div>
+                            <div dangerouslySetInnerHTML={{__html: previewValues?.content}} className="content-post text-break"/>
+                            <div className="d-flex justify-content-end container-cancel-btn">
+                                <button className='btn btn-form padding-button text-bg-danger cancel-btn' type="button" onClick={() => setIsForm(true)}>{t('post-form.cancel')}</button>
+                                <button className='btn btn-form padding-button' type="submit" name="submit" onClick={onSubmit}>{t('post-form.confirm')}</button>
                             </div>
                         </div>
                     </form>
@@ -243,7 +264,7 @@ export default function Article() {
 
             <template>
                 <Modal
-                    text="Do you really want delete this article ?"
+                    text={t('article.confirm-delete')}
                     open={openModal}
                     setOpen={setOpenModal}
                     confirm={deleteArticle}

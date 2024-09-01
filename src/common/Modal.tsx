@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 
 type IModal = {
   title?: string,
@@ -11,6 +12,8 @@ type IModal = {
 }
 
 export default function Modal (props: IModal) {
+    const { t } = useTranslation('global');
+
     return (
         <Dialog
             open={props.open}
@@ -28,8 +31,8 @@ export default function Modal (props: IModal) {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => props.setOpen(false)} >Cancel</Button>
-                <Button onClick={() => props.setConfirm(true)} value='true'>Confirm</Button>
+                <Button onClick={() => props.setOpen(false)}>{t('modal.cancel')}</Button>
+                <Button onClick={() => props.setConfirm(true)} value='true'>{t('modal.confirm')}</Button>
             </DialogActions>
         </Dialog>
     );

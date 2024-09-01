@@ -152,10 +152,41 @@ const global_fr = {
         "title": "Qui sommes-nous ?"
     },
     "blog": {
-        "post-form": { 
-            "title": "Titre"
-        },
-        'localCode': 'fr-FR'
+        'localCode': 'fr-FR',
+        'loading-error': 'Echec du chargement',
+        'title': 'Le blog',
+        'create-post': 'Créer',
+        'last-update': 'Dernière modification',
+        'created-by': 'Créé par',
+        'share': 'PARTAGER',
+        'read': 'LIRE',
+        'created-at': 'Créé le',
+    },
+    "article": {
+        'post-delete': 'ARTICLE SUPPRIMÉ.',
+        'error-post-delete': 'ERREUR: ARTICLE NON SUPPRIMÉ.',
+        'post-update': 'ARTICLE MODIFIÉ.',
+        'error-post-update': 'ERREUR: ARTICLE NON MODIFIÉ.',
+        'delete': 'Supprimer',
+        'edit': 'Modifier',
+        'confirm-delete': 'Voulez-vous vraiment supprimer cet article ?',
+    },
+    "post-form": { 
+        'title-empty': 'Le titre est manquant.',
+        'image-empty': "L'image est manquante.",
+        'content-empty': "Texte de l'article est vide.",
+        'value-missing': 'ERREUR: Valeur manquante.',
+        'title-length': 'ERREUR: Longueur du titre trop courte.',
+        'editor-length': 'ERREUR: Longueur du texte trop courte.',
+        'success-post': 'Article créé.',
+        'error-post': "ERREUR: Article non créé.",
+        'preview': "APERÇU",
+        'cancel': "ANNULER",
+        'confirm': "CONFIRMER",
+    },
+    "modal": { 
+        'cancel': 'Annuler',
+        'confirm': "Confirmer",
     },
 
     // For all components

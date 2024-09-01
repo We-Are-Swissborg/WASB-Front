@@ -10,7 +10,7 @@ import { tokenDecoded } from "../../services/token.services";
 import { useNavigate } from "react-router-dom";
 import { TextChangeHandler } from '@types/quill';
 import arrayBufferToBase64 from "../../services/arrayBufferToBase64";
-import '../../css/PostForm.css';
+import '../../css/Blog.css';
 
 export default function PostForm() {
     const { t } = useTranslation('global');
@@ -26,17 +26,27 @@ export default function PostForm() {
     const onSubmit = handleSubmit((user, e) => {
         const nameTarget = e?.target.name;
         const propsForm = Object.keys(user);
+        const lengthEditor = quillRef.current?.getLength();
 
         propsForm.forEach((prop , id) => {
             const isEmptyValues = user[prop] === '' || user[prop] === undefined;
             if(isEmptyValues) {
-                toast.error('ERROR : ' + prop);
-                throw new Error('ERROR : ' + prop);
+                toast.error(t(`post-form.${prop}-empty`));
+                throw new Error(prop + ' is empty');
+            }
+
+            if(user.title.length < 5) {
+                toast.error(t('post-form.title-length'));
+                throw new Error('ERROR: Title length too short.');
+            }
+            if(lengthEditor! < 250) {
+                toast.error(t('post-form.editor-length'));
+                throw new Error('ERROR: Editor length too short.');
             }
 
             if(propsForm.length === ++id && propsForm.length !== 3) {
-                toast.error('ERROR MISS VALUE');
-                throw new Error('ERROR MISS VALUE');
+                toast.error(t('post-form.value-missing'));
+                throw new Error('ERROR: Value missing');
             }
         });
 
@@ -75,10 +85,10 @@ export default function PostForm() {
                 };
 
                 createPost(token, dataPost).then(() => {
-                    toast.success('POST CREATE');
+                    toast.success(t('post-form.success-post'));
                     navigate('/', {replace: true});
                 }).catch(() => {
-                    toast.error('ERROR CREATE POST');
+                    toast.error(t('post-form.error-post'));
                 });
             }
         }
@@ -119,32 +129,39 @@ export default function PostForm() {
     return (
         <div className="container">
             <form className='form align-items-start' onSubmit={onSubmit}>
-                <div style={isForm ? {display: 'block', width: '100%'} : {display: 'none'}}>
-                    <textarea className="border border-0 border-bottom border-black h1 w-100" {...register('title')} id="title" required={true} />
-                    {image &&
+                <div className="flex-column" style={isForm ? {display: 'flex', width: '100%'} : {display: 'none'}}>
+                    <textarea
+                        className="border border-0 border-bottom border-black h1 w-100 mb-5 mt-3"
+                        {...register('title')}
+                        id="title"
+                        required={true}
+                    />
+                    <div className='mb-4'>
+                        {image &&
                         <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                            <img src={srcImageBeforePreview()} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                            <img src={srcImageBeforePreview()} className="w-100 h-100 object-fit-fill" alt="main image"/>
                         </div>
-                    }
-                    <input type="file" id="image" name="image" accept="image/*" onChange={onChange}/>
+                        }
+                        <input type="file" id="image" name="image" accept="image/*" onChange={onChange}/>
+                    </div>
                     <Editor
                         ref={quillRef}
                         onTextChange={onChange as unknown as TextChangeHandler}
                         readOnly={false}
                     />
-                    <button className='btn btn-form padding-button align-self-end' type="submit" name="preview" onClick={onSubmit}>
-                  PREVIEW
+                    <button className='btn btn-form padding-button align-self-end mt-5' type="submit" name="preview" onClick={onSubmit}>
+                        {t('post-form.preview')}
                     </button>
                 </div>
-                <div style={isForm ? {display: 'none'} : {display: 'block', width: '100%'} }>
-                    <h1>{previewValues?.title}</h1>
-                    <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                        <img src={arrayBufferToBase64(previewValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-cover" alt="main image"/>
+                <div className="flex-column" style={isForm ? {display: 'none'} : {display: 'flex', width: '100%'} }>
+                    <h1 className="title-preview mb-5 mt-3">{previewValues?.title}</h1>
+                    <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center mb-5">
+                        <img src={arrayBufferToBase64(previewValues?.image as unknown as ArrayBuffer, 'image/webp')} className="w-100 h-100 object-fit-fill" alt="main image"/>
                     </div>
-                    <div dangerouslySetInnerHTML={{__html: previewValues?.content}} className="content-post"/>
-                    <div className="align-self-end">
-                        <button className='btn btn-form padding-button' type="button" onClick={() => setIsForm(true)}>CANCEL</button>
-                        <button className='btn btn-form padding-button' type="submit" name="submit" onClick={onSubmit}>CONFIRM</button>
+                    <div dangerouslySetInnerHTML={{__html: previewValues?.content}} className="content-post text-break"/>
+                    <div className="d-flex justify-content-end container-cancel-btn">
+                        <button className='btn btn-form padding-button text-bg-danger cancel-btn' type="button" onClick={() => setIsForm(true)}>{t('post-form.cancel')}</button>
+                        <button className='btn btn-form padding-button' type="submit" name="submit" onClick={onSubmit}>{t('post-form.confirm')}</button>
                     </div>
                 </div>
             </form>
