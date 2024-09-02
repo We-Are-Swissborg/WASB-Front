@@ -14,6 +14,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Pagination } from '@mui/material';
 import PostList from '../types/PostList';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import '../css/Blog.css';
 
 const fetcher: Fetcher<PostList> = (url: string) => getPostList(url);
@@ -51,6 +52,13 @@ function Blog() {
             setDataReverse(data.postListDTO);
             setPage(value);
         });
+    };
+
+    const copyToClipboard = (postId: number) => {
+        const url = `${window.location.origin}/post-${postId}`;
+        navigator.clipboard.writeText(url);
+
+        toast.success(t('blog.url-copied'));
     };
 
     return (
@@ -113,11 +121,10 @@ function Blog() {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size='small' aria-disabled="true">{t('blog.share')}</Button>
+                                    <Button size='small' onClick={() => copyToClipboard(post.id)}>{t('blog.share')}</Button>
                                     <strong style={{paddingBottom: '4px'}}>
                                         <NavLink
                                             role='button'
-                                            aria-disabled="true"
                                             className='text-decoration-none btn-read-post'
                                             to={'post-' + post.id}>{t('blog.read')}
                                         </NavLink>

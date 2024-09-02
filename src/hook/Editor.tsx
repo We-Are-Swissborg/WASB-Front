@@ -1,13 +1,13 @@
 import React, { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import Quill from 'quill';
-import { TextChangeHandler, SelectionChangeHandler } from '@types/quill';
 import 'quill/dist/quill.snow.css';
+import { Delta, EmitterSource, Range } from 'quill/core';
 
 type EditorProps = {
   readOnly: boolean;
   defaultValue?: string;
-  onTextChange?: TextChangeHandler;
-  onSelectionChange?: SelectionChangeHandler;
+  onTextChange?: (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown;
+  onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => unknown;
 }
 
 // Editor is an uncontrolled React component

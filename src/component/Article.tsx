@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { FieldValues, useForm } from "react-hook-form";
 import Quill from "quill";
 import Editor from "../hook/Editor";
-import { TextChangeHandler } from "@types/quill";
+import { Delta, EmitterSource } from "quill/core";
 import '../css/Blog.css';
 
 export default function Article() {
@@ -236,7 +236,7 @@ export default function Article() {
                             </div>
                             <Editor
                                 ref={quillRef}
-                                onTextChange={onChange as unknown as TextChangeHandler}
+                                onTextChange={onChange as unknown as (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown}
                                 readOnly={false}
                                 defaultValue={getValues()?.content}
                             />

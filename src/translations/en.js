@@ -163,6 +163,7 @@ const global_en = {
         'share': 'SHARE',
         'read': 'READ',
         'created-at': 'Created at',
+        'url-copied': "Url has been copied."
     },
     'article': {
         'post-delete': 'POST DELETE.',

@@ -161,6 +161,7 @@ const global_fr = {
         'share': 'PARTAGER',
         'read': 'LIRE',
         'created-at': 'Créé le',
+        'url-copied': "L'url a été copié."
     },
     "article": {
         'post-delete': 'ARTICLE SUPPRIMÉ.',

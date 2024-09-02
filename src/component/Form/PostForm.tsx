@@ -8,7 +8,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { createPost, previewPost } from "../../services/blog.service";
 import { tokenDecoded } from "../../services/token.services";
 import { useNavigate } from "react-router-dom";
-import { TextChangeHandler } from '@types/quill';
+import { Delta, EmitterSource } from "quill/core";
 import arrayBufferToBase64 from "../../services/arrayBufferToBase64";
 import '../../css/Blog.css';
 
@@ -146,7 +146,7 @@ export default function PostForm() {
                     </div>
                     <Editor
                         ref={quillRef}
-                        onTextChange={onChange as unknown as TextChangeHandler}
+                        onTextChange={onChange as unknown as (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown}
                         readOnly={false}
                     />
                     <button className='btn btn-form padding-button align-self-end mt-5' type="submit" name="preview" onClick={onSubmit}>
