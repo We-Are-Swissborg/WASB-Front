@@ -12,7 +12,10 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\""
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@gsap/react": "^2.1.0",
+    "@mui/material": "^5.16.7",
     "@polkadot/util": "^12.6.2",
     "@polkadot/util-crypto": "^12.6.2",
     "@popperjs/core": "^2.11.8",
@@ -26,6 +29,7 @@
     "gsap": "^3.12.5",
     "i18next": "^23.7.18",
     "jwt-decode": "^4.0.0",
+    "quill": "^2.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.1",

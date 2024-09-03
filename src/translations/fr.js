@@ -11,7 +11,7 @@ const global_fr = {
         "contact": "Contact",
         "donation": "Faire un don",
         "join":"Rejoignez notre communauté",
-        "message": `WeAreSwissBorg est une association qui vise à promouvoir l'utilisation de la blockchaine et des crypto-actifs, ` +
+        "message": `WeAreSwissBorg est une association qui vise à promouvoir l'utilisation de la blockchain et des crypto-actifs, ` +
                    `a fournir du contenu éducatif sur ces technologies, notamment liées à Swissborg, et à soutenir des actions en lien avec cet écosystème.`,
         "rights-reserved": "Tous droits réservés",
         "subscribe": {
@@ -150,6 +150,44 @@ const global_fr = {
         "content": `WeAreSwissBorg est bien plus qu'une simple association. ` +
                    `Nous sommes une communauté passionnée, engagée à partager la connaissance et à démocratiser l'utilisation des crypto-actifs et de l'écosystème SwissBorg.`,
         "title": "Qui sommes-nous ?"
+    },
+    "blog": {
+        'localCode': 'fr-FR',
+        'loading-error': 'Echec du chargement',
+        'title': 'Le blog',
+        'create-post': 'Créer',
+        'last-update': 'Dernière modification',
+        'created-by': 'Créé par',
+        'share': 'PARTAGER',
+        'read': 'LIRE',
+        'created-at': 'Créé le',
+        'url-copied': "L'url a été copié."
+    },
+    "article": {
+        'post-delete': 'ARTICLE SUPPRIMÉ.',
+        'error-post-delete': 'ERREUR: ARTICLE NON SUPPRIMÉ.',
+        'post-update': 'ARTICLE MODIFIÉ.',
+        'error-post-update': 'ERREUR: ARTICLE NON MODIFIÉ.',
+        'delete': 'Supprimer',
+        'edit': 'Modifier',
+        'confirm-delete': 'Voulez-vous vraiment supprimer cet article ?',
+    },
+    "post-form": { 
+        'title-empty': 'Le titre est manquant.',
+        'image-empty': "L'image est manquante.",
+        'content-empty': "Texte de l'article est vide.",
+        'value-missing': 'ERREUR: Valeur manquante.',
+        'title-length': 'ERREUR: Longueur du titre trop courte.',
+        'editor-length': 'ERREUR: Longueur du texte trop courte.',
+        'success-post': 'Article créé.',
+        'error-post': "ERREUR: Article non créé.",
+        'preview': "APERÇU",
+        'cancel': "ANNULER",
+        'confirm': "CONFIRMER",
+    },
+    "modal": { 
+        'cancel': 'Annuler',
+        'confirm': "Confirmer",
     },
 
     // For all components

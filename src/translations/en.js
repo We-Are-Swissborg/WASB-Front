@@ -153,6 +153,44 @@ const global_en = {
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,
         "title": "About us ?"
     },
+    "blog": {
+        'localCode': 'en-US',
+        'loading-error': 'Loading error.',
+        'title': 'The blog',
+        'create-post': 'Create',
+        'last-update': 'Last update',
+        'created-by': 'Created by',
+        'share': 'SHARE',
+        'read': 'READ',
+        'created-at': 'Created at',
+        'url-copied': "Url has been copied."
+    },
+    'article': {
+        'post-delete': 'POST DELETE.',
+        'error-post-delete': 'ERROR: POST NOT DELETE.',
+        'post-update': 'POST UPDATE.',
+        'error-post-update': 'ERROR: POST NOT UPDATE.',
+        'delete': 'Delete',
+        'edit': 'Edit',
+        'confirm-delete': 'Do you really want delete this article ?',
+    },
+    "post-form": { 
+        'title-empty': 'Title is empty.',
+        'image-empty': 'Image is empty.',
+        'content-empty': 'Content is empty.',
+        'value-missing': 'ERROR: Value missing.',
+        'title-length': 'ERROR: Title length too short.',
+        'editor-length': 'ERROR: Editor length too short.',
+        'success-post': 'Post created.',
+        'error-post': 'ERROR: Post not created.',
+        'preview': "PREVIEW",
+        'cancel': "CANCEL",
+        'confirm': "CONFIRM",
+    },
+    "modal": { 
+        'cancel': 'Cancel',
+        'confirm': "Confirm",
+    },
 
     // For all components
     "countries": {

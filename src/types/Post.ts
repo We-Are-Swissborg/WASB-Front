@@ -1,6 +1,21 @@
-export type Post = {
-    userId: number;
+import { User } from "./User";
+
+export type CardPost = {
+    author: number;
     id: number;
     title: string;
-    body?: string;
+    image: Blob;
+    infoAuthor: User,
+    updatedAt: Date;
+};
+
+export type Post = {
+    author: number;
+    id: number;
+    title: string;
+    image: Blob;
+    content: string;
+    infoAuthor: User;
+    updatedAt: Date;
+    createdAt: Date;
 };
