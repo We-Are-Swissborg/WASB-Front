@@ -13,10 +13,10 @@ import {
 } from '@tanstack/react-table';
 import { InputHTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react';
 import { User } from '@/types/User';
-import { getUsers } from '@/services/user.service';
 import { useAuth } from '@/contexts/AuthContext';
 import RowActions from '@/component/Table/RowActions';
 import Role from '@/types/Role';
+import { getUsers } from '@/administration/services/userAdmin.service';
 
 function Filter({ column }: { column: Column<User, unknown> }) {
     const columnFilterValue = column.getFilterValue();

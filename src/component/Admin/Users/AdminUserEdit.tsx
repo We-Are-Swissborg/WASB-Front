@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { User } from '@/types/User';
 import { NavLink, useParams } from 'react-router-dom';
-import { getUserWithAllInfo, updateUser } from '@/services/user.service';
 import { useAuth } from '@/contexts/AuthContext';
 import Role from '@/types/Role';
 import { Controller, useForm } from 'react-hook-form';
@@ -11,6 +10,7 @@ import CountrySelect from '@/component/Form/CountrySelect';
 import Countries from '@/hook/Countries';
 import { OptionsCountrySelect, OptionsSelect } from '@/types/OptionsSelect';
 import Select from '@/component/Form/SelectForm';
+import { getUserWithAllInfo, updateUser } from '@/administration/services/userAdmin.service';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
