@@ -1,5 +1,5 @@
 const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
-const backendAPI: URL = new URL(serverURL, window.location.origin);
+const backendAPI: URL = new URL(`${serverURL}/admin`, window.location.origin);
 
 const requestHeaders: Headers = new Headers();
 
@@ -34,8 +34,7 @@ const patchOptions: RequestInit = {
 };
 
 function addOptionHeaders(token?: string | null, contentType = 'application/json'): Headers {
-    if (token) requestHeaders.set('Authorization', `Bearer ${token}`);
-    else requestHeaders.delete('Authorization');
+    requestHeaders.set('Authorization', `Bearer ${token}`);
     requestHeaders.set('Content-Type', contentType);
 
     return requestHeaders;

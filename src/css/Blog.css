@@ -1,0 +1,75 @@
+/* CSS ALL COMPONENTS RELATED TO THE BLOG */
+.cancel-btn, .delete-btn {
+  background-image: none !important;
+  border-color: red !important;
+  margin-right: 2%;
+}
+
+.cancel-btn:hover, .delete-btn:hover {
+  color: #050500 !important;
+}
+
+
+.title-preview {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) { 
+  .container-cancel-btn {
+    justify-content: space-around !important;
+  }
+}
+
+/* BLOG COMPONENT */
+.card-blog {
+  max-width: 345px;
+  padding: 0
+}
+
+.card-media {
+  height: 140px
+}
+
+.card-actions {
+  max-width: 230px
+}
+
+.btn-read-post {
+  color: #1976d2
+}
+
+.container-main-image {
+  height: auto;
+  max-width: 760px;
+}
+
+.ql-snow img, .content-post img {
+  width: 325px;
+}
+
+/* ARTICLE COMPONENT */
+.container-btn-article {
+  height: 100px;
+}
+
+@media (max-width: 970px) { 
+  .container-title-article {
+    flex-direction: column-reverse;
+  }
+  
+  .container-title-article > h1 {
+    width: 100% !important;
+  }
+  
+  .container-btn-article {
+    width: 100%;
+    justify-content: space-around !important;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 800px) { 
+  .container-about-post {
+    flex-direction: column;
+  }
+}

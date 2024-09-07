@@ -1,12 +1,11 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { isTokenExpired, tokenDecoded } from '../services/token.services';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
 
 type AuthContextType = {
     isAuthenticated: boolean;
-    token: string | null;
-    username: string | null;
+    token?: string | null;
+    username?: string;
+    roles?: string[];
     login: (newToken: string) => void;
     logout: () => void;
 };
@@ -14,20 +13,21 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const { t } = useTranslation('global');
     const [token, setToken] = useState<string | null>(() => localStorage.getItem('authToken'));
-    const [username, setUsername] = useState<string | null>(null);
+    const [username, setUsername] = useState<string>();
+    const [roles, setRoles] = useState<string[]>();
 
-    const login = (newToken: string): void => {
+    const login = (newToken: string) => {
         setToken(newToken);
         localStorage.setItem('authToken', newToken);
         const payload = tokenDecoded(newToken);
         setUsername(payload.username);
-        toast.success(t('authenticate.welcome') + ` ${payload.username}`);
+        setRoles(payload.roles);
     };
     const logout = () => {
         setToken(null);
-        setUsername(null);
+        setUsername(undefined);
+        setRoles([]);
         localStorage.removeItem('authToken');
     };
 
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, username, token, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, username, roles, token, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

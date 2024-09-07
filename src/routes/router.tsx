@@ -1,20 +1,28 @@
 import { createHashRouter } from 'react-router-dom';
-import Root from './root';
-import ErrorPage from '../hook/Error-page';
-import Home from '../component/Home';
-import Blog from '../component/Blog';
-import Contact from '../component/Contact';
-import ProtectedRoute from '../component/Route/ProtectedRouter';
-import Profile from '../component/Profile';
-import Register from '../component/Security/Register';
-import Login from '../component/Security/Login';
-import Logout from '../component/Security/Logout';
-import OnlyAnonymousRouter from '../component/Route/OnlyAnonymousRouter';
+import ErrorPage from '@/hook/Error-page';
+import Home from '@/component/Home';
+import Blog from '@/component/Blog';
+import Contact from '@/component/Contact';
+import ProtectedRoute from '@/component/Route/ProtectedRouter';
+import Profile from '@/component/Profile';
+import Register from '@/component/Security/Register';
+import Login from '@/component/Security/Login';
+import Logout from '@/component/Security/Logout';
+import OnlyAnonymousRouter from '@/component/Route/OnlyAnonymousRouter';
+import Dashboard from '@/component/Admin/Dashboard';
+import Role from '@/types/Role';
+import AdminLayout from '@/component/Admin/AdminLayout';
+import RootLayout from '@/component/RootLayout';
+import AdminSettings from '@/component/Admin/Settings/AdminSettings';
+import AdminUsers from '@/component/Admin/Users/AdminUsers';
+import AdminUserEdit from '@/component/Admin/Users/AdminUserEdit';
+import PostForm from '@/component/Form/PostForm';
+import Article from '@/component/Article';
 
 const router = createHashRouter([
     {
         path: '/',
-        element: <Root />,
+        element: <RootLayout />,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -22,34 +30,69 @@ const router = createHashRouter([
                 element: <Home />,
             },
             {
-                path: '/blog',
-                element: <Blog />,
+                path: 'blog',
+                children: [
+                    {
+                        path: '',
+                        element: <Blog />,
+                    },
+                    {
+                        path: 'create-post',
+                        element: <ProtectedRoute element={<PostForm />} role={Role.Moderator} />
+                    },
+                    {
+                        path: ':idPost',
+                        element:  <Article />,
+                    }
+                ]
             },
             {
-                path: '/contact',
+                path: 'contact',
                 element: <Contact />,
             },
             {
-                path: '/register',
+                path: 'register',
                 element: <OnlyAnonymousRouter element={<Register />} />,
                 children: [
                     {
                         path: ':codeRef',
-                        element: <OnlyAnonymousRouter element={<Register />} />,
+                        element: <Register />,
                     },
                 ],
             },
             {
-                path: '/profile',
+                path: 'profile',
                 element: <ProtectedRoute element={<Profile />} />,
             },
             {
-                path: '/login',
+                path: 'login',
                 element: <OnlyAnonymousRouter element={<Login />} />,
             },
             {
-                path: '/logout',
+                path: 'logout',
                 element: <ProtectedRoute element={<Logout />} />,
+            },
+        ],
+    },
+    {
+        path: 'admin',
+        element: <ProtectedRoute element={<AdminLayout />} role={Role.Admin} />,
+        children: [
+            {
+                path: '',
+                element: <Dashboard />,
+            },
+            {
+                path: 'users',
+                element: <AdminUsers />,
+            },
+            {
+                path: 'users/:id/edit',
+                element: <AdminUserEdit />,
+            },
+            {
+                path: 'settings',
+                element: <AdminSettings />,
             },
         ],
     },

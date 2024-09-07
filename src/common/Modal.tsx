@@ -1,28 +1,39 @@
-import { useTranslation } from 'react-i18next';
-import '../css/Modal.css';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Dispatch, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 
-interface IModal {
-    msgModal: string;
-    heightModal: string;
+type IModal = {
+  title?: string,
+  text: string,
+  open: boolean,
+  setOpen: Dispatch<SetStateAction<boolean>>,
+  confirm: boolean,
+  setConfirm: Dispatch<SetStateAction<boolean>>
 }
 
-export default function Modal(props: IModal) {
+export default function Modal (props: IModal) {
     const { t } = useTranslation('global');
 
-    const styleContainerModal = {
-        display: props.msgModal ? 'flex' : 'none',
-        opacity: props.msgModal ? 1 : 0,
-    };
-
-    const styleModal = {
-        height: props.heightModal,
-    };
-
     return (
-        <div className="container-modal" style={styleContainerModal}>
-            <div className="modal-custom" id="exampleModal" style={styleModal}>
-                <p className="msg-modal-custom">{t(`modal.${props.msgModal}`)}</p>
-            </div>
-        </div>
+        <Dialog
+            open={props.open}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            {props.title &&
+              <DialogTitle id="alert-dialog-title">
+                  {props.title}
+              </DialogTitle>
+            }
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    {props.text}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => props.setOpen(false)}>{t('modal.cancel')}</Button>
+                <Button onClick={() => props.setConfirm(true)} value='true'>{t('modal.confirm')}</Button>
+            </DialogActions>
+        </Dialog>
     );
 }

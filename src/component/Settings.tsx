@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import Role from '../types/Role';
 
 export default function Settings() {
     const [t, i18n] = useTranslation('global');
     const [isHovering, setIsHovering] = useState<boolean>(false);
+    const { roles } = useAuth();
 
     const handleChangeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
@@ -47,6 +51,19 @@ export default function Settings() {
                             {t('header.fr')}
                         </button>
                     </li>
+                    {roles?.includes(Role.Admin) && (
+                        <>
+                            <li>
+                                <h6 className="dropdown-header">{t('nav.admin')}</h6>
+                            </li>
+
+                            <li>
+                                <NavLink className="dropdown-item" to="/admin">
+                                    {t('nav.admin')}
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </div>
         </>

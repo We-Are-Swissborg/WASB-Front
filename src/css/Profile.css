@@ -1,0 +1,146 @@
+.profile-container {
+  max-width: 1125px;
+  padding: 0 30px;
+}
+
+.container-main-input {
+  margin-right: 50px;
+}
+
+.container-main-input ul {
+  width: 265px;
+}
+
+.container-main-input input {
+  display: none;
+}
+
+.input-profile {
+  width: 315px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0;
+  margin-bottom: 3rem;
+}
+
+.div-under-form {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.container-input-and-select {
+  margin-bottom: 1rem;
+  /* margin-right: 1rem; */
+  width: 47%;
+}
+
+.label-form {
+  font-size: smaller;
+  margin-bottom: 0.5rem;
+}
+
+.input-form {
+  border-radius: 50rem;
+}
+
+.input-form:disabled {
+  background-color: #7e7e7e;
+}
+
+.container-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.container-cancel {
+  width: 37%;
+  align-self: end;
+}
+
+.div-under-container-submit {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-confidentiality {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.container-be-contacted {
+  display: flex;
+}
+
+.input-container-submit {
+  margin-right: 1rem;
+  padding-right: auto;
+}
+
+#confidentiality, #beContacted {
+  margin-right: 5px;
+}
+
+.text-container-submit {
+  margin-bottom: 0;
+  font-size: 11px;
+}
+
+.btn-form {
+  border: 1px solid #dee2e6;
+  border-color: #1AD9BC;
+  color: #fffffe;
+  background-image: linear-gradient(180deg, #1AD9BC, #1DBFBC);
+  border-radius: 50rem;
+  text-wrap: nowrap;
+}
+
+.btn-cancel {
+  background: #EDEFF1;
+  border-radius: 50rem;
+}
+
+@media (max-width: 1000px) { 
+  .container-main-input, .container-main-input ul {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .container-main-input label {
+    text-align: center !important;
+  }
+
+  .profile-container > div {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) { 
+  .div-under-form {
+    flex-direction: column;
+  }
+
+  .container-input-and-select {
+    width: 100%;
+  }
+
+  .container-submit {
+    flex-direction: column;
+    align-items: end;
+  }
+
+  .container-be-contacted {
+    margin-bottom: 20px;
+  }
+}

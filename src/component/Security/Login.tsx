@@ -25,6 +25,7 @@ export default function Login() {
             const token = await authenticate(data);
             login(token);
             navigate('/', { replace: true });
+            toast.success(t('authenticate.welcome') + ` ${data.username}`);
         } catch (e) {
             toast.error(t('authenticate.error'));
         }

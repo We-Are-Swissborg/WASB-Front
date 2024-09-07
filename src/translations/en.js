@@ -41,6 +41,7 @@ const global_en = {
         "whoarewe": "About us ?"
     },
     "nav": {
+        "admin": "Administration",
         "blog": "Blog",
         "contact": "Contact",
         "home": "Home",
@@ -80,21 +81,69 @@ const global_en = {
         "register": "Register",
         "welcome": "Welcome to our website!",
         "error": "An error has occurred during registration.",
-        "referral-error": "Referral not exist."
+        "referral-error": "Referral not exist.",
+        "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
+        "confidentiality": "*Check, if you accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
     },
-    "setting": {
-        "linked-accounts": {
-            "title": "Linked accounts",
+    "profile": {
+        "social-medias": {
+            "title": "Social medias",
+            "discord": "Enter your Discord pseudo",
+            "error-discord": "An error with your Discord",
+            "error-twitter": "An error with your Twitter",
+            "error-tiktok": "An error with your TikTok",
+            "error-telegram": "An error with your Telegram",
         },
         "manage-membership": {
             "message-1": "You currently have a WASB Genesis membership (annual). Your membership will be renewed on #######.",
             "message-2": "As a WASB Genesis member and holder of the Ternoa NFT, you benefit from our best features.",
             "title": "Manage my membership",
+            "no-adherent": "No adherent",
+            "endDateContribution": "Contribution end date",
+            "dateContribution": "Contribution start date",
+            "contribution": "Contribution",
+            "contributionStatus": "Status of your contribution",
         },
         "my-account": {
             "title": "My account",
+            "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
+            "other": "In another way",
+            "country": "Choose your country",
+            "not-be-contacted": 'Uncheck, if you no longer wish to be contacted by WeAreSwissBorg',
+            "required": "Required value",
+            "error-firstName": "Error with the first name",
+            "error-lastName": "Error with the last name",
+            "error-username": "Error with the username",
+            "error-email": "Error with the email",
+            "city": "City",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email*",
+            "username": "Username*",
+            "walletAddress": "wallet address",
+            "aboutUs": "How did you hear about the association ?",        
+            "referral": "Your referral link",
+            "placeholder": {
+                "city": "Enter your city",
+                "email": "Enter your email",
+                "first-name": "Enter your first name",
+                "last-name": "Enter your last name",
+                "username": "Enter your username",
+                "wallet-address": "Enter your wallet address",
+            },
         },
-        "title": "Setting",
+        "donations": {
+            "title": "Donations",
+            "message": "Scan the QR code below to make a donation and help grow our association.\n Each contribution counts and makes a real difference.",
+            "qr-code": "The QR code for the donation is a TEST",
+        },
+        "default-select": "Choose...",
+        "success-update": "Data update",
+        "update": "Update",
+        "form-not-changed": "No changes have been made",
+        "form-not-saved": "Unsaved change",
+        "title": "Profile",
+        "error-form": "An error with your form",
     },
     "ternoa": {
         "logout": " Logout",
@@ -103,6 +152,44 @@ const global_en = {
         "content": `WeAreSwissBorg is much more than just an association. ` +
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,
         "title": "About us ?"
+    },
+    "blog": {
+        'localCode': 'en-US',
+        'loading-error': 'Loading error.',
+        'title': 'The blog',
+        'create-post': 'Create',
+        'last-update': 'Last update',
+        'created-by': 'Created by',
+        'share': 'SHARE',
+        'read': 'READ',
+        'created-at': 'Created at',
+        'url-copied': "Url has been copied."
+    },
+    'article': {
+        'post-delete': 'POST DELETE.',
+        'error-post-delete': 'ERROR: POST NOT DELETE.',
+        'post-update': 'POST UPDATE.',
+        'error-post-update': 'ERROR: POST NOT UPDATE.',
+        'delete': 'Delete',
+        'edit': 'Edit',
+        'confirm-delete': 'Do you really want delete this article ?',
+    },
+    "post-form": { 
+        'title-empty': 'Title is empty.',
+        'image-empty': 'Image is empty.',
+        'content-empty': 'Content is empty.',
+        'value-missing': 'ERROR: Value missing.',
+        'title-length': 'ERROR: Title length too short.',
+        'editor-length': 'ERROR: Editor length too short.',
+        'success-post': 'Post created.',
+        'error-post': 'ERROR: Post not created.',
+        'preview': "PREVIEW",
+        'cancel': "CANCEL",
+        'confirm': "CONFIRM",
+    },
+    "modal": { 
+        'cancel': 'Cancel',
+        'confirm': "Confirm",
     },
 
     // For all components
@@ -154,50 +241,6 @@ const global_en = {
         "thailand": "Thailand",
         "uae": "United Arab Emirates",
         "united-kingdom": "United Kingdom"
-    },
-    "form": {
-        "aboutUs": "How did you hear about the association ?",
-        "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
-        "btn": {
-            "cancel": "Cancel your contribution",
-            "modify": "Modify my contribution",
-            "send": "Join",
-            "update": "Update"
-        },
-        "city": "City",
-        "confidentiality": "*Check, if you accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
-        "contribution": "Contribution",
-        "contribution-end": "Contribution end date",
-        "contribution-start": "Contribution start date",
-        "country": "Choose your country",
-        "donations": "Donations",
-        "discord": "Enter your Discord pseudo",
-        "email": "Email*",
-        "first-name": "First Name",
-        "last-name": "Last Name",
-        "nft-wallet": "Adress of your Ternoa NFT",
-        "other": "In another way",
-        "placeholder": {
-            "city": "Enter your city",
-            "contribution": "Become a member for...",
-            "discord": "Enter your Discord pseudo",
-            "email": "Enter your email",
-            "first-name": "Enter your first name",
-            "last-name": "Enter your last name",
-            "username": "Enter your username",
-            "select": "Choose...",
-        },
-        "username": "Username*",
-        "referral": "Referral",
-        "status": "Status of your contribution",
-        "wallet-address": "Your wallet address*",
-    },
-    "modal": {
-        "confirm-registration": "Please confirm on your wallet your registration 😀",
-        "user": {
-            "add": "User successfully added 😁",
-            "error": "Please retry or contact an administrator 😕"
-        }
     },
     "authenticate": {
         "title": "Login",
