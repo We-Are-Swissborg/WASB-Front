@@ -34,12 +34,12 @@ export default function PostForm() {
                 toast.error(t(`post-form.${prop}-empty`));
                 throw new Error(prop + ' is empty');
             }
-
+            // TODO: change with constante in params 
             if(user.title.length < 5) {
                 toast.error(t('post-form.title-length'));
                 throw new Error('ERROR: Title length too short.');
             }
-            if(lengthEditor! < 250) {
+            if(lengthEditor! < 10) {
                 toast.error(t('post-form.editor-length'));
                 throw new Error('ERROR: Editor length too short.');
             }

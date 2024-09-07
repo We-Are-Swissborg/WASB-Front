@@ -41,19 +41,6 @@ const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
     return json;
 };
 
-const updateUser = async (id: number, token: string, data: User): Promise<boolean> => {
-    const url: string = 'users/' + id;
-
-    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
-
-    if (!response.ok) {
-        const json = await response.json();
-        throw new Error('An error has occurred: ' + json.message);
-    }
-
-    return response.ok;
-};
-
 const patchUser = async (id: number, token: string, data: Partial<User>): Promise<boolean> => {
     const url: string = 'users/' + id;
 
@@ -86,4 +73,4 @@ const getUsers = async (token: string): Promise<User[]> => {
     return json;
 };
 
-export { register, checkReferralExist, getUserWithAllInfo, updateUser, getUsers, patchUser };
+export { register, checkReferralExist, getUserWithAllInfo, getUsers, patchUser };

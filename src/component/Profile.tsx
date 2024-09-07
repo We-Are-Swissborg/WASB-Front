@@ -39,7 +39,6 @@ export default function Profile() {
             <h1 className="border-bottom border-dark-subtle pb-2 fw-bold w-100">{t('profile.title')}</h1>
             <div className="d-flex w-100">
                 <div className="container-main-input">
-                    <h2 className=" mb-3 fw-normal">{t('profile.title')}</h2>
                     <ul className="list-inline d-flex flex-column justify-content-between">
                         <li className="mb-3">
                             <label

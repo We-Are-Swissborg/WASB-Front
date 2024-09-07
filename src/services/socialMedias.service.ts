@@ -2,9 +2,9 @@ import { SocialMedias } from '../types/SocialMedias';
 import * as BaseApi from './baseAPI.services';
 
 const updateSocialMediasUser = async (userId: number, token: string, data: SocialMedias): Promise<boolean> => {
-    const url: string = 'socialMedias/' + userId;
+    const url: string = `users/${userId}/socialMedias`;
 
-    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.patchFetch(url, JSON.stringify(data), token);
 
     if (!response.ok) {
         const json = await response.json();
