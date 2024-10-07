@@ -2,11 +2,11 @@ import { Parameter } from '@/types/Parameter';
 import * as BaseApi from './baseAPI.service';
 
 /**
- * 
- * @param id 
- * @param token 
- * @param data 
- * @returns 
+ *
+ * @param id
+ * @param token
+ * @param data
+ * @returns
  */
 const updateParameter = async (id: number, token: string, data: Parameter): Promise<boolean> => {
     const url: string = `parameters/${id}`;
@@ -22,10 +22,10 @@ const updateParameter = async (id: number, token: string, data: Parameter): Prom
 };
 
 /**
- * 
- * @param token 
- * @param data 
- * @returns 
+ *
+ * @param token
+ * @param data
+ * @returns
  */
 const createParameter = async (token: string, data: Parameter): Promise<boolean> => {
     const url: string = `parameters`;
@@ -79,10 +79,10 @@ const getParameter = async (id: number, token: string): Promise<Parameter> => {
 };
 
 /**
- * 
- * @param id 
- * @param token 
- * @returns 
+ *
+ * @param id
+ * @param token
+ * @returns
  */
 const deleteParameter = async (id: number, token: string): Promise<boolean> => {
     const url: string = `parameters/${id}`;

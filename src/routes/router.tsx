@@ -13,61 +13,58 @@ import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
 import Article from '@/component/Article';
 
-const router = 
-    {
-        path: '/',
-        element: <RootLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: '',
-                element: <Home />,
-            },
-            {
-                path: 'blog',
-                children: [
-                    {
-                        path: '',
-                        element: <Blog />,
-                    },
-                    {
-                        path: 'create-post',
-                        element: <ProtectedRoute element={<PostForm />} role={Role.Moderator} />
-                    },
-                    {
-                        path: ':idPost',
-                        element:  <Article />,
-                    }
-                ]
-            },
-            {
-                path: 'contact',
-                element: <Contact />,
-            },
-            {
-                path: 'register',
-                element: <OnlyAnonymousRouter element={<Register />} />,
-                children: [
-                    {
-                        path: ':codeRef',
-                        element: <Register />,
-                    },
-                ],
-            },
-            {
-                path: 'profile',
-                element: <ProtectedRoute element={<Profile />} />,
-            },
-            {
-                path: 'login',
-                element: <OnlyAnonymousRouter element={<Login />} />,
-            },
-            {
-                path: 'logout',
-                element: <ProtectedRoute element={<Logout />} />,
-            },
-        ],
-    }
-;
-
+const router = {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+        {
+            path: '',
+            element: <Home />,
+        },
+        {
+            path: 'blog',
+            children: [
+                {
+                    path: '',
+                    element: <Blog />,
+                },
+                {
+                    path: 'create-post',
+                    element: <ProtectedRoute element={<PostForm />} role={Role.Moderator} />,
+                },
+                {
+                    path: ':idPost',
+                    element: <Article />,
+                },
+            ],
+        },
+        {
+            path: 'contact',
+            element: <Contact />,
+        },
+        {
+            path: 'register',
+            element: <OnlyAnonymousRouter element={<Register />} />,
+            children: [
+                {
+                    path: ':codeRef',
+                    element: <Register />,
+                },
+            ],
+        },
+        {
+            path: 'profile',
+            element: <ProtectedRoute element={<Profile />} />,
+        },
+        {
+            path: 'login',
+            element: <OnlyAnonymousRouter element={<Login />} />,
+        },
+        {
+            path: 'logout',
+            element: <ProtectedRoute element={<Logout />} />,
+        },
+    ],
+};
 export default router;

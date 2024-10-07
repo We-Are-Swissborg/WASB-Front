@@ -1,8 +1,8 @@
-import { CardPost } from "./Post";
+import { CardPost } from './Post';
 
 type PostList = {
-  postListDTO: CardPost[];
-  totalPost: number
-}
+    postListDTO: CardPost[];
+    totalPost: number;
+};
 
 export default PostList;

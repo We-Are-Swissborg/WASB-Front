@@ -1,11 +1,16 @@
-import { createParameter, deleteParameter, getParameter, updateParameter } from "@/administration/services/parameterAdmin.service";
-import { useAuth } from "@/contexts/AuthContext";
-import { Parameter } from "@/types/Parameter";
-import { t } from "i18next";
-import { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import {
+    createParameter,
+    deleteParameter,
+    getParameter,
+    updateParameter,
+} from '@/administration/services/parameterAdmin.service';
+import { useAuth } from '@/contexts/AuthContext';
+import { Parameter } from '@/types/Parameter';
+import { t } from 'i18next';
+import { useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function AdminSetting() {
     const navigate = useNavigate();
@@ -43,7 +48,7 @@ export default function AdminSetting() {
         if (isDirty && isValid) {
             try {
                 console.info('form submit', data);
-                if(data.id) {
+                if (data.id) {
                     await updateParameter(data.id, token!, data);
                     toast.success(t('register.update'));
                     navigate('/admin/settings');
@@ -60,8 +65,8 @@ export default function AdminSetting() {
 
     const onDeleteAction = async (event: Event) => {
         event.preventDefault();
-        const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer cet élément ?");
-        
+        const confirmDelete = window.confirm('Es-tu sûr de vouloir supprimer cet élément ?');
+
         if (confirmDelete) {
             try {
                 await deleteParameter(parameter!.id, token!);
@@ -69,7 +74,7 @@ export default function AdminSetting() {
                 navigate('/admin/settings', { replace: true });
             } catch (error) {
                 console.error('Erreur lors de la suppression :', error);
-                toast.error("Échec de la suppression. Veuillez réessayer.");
+                toast.error('Échec de la suppression. Veuillez réessayer.');
             }
         }
     };
@@ -131,14 +136,16 @@ export default function AdminSetting() {
                     )}
                     Submit
                 </button>
-                {!!parameter?.id && <button type="button" className="btn btn-danger" onClick={onDeleteAction}>
-                    {isSubmitting && (
-                        <div className="spinner-border spinner-border-sm mx-2" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    )}
-                    Delete
-                </button>}
+                {!!parameter?.id && (
+                    <button type="button" className="btn btn-danger" onClick={onDeleteAction}>
+                        {isSubmitting && (
+                            <div className="spinner-border spinner-border-sm mx-2" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        )}
+                        Delete
+                    </button>
+                )}
             </form>
         </div>
     );

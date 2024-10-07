@@ -1,11 +1,20 @@
-import { getParameters } from "@/administration/services/parameterAdmin.service";
-import RowActions from "@/component/Table/RowActions";
-import { useAuth } from "@/contexts/AuthContext";
-import { Parameter } from "@/types/Parameter";
-import { flexRender, useReactTable } from "@tanstack/react-table";
-import { Column, ColumnDef, ColumnFiltersState, createColumnHelper, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel } from "@tanstack/table-core";
-import { InputHTMLAttributes, useCallback, useEffect, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { getParameters } from '@/administration/services/parameterAdmin.service';
+import RowActions from '@/component/Table/RowActions';
+import { useAuth } from '@/contexts/AuthContext';
+import { Parameter } from '@/types/Parameter';
+import { flexRender, useReactTable } from '@tanstack/react-table';
+import {
+    Column,
+    ColumnDef,
+    ColumnFiltersState,
+    createColumnHelper,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+} from '@tanstack/table-core';
+import { InputHTMLAttributes, useCallback, useEffect, useMemo, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Filter({ column }: { column: Column<Parameter, unknown> }) {
     const columnFilterValue = column.getFilterValue();

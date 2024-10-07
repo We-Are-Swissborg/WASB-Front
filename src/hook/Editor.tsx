@@ -4,11 +4,11 @@ import 'quill/dist/quill.snow.css';
 import { Delta, EmitterSource, Range } from 'quill/core';
 
 type EditorProps = {
-  readOnly: boolean;
-  defaultValue?: string;
-  onTextChange?: (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown;
-  onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => unknown;
-}
+    readOnly: boolean;
+    defaultValue?: string;
+    onTextChange?: (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown;
+    onSelectionChange?: (range: Range, oldRange: Range, source: EmitterSource) => unknown;
+};
 
 // Editor is an uncontrolled React component
 const Editor = forwardRef<Quill | null, EditorProps>(
@@ -33,19 +33,17 @@ const Editor = forwardRef<Quill | null, EditorProps>(
             const container = containerRef.current;
             if (!container) return;
 
-            const editorContainer = container.appendChild(
-                container.ownerDocument.createElement('div'),
-            );
+            const editorContainer = container.appendChild(container.ownerDocument.createElement('div'));
             const quill = new Quill(editorContainer, {
                 theme: 'snow',
                 modules: {
-                    toolbar:  [
-                        [{ 'header': [false, 2, 3] }],
-                        ['bold', 'italic', 'underline','strike', 'blockquote'],
-                        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                    toolbar: [
+                        [{ header: [false, 2, 3] }],
+                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
                         ['link', 'image'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'size': ['small', 'medium', 'large', 'huge'] }],
+                        [{ color: [] }, { background: [] }],
+                        [{ size: ['small', 'medium', 'large', 'huge'] }],
                     ],
                 },
             });
@@ -56,7 +54,7 @@ const Editor = forwardRef<Quill | null, EditorProps>(
                 (ref as React.MutableRefObject<Quill | null>).current = quill;
             }
 
-            const delta = quill.clipboard.convert({html: defaultValueRef?.current});
+            const delta = quill.clipboard.convert({ html: defaultValueRef?.current });
             if (defaultValueRef.current) {
                 quill.setContents(delta);
             }
@@ -84,7 +82,7 @@ const Editor = forwardRef<Quill | null, EditorProps>(
         }, [ref]);
 
         return <div ref={containerRef}></div>;
-    }
+    },
 );
 
 Editor.displayName = 'Editor';

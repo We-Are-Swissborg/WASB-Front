@@ -1,11 +1,11 @@
-import { User } from "./User";
+import { User } from './User';
 
 export type CardPost = {
     author: number;
     id: number;
     title: string;
     image: Blob;
-    infoAuthor: User,
+    infoAuthor: User;
     updatedAt: Date;
 };
 

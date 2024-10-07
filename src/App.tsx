@@ -8,10 +8,7 @@ import mainRouter from './routes/router.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import adminRoutes from './routes/adminRoutes.tsx';
 
-const router = createHashRouter([
-    mainRouter,
-    adminRoutes,
-]);
+const router = createHashRouter([mainRouter, adminRoutes]);
 
 const LoadingOverlay: React.FC = () => {
     const { isLoading } = useLoading();
