@@ -7,7 +7,7 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 import { Parameter } from '@/types/Parameter';
 import { t } from 'i18next';
-import { useCallback, useEffect, useState } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -62,9 +62,8 @@ export default function AdminSetting() {
             }
         }
     };
-
-    const onDeleteAction = async (event: Event) => {
-        event.preventDefault();
+    
+    const onDeleteAction = async () => {
         const confirmDelete = window.confirm('Es-tu sûr de vouloir supprimer cet élément ?');
 
         if (confirmDelete) {
