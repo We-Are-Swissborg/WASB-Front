@@ -88,8 +88,8 @@ export default function Register() {
         <div className="container">
             <h1 className="my-5 text-secondary text-center">{t('register.title')}</h1>
             <p className="text-center">{t('register.message')}</p>
-            <div className='row justify-content-md-center'>
-                <form onSubmit={handleSubmit(onSubmit)} className='col-md-10 col-lg-8 col-xl-6'>
+            <div className="row justify-content-md-center">
+                <form onSubmit={handleSubmit(onSubmit)} className="col-md-10 col-lg-8 col-xl-6">
                     <div className="row mb-3">
                         <label htmlFor="email" className="col-sm-2 col-form-label">
                             Email
@@ -213,7 +213,9 @@ export default function Register() {
                                     />
                                 </p>
                             </div>
-                            {errors?.confidentiality && <div className="text-danger">{errors.confidentiality.message}</div>}
+                            {errors?.confidentiality && (
+                                <div className="text-danger">{errors.confidentiality.message}</div>
+                            )}
 
                             <div className={`container-be-contacted`}>
                                 <input

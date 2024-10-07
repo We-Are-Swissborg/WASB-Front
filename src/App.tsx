@@ -1,11 +1,14 @@
 import './App.scss';
-import { RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LoadingProvider, useLoading } from './contexts/LoadingContext.tsx';
 import Loading from './component/Loading.tsx';
-import router from './routes/router.tsx';
+import mainRouter from './routes/router.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
+import adminRoutes from './routes/adminRoutes.tsx';
+
+const router = createHashRouter([mainRouter, adminRoutes]);
 
 const LoadingOverlay: React.FC = () => {
     const { isLoading } = useLoading();
