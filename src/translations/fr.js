@@ -161,7 +161,8 @@ const global_fr = {
         'share': 'PARTAGER',
         'read': 'LIRE',
         'created-at': 'Créé le',
-        'url-copied': "L'url a été copié."
+        'url-copied': "L'url a été copié.",
+        'resume-article': 'Un article est en cours. Voulez-vous le continuer ?'
     },
     "article": {
         'post-delete': 'ARTICLE SUPPRIMÉ.',
@@ -171,6 +172,8 @@ const global_fr = {
         'delete': 'Supprimer',
         'edit': 'Modifier',
         'confirm-delete': 'Voulez-vous vraiment supprimer cet article ?',
+        'abandon-edit-article': 'Voulez-vous vraiment abandonner vos modifications ?',
+        'edit-article': "Vous avez déjà un article sous modifications, s'y rendre ?\n Sinon abandonner les modifications."
     },
     "post-form": { 
         'title-empty': 'Le titre est manquant.',
