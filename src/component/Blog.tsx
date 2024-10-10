@@ -1,7 +1,7 @@
 import { CardPost } from '../types/Post';
 import { getPostList } from '../services/blog.service';
 import useSWR, { Fetcher } from 'swr';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,6 +15,7 @@ import { Pagination } from '@mui/material';
 import PostList from '../types/PostList';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import Modal from '@/common/Modal';
 import '../css/Blog.css';
 
 const fetcher: Fetcher<PostList> = (url: string) => getPostList(url);
@@ -26,6 +27,10 @@ function Blog() {
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
     const { roles } = useAuth();
+    const [openModal, setOpenModal] = useState('init');
+    const [continueArticle, setContinueArticle] = useState('init');
+    const [createArticle, setCreateArticle] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (data) {
@@ -33,7 +38,14 @@ function Blog() {
             setDataReverse(data.postListDTO);
             setTotalPages(nbPage ? nbPage : 1);
         }
-    }, [data]);
+        if(createArticle) {
+            if(continueArticle) navigate('./create-post');
+            else if(!openModal) {
+                localStorage.removeItem('resumeArticle');
+                navigate('./create-post');
+            }
+        }
+    }, [data, createArticle, openModal, continueArticle]);
 
     if (error) return <div>{t('blog.loading-error')}</div>;
 
@@ -58,16 +70,23 @@ function Blog() {
         toast.success(t('blog.url-copied'));
     };
 
+    const onCreate = () => {
+        const resumeArticle = localStorage.getItem('resumeArticle');
+        setCreateArticle(true);
+        if(resumeArticle) setOpenModal('open');
+        else navigate('./create-post');
+    };
+
     return (
         <>
             <div className="container">
                 <div className="d-flex align-items-center justify-content-between">
                     <h1 className="title mt-4">{t('blog.title')}</h1>
-                    {roles?.includes('moderator') && (
-                        <NavLink to="create-post" className="btn btn-form align-self-end py-2 px-3">
+                    {roles?.includes('moderator') &&
+                        <button onClick={onCreate} className="btn btn-form align-self-end py-2 px-3">
                             {t('blog.create-post')}
-                        </NavLink>
-                    )}
+                        </button>
+                    }
                 </div>
                 <section className="row row-cols-1 row-cols-md-3 g-2 mb-0 mt-3 justify-content-center">
                     {isLoading && (
@@ -164,6 +183,16 @@ function Blog() {
                     className="d-flex justify-content-end m-5 mt-0"
                 />
             </div>
+
+            <template>
+                <Modal
+                    text={t('blog.resume-article')}
+                    open={openModal}
+                    setOpen={setOpenModal}
+                    confirm={continueArticle}
+                    setConfirm={setContinueArticle}
+                />
+            </template>
         </>
     );
 }

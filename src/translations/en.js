@@ -163,7 +163,8 @@ const global_en = {
         'share': 'SHARE',
         'read': 'READ',
         'created-at': 'Created at',
-        'url-copied': "Url has been copied."
+        'url-copied': "Url has been copied.",
+        'resume-article': 'An article is in progress. Do you want keep going ?'
     },
     'article': {
         'post-delete': 'POST DELETE.',
@@ -173,6 +174,8 @@ const global_en = {
         'delete': 'Delete',
         'edit': 'Edit',
         'confirm-delete': 'Do you really want delete this article ?',
+        'abandon-edit-article': 'Do you really want to abandon your edit ?',
+        'edit-article': "Do you already have an article under edit to go there ?\n Else abandon the modifications."
     },
     "post-form": { 
         'title-empty': 'Title is empty.',

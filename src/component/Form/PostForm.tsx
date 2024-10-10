@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState, useCallback, useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Editor from '../../hook/Editor';
@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/AuthContext';
 import { createPost, previewPost } from '../../services/blog.service';
 import { tokenDecoded } from '../../services/token.services';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useBeforeUnload } from 'react-router-dom';
 import { Delta, EmitterSource } from 'quill/core';
 import arrayBufferToBase64 from '../../services/arrayBufferToBase64';
 import '../../css/Blog.css';
@@ -15,13 +15,15 @@ import '../../css/Blog.css';
 export default function PostForm() {
     const { t } = useTranslation('global');
     const [image, setImage] = useState<string | ArrayBuffer | undefined | null>(null);
-    const { register, handleSubmit, setValue } = useForm();
+    const { register, handleSubmit, setValue, getValues } = useForm();
     const [previewValues, setPreviewValues] = useState<FieldValues>();
     const [isForm, setIsForm] = useState<boolean>(true);
     const { token } = useAuth();
     const quillRef = useRef<Quill | null>(null);
     const navigate = useNavigate();
     const isBuffer = typeof image !== 'string'; // Required for check if the image has changed.
+    const [init, setInit] = useState(true);
+    const isCreatedRef = useRef(false); 
 
     const onSubmit = handleSubmit((user, e) => {
         const nameTarget = e?.target.name;
@@ -84,14 +86,14 @@ export default function PostForm() {
                     content: previewValues?.content,
                 };
 
-                createPost(token, dataPost)
-                    .then(() => {
-                        toast.success(t('post-form.success-post'));
-                        navigate('/', { replace: true });
-                    })
-                    .catch(() => {
-                        toast.error(t('post-form.error-post'));
-                    });
+                createPost(token, dataPost).then(() => {
+                    toast.success(t('post-form.success-post'));
+                    localStorage.removeItem('resumeArticle');
+                    isCreatedRef.current = true;
+                    navigate('/', {replace: true});
+                }).catch(() => {
+                    toast.error(t('post-form.error-post'));
+                });
             }
         }
     });
@@ -128,6 +130,54 @@ export default function PostForm() {
         if (isBuffer) return arrayBufferToBase64(image as unknown as ArrayBuffer, 'image/webp');
     };
 
+    const saveArticleLocalStorage = useCallback(() => {
+        const isValue = Object.values(getValues()).find((value) => value?.length > 0);
+
+        if(!Array.isArray(getValues().image)) setValue('image', ''); // Required else we can have an {}.
+        else if(image) setValue('image', image);
+
+        if(isForm && isValue) {
+            localStorage.setItem('resumeArticle', JSON.stringify(getValues()));
+        } else if(!isForm && previewValues) {
+            localStorage.setItem('resumeArticle', JSON.stringify(previewValues));
+        } else {
+            localStorage.removeItem('resumeArticle');
+        }
+    }, [isForm, previewValues, image, getValues]);
+
+    const contentSaved = () => {
+        const resumeArticle = localStorage.getItem('resumeArticle');
+        if(resumeArticle) {
+            setValue('content', JSON.parse(resumeArticle).content);
+            return JSON.parse(resumeArticle).content;
+        } else {
+            return '';
+        }
+    };
+
+    // If the user closes the page article is saved.
+    useBeforeUnload(
+        useCallback(() => {
+            saveArticleLocalStorage();
+        }, [saveArticleLocalStorage])
+    );
+
+    // If the url changes article is saved.
+    useEffect(() => {
+        const resumeArticle = localStorage.getItem('resumeArticle');
+
+        if(resumeArticle && init) {
+            setValue('title', JSON.parse(resumeArticle).title);
+            setImage(JSON.parse(resumeArticle).image);
+            setValue('image', JSON.parse(resumeArticle).image);
+            setInit(false);
+        }
+        
+        return () => {
+            if(!window.location.href.includes('create-post') && !isCreatedRef.current) saveArticleLocalStorage();
+        };
+    }, [saveArticleLocalStorage, init]);
+
     return (
         <div className="container">
             <form className="form align-items-start" onSubmit={onSubmit}>
@@ -138,17 +188,16 @@ export default function PostForm() {
                         id="title"
                         required={true}
                     />
-                    <div className="mb-4">
-                        {image && (
-                            <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                                <img
-                                    src={srcImageBeforePreview()}
-                                    className="w-100 h-100 object-fit-fill"
-                                    alt="main image"
-                                />
-                            </div>
-                        )}
-                        <input type="file" id="image" name="image" accept="image/*" onChange={onChange} />
+                    <div className='mb-4'>
+                        {image &&
+                        <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
+                            <img src={srcImageBeforePreview()} className="w-100 h-100 object-fit-fill" alt="main image"/>
+                        </div>
+                        }
+                        <div className="d-flex align-items-center">
+                            <input type="file" id="image" name="image" accept="image/*" onChange={onChange} style={getValues().image?.name || !getValues().image?.length ? {width: 'initial'} : {width: '100px'}} />
+                            {getValues().image?.length ? <p className="m-0 ms-1 text-truncate overflow-hidden text-nowrap">{`image_POST.webp`}</p> : ''}
+                        </div>
                     </div>
                     <Editor
                         ref={quillRef}
@@ -156,6 +205,7 @@ export default function PostForm() {
                             onChange as unknown as (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown
                         }
                         readOnly={false}
+                        defaultValue={contentSaved()}
                     />
                     <button
                         className="btn btn-form padding-button align-self-end mt-5"
