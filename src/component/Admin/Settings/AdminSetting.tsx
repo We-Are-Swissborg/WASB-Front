@@ -47,7 +47,6 @@ export default function AdminSetting() {
     const onSubmit = async (data: Parameter) => {
         if (isDirty && isValid) {
             try {
-                console.info('form submit', data);
                 if (data.id) {
                     await updateParameter(data.id, token!, data);
                     toast.success(t('register.update'));
@@ -57,12 +56,12 @@ export default function AdminSetting() {
                     toast.success(t('register.create'));
                     navigate('/admin/settings');
                 }
-            } catch (e) {
+            } catch {
                 toast.error(t('register.error'));
             }
         }
     };
-    
+
     const onDeleteAction = async () => {
         const confirmDelete = window.confirm('Es-tu sûr de vouloir supprimer cet élément ?');
 

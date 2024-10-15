@@ -75,7 +75,7 @@ function AdminUserEdit() {
                 console.info('form submit', data);
                 await updateUser(data.id, token!, data);
                 toast.success(t('profile.success-update'));
-            } catch (e) {
+            } catch {
                 toast.error(t('register.error'));
             }
         }
