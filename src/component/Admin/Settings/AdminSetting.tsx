@@ -62,7 +62,7 @@ export default function AdminSetting() {
             }
         }
     };
-    
+
     const onDeleteAction = async () => {
         const confirmDelete = window.confirm('Es-tu sûr de vouloir supprimer cet élément ?');
 
