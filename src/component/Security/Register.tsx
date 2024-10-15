@@ -36,7 +36,7 @@ export default function Register() {
             const token = await authenticate(data);
             login(token);
             navigate('/', { replace: true });
-        } catch (e) {
+        } catch {
             toast.error(t('register.error'));
         }
     };

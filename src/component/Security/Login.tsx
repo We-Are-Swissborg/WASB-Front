@@ -26,7 +26,7 @@ export default function Login() {
             login(token);
             navigate('/', { replace: true });
             toast.success(t('authenticate.welcome') + ` ${data.username}`);
-        } catch (e) {
+        } catch {
             toast.error(t('authenticate.error'));
         }
     };

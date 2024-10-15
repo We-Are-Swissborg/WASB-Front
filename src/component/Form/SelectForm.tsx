@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef } from 'react';
 import { OptionsSelect } from '@/types/OptionsSelect';
 import { ControllerRenderProps } from 'react-hook-form';

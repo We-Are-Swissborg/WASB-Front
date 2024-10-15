@@ -6,7 +6,7 @@ const isTokenExpired = (token: string): boolean => {
         const { exp } = jwtDecode<JwtPayload>(token);
         if (!exp) return true;
         return Date.now() >= exp * 1000;
-    } catch (error) {
+    } catch {
         return true;
     }
 };
