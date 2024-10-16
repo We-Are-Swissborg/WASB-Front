@@ -1,7 +1,7 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { updatePost, deletePost, getPost, previewPost } from '../services/blog.service';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useBeforeUnload } from 'react-router-dom';
 import { Post } from '../types/Post';
 import arrayBufferToBase64 from '../services/arrayBufferToBase64';
 import { useAuth } from '../contexts/AuthContext';
@@ -21,8 +21,8 @@ export default function Article() {
     const [init, setInit] = useState(true);
     const { token } = useAuth();
     const [author, setAuthor] = useState<number | null>(null);
-    const [openModal, setOpenModal] = useState(false);
-    const [deleteArticle, setDeleteArticle] = useState(false);
+    const [openModal, setOpenModal] = useState('init');
+    const [deleteArticle, setDeleteArticle] = useState('init');
     const [edit, setEdit] = useState(false);
     const navigate = useNavigate();
     const [image, setImage] = useState<string | ArrayBuffer | undefined | null>(null);
@@ -32,6 +32,10 @@ export default function Article() {
     const quillRef = useRef<Quill | null>(null);
     const isBuffer = typeof image !== 'string'; // Required for check if the image has changed.
     const [disabledSubmit, setDisabledSubmit] = useState(true);
+    const [abandonEditArticle, setAbandonEditArticle] = useState('init');
+    const [continueArticle, setContinueArticle] = useState('init');
+    const [editModal, setEditModal] = useState('init');
+    const [deleteModal, setDeleteModal] = useState('init');
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
         month: 'long',
@@ -41,36 +45,6 @@ export default function Article() {
         getValues().title === post?.title &&
         getValues().image?.toString() === post?.image?.toString() &&
         getValues().content === post?.content;
-
-    useEffect(() => {
-        if (deleteArticle) {
-            const id = idPost?.split('-')[1];
-            setOpenModal(false);
-            deletePost(id!, token!)
-                .then(() => {
-                    toast.success(t('article.post-delete'));
-                    navigate('../');
-                })
-                .catch((e) => {
-                    toast.error(t('article.error-post-delete'));
-                    throw new Error('ERROR POST DELETE : ' + e);
-                });
-        }
-        if (idPost && init) {
-            if (token) {
-                const decodedToken = tokenDecoded(token);
-                setAuthor(decodedToken.userId);
-            }
-            getPost(idPost)
-                .then((data) => {
-                    setPost(data);
-                    setInit(false);
-                })
-                .catch(() => {
-                    throw new Error('ERROR GET POST');
-                });
-        }
-    }, [post, deleteArticle, init]);
 
     const onSubmit = handleSubmit((user, e) => {
         const nameTarget = e?.target.name;
@@ -119,17 +93,20 @@ export default function Article() {
                 setPreviewValues(user);
             }
         } else {
-            if (token && previewValues && post?.id) {
-                updatePost(post.id, previewValues, token)
-                    .then(() => {
-                        toast.success(t('article.post-update'));
-                        setEdit(false);
-                        setInit(true);
-                        setIsForm(true);
-                    })
-                    .catch(() => {
-                        toast.error(t('article.error-post-update'));
-                    });
+            const idLocal = JSON.parse(localStorage.getItem('resumeEditArticle') as string)?.id;
+
+            if(token && previewValues && post?.id) {
+                const goodId = idLocal ? Number(idLocal.split('-')[1]) : post.id;
+
+                updatePost(goodId, previewValues, token).then(() => {
+                    toast.success(t('article.post-update'));
+                    setEdit(false);
+                    setInit(true);
+                    setIsForm(true);
+                    localStorage.removeItem('resumeEditArticle');
+                }).catch(() => {
+                    toast.error(t('article.error-post-update'));
+                });
             }
         }
     });
@@ -163,6 +140,32 @@ export default function Article() {
         setDisabledSubmit(isOldEqualNewValue());
     };
 
+    const saveArticleLocalStorage = useCallback(() => {
+        const isValue = Object.values(getValues()).find((value) => value?.length > 0);
+
+        if(!Array.isArray(getValues().image)) setValue('image', ''); //Required else we can have an {}.
+        else if(image) setValue('image', image);
+
+        if(isForm && isValue) {
+            const linkWithValues = {...getValues(), id: idPost};
+            localStorage.setItem('resumeEditArticle', JSON.stringify(linkWithValues));
+        } else if(!isForm && previewValues) {
+            const previewWithLink = {...previewValues, id: idPost};
+            localStorage.setItem('resumeEditArticle', JSON.stringify(previewWithLink));
+        } else {
+            localStorage.removeItem('resumeEditArticle');
+        }
+    }, [isForm, previewValues, image, getValues]);
+
+    // If the user closes the page article is saved.
+    useBeforeUnload(
+        useCallback(() => {
+            if(!isOldEqualNewValue()) {
+                saveArticleLocalStorage();
+            }
+        }, [saveArticleLocalStorage])
+    );
+
     const onChangeTexteArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const valueTarget = e.target?.value;
         setValue('title', valueTarget);
@@ -171,11 +174,22 @@ export default function Article() {
     };
 
     const onEdit = () => {
+        const id = JSON.parse(localStorage.getItem('resumeEditArticle') as string)?.id;
+
+        if(localStorage.getItem('resumeEditArticle') && id !== idPost) {
+            setEditModal('open');
+        } else {
+            editConfirm();
+        }
+    };
+
+    const editConfirm = () => {
+        const resumeEditArticle = JSON.parse(localStorage.getItem('resumeEditArticle') as string);
         setEdit(true);
-        setValue('title', post?.title);
-        setValue('image', post?.image);
-        setValue('content', post?.content);
-        setImage(post?.image as unknown as ArrayBuffer);
+        setValue('title', resumeEditArticle?.title ? resumeEditArticle.title : post?.title);
+        setValue('image', resumeEditArticle?.image ? resumeEditArticle.image : post?.image);
+        setValue('content', resumeEditArticle?.content ? resumeEditArticle.content : post?.content);
+        setImage(resumeEditArticle?.image ? resumeEditArticle.image : post?.image as unknown as ArrayBuffer);
         setDisabledSubmit(isOldEqualNewValue());
     };
 
@@ -187,6 +201,66 @@ export default function Article() {
                 'image/webp',
             );
     };
+
+    const cancelEdit = () => {
+        if(!isOldEqualNewValue()) {
+            setOpenModal('open');
+        } else {
+            setEdit(false);
+        }
+    };
+
+    const getArticle = (id: string) => {
+        if(token) {
+            const decodedToken = tokenDecoded(token);
+            setAuthor(decodedToken.userId);
+        }
+        getPost(id).then((data) => {
+            setPost(data);
+            setInit(false);
+        }).catch(() => {
+            throw new Error('ERROR GET POST');
+        });
+    };
+
+    useEffect(() => {
+        if(idPost && init) getArticle(idPost);
+
+        if(deleteArticle === 'confirm') {
+            const id = idPost?.split('-')[1];
+            deletePost(id!, token!).then(() => {
+                toast.success(t('article.post-delete'));
+                navigate('../');
+            }).catch((e) => {
+                toast.error(t('article.error-post-delete'));
+                throw new Error('ERROR POST DELETE : ' + e);
+            });
+        }
+        if(abandonEditArticle === 'confirm') {
+            const id = JSON.parse(localStorage.getItem('resumeEditArticle') as string)?.id;
+            localStorage.removeItem('resumeEditArticle');
+            setAbandonEditArticle('init');
+            setEdit(false);
+            setOpenModal('init');
+            if(id) getArticle(id);
+        }
+        if(continueArticle === 'confirm') {
+            const id = JSON.parse(localStorage.getItem('resumeEditArticle') as string).id;
+            setEditModal('init');
+            setContinueArticle('init');
+            editConfirm();
+            navigate('../'+ id);
+        }
+        if(editModal === 'cancel') {
+            localStorage.removeItem('resumeEditArticle');
+            setEditModal('init');
+            editConfirm();
+        }
+
+        return () => {
+            if(!window.location.href.includes('blog/post-') && !isOldEqualNewValue() && edit) saveArticleLocalStorage();
+        };
+    }, [post, deleteArticle, init, abandonEditArticle, continueArticle, editModal, saveArticleLocalStorage]);
 
     return (
         <>
@@ -204,7 +278,7 @@ export default function Article() {
                                 <div className="d-flex justify-content-between flex-column-reverse container-btn-article mt-3">
                                     <button
                                         className="btn btn-form align-self-end py-2 px-3 w-100 text-bg-danger delete-btn me-0"
-                                        onClick={() => setOpenModal(true)}
+                                        onClick={() => setDeleteModal('open')}
                                     >
                                         {t('article.delete')}
                                     </button>
@@ -301,7 +375,7 @@ export default function Article() {
                                     className="btn btn-form padding-button cancel-btn text-bg-danger"
                                     type="button"
                                     name="cancel"
-                                    onClick={() => setEdit(false)}
+                                    onClick={cancelEdit}
                                 >
                                     {t('post-form.cancel')}
                                 </button>
@@ -360,10 +434,30 @@ export default function Article() {
             <template>
                 <Modal
                     text={t('article.confirm-delete')}
-                    open={openModal}
-                    setOpen={setOpenModal}
+                    open={deleteModal}
+                    setOpen={setDeleteModal}
                     confirm={deleteArticle}
                     setConfirm={setDeleteArticle}
+                />
+            </template>
+
+            <template>
+                <Modal
+                    text={t('article.abandon-edit-article')}
+                    open={openModal}
+                    setOpen={setOpenModal}
+                    confirm={abandonEditArticle}
+                    setConfirm={setAbandonEditArticle}
+                />
+            </template>
+
+            <template>
+                <Modal
+                    text={t('article.edit-article')}
+                    open={editModal}
+                    setOpen={setEditModal}
+                    confirm={continueArticle}
+                    setConfirm={setContinueArticle}
                 />
             </template>
         </>
