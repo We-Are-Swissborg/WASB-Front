@@ -6,6 +6,8 @@ import AdminSettings from '@/component/Admin/Settings/AdminSettings';
 import AdminUsers from '@/component/Admin/Users/AdminUsers';
 import AdminUserEdit from '@/component/Admin/Users/AdminUserEdit';
 import AdminSetting from '@/component/Admin/Settings/AdminSetting';
+import AdminPostCategory from '@/component/Admin/Blog/AdminPostCategory';
+import AdminPostCategories from '@/component/Admin/Blog/AdminPostCategories';
 
 const adminRoutes = {
     path: 'admin',
@@ -31,6 +33,18 @@ const adminRoutes = {
         {
             path: 'settings/:id/edit',
             element: <AdminSetting />,
+        },
+        {
+            path: 'category',
+            element: <AdminPostCategories />,
+        },
+        {
+            path: 'category/add',
+            element: <AdminPostCategory />,
+        },
+        {
+            path: 'category/:id/edit',
+            element: <AdminPostCategory />,
         },
     ],
 };
