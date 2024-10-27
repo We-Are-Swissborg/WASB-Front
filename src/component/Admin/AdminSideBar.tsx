@@ -34,7 +34,7 @@ export default function AdminSideBar() {
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/category">
+                            <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/posts">
                                 <i className="fa-solid fa-blog"></i> Posts
                             </NavLink>
                         </li>
