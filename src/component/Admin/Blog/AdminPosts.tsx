@@ -1,7 +1,7 @@
+import { getAllPosts } from "@/administration/services/postAdmin.service";
 import RowActions from "@/component/Table/RowActions";
 import TableReact from "@/component/Table/TableReact";
 import { useAuth } from "@/contexts/AuthContext";
-import { getPost } from "@/services/blog.service";
 import { Post } from "@/types/Post";
 import { useReactTable } from "@tanstack/react-table";
 import { ColumnDef, ColumnFiltersState, createColumnHelper, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel } from "@tanstack/table-core";
@@ -15,7 +15,7 @@ export default function AdminPosts() {
 
     const initPosts = useCallback(async () => {
         if (token) {
-            const posts = await getPost(token);
+            const posts = await getAllPosts(token);
             setData(posts);
         }
     }, [token]);
@@ -40,7 +40,23 @@ export default function AdminPosts() {
             {
                 accessorKey: 'title',
                 cell: (info) => info.getValue(),
-                header: () => <span>Name</span>,
+                header: () => <span>Titre</span>,
+            },
+            {
+                accessorKey: 'slug',
+                cell: (info) => info.getValue(),
+                header: () => <span>Slug</span>,
+            },
+            {
+                accessorKey: 'isPublish',
+                cell: (info) => (info.getValue() ? 'Oui' : 'Non'),
+                header: () => <span>Est Pulibé ?</span>,
+            },
+            {
+                accessorKey: 'publishedAt',
+                cell: (info) => new Date(info.getValue()).toLocaleString('fr-FR'),
+                header: () => <span>Publié le</span>,
+                enableColumnFilter: false,
             },
             columnsHelper,
         ],

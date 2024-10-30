@@ -18,4 +18,7 @@ export type Post = {
     infoAuthor: User;
     updatedAt: Date;
     createdAt: Date;
+    isPublish: boolean;
+    publishedAt: Date | null;
+    slug: string;
 };

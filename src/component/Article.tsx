@@ -84,7 +84,7 @@ export default function Article() {
                 throw new Error(prop + ' is empty');
             }
 
-            if (user.title.length < 5) {
+            if (user.title.length < 3) {
                 toast.error(t('post-form.title-length'));
                 throw new Error('ERROR: Title length too short.');
             }
