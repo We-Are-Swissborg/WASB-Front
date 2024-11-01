@@ -23,9 +23,8 @@ const getAllPosts = async (token: string) => {
  * @param token 
  * @returns 
  */
-const getPost = async (id: number, token: string) => {
+const getPost = async (id: number, token: string): Promise<Post> => {
     const url: string = `posts/${id}`;
-    console.log('url', url);
     const response: Response = await BaseApi.getFetch(url, token);
     const json = await response.json();
     if (!response.ok) {

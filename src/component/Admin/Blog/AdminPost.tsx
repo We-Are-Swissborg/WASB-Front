@@ -1,18 +1,20 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import * as PostAdminServices from '@/administration/services/postAdmin.service';
-import { Post } from '@/types/Post';
+import * as PostCategoryAdminServices from '@/administration/services/postCategoryAdmin.service';
+import { Post, PostFormData } from '@/types/Post';
 import { t } from 'i18next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { fr } from 'date-fns/locale/fr';
 import Quill from 'quill';
 import Editor from '@/hook/Editor';
+import { PostCategory } from '@/types/PostCategory';
 
 export default function AdminPost() {
     const navigate = useNavigate();
@@ -21,55 +23,80 @@ export default function AdminPost() {
     const [post, setPost] = useState<Post>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const quillRef = useRef<Quill | null>(null);
+    const [postCategories, setPostCategories] = useState<Array<PostCategory>>([]);
 
-    const { register, handleSubmit, formState, control, setValue, reset } = useForm<Post>({
+    const { register, handleSubmit, formState, control, setValue } = useForm<PostFormData>({
         mode: 'onTouched',
-        defaultValues: post,
+        // defaultValues: post,
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
 
-    const initPost  = async(post: Post) => {        
+    const initPost = useCallback(async (post: Post) => {
         setPost(post);
-        reset(post);
         setValue('createdAt', new Date(post.createdAt));
         setValue('updatedAt', new Date(post.updatedAt));
         setValue('publishedAt', new Date(post.publishedAt ?? 0));
-    };
+        setValue("categories", post.categories.map((cat) => cat.id));
+        setValue("content", post.content);
+        setValue("isPublish", post.isPublish);
+        setValue("id", post.id);
+    }, [setValue]);
 
-    const getPost = useCallback(async () => {
-        if (id) {
+    const getPostCategories = useCallback(async() => {
+        if (postCategories.length === 0) {
             try {
-                const u = await PostAdminServices.getPost(Number(id), token!);
-                initPost(u);
+                const categories = await PostCategoryAdminServices.getPostCategories(token!);
+                setPostCategories(categories);
+            } catch (error) {
+                toast.error('Erreur lors du chargement des catégories');
+                console.error(error);
+            }
+        }
+    }, [token, postCategories]);
+
+    const getPost = useCallback(async() => {
+        if (id && !post) {
+            try {
+                const p: Post = await PostAdminServices.getPost(Number(id), token!);
+                initPost(p);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de l'article`);
                 console.log('ERROR: init Post', e);
-            } finally {
-                setIsInitializing(true);
             }
-        } else {
+        }
+    }, [id, token, initPost]);
+
+    const initForm = useCallback(async () => {        
+        try {
+            await getPostCategories();
+            await getPost();
+        } catch (e) {
+            toast.error(`Erreur lors de l'initialisation du formulaire`);
+            console.log('ERROR: init Post', e);
+        } finally {
             setIsInitializing(true);
         }
-    }, [id, token, reset]);
+    }, [getPostCategories, getPost]);
 
     useEffect(() => {
-        getPost();
-    }, [getPost]);
+        if (!isInitializing) {
+            initForm();
+        }
+    }, [initForm, isInitializing]);
 
-    const onSubmit = async (data: Post) => {
-        console.log('onSubmit', isDirty, isValid);
+    const onSubmit = async (data: PostFormData) => {
+        const selectedCategories = postCategories.filter((cat) => data.categories.includes(cat.id));
+        const sendData = { ...data, categories: selectedCategories };
 
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    const updatedPost =await PostAdminServices.update(data.id, token!, data);
+                    const updatedPost =await PostAdminServices.update(data.id, token!, sendData);
                     initPost(updatedPost);
                     toast.success(t('post.update'));
-                    // navigate('/admin/posts');
                 } else {
-                    await PostAdminServices.create(token!, data);
+                    await PostAdminServices.create(token!, sendData);
                     toast.success(t('post.create'));
-                    // navigate('/admin/posts');
                 }
             } catch(e) {
                 toast.error(t('register.error'));
@@ -184,6 +211,33 @@ export default function AdminPost() {
                                         value={field.value}
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled />
+                                )}
+                            />
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <Controller
+                                name="categories"
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl sx={{ m: 1, width: 300 }}>
+                                        <InputLabel id="demo-multiple-name-label">Categories</InputLabel>
+                                        <Select
+                                            labelId="demo-multiple-name-label"
+                                            multiple
+                                            value={field.value || []}
+                                            onChange={(e) => field.onChange(e.target.value)}
+                                            input={<OutlinedInput label="Categories" />}
+                                        >
+                                            {postCategories.map((cat) => (
+                                                <MenuItem
+                                                    key={cat.id}
+                                                    value={cat.id}
+                                                >
+                                                    {cat.title}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
                                 )}
                             />
                         </div>

@@ -1,3 +1,5 @@
+
+import { PostCategory } from './PostCategory';
 import { User } from './User';
 
 export type CardPost = {
@@ -21,4 +23,7 @@ export type Post = {
     isPublish: boolean;
     publishedAt: Date | null;
     slug: string;
+    categories: PostCategory[];
 };
+
+export type PostFormData = Omit<Post, 'categories'> & { categories: number[] };
