@@ -118,7 +118,6 @@ export default function AdminPostCategory() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Créer le"
-                                        renderInput={(props) => <TextField {...props} fullWidth />}
                                         value={field?.value} 
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled
@@ -133,7 +132,6 @@ export default function AdminPostCategory() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Mise à jour le"
-                                        renderInput={(props) => <TextField {...props} fullWidth />}
                                         value={field?.value} 
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled

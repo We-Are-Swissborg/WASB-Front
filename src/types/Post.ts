@@ -21,7 +21,7 @@ export type Post = {
     updatedAt: Date;
     createdAt: Date;
     isPublish: boolean;
-    publishedAt: Date | null;
+    publishedAt: Date;
     slug: string;
     categories: PostCategory[];
 };

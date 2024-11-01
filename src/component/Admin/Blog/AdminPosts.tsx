@@ -30,7 +30,7 @@ export default function AdminPosts() {
         cell: (props) => <RowActions row={props.row} />,
     });
     
-    const columns = useMemo<ColumnDef<Post, unknown>[]>(
+    const columns = useMemo<ColumnDef<Post>[]>(
         () => [
             {
                 accessorKey: 'id',
@@ -54,7 +54,17 @@ export default function AdminPosts() {
             },
             {
                 accessorKey: 'publishedAt',
-                cell: (info) => new Date(info.getValue()).toLocaleString('fr-FR'),
+                cell:  (info) => {
+                    const dateValue = info.getValue() as string | null;
+    
+                    if (dateValue) {
+                        const date = new Date(dateValue);
+                        if (!isNaN(date.getTime())) {
+                            return date.toLocaleString('fr-FR');
+                        }
+                    }
+                    return 'Non publié';
+                },
                 header: () => <span>Publié le</span>,
                 enableColumnFilter: false,
             },

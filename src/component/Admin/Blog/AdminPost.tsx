@@ -27,7 +27,6 @@ export default function AdminPost() {
 
     const { register, handleSubmit, formState, control, setValue } = useForm<PostFormData>({
         mode: 'onTouched',
-        // defaultValues: post,
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
 
@@ -160,7 +159,6 @@ export default function AdminPost() {
                                     render={({ field }) => (
                                         <DateTimePicker
                                             label="Créer le"
-                                            slotProps={(props) => <TextField {...props} fullWidth />}
                                             value={field?.value}
                                             onChange={(newValue) => field.onChange(newValue)}
                                             disabled />
@@ -173,10 +171,9 @@ export default function AdminPost() {
                                     render={({ field }) => (
                                         <DateTimePicker
                                             label="Mise à jour le"
-                                            slotProps={(props) => <TextField {...props} fullWidth />}
                                             value={field?.value}
                                             onChange={(newValue) => field.onChange(newValue)}
-                                            disabled />
+                                            disabled={true} />
                                     )} />
                             </div>
                             </>
@@ -207,7 +204,6 @@ export default function AdminPost() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Publié le"
-                                        slotProps={(props) => <TextField {...props} fullWidth />}
                                         value={field.value}
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled />
