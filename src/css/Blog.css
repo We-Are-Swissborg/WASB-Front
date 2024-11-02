@@ -1,5 +1,5 @@
 /* CSS ALL COMPONENTS RELATED TO THE BLOG */
-.cancel-btn, .delete-btn {
+/* .cancel-btn, .delete-btn {
   background-image: none !important;
   border-color: red !important;
   margin-right: 2%;
@@ -20,7 +20,7 @@
   }
 }
 
-/* BLOG COMPONENT */
+/* BLOG COMPONENT 
 .card-blog {
   max-width: 345px;
   padding: 0
@@ -47,7 +47,7 @@
   width: 325px;
 }
 
-/* ARTICLE COMPONENT */
+/* ARTICLE COMPONENT 
 .container-btn-article {
   height: 100px;
 }
@@ -72,4 +72,104 @@
   .container-about-post {
     flex-direction: column;
   }
+} */
+
+.blog-header-logo {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+  font-size: 2.25rem;
+}
+
+.blog-header-logo:hover {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+}
+
+.flex-auto {
+  flex: 0 0 auto;
+}
+
+.h-250 { height: 250px; }
+@media (min-width: 768px) {
+  .h-md-250 { height: 250px; }
+}
+
+/* Pagination */
+.blog-pagination {
+  margin-bottom: 4rem;
+}
+
+/*
+ * Blog posts
+ */
+.blog-post {
+  margin-bottom: 4rem;
+}
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: #727272;
+}
+
+.article-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.article-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.article-meta {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.categories .category {
+  display: inline-block;
+  background-color: #e1e1e1;
+  padding: 2px 6px;
+  margin-right: 5px;
+  border-radius: 4px;
+}
+
+.article-image img {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+.article-content {
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.author-info {
+  margin-top: 40px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.related-articles {
+  margin-top: 40px;
+}
+
+.related-articles ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.related-articles li {
+  margin: 10px 0;
 }

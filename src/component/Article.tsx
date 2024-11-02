@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { updatePost, deletePost, getPost, previewPost } from '../services/blog.service';
+import * as PostServices from '../services/blog.service';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Post } from '../types/Post';
 import arrayBufferToBase64 from '../services/arrayBufferToBase64';
@@ -13,11 +13,14 @@ import Quill from 'quill';
 import Editor from '../hook/Editor';
 import { Delta, EmitterSource } from 'quill/core';
 import '../css/Blog.css';
+import useSWR, { Fetcher } from 'swr';
+
+const fetcher: Fetcher<Post> = (url: string) => PostServices.getPost(url);
 
 export default function Article() {
     const { t } = useTranslation('global');
     const [post, setPost] = useState<Post>();
-    const { idPost } = useParams();
+    const { slug } = useParams();
     const [init, setInit] = useState(true);
     const { token } = useAuth();
     const [author, setAuthor] = useState<number | null>(null);
@@ -32,6 +35,14 @@ export default function Article() {
     const quillRef = useRef<Quill | null>(null);
     const isBuffer = typeof image !== 'string'; // Required for check if the image has changed.
     const [disabledSubmit, setDisabledSubmit] = useState(true);
+    const { data, error, isLoading } = useSWR<Post>(`/${slug}`, fetcher);
+
+    useEffect(() => {
+        if (data) {
+            setPost(data);
+        }
+    }, [data]);
+
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
         month: 'long',
@@ -42,35 +53,30 @@ export default function Article() {
         getValues().image?.toString() === post?.image?.toString() &&
         getValues().content === post?.content;
 
+    
+
     useEffect(() => {
         if (deleteArticle) {
-            const id = idPost?.split('-')[1];
-            setOpenModal(false);
-            deletePost(id!, token!)
-                .then(() => {
-                    toast.success(t('article.post-delete'));
-                    navigate('../');
-                })
-                .catch((e) => {
-                    toast.error(t('article.error-post-delete'));
-                    throw new Error('ERROR POST DELETE : ' + e);
-                });
+            // const id = idPost?.split('-')[1];
+            // setOpenModal(false);
+            // deletePost(id!, token!)
+            //     .then(() => {
+            //         toast.success(t('article.post-delete'));
+            //         navigate('../');
+            //     })
+            //     .catch((e) => {
+            //         toast.error(t('article.error-post-delete'));
+            //         throw new Error('ERROR POST DELETE : ' + e);
+            //     });
         }
-        if (idPost && init) {
-            if (token) {
-                const decodedToken = tokenDecoded(token);
-                setAuthor(decodedToken.userId);
-            }
-            getPost(idPost)
-                .then((data) => {
-                    setPost(data);
-                    setInit(false);
-                })
-                .catch(() => {
-                    throw new Error('ERROR GET POST');
-                });
-        }
-    }, [post, deleteArticle, init]);
+        // if (slug && data) {
+        //     // if (token) {
+        //     //     const decodedToken = tokenDecoded(token);
+        //     //     setAuthor(decodedToken.userId);
+        //     // }
+        //     getPost();
+        // }
+    }, [init, slug]);
 
     const onSubmit = handleSubmit((user, e) => {
         const nameTarget = e?.target.name;
@@ -187,6 +193,10 @@ export default function Article() {
                 'image/webp',
             );
     };
+
+    if (error) return <div>{t('blog.loading-error')}</div>;
+
+    if (isLoading) return <div>Chargement du blog en cours !!! </div>;
 
     return (
         <>

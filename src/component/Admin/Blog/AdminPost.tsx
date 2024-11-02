@@ -15,6 +15,7 @@ import { fr } from 'date-fns/locale/fr';
 import Quill from 'quill';
 import Editor from '@/hook/Editor';
 import { PostCategory } from '@/types/PostCategory';
+import { tokenDecoded } from '@/services/token.services';
 
 export default function AdminPost() {
     const navigate = useNavigate();
@@ -84,7 +85,7 @@ export default function AdminPost() {
     }, [initForm, isInitializing]);
 
     const onSubmit = async (data: PostFormData) => {
-        const selectedCategories = postCategories.filter((cat) => data.categories.includes(cat.id));
+        const selectedCategories = postCategories.filter((cat) => data.categories?.includes(cat.id));
         const sendData = { ...data, categories: selectedCategories };
 
         if (isDirty && isValid) {
@@ -94,6 +95,8 @@ export default function AdminPost() {
                     initPost(updatedPost);
                     toast.success(t('post.update'));
                 } else {
+                    const decodedToken = tokenDecoded(token!);
+                    sendData.author = decodedToken.userId;
                     await PostAdminServices.create(token!, sendData);
                     toast.success(t('post.create'));
                 }

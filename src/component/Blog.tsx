@@ -1,7 +1,7 @@
-import { CardPost } from '../types/Post';
-import { getPostList } from '../services/blog.service';
+import { CardPost, PaginatedPostsResponse } from '../types/Post';
+import { getPosts } from '../services/blog.service';
 import useSWR, { Fetcher } from 'swr';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,19 +9,17 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import arrayBufferToBase64 from '../services/arrayBufferToBase64';
 import { useAuth } from '../contexts/AuthContext';
-import { Pagination } from '@mui/material';
-import PostList from '../types/PostList';
+import { CardActionArea, Pagination } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import '../css/Blog.css';
 
-const fetcher: Fetcher<PostList> = (url: string) => getPostList(url);
+const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => getPosts(url);
 
 function Blog() {
     const { t } = useTranslation('global');
-    const { data, error, isLoading } = useSWR<PostList>('posts/list/' + 1, fetcher);
+    const { data, error, isLoading } = useSWR<PaginatedPostsResponse>(`/posts?page=${1}&limit=${9}`, fetcher);
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
@@ -29,9 +27,8 @@ function Blog() {
 
     useEffect(() => {
         if (data) {
-            const nbPage = Math.ceil(data.totalPost / 9);
-            setDataReverse(data.postListDTO);
-            setTotalPages(nbPage ? nbPage : 1);
+            setDataReverse(data.posts);
+            setTotalPages(data.totalPages);
         }
     }, [data]);
 
@@ -45,7 +42,7 @@ function Blog() {
         if (!arrow && !innerText) return;
 
         const value = innerText ? Number(innerText) : arrow?.includes('Before') ? Number(page) - 1 : Number(page) + 1;
-        getPostList('posts/list/' + value).then((data) => {
+        getPosts('posts/list/' + value).then((data) => {
             setDataReverse(data.postListDTO);
             setPage(value);
         });
@@ -108,51 +105,39 @@ function Blog() {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric'
                         };
-                        const dateLastUpdate = new Date(post.updatedAt).toLocaleDateString(
+                        const dateLastUpdate = new Date(post.publishedAt).toLocaleDateString(
                             `${t('blog.localCode')}`,
-                            optionDate,
+                            optionDate
                         );
 
                         return (
                             <Card key={'post' + id} className="card card-blog mb-5" aria-hidden="true">
-                                <CardMedia
-                                    className="card-media"
-                                    image={arrayBufferToBase64(post.image as unknown as ArrayBuffer, 'image/webp')}
-                                    title={'post' + id}
-                                />
-                                <CardContent className="pb-0">
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="div"
-                                        className="text-nowrap overflow-hidden text-truncate"
-                                    >
-                                        {post.title}
-                                    </Typography>
-                                    <Typography variant="body2" className="card-text placeholder-glow">
-                                        <span className="text-decoration-underline">{t('blog.last-update')}:</span>{' '}
-                                        {dateLastUpdate}
-                                    </Typography>
-                                    <Typography variant="body2" className="card-text placeholder-glow mt-2">
-                                        <span className="text-decoration-underline">{t('blog.created-by')}:</span>{' '}
-                                        <strong>{post.infoAuthor.username}</strong>
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" onClick={() => copyToClipboard(post.id)}>
-                                        {t('blog.share')}
-                                    </Button>
-                                    <strong style={{ paddingBottom: '4px' }}>
-                                        <NavLink
-                                            role="button"
-                                            className="text-decoration-none btn-read-post"
-                                            to={'post-' + post.id}
-                                        >
-                                            {t('blog.read')}
-                                        </NavLink>
-                                    </strong>
-                                </CardActions>
+                                <Link to={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <CardActionArea >
+                                        <CardMedia
+                                            component="img"
+                                            className="card-media"
+                                            image={'https://placehold.co/907x445.png'}
+                                            title={'post' + id}
+                                        />
+                                        <CardContent className="pb-2">
+                                            <Typography
+                                                gutterBottom
+                                                variant="h5"
+                                                component="div"
+                                                className="text-nowrap overflow-hidden text-truncate"
+                                            >
+                                                {post.title}
+                                            </Typography>
+                                            <Typography variant="body2" className="card-text placeholder-glow">
+                                                {dateLastUpdate}
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Link>
                             </Card>
                         );
                     })}
