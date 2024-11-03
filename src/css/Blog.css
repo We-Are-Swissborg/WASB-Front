@@ -18,33 +18,7 @@
   .container-cancel-btn {
     justify-content: space-around !important;
   }
-}
-
-/* BLOG COMPONENT 
-.card-blog {
-  max-width: 345px;
-  padding: 0
-}
-
-.card-media {
-  height: 140px
-}
-
-.card-actions {
-  max-width: 230px
-}
-
-.btn-read-post {
-  color: #1976d2
-}
-
-.container-main-image {
-  height: auto;
-  max-width: 760px;
-}
-
-.ql-snow img, .content-post img {
-  width: 325px;
+}dth: 325px;
 }
 
 /* ARTICLE COMPONENT 

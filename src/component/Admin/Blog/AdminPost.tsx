@@ -130,9 +130,9 @@ export default function AdminPost() {
         <div className="container-fluid">
             <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <fieldset key={1} className="row g-3">
-                        <legend>Article</legend>
-                        <div className="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <fieldset className="row g-3">
+                        <legend>Information sur l'article</legend>
+                        <div className="col-lg-4 col-md-6 col-sm-12">
                             <TextField
                                 type="text"
                                 id="title"
@@ -155,25 +155,27 @@ export default function AdminPost() {
                             {errors?.title && <div className="text-danger">{errors.title.message}</div>}
                         </div>
                         {!!post?.createdAt && (
-                            <><div className="col-lg-2 col-md-4 col-sm-12 mb-3">
+                            <><div className="col-lg-2 col-md-4 col-sm-12">
                                 <Controller
                                     name="createdAt"
                                     control={control}
                                     render={({ field }) => (
                                         <DateTimePicker
                                             label="Créer le"
+                                            className="form-control"
                                             value={field?.value}
                                             onChange={(newValue) => field.onChange(newValue)}
                                             disabled />
                                     )} />
                             </div>
-                            <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
+                            <div className="col-lg-2 col-md-4 col-sm-12">
                                 <Controller
                                     name="updatedAt"
                                     control={control}
                                     render={({ field }) => (
                                         <DateTimePicker
                                             label="Mise à jour le"
+                                            className="form-control"
                                             value={field?.value}
                                             onChange={(newValue) => field.onChange(newValue)}
                                             disabled={true} />
@@ -181,67 +183,71 @@ export default function AdminPost() {
                             </div>
                             </>
                         )}
+                        <div className="row g-3">
+                            <div className="col-lg-2 col-md-2 col-sm-2 mb-3">
+                                <FormControlLabel                                
+                                    className="form-check"
+                                    control={
+                                        <Controller
+                                            name='isPublish'
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Checkbox
+                                                    {...field}
+                                                    checked={field.value}
+                                                    onChange={(e) => field.onChange(e.target.checked)}
+                                                />
+                                            )}
+                                        />}
+                                    label="Publié ?"
+                                />
+                            </div>
+                            <div className="col-lg-2 col-md-6 col-sm-12 mb-3">
+                                <Controller
+                                    name="publishedAt"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <DateTimePicker
+                                            label="Publié le"
+                                            className="form-control"
+                                            value={field.value}
+                                            onChange={(newValue) => field.onChange(newValue)}
+                                            disabled />
+                                    )}
+                                />
+                            </div>
+                            <div className="col-lg-2 col-md-6 col-sm-12 mb-3">
+                                <Controller
+                                    name="categories"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <FormControl  className="form-control">
+                                            <InputLabel id="categories">Catégories</InputLabel>
+                                            <Select
+                                                labelId="categories"
+                                                multiple
+                                                value={field.value || []}
+                                                onChange={(e) => field.onChange(e.target.value)}
+                                                input={<OutlinedInput label="Categories" />}
+                                            >
+                                                {postCategories.map((cat) => (
+                                                    <MenuItem
+                                                        key={cat.id}
+                                                        value={cat.id}
+                                                    >
+                                                        {cat.title}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    )}
+                                />
+                            </div>
+                        </div>
                     </fieldset>
+                    
                     <fieldset className="row g-3">
-                        <div className="col-lg-1 col-md-2 col-sm-2 mb-3">
-                            <FormControlLabel
-                                control={
-                                    <Controller
-                                        name='isPublish'
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Checkbox
-                                                {...field}
-                                                checked={field.value}
-                                                onChange={(e) => field.onChange(e.target.checked)}
-                                            />
-                                        )}
-                                    />}
-                                label="Publié ?"                           
-                            />
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <Controller
-                                name="publishedAt"
-                                control={control}
-                                render={({ field }) => (
-                                    <DateTimePicker
-                                        label="Publié le"
-                                        value={field.value}
-                                        onChange={(newValue) => field.onChange(newValue)}
-                                        disabled />
-                                )}
-                            />
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <Controller
-                                name="categories"
-                                control={control}
-                                render={({ field }) => (
-                                    <FormControl sx={{ m: 1, width: 300 }}>
-                                        <InputLabel id="demo-multiple-name-label">Categories</InputLabel>
-                                        <Select
-                                            labelId="demo-multiple-name-label"
-                                            multiple
-                                            value={field.value || []}
-                                            onChange={(e) => field.onChange(e.target.value)}
-                                            input={<OutlinedInput label="Categories" />}
-                                        >
-                                            {postCategories.map((cat) => (
-                                                <MenuItem
-                                                    key={cat.id}
-                                                    value={cat.id}
-                                                >
-                                                    {cat.title}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                )}
-                            />
-                        </div>
-                    </fieldset>
-                    <fieldset className="row g-3">
+                        <legend>Contenu de l'article</legend>
                         <div className="col-6 mb-3">
                             <Controller
                                 name="content"
@@ -263,9 +269,9 @@ export default function AdminPost() {
                                     />
                                 )} />
                         </div>
-                        {/* <div className="col-6 mb-3" >
+                        <div className="card col-6 mb-3" >
                             <div dangerouslySetInnerHTML={{ __html: quillRef?.current?.container?.firstChild?.innerHTML ?? 'DEFAULT' }}></div>                            
-                        </div> */}
+                        </div>
                     </fieldset>
                     
                     <button type="submit" className="btn btn-success">

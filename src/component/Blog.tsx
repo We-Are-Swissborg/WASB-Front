@@ -1,6 +1,6 @@
 import { CardPost, PaginatedPostsResponse } from '../types/Post';
 import { getPosts } from '../services/blog.service';
-import useSWR, { Fetcher } from 'swr';
+import useSWR, { Fetcher, mutate } from 'swr';
 import { Link, NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,18 +12,28 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { CardActionArea, Pagination } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import '../css/Blog.css';
 
 const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => getPosts(url);
 
 function Blog() {
     const { t } = useTranslation('global');
-    const { data, error, isLoading } = useSWR<PaginatedPostsResponse>(`/posts?page=${1}&limit=${9}`, fetcher);
+    const [page, setPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
+    const [limit] = useState<number>(9);
+    const { data, error, isLoading } = useSWR<PaginatedPostsResponse>(`/posts?page=${page}&limit=${limit}`, fetcher, {
+        revalidateOnFocus: false,
+    });
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [page, setPage] = useState(1);
     const { roles } = useAuth();
+
+    const optionDate: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+    };
 
     useEffect(() => {
         if (data) {
@@ -34,25 +44,9 @@ function Blog() {
 
     if (error) return <div>{t('blog.loading-error')}</div>;
 
-    const onclick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        const target = e.target as HTMLElement;
-        const arrow = target.dataset.testid;
-        const innerText = target.innerText;
-
-        if (!arrow && !innerText) return;
-
-        const value = innerText ? Number(innerText) : arrow?.includes('Before') ? Number(page) - 1 : Number(page) + 1;
-        getPosts('posts/list/' + value).then((data) => {
-            setDataReverse(data.postListDTO);
-            setPage(value);
-        });
-    };
-
-    const copyToClipboard = (postId: number) => {
-        const url = `${window.location.origin}/post-${postId}`;
-        navigator.clipboard.writeText(url);
-
-        toast.success(t('blog.url-copied'));
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        mutate(`/posts?page=${value}&limit=${limit}`);
     };
 
     return (
@@ -100,14 +94,7 @@ function Blog() {
                             </CardActions>
                         </Card>
                     )}
-                    {dataReverse.map((post: CardPost, id: number) => {
-                        const optionDate: Intl.DateTimeFormatOptions = {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric'
-                        };
+                    {dataReverse.map((post: CardPost, id: number) => {                        
                         const dateLastUpdate = new Date(post.publishedAt).toLocaleDateString(
                             `${t('blog.localCode')}`,
                             optionDate
@@ -119,9 +106,9 @@ function Blog() {
                                     <CardActionArea >
                                         <CardMedia
                                             component="img"
-                                            className="card-media"
-                                            image={'https://placehold.co/907x445.png'}
-                                            title={'post' + id}
+                                            className="card-media object-fit-none"
+                                            image={'https://placehold.co/425x208.png'}
+                                            title={post.title}
                                         />
                                         <CardContent className="pb-2">
                                             <Typography
@@ -133,7 +120,7 @@ function Blog() {
                                                 {post.title}
                                             </Typography>
                                             <Typography variant="body2" className="card-text placeholder-glow">
-                                                {dateLastUpdate}
+                                                <i className="fa fa-calendar-days"></i> {dateLastUpdate}
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
@@ -144,9 +131,11 @@ function Blog() {
                 </section>
                 <Pagination
                     count={totalPages}
+                    page={page}
+                    onChange={handlePageChange}
                     color="primary"
-                    onClick={onclick}
                     className="d-flex justify-content-end m-5 mt-0"
+                    variant="outlined"
                 />
             </div>
         </>
