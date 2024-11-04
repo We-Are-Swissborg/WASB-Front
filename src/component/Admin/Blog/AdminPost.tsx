@@ -305,13 +305,13 @@ export default function AdminPost() {
                                 )}
                             />
                         </div>
-                        <div className="card col-6 mb-3">
+                        {/* <div className="card col-6 mb-3">
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: quillRef?.current?.container?.firstChild?.innerHTML ?? 'DEFAULT',
                                 }}
                             ></div>
-                        </div>
+                        </div> */}
                     </fieldset>
 
                     <button type="submit" className="btn btn-success">

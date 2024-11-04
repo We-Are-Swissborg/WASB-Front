@@ -1,7 +1,7 @@
 import { CardPost, PaginatedPostsResponse } from '../types/Post';
 import { getPosts } from '../services/blog.service';
 import useSWR, { Fetcher, mutate } from 'swr';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +9,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { CardActionArea, Pagination } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
@@ -25,7 +24,6 @@ function Blog() {
         revalidateOnFocus: false,
     });
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
-    const { roles } = useAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -44,7 +42,7 @@ function Blog() {
 
     if (error) return <div>{t('blog.loading-error')}</div>;
 
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
         mutate(`/posts?page=${value}&limit=${limit}`);
     };
