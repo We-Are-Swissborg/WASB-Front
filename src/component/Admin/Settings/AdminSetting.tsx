@@ -87,7 +87,7 @@ export default function AdminSetting() {
                 <fieldset key={1} className="row g-3">
                     <legend>Parameter</legend>
                     <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
-                        <label htmlFor="username" className="form-label">
+                        <label htmlFor="name" className="form-label">
                             Name
                         </label>
                         <input

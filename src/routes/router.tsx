@@ -11,7 +11,8 @@ import OnlyAnonymousRouter from '@/component/Route/OnlyAnonymousRouter';
 import Role from '@/types/Role';
 import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
-import Article from '@/component/Article';
+// import Article from '@/component/Article';
+import Post from '@/component/Post';
 
 const router = {
     path: '/',
@@ -34,8 +35,8 @@ const router = {
                     element: <ProtectedRoute element={<PostForm />} role={Role.Moderator} />,
                 },
                 {
-                    path: ':idPost',
-                    element: <Article />,
+                    path: ':slug',
+                    element: <Post />,
                 },
             ],
         },
