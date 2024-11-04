@@ -1,4 +1,3 @@
-
 import { useAuth } from '@/contexts/AuthContext';
 import * as PostAdminServices from '@/administration/services/postAdmin.service';
 import * as PostCategoryAdminServices from '@/administration/services/postCategoryAdmin.service';
@@ -8,7 +7,16 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
+import {
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    TextField,
+} from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { fr } from 'date-fns/locale/fr';
@@ -33,19 +41,25 @@ export default function AdminPost() {
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
 
-    const initPost = useCallback(async (post: Post) => {
-        setPost(post);
-        setValue('createdAt', new Date(post.createdAt));
-        setValue('updatedAt', new Date(post.updatedAt));
-        setValue('publishedAt', new Date(post.publishedAt ?? 0));
-        setValue("categories", post.categories?.map((cat) => cat.id));
-        setValue("content", post.content);
-        setValue("isPublish", post.isPublish);
-        setValue("id", post.id);
-        setValue("image", post.image);
-    }, [setValue]);
+    const initPost = useCallback(
+        async (post: Post) => {
+            setPost(post);
+            setValue('createdAt', new Date(post.createdAt));
+            setValue('updatedAt', new Date(post.updatedAt));
+            setValue('publishedAt', new Date(post.publishedAt ?? 0));
+            setValue(
+                'categories',
+                post.categories?.map((cat) => cat.id),
+            );
+            setValue('content', post.content);
+            setValue('isPublish', post.isPublish);
+            setValue('id', post.id);
+            setValue('image', post.image);
+        },
+        [setValue],
+    );
 
-    const getPostCategories = useCallback(async() => {
+    const getPostCategories = useCallback(async () => {
         if (postCategories.length === 0) {
             try {
                 const categories = await PostCategoryAdminServices.getPostCategories(token!);
@@ -57,7 +71,7 @@ export default function AdminPost() {
         }
     }, [token, postCategories]);
 
-    const getPost = useCallback(async() => {
+    const getPost = useCallback(async () => {
         if (id && !post) {
             try {
                 const p: Post = await PostAdminServices.getPost(Number(id), token!);
@@ -69,7 +83,7 @@ export default function AdminPost() {
         }
     }, [id, token, initPost]);
 
-    const initForm = useCallback(async () => {        
+    const initForm = useCallback(async () => {
         try {
             await getPostCategories();
             await getPost();
@@ -94,7 +108,7 @@ export default function AdminPost() {
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    const updatedPost =await PostAdminServices.update(data.id, token!, sendData);
+                    const updatedPost = await PostAdminServices.update(data.id, token!, sendData);
                     initPost(updatedPost);
                     toast.success(t('post.update'));
                 } else {
@@ -103,7 +117,7 @@ export default function AdminPost() {
                     await PostAdminServices.create(token!, sendData);
                     toast.success(t('post.create'));
                 }
-            } catch(e) {
+            } catch (e) {
                 toast.error(t('register.error'));
                 console.error(e);
             }
@@ -164,41 +178,46 @@ export default function AdminPost() {
                             {errors?.title && <div className="text-danger">{errors.title.message}</div>}
                         </div>
                         {!!post?.createdAt && (
-                            <><div className="col-lg-2 col-md-4 col-sm-12">
-                                <Controller
-                                    name="createdAt"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <DateTimePicker
-                                            label="Créer le"
-                                            className="form-control"
-                                            value={field?.value}
-                                            onChange={(newValue) => field.onChange(newValue)}
-                                            disabled />
-                                    )} />
-                            </div>
-                            <div className="col-lg-2 col-md-4 col-sm-12">
-                                <Controller
-                                    name="updatedAt"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <DateTimePicker
-                                            label="Mise à jour le"
-                                            className="form-control"
-                                            value={field?.value}
-                                            onChange={(newValue) => field.onChange(newValue)}
-                                            disabled={true} />
-                                    )} />
-                            </div>
+                            <>
+                                <div className="col-lg-2 col-md-4 col-sm-12">
+                                    <Controller
+                                        name="createdAt"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DateTimePicker
+                                                label="Créer le"
+                                                className="form-control"
+                                                value={field?.value}
+                                                onChange={(newValue) => field.onChange(newValue)}
+                                                disabled
+                                            />
+                                        )}
+                                    />
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-sm-12">
+                                    <Controller
+                                        name="updatedAt"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DateTimePicker
+                                                label="Mise à jour le"
+                                                className="form-control"
+                                                value={field?.value}
+                                                onChange={(newValue) => field.onChange(newValue)}
+                                                disabled={true}
+                                            />
+                                        )}
+                                    />
+                                </div>
                             </>
                         )}
                         <div className="row g-3">
                             <div className="col-lg-2 col-md-2 col-sm-2 mb-3">
-                                <FormControlLabel                                
+                                <FormControlLabel
                                     className="form-check"
                                     control={
                                         <Controller
-                                            name='isPublish'
+                                            name="isPublish"
                                             control={control}
                                             render={({ field }) => (
                                                 <Checkbox
@@ -207,7 +226,8 @@ export default function AdminPost() {
                                                     onChange={(e) => field.onChange(e.target.checked)}
                                                 />
                                             )}
-                                        />}
+                                        />
+                                    }
                                     label="Publié ?"
                                 />
                             </div>
@@ -221,7 +241,8 @@ export default function AdminPost() {
                                             className="form-control"
                                             value={field.value}
                                             onChange={(newValue) => field.onChange(newValue)}
-                                            disabled />
+                                            disabled
+                                        />
                                     )}
                                 />
                             </div>
@@ -230,7 +251,7 @@ export default function AdminPost() {
                                     name="categories"
                                     control={control}
                                     render={({ field }) => (
-                                        <FormControl  className="form-control">
+                                        <FormControl className="form-control">
                                             <InputLabel id="categories">Catégories</InputLabel>
                                             <Select
                                                 labelId="categories"
@@ -240,10 +261,7 @@ export default function AdminPost() {
                                                 input={<OutlinedInput label="Categories" />}
                                             >
                                                 {postCategories.map((cat) => (
-                                                    <MenuItem
-                                                        key={cat.id}
-                                                        value={cat.id}
-                                                    >
+                                                    <MenuItem key={cat.id} value={cat.id}>
                                                         {cat.title}
                                                     </MenuItem>
                                                 ))}
@@ -254,7 +272,10 @@ export default function AdminPost() {
                             </div>
                         </div>
                         <UploadImage onUpload={handleImageUpload} />
-                        <label>Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne sera pas pris en considération</label>
+                        <label>
+                            Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne sera
+                            pas pris en considération
+                        </label>
                         {post?.image64 && (
                             <img src={post.image64} alt="Uploaded" style={{ width: '856px', height: '419px' }} />
                         )}
@@ -277,24 +298,29 @@ export default function AdminPost() {
                                             let innerHTML = '';
                                             if (childNode instanceof HTMLElement) innerHTML = childNode?.innerHTML;
                                             if (!textContent) innerHTML = '';
-                            
+
                                             field.onChange(innerHTML);
                                         }}
                                     />
-                                )} />
+                                )}
+                            />
                         </div>
-                        <div className="card col-6 mb-3" >
-                            <div dangerouslySetInnerHTML={{ __html: quillRef?.current?.container?.firstChild?.innerHTML ?? 'DEFAULT' }}></div>                            
+                        <div className="card col-6 mb-3">
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: quillRef?.current?.container?.firstChild?.innerHTML ?? 'DEFAULT',
+                                }}
+                            ></div>
                         </div>
                     </fieldset>
-                    
+
                     <button type="submit" className="btn btn-success">
                         {isSubmitting && (
                             <div className="spinner-border spinner-border-sm mx-2" role="status">
                                 <span className="visually-hidden">Loading...</span>
                             </div>
                         )}
-                    Submit
+                        Submit
                     </button>
                     {!!post?.id && (
                         <button type="button" className="btn btn-danger" onClick={onDeleteAction}>
@@ -303,7 +329,7 @@ export default function AdminPost() {
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
                             )}
-                        Delete
+                            Delete
                         </button>
                     )}
                 </form>

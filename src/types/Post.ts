@@ -1,14 +1,13 @@
-
 import { PostCategory } from './PostCategory';
 import { User } from './User';
 
 export type PaginatedPostsResponse = {
-    posts: CardPost[];             
-    currentPage: number;      
-    totalPages: number;        
-    totalPosts: number;         
-    limit: number;              
-}
+    posts: CardPost[];
+    currentPage: number;
+    totalPages: number;
+    totalPosts: number;
+    limit: number;
+};
 
 export type CardPost = {
     id: number;

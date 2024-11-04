@@ -1,12 +1,20 @@
-import { getAllPosts } from "@/administration/services/postAdmin.service";
-import RowActions from "@/component/Table/RowActions";
-import TableReact from "@/component/Table/TableReact";
-import { useAuth } from "@/contexts/AuthContext";
-import { Post } from "@/types/Post";
-import { useReactTable } from "@tanstack/react-table";
-import { ColumnDef, ColumnFiltersState, createColumnHelper, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel } from "@tanstack/table-core";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { getAllPosts } from '@/administration/services/postAdmin.service';
+import RowActions from '@/component/Table/RowActions';
+import TableReact from '@/component/Table/TableReact';
+import { useAuth } from '@/contexts/AuthContext';
+import { Post } from '@/types/Post';
+import { useReactTable } from '@tanstack/react-table';
+import {
+    ColumnDef,
+    ColumnFiltersState,
+    createColumnHelper,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+} from '@tanstack/table-core';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function AdminPosts() {
     const { token } = useAuth();
@@ -29,7 +37,7 @@ export default function AdminPosts() {
         id: 'actions',
         cell: (props) => <RowActions row={props.row} />,
     });
-    
+
     const columns = useMemo<ColumnDef<Post>[]>(
         () => [
             {
@@ -54,9 +62,9 @@ export default function AdminPosts() {
             },
             {
                 accessorKey: 'publishedAt',
-                cell:  (info) => {
+                cell: (info) => {
                     const dateValue = info.getValue() as string | null;
-    
+
                     if (dateValue) {
                         const date = new Date(dateValue);
                         if (!isNaN(date.getTime())) {

@@ -1,9 +1,9 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { useState } from 'react';
 import * as UploadService from '@/services/upload.services';
-import { useAuth } from "@/contexts/AuthContext";
-import { UploadFile } from "@/types/UploadFile";
-import { toast } from "react-toastify";
+import { useAuth } from '@/contexts/AuthContext';
+import { UploadFile } from '@/types/UploadFile';
+import { toast } from 'react-toastify';
 
 export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadFile) => void }) {
     const [image, setImage] = useState<File | null>(null);
@@ -52,7 +52,7 @@ export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadF
                 />
                 <label htmlFor="upload-input">
                     <Button variant="outlined" component="span" color="primary">
-                    Choisir une image
+                        Choisir une image
                     </Button>
                 </label>
                 {previewURL && (
@@ -62,20 +62,10 @@ export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadF
                     </Box>
                 )}
                 <Box mt={2}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={uploadImage}
-                        disabled={!image || uploading}
-                    >
+                    <Button variant="contained" color="primary" onClick={uploadImage} disabled={!image || uploading}>
                         {uploading ? <CircularProgress size={24} /> : 'Upload Image'}
                     </Button>
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={removeImage}
-                        disabled={!image || uploading}
-                    >
+                    <Button variant="contained" color="error" onClick={removeImage} disabled={!image || uploading}>
                         {uploading ? <CircularProgress size={24} /> : 'Delete Image'}
                     </Button>
                 </Box>

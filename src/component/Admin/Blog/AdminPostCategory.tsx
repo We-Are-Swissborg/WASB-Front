@@ -1,16 +1,20 @@
-import { createPostCategory, deletePostCategory, getPostCategory, updatePostCategory } from "@/administration/services/postCategoryAdmin.service";
-import { useAuth } from "@/contexts/AuthContext";
-import { PostCategory } from "@/types/PostCategory";
-import { t } from "i18next";
-import { useState, useCallback, useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import {
+    createPostCategory,
+    deletePostCategory,
+    getPostCategory,
+    updatePostCategory,
+} from '@/administration/services/postCategoryAdmin.service';
+import { useAuth } from '@/contexts/AuthContext';
+import { PostCategory } from '@/types/PostCategory';
+import { t } from 'i18next';
+import { useState, useCallback, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { fr } from 'date-fns/locale/fr';
-import { TextField } from "@mui/material";
-
+import { TextField } from '@mui/material';
 
 export default function AdminPostCategory() {
     const navigate = useNavigate();
@@ -20,7 +24,7 @@ export default function AdminPostCategory() {
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const { register, handleSubmit, formState, control, setValue } = useForm<PostCategory>({
         mode: 'onTouched',
-        values: postCategory
+        values: postCategory,
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
 
@@ -29,8 +33,8 @@ export default function AdminPostCategory() {
             try {
                 const u = await getPostCategory(Number(id), token!);
                 setPostCategory(u);
-                setValue("createdAt", new Date(u.createdAt));
-                setValue("updatedAt", new Date(u.updatedAt));
+                setValue('createdAt', new Date(u.createdAt));
+                setValue('updatedAt', new Date(u.updatedAt));
             } catch (e) {
                 toast.error(`Erreur lors du chargement de la catégorie`);
                 console.log('ERROR: init PostCategory', e);
@@ -110,7 +114,7 @@ export default function AdminPostCategory() {
                                 required
                             />
                             {errors?.title && <div className="text-danger">{errors.title.message}</div>}
-                        </div>                       
+                        </div>
                         <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
                             <Controller
                                 name="createdAt"
@@ -118,7 +122,7 @@ export default function AdminPostCategory() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Créer le"
-                                        value={field?.value} 
+                                        value={field?.value}
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled
                                     />
@@ -132,7 +136,7 @@ export default function AdminPostCategory() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Mise à jour le"
-                                        value={field?.value} 
+                                        value={field?.value}
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled
                                     />

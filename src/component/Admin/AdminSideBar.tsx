@@ -42,7 +42,7 @@ export default function AdminSideBar() {
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/users">
                                 <i className="fa-duotone fa-solid fa-users"></i> Users
                             </NavLink>
-                        </li>                        
+                        </li>
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/settings">
                                 <i className="fa-duotone fa-solid fa-gear"></i> Settings

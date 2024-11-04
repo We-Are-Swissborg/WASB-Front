@@ -3,8 +3,8 @@ import * as BaseApi from './baseAPI.service';
 
 /**
  * Get all Posts
- * @param token 
- * @returns 
+ * @param token
+ * @returns
  */
 const getAllPosts = async (token: string) => {
     const url: string = 'posts';
@@ -19,9 +19,9 @@ const getAllPosts = async (token: string) => {
 };
 
 /**
- * 
- * @param token 
- * @returns 
+ *
+ * @param token
+ * @returns
  */
 const getPost = async (id: number, token: string): Promise<Post> => {
     const url: string = `posts/${id}`;
@@ -59,7 +59,7 @@ const create = async (token: string, data: Post) => {
  * @returns
  */
 const update = async (id: number, token: string, data: Post) => {
-    const url: string =  `posts/${id}`;
+    const url: string = `posts/${id}`;
 
     const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
     const json = await response.json();

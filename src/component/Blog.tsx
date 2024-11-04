@@ -32,7 +32,7 @@ function Blog() {
         month: 'long',
         day: 'numeric',
         hour: 'numeric',
-        minute: 'numeric'
+        minute: 'numeric',
     };
 
     useEffect(() => {
@@ -94,16 +94,16 @@ function Blog() {
                             </CardActions>
                         </Card>
                     )}
-                    {dataReverse.map((post: CardPost, id: number) => {                        
+                    {dataReverse.map((post: CardPost, id: number) => {
                         const dateLastUpdate = new Date(post.publishedAt).toLocaleDateString(
                             `${t('blog.localCode')}`,
-                            optionDate
+                            optionDate,
                         );
 
                         return (
                             <Card key={'post' + id} className="card card-blog mb-5" aria-hidden="true">
                                 <Link to={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <CardActionArea >
+                                    <CardActionArea>
                                         <CardMedia
                                             component="img"
                                             className="card-media object-fill-none"
@@ -123,7 +123,9 @@ function Blog() {
                                             </Typography>
                                             <div className="mb-2">
                                                 {post.categories.map((category) => (
-                                                    <span key={category.id} className="badge bg-secondary me-1">{category.title}</span>
+                                                    <span key={category.id} className="badge bg-secondary me-1">
+                                                        {category.title}
+                                                    </span>
                                                 ))}
                                             </div>
                                             <Typography variant="body2" className="card-text placeholder-glow">

@@ -1,12 +1,20 @@
-import { getPostCategories } from "@/administration/services/postCategoryAdmin.service";
-import RowActions from "@/component/Table/RowActions";
-import TableReact from "@/component/Table/TableReact";
-import { useAuth } from "@/contexts/AuthContext";
-import { PostCategory } from "@/types/PostCategory";
-import { useReactTable } from "@tanstack/react-table";
-import { ColumnDef, ColumnFiltersState, createColumnHelper, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel } from "@tanstack/table-core";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { getPostCategories } from '@/administration/services/postCategoryAdmin.service';
+import RowActions from '@/component/Table/RowActions';
+import TableReact from '@/component/Table/TableReact';
+import { useAuth } from '@/contexts/AuthContext';
+import { PostCategory } from '@/types/PostCategory';
+import { useReactTable } from '@tanstack/react-table';
+import {
+    ColumnDef,
+    ColumnFiltersState,
+    createColumnHelper,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+} from '@tanstack/table-core';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function AdminPostCategories() {
     const { token } = useAuth();
@@ -29,7 +37,7 @@ export default function AdminPostCategories() {
         id: 'actions',
         cell: (props) => <RowActions row={props.row} />,
     });
-    
+
     const columns = useMemo<ColumnDef<PostCategory, unknown>[]>(
         () => [
             {
