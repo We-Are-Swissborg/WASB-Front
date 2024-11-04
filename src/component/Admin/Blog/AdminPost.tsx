@@ -16,6 +16,8 @@ import Quill from 'quill';
 import Editor from '@/hook/Editor';
 import { PostCategory } from '@/types/PostCategory';
 import { tokenDecoded } from '@/services/token.services';
+import UploadImage from '@/component/Form/UploadImage';
+import { UploadFile } from '@/types/UploadFile';
 
 export default function AdminPost() {
     const navigate = useNavigate();
@@ -36,10 +38,11 @@ export default function AdminPost() {
         setValue('createdAt', new Date(post.createdAt));
         setValue('updatedAt', new Date(post.updatedAt));
         setValue('publishedAt', new Date(post.publishedAt ?? 0));
-        setValue("categories", post.categories.map((cat) => cat.id));
+        setValue("categories", post.categories?.map((cat) => cat.id));
         setValue("content", post.content);
         setValue("isPublish", post.isPublish);
         setValue("id", post.id);
+        setValue("image", post.image);
     }, [setValue]);
 
     const getPostCategories = useCallback(async() => {
@@ -122,8 +125,14 @@ export default function AdminPost() {
         }
     };
 
+    const handleImageUpload = async (data: UploadFile) => {
+        setValue('image', data.filePath);
+        post!.image64 = data.base64;
+        setPost(post);
+    };
+
     if (!isInitializing) {
-        return <div>Loading</div>;
+        return <div>{t('common.loading')}</div>;
     }
 
     return (
@@ -244,8 +253,13 @@ export default function AdminPost() {
                                 />
                             </div>
                         </div>
+                        <UploadImage onUpload={handleImageUpload} />
+                        <label>Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne sera pas pris en considération</label>
+                        {post?.image64 && (
+                            <img src={post.image64} alt="Uploaded" style={{ width: '856px', height: '419px' }} />
+                        )}
                     </fieldset>
-                    
+
                     <fieldset className="row g-3">
                         <legend>Contenu de l'article</legend>
                         <div className="col-6 mb-3">

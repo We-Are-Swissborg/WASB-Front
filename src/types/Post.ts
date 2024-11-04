@@ -14,7 +14,7 @@ export type CardPost = {
     id: number;
     title: string;
     slug: string;
-    image: Blob;
+    image64: string;
     infoAuthor: User;
     publishedAt: Date;
     categories: PostCategory[];
@@ -25,6 +25,7 @@ export type Post = {
     id: number;
     title: string;
     image: string;
+    image64: string;
     content: string;
     infoAuthor: User;
     updatedAt: Date;

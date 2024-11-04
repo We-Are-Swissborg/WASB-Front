@@ -54,11 +54,11 @@ function Blog() {
             <div className="container">
                 <div className="d-flex align-items-center justify-content-between">
                     <h1 className="title mt-4">{t('blog.title')}</h1>
-                    {roles?.includes('moderator') && (
+                    {/* {roles?.includes('moderator') && (
                         <NavLink to="create-post" className="btn btn-form align-self-end py-2 px-3">
                             {t('blog.create-post')}
                         </NavLink>
-                    )}
+                    )} */}
                 </div>
                 <section className="row row-cols-1 row-cols-md-3 g-2 mb-0 mt-3 justify-content-center">
                     {isLoading && (
@@ -106,8 +106,10 @@ function Blog() {
                                     <CardActionArea >
                                         <CardMedia
                                             component="img"
-                                            className="card-media object-fit-none"
-                                            image={'https://placehold.co/425x208.png'}
+                                            className="card-media object-fill-none"
+                                            width={425}
+                                            height={208}
+                                            image={post.image64}
                                             title={post.title}
                                         />
                                         <CardContent className="pb-2">
@@ -119,6 +121,11 @@ function Blog() {
                                             >
                                                 {post.title}
                                             </Typography>
+                                            <div className="mb-2">
+                                                {post.categories.map((category) => (
+                                                    <span key={category.id} className="badge bg-secondary me-1">{category.title}</span>
+                                                ))}
+                                            </div>
                                             <Typography variant="body2" className="card-text placeholder-glow">
                                                 <i className="fa fa-calendar-days"></i> {dateLastUpdate}
                                             </Typography>

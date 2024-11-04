@@ -54,8 +54,10 @@ export default function Post() {
 
                             <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center mb-5">
                                 <img
-                                    src={'https://placehold.co/856x419.png'}
-                                    className="w-100 h-100 object-fit-cover shadow"
+                                    src={post.image64}
+                                    width={856}
+                                    height={419}
+                                    className="object-fit-cover shadow"
                                     alt="main image"
                                 />
                             </div>
@@ -63,7 +65,6 @@ export default function Post() {
                             <section className="post-content">
                                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
                             </section>
-
 
                             <aside className="author-info">
                                 <h3>{t('blog.about-author')}</h3>
