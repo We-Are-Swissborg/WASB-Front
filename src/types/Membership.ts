@@ -1,6 +1,17 @@
+import { Contribution } from "./contribution";
+
+export type AddContribution = {
+    contributionId: number;
+}
+
 export type Membership = {
-    contributionStatus: 'no adherent' | 'in progress' | 'adherent' | 'not accepted';
-    dateContribution?: Date;
+    id: number;
+    contributionStatus: 'in progress' | 'accepted' | 'not accepted';
+    dateContribution: Date;
     endDateContribution?: Date;
-    contribution?: string;
+    contributionId: number;
+    contribution: Contribution;
+    note: string;
+    createdAt: Date;
+    updatedAt: Date;
 };
