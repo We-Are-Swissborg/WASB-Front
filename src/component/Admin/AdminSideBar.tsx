@@ -29,6 +29,16 @@ export default function AdminSideBar() {
                             </NavLink>
                         </li>
                         <li className="nav-item">
+                            <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/category">
+                                <i className="fa-solid fa-list"></i> Categories
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/posts">
+                                <i className="fa-solid fa-blog"></i> Posts
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/users">
                                 <i className="fa-duotone fa-solid fa-users"></i> Users
                             </NavLink>
