@@ -50,12 +50,11 @@ export default function AdminSetting() {
                 if (data.id) {
                     await updateParameter(data.id, token!, data);
                     toast.success(t('register.update'));
-                    navigate('/admin/settings');
                 } else {
                     await createParameter(token!, data);
                     toast.success(t('register.create'));
-                    navigate('/admin/settings');
                 }
+                navigate('/admin/settings');
             } catch {
                 toast.error(t('register.error'));
             }

@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { User } from '../types/User';
 import { getUserWithAllInfo } from '../services/user.service';
 import { tokenDecoded } from '../services/token.services';
-import MembershipForm from './Membership/MembershipForm';
 import SocialMediasForm from './Form/SocialMediasForm';
 import '../css/Profile.css';
 import QRCode from 'react-qr-code';
@@ -35,7 +34,7 @@ export default function Profile() {
     }, [token]);
 
     useEffect(() => {
-        if(!user) {
+        if (!user) {
             initUser();
         }
     }, [initUser]);
@@ -115,7 +114,7 @@ export default function Profile() {
                         <div>
                             <h2 className="fw-normal">{t('profile.manage-membership.title')}</h2>
                         </div>
-                        <MembershipView />                        
+                        <MembershipView />
                     </div>
                 )}
                 {profileCategory === 3 && (

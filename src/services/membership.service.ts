@@ -1,4 +1,4 @@
-import { AddContribution, Membership } from "@/types/Membership";
+import { AddContribution, Membership } from '@/types/Membership';
 import * as BaseApi from './baseAPI.services';
 
 const addContribution = async (contribution: AddContribution, token: string): Promise<Membership> => {

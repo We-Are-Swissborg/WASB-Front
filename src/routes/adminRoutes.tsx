@@ -10,6 +10,9 @@ import AdminPostCategory from '@/component/Admin/Blog/AdminPostCategory';
 import AdminPostCategories from '@/component/Admin/Blog/AdminPostCategories';
 import AdminPost from '@/component/Admin/Blog/AdminPost';
 import AdminPosts from '@/component/Admin/Blog/AdminPosts';
+import AdminContributions from '@/component/Admin/Membership/AdminContributions';
+import AdminMemberships from '@/component/Admin/Membership/AdminMemberships';
+import AdminContribution from '@/component/Admin/Membership/AdminContribution';
 
 const adminRoutes = {
     path: 'admin',
@@ -17,12 +20,44 @@ const adminRoutes = {
     children: [
         { index: true, element: <Dashboard /> },
         {
-            path: 'users',
-            element: <AdminUsers />,
+            path: 'category',
+            element: <AdminPostCategories />,
         },
         {
-            path: 'users/:id/edit',
-            element: <AdminUserEdit />,
+            path: 'category/add',
+            element: <AdminPostCategory />,
+        },
+        {
+            path: 'category/:id/edit',
+            element: <AdminPostCategory />,
+        },
+        {
+            path: 'contributions',
+            element: <AdminContributions />,
+        },
+        {
+            path: 'contributions/add',
+            element: <AdminContribution />,
+        },
+        {
+            path: 'contributions/:id/edit',
+            element: <AdminContribution />,
+        },
+        {
+            path: 'memberships',
+            element: <AdminMemberships />,
+        },
+        {
+            path: 'posts',
+            element: <AdminPosts />,
+        },
+        {
+            path: 'posts/add',
+            element: <AdminPost />,
+        },
+        {
+            path: 'posts/:id/edit',
+            element: <AdminPost />,
         },
         {
             path: 'settings',
@@ -37,28 +72,12 @@ const adminRoutes = {
             element: <AdminSetting />,
         },
         {
-            path: 'category',
-            element: <AdminPostCategories />,
+            path: 'users',
+            element: <AdminUsers />,
         },
         {
-            path: 'category/add',
-            element: <AdminPostCategory />,
-        },
-        {
-            path: 'category/:id/edit',
-            element: <AdminPostCategory />,
-        },
-        {
-            path: 'posts',
-            element: <AdminPosts />,
-        },
-        {
-            path: 'posts/add',
-            element: <AdminPost />,
-        },
-        {
-            path: 'posts/:id/edit',
-            element: <AdminPost />,
+            path: 'users/:id/edit',
+            element: <AdminUserEdit />,
         },
     ],
 };

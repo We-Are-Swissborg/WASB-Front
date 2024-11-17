@@ -1,8 +1,8 @@
-import { Contribution } from "./contribution";
+import { Contribution } from './contribution';
 
 export type AddContribution = {
     contributionId: number;
-}
+};
 
 export type Membership = {
     id: number;

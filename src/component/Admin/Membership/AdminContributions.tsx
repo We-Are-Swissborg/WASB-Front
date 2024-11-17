@@ -1,9 +1,8 @@
-import { getParameters } from '@/administration/services/parameterAdmin.service';
+import * as ContributionService from '@/administration/services/contributionsAdmin.service';
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
 import { useAuth } from '@/contexts/AuthContext';
-import { Parameter } from '@/types/Parameter';
-import { useReactTable } from '@tanstack/react-table';
+import { Contribution } from '@/types/contribution';
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -12,34 +11,34 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-} from '@tanstack/table-core';
+    useReactTable,
+} from '@tanstack/react-table';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function AdminSettings() {
+export default function AdminContributions() {
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [data, setData] = useState<Parameter[]>(() => []);
+    const [data, setData] = useState<Contribution[]>(() => []);
 
-    const initParameters = useCallback(async () => {
+    const initContributions = useCallback(async () => {
         if (token) {
-            const parameters = await getParameters(token);
-            setData(parameters);
+            const contributions = await ContributionService.getContributions(token);
+            setData(contributions);
         }
     }, [token]);
 
     useEffect(() => {
-        initParameters();
-    }, [initParameters]);
+        initContributions();
+    }, [initContributions]);
 
-    const columnHelper = createColumnHelper<Parameter>();
+    const columnHelper = createColumnHelper<Contribution>();
     const columnsHelper = columnHelper.display({
         id: 'actions',
         cell: (props) => <RowActions row={props.row} />,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const columns = useMemo<ColumnDef<Parameter, any>[]>(
+    const columns = useMemo<ColumnDef<Contribution, unknown>[]>(
         () => [
             {
                 accessorKey: 'id',
@@ -47,14 +46,24 @@ export default function AdminSettings() {
                 header: () => <span>ID</span>,
             },
             {
-                accessorKey: 'name',
+                accessorKey: 'title',
                 cell: (info) => info.getValue(),
-                header: () => <span>Name</span>,
+                header: () => <span>Title</span>,
             },
             {
-                accessorKey: 'value',
+                accessorKey: 'amount',
                 cell: (info) => info.getValue(),
-                header: () => <span>Value</span>,
+                header: () => <span>Amount</span>,
+            },
+            {
+                accessorKey: 'duration',
+                cell: (info) => info.getValue(),
+                header: () => <span>Duration (mois)</span>,
+            },
+            {
+                accessorKey: 'isActive',
+                cell: (info) => (info.getValue() ? 'Oui' : 'Non'),
+                header: () => <span>Is Active</span>,
             },
             columnsHelper,
         ],
@@ -78,7 +87,7 @@ export default function AdminSettings() {
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Paramètres</h1>
+                <h1 className="h2">Contributions</h1>
                 <NavLink className={`btn btn-sm btn-primary`} to={`add`}>
                     <i className="fa fa-circle-plus"></i>
                 </NavLink>

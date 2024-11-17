@@ -1,12 +1,12 @@
-import { Membership } from "@/types/Membership";
-import { useTranslation } from "react-i18next";
-import { MembershipForm } from "./MembershipForm";
-import { useEffect, useState } from "react";
+import { Membership } from '@/types/Membership';
+import { useTranslation } from 'react-i18next';
+import { MembershipForm } from './MembershipForm';
+import { useEffect, useState } from 'react';
 import { differenceInDays, isBefore, format } from 'date-fns';
-import useSWR, { Fetcher } from "swr";
-import { getMemberships } from "@/services/membership.service";
-import { useAuth } from "@/contexts/AuthContext";
-import { fr } from 'date-fns/locale'
+import useSWR, { Fetcher } from 'swr';
+import { getMemberships } from '@/services/membership.service';
+import { useAuth } from '@/contexts/AuthContext';
+import { fr } from 'date-fns/locale';
 
 const fetcher: Fetcher<Membership[]> = (token: string) => getMemberships(token);
 
@@ -17,7 +17,7 @@ export const MembershipView = () => {
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
 
-    const { data, error, isLoading } = useSWR<Membership[]>(token, fetcher);
+    const { data, error } = useSWR<Membership[]>(token, fetcher);
 
     const updateCountdown = () => {
         console.log('updateCountdown', membership);
@@ -38,7 +38,7 @@ export const MembershipView = () => {
     };
 
     useEffect(() => {
-        if(data) {
+        if (data) {
             console.log('setMembership data', data.length);
             setMembership(data[0]);
             setOldMemberships(data);
@@ -48,32 +48,44 @@ export const MembershipView = () => {
 
     const handleUpdate = (newAffiliation: Membership) => {
         console.log('handleUpdate membership', newAffiliation);
-        setMembership(newAffiliation);  
+        setMembership(newAffiliation);
     };
 
     if (error) return <div>{t('blog.loading-error')}</div>;
 
-    const badgeColor = membership?.contributionStatus === 'accepted' ? 'bg-success' : membership?.contributionStatus === 'in progress' ? 'bg-warning' : 'bg-danger';
+    const badgeColor =
+        membership?.contributionStatus === 'accepted'
+            ? 'bg-success'
+            : membership?.contributionStatus === 'in progress'
+                ? 'bg-warning'
+                : 'bg-danger';
 
     return (
         <>
-            {daysRemaining && daysRemaining < 15 && <span className='badge bg-danger me-1'>Ton adhésion se termine dans {daysRemaining} jours</span>}
-            {membership && 
+            {daysRemaining && daysRemaining < 15 && (
+                <span className="badge bg-danger me-1">Ton adhésion se termine dans {daysRemaining} jours</span>
+            )}
+            {membership && (
                 <div className="card shadow mb-4">
-                    <div className={`card-header d-flex justify-content-between align-items-center ${badgeColor} text-white`}>
+                    <div
+                        className={`card-header d-flex justify-content-between align-items-center ${badgeColor} text-white`}
+                    >
                         <h5 className="mb-0">Adhésion</h5>
                         <span className="badge">{membership.contributionStatus.toUpperCase()}</span>
                     </div>
                     <div className="card-body">
-                        <h6 className="card-title">Statut : <span className={`badge ${badgeColor}`}>{membership.contributionStatus}</span></h6>
+                        <h6 className="card-title">
+                            Statut : <span className={`badge ${badgeColor}`}>{membership.contributionStatus}</span>
+                        </h6>
                         <p className="card-text">
                             <strong>Montant :</strong> CHF
                         </p>
                         <p className="card-text">
-                            <strong>Date de la demande :</strong> {format(membership.createdAt, 'dd MMMM yyyy', { locale: fr })}
+                            <strong>Date de la demande :</strong>{' '}
+                            {format(membership.createdAt, 'dd MMMM yyyy', { locale: fr })}
                         </p>
                         <p className="card-text">
-                            <strong>Date de fin :</strong> 
+                            <strong>Date de fin :</strong>
                         </p>
                     </div>
                     <div className="card-footer text-center">
@@ -84,23 +96,26 @@ export const MembershipView = () => {
                         )}
                     </div>
                 </div>
-            }
-            {oldMemberships && oldMemberships.length > 1 &&
+            )}
+            {oldMemberships && oldMemberships.length > 1 && (
                 <>
                     <div>La liste de tes adhésions</div>
                 </>
-            }
-            {!membership &&
+            )}
+            {!membership && (
                 <>
-                    <div className='card'>
+                    <div className="card">
                         <div className="card-body">
                             Vous n'êtes pas encore affilié à notre association
-                            <p>Pour nous rejoindre, veuillez compléter le formulaire et faire vos envoi via l'application <u>Swissborg</u> en <strong>vCHF</strong></p>
+                            <p>
+                                Pour nous rejoindre, veuillez compléter le formulaire et faire vos envoi via
+                                l'application <u>Swissborg</u> en <strong>vCHF</strong>
+                            </p>
                         </div>
                     </div>
                     <MembershipForm onUpdate={handleUpdate} />
                 </>
-            }          
+            )}
         </>
     );
 };

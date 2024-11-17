@@ -15,7 +15,7 @@ export type CardPost = {
     slug: string;
     image64: string;
     infoAuthor: User;
-    publishedAt: Date;
+    publishedAt?: Date;
     categories: PostCategory[];
 };
 
@@ -27,10 +27,10 @@ export type Post = {
     image64: string;
     content: string;
     infoAuthor: User;
-    updatedAt: Date;
     createdAt: Date;
+    updatedAt?: Date;
     isPublish: boolean;
-    publishedAt: Date;
+    publishedAt?: Date;
     slug: string;
     categories: PostCategory[];
 };

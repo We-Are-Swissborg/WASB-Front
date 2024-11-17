@@ -13,18 +13,15 @@ type MembershipFormType = {
     onUpdate: (membership: Membership) => void;
 };
 
-export const MembershipForm = ({onUpdate}: MembershipFormType) => {
+export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const { t } = useTranslation('global');
     const { token } = useAuth();
-    const {
-        control,
-        handleSubmit,
-    } = useForm<AddContribution>();
+    const { control, handleSubmit } = useForm<AddContribution>();
     const [contributionOptions, setContributionOptions] = useState<OptionsSelect[]>();
 
-    const initContributions  = useCallback(async () => {
+    const initContributions = useCallback(async () => {
         const c = await ContributionService.getContributions(token!);
-        setContributionOptions(c.map((cont) => ({ value: cont.id.toString(), name: cont.title})));
+        setContributionOptions(c.map((cont) => ({ value: cont.id.toString(), name: cont.title })));
     }, []);
 
     useEffect(() => {
@@ -33,7 +30,7 @@ export const MembershipForm = ({onUpdate}: MembershipFormType) => {
 
     const onSubmit = handleSubmit(async (sendData: AddContribution) => {
         try {
-            const membership = await MemberShipService.addContribution(sendData, token!);            
+            const membership = await MemberShipService.addContribution(sendData, token!);
             onUpdate(membership);
         } catch (e) {
             toast.error(`Erreur lors de la demande d'adhésion.`);
@@ -44,20 +41,22 @@ export const MembershipForm = ({onUpdate}: MembershipFormType) => {
     return (
         <>
             <form className="form all-form-profile" onSubmit={onSubmit}>
-                {contributionOptions && <>
-                    <Controller
-                        name="contributionId"
-                        control={control}
-                        render={({ field }) => (                            
-                            <Select
-                                {...field}
-                                options={contributionOptions}
-                                isOptionNone={false}
-                                label={t(`profile.manage-membership.${field.name}`)}
-                            />                        
-                        )}
-                    />
-                </>}
+                {contributionOptions && (
+                    <>
+                        <Controller
+                            name="contributionId"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    {...field}
+                                    options={contributionOptions}
+                                    isOptionNone={false}
+                                    label={t(`profile.manage-membership.${field.name}`)}
+                                />
+                            )}
+                        />
+                    </>
+                )}
                 <button className="btn btn-form padding-button mt-3" type="submit">
                     {t('profile.update')}
                 </button>

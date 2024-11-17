@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function AdminSideBar() {
     return (
-        <div className="sidebar border border-right col-md-3 col-lg-2 col-xxl-1 p-0 bg-body-tertiary">
+        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
             <nav
                 className="offcanvas-md offcanvas-end bg-body-tertiary"
                 tabIndex={-1}
@@ -41,6 +41,22 @@ export default function AdminSideBar() {
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/users">
                                 <i className="fa-duotone fa-solid fa-users"></i> Users
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link d-flex align-items-center gap-2 active"
+                                to="/admin/memberships"
+                            >
+                                <i className="fa-duotone fa-solid fa-id-badge "></i> Memberships
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link d-flex align-items-center gap-2 active"
+                                to="/admin/contributions"
+                            >
+                                <i className="fa-duotone fa-solid fa-shopping-cart"></i> Contributions
                             </NavLink>
                         </li>
                         <li className="nav-item">
