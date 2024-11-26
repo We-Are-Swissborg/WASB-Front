@@ -33,14 +33,14 @@ const patchOptions: RequestInit = {
     cache: 'no-cache',
 };
 
-function addOptionHeaders(token?: string | null, contentType = 'application/json'): Headers {
+function addOptionHeaders(token: string, contentType = 'application/json'): Headers {
     requestHeaders.set('Authorization', `Bearer ${token}`);
     requestHeaders.set('Content-Type', contentType);
 
     return requestHeaders;
 }
 
-const getFetch = async (url: string, token?: string | null): Promise<Response> => {
+const getFetch = async (url: string, token: string): Promise<Response> => {
     const options = getOptions;
 
     options.headers = addOptionHeaders(token);
@@ -48,7 +48,7 @@ const getFetch = async (url: string, token?: string | null): Promise<Response> =
     return await fetch(`${backendAPI.href}/${url}`, options);
 };
 
-const postFetch = async (url: string, body: string, token?: string | null): Promise<Response> => {
+const postFetch = async (url: string, body: string, token: string): Promise<Response> => {
     const options = postOptions;
 
     options.headers = addOptionHeaders(token);
@@ -57,7 +57,7 @@ const postFetch = async (url: string, body: string, token?: string | null): Prom
     return await fetch(`${backendAPI.href}/${url}`, options);
 };
 
-const postFetchWithFile = async (url: string, body: FormData, token?: string | null): Promise<Response> => {
+const postFetchWithFile = async (url: string, body: FormData, token: string): Promise<Response> => {
     const options = postOptions;
 
     options.headers = addOptionHeaders(token);
@@ -68,7 +68,7 @@ const postFetchWithFile = async (url: string, body: FormData, token?: string | n
     return await fetch(`${backendAPI.href}/${url}`, options);
 };
 
-const putFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
+const putFetch = (url: string, body: string, token: string): Promise<Response> => {
     const options = putOptions;
 
     options.headers = addOptionHeaders(token);
@@ -77,7 +77,7 @@ const putFetch = (url: string, body: string, token?: string | null): Promise<Res
     return fetch(`${backendAPI.href}/${url}`, options);
 };
 
-const deleteFetch = (url: string, token?: string | null): Promise<Response> => {
+const deleteFetch = (url: string, token: string): Promise<Response> => {
     const options = deleteOptions;
 
     options.headers = addOptionHeaders(token);
@@ -85,7 +85,7 @@ const deleteFetch = (url: string, token?: string | null): Promise<Response> => {
     return fetch(`${backendAPI.href}/${url}`, options);
 };
 
-const patchFetch = (url: string, body: string, token?: string | null): Promise<Response> => {
+const patchFetch = (url: string, body: string, token: string): Promise<Response> => {
     const options = patchOptions;
 
     options.headers = addOptionHeaders(token);

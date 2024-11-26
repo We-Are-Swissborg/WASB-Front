@@ -52,7 +52,7 @@ const getPost = async (id: string) => {
     return json;
 };
 
-const getPostList = async (url: string) => {
+const getPosts = async (url: string) => {
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
 
@@ -83,4 +83,4 @@ const updatePost = async (id: number, body: FieldValues, token: string) => {
     }
 };
 
-export { getAllPosts, previewPost, createPost, getPost, getPostList, deletePost, updatePost };
+export { getAllPosts, previewPost, createPost, getPost, getPosts, deletePost, updatePost };
