@@ -12,6 +12,7 @@ import Role from '@/types/Role';
 import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
 import Article from '@/component/Article';
+import Metrics from '@/component/Metrics';
 
 const router = {
     path: '/',
@@ -37,6 +38,19 @@ const router = {
                     path: ':idPost',
                     element: <Article />,
                 },
+            ],
+        },
+        {
+            path: 'metrics',
+            children: [
+                {
+                    path: '',
+                    element: <Metrics />
+                },
+                {
+                    path: ':crypto',
+                    element: <Metrics />
+                }
             ],
         },
         {
