@@ -3,6 +3,7 @@ import * as Router from 'react-router-dom';
 import backArrow from '../assets/images/svg/back-arrow.svg';
 import { getCryptoAvailable, getOneCrypto } from '../services/metrics.service';
 import '../css/Metrics.css';
+import { toast } from 'react-toastify';
 
 function Metrics() {
     const [titleMetrics, setTitleMetrics] = React.useState('METRICS');
@@ -47,7 +48,8 @@ function Metrics() {
             setDataCard(arrayMetricsOrCrypto);
         } catch (e) {
             console.error('Error to display card : ' + e);
-            navigate('/metrics/', {replace: true});
+            if(crypto) navigate('/metrics/', {replace: true});
+            else toast.error('Error to display Metrics');
         }
     };
 
