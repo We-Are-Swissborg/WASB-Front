@@ -45,6 +45,11 @@ export default function AdminSettings() {
                 accessorKey: 'id',
                 cell: (info) => info.getValue(),
                 header: () => <span>ID</span>,
+            },            
+            {
+                accessorKey: 'code',
+                cell: (info) => info.getValue(),
+                header: () => <span>Code</span>,
             },
             {
                 accessorKey: 'name',
@@ -55,6 +60,11 @@ export default function AdminSettings() {
                 accessorKey: 'value',
                 cell: (info) => info.getValue(),
                 header: () => <span>Value</span>,
+            },
+            {
+                accessorKey: 'isActive',
+                cell: (info) => (info.getValue() ? 'Oui' : 'Non'),
+                header: () => <span>Is Active</span>,
             },
             columnsHelper,
         ],
