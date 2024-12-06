@@ -73,7 +73,6 @@ export default function AdminContribution() {
     const onSubmit = async (data: Contribution) => {
         if (isDirty && isValid) {
             try {
-                console.log('send data', data);
                 if (data.id) {
                     await ContributionService.updateContribution(data.id, data, token!);
                     toast.success(t('contribution.update'));

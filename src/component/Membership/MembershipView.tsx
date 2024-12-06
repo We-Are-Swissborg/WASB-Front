@@ -57,8 +57,8 @@ export const MembershipView = () => {
         membership?.contributionStatus === 'accepted'
             ? 'bg-success'
             : membership?.contributionStatus === 'in progress'
-                ? 'bg-warning'
-                : 'bg-danger';
+              ? 'bg-warning'
+              : 'bg-danger';
 
     return (
         <>
@@ -78,22 +78,18 @@ export const MembershipView = () => {
                             Statut : <span className={`badge ${badgeColor}`}>{membership.contributionStatus}</span>
                         </h6>
                         <p className="card-text">
-                            <strong>Montant :</strong> CHF
+                            <strong>Montant : </strong>{membership.contribution.amount} CHF
                         </p>
                         <p className="card-text">
-                            <strong>Date de la demande :</strong>{' '}
+                            <strong>Date de la demande : </strong>
                             {format(membership.createdAt, 'dd MMMM yyyy', { locale: fr })}
                         </p>
+                        {!!membership.endDateContribution && 
                         <p className="card-text">
-                            <strong>Date de fin :</strong>
+                            <strong>Date de fin : </strong> 
+                            {format(membership.endDateContribution, 'dd MMMM yyyy', { locale: fr })}
                         </p>
-                    </div>
-                    <div className="card-footer text-center">
-                        {status === 'active' ? (
-                            <button className="btn btn-outline-danger">Annuler l'adhésion</button>
-                        ) : (
-                            <button className="btn btn-outline-success">Renouveler</button>
-                        )}
+                        }
                     </div>
                 </div>
             )}

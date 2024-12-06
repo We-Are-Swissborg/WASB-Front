@@ -13,6 +13,7 @@ import AdminPosts from '@/component/Admin/Blog/AdminPosts';
 import AdminContributions from '@/component/Admin/Membership/AdminContributions';
 import AdminMemberships from '@/component/Admin/Membership/AdminMemberships';
 import AdminContribution from '@/component/Admin/Membership/AdminContribution';
+import AdminMembership from '@/component/Admin/Membership/AdminMembership';
 
 const adminRoutes = {
     path: 'admin',
@@ -46,6 +47,14 @@ const adminRoutes = {
         {
             path: 'memberships',
             element: <AdminMemberships />,
+        },
+        {
+            path: 'memberships/add',
+            element: <AdminMembership />,
+        },
+        {
+            path: 'memberships/:id/edit',
+            element: <AdminMembership />,
         },
         {
             path: 'posts',
