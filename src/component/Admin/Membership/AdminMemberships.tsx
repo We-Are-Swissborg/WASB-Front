@@ -16,6 +16,7 @@ import { useState, useEffect, useMemo } from 'react';
 import * as MembershipService from '@/administration/services/membershipAdmin.service';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
+import { User } from '@/types/User';
 
 const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => MembershipService.getMemberships(token);
 
@@ -54,7 +55,14 @@ export default function AdminMemberships() {
             },
             {
                 accessorKey: 'user',
-                cell: (info) => (info.getValue() ? info.getValue().username : 'Unknow'),
+                cell: (info) => {
+                    const user = info.getValue() as User | null;
+
+                    if (user) {
+                        return user.username;
+                    }
+                    return 'Unknow';
+                },
                 header: () => <span>User</span>,
             },
             {
@@ -64,7 +72,16 @@ export default function AdminMemberships() {
             },
             {
                 accessorKey: 'createdAt',
-                cell: (info) => new Date(info.getValue()).toLocaleString('fr-FR'),
+                cell: (info) => {
+                    const dateValue = info.getValue() as string | null;
+
+                    if (dateValue) {
+                        const date = new Date(dateValue);
+                        if (!isNaN(date.getTime())) {
+                            return date.toLocaleString('fr-FR');
+                        }
+                    }
+                },
                 header: () => <span>Add request</span>,
             },
             columnsHelper,
@@ -81,7 +98,14 @@ export default function AdminMemberships() {
             },
             {
                 accessorKey: 'user',
-                cell: (info) => (info.getValue() ? info.getValue().username : 'Unknow'),
+                cell: (info) => {
+                    const user = info.getValue() as User | null;
+
+                    if (user) {
+                        return user.username;
+                    }
+                    return 'Unknow';
+                },
                 header: () => <span>User</span>,
             },
             {
@@ -91,7 +115,16 @@ export default function AdminMemberships() {
             },
             {
                 accessorKey: 'createdAt',
-                cell: (info) => new Date(info.getValue()).toLocaleString('fr-FR'),
+                cell: (info) => {
+                    const dateValue = info.getValue() as string | null;
+
+                    if (dateValue) {
+                        const date = new Date(dateValue);
+                        if (!isNaN(date.getTime())) {
+                            return date.toLocaleString('fr-FR');
+                        }
+                    }
+                },
                 header: () => <span>Add request</span>,
             },
             columnsHelper,

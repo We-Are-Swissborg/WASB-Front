@@ -67,8 +67,8 @@ export const MembershipView = () => {
         membership?.contributionStatus === 'accepted'
             ? 'bg-success'
             : membership?.contributionStatus === 'in progress'
-              ? 'bg-warning'
-              : 'bg-danger';
+                ? 'bg-warning'
+                : 'bg-danger';
 
     return (
         <>

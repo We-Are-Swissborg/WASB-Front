@@ -6,12 +6,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { fr } from 'date-fns/locale';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as MembershipService from '@/administration/services/membershipAdmin.service';
 
 export default function AdminMembership() {
-    const navigate = useNavigate();
     const { t } = useTranslation('global');
     const { token } = useAuth();
     const { id } = useParams();

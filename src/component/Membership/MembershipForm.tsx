@@ -53,6 +53,7 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     });
 
     if (isLoading) return <div>{t('common.loading')}</div>;
+    if (membershipsError) return <div>{t('blog.loading-error')}</div>;
 
     return (
         <>
