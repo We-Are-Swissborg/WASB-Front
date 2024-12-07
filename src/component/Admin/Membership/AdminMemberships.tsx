@@ -26,12 +26,16 @@ export default function AdminMemberships() {
     const [membershipsInProgress, setMembershipsInProgress] = useState<Membership[]>(() => []);
     const [membershipsOther, setMembershipsOther] = useState<Membership[]>(() => []);
 
-    const { data: memberships, error: membershipsError, isLoading } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
+    const {
+        data: memberships,
+        error: membershipsError,
+        isLoading,
+    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
 
     useEffect(() => {
-        if(memberships && memberships.length > 0) {
-            setMembershipsInProgress(memberships.filter(m => m.contributionStatus === 'in progress'));
-            setMembershipsOther(memberships.filter(m => m.contributionStatus !== 'in progress'));
+        if (memberships && memberships.length > 0) {
+            setMembershipsInProgress(memberships.filter((m) => m.contributionStatus === 'in progress'));
+            setMembershipsOther(memberships.filter((m) => m.contributionStatus !== 'in progress'));
         }
     }, [memberships]);
 

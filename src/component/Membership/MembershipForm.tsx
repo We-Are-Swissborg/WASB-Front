@@ -15,7 +15,8 @@ type MembershipFormType = {
     onUpdate: (membership: Membership) => void;
 };
 
-const fetcheContributions: (token: string) => Promise<Contribution[]> = (token) => ContributionService.getContributions(token);
+const fetcheContributions: (token: string) => Promise<Contribution[]> = (token) =>
+    ContributionService.getContributions(token);
 
 export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const { t } = useTranslation('global');
@@ -27,10 +28,14 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     });
     const [contributionOptions, setContributionOptions] = useState<OptionsSelect[]>();
 
-    const { data: contributions, error: membershipsError, isLoading } = useSWR<Contribution[]>('contributions', () => fetcheContributions(token!));
+    const {
+        data: contributions,
+        error: membershipsError,
+        isLoading,
+    } = useSWR<Contribution[]>('contributions', () => fetcheContributions(token!));
 
     useEffect(() => {
-        if(contributions) {
+        if (contributions) {
             setContributionOptions(contributions.map((cont) => ({ value: cont.id.toString(), name: cont.title })));
         }
     }, [contributions]);
@@ -38,7 +43,7 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const onSubmit = handleSubmit(async (sendData: AddContribution) => {
         try {
             const membership = await MemberShipService.addContribution(sendData, token!);
-            const contribution = contributions!.find(c => c.id == sendData.contributionId);
+            const contribution = contributions!.find((c) => c.id == sendData.contributionId);
             membership.contribution = contribution!;
             onUpdate(membership);
         } catch (e) {

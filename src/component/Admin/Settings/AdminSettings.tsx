@@ -45,7 +45,7 @@ export default function AdminSettings() {
                 accessorKey: 'id',
                 cell: (info) => info.getValue(),
                 header: () => <span>ID</span>,
-            },            
+            },
             {
                 accessorKey: 'code',
                 cell: (info) => info.getValue(),

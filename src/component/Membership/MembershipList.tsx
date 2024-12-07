@@ -12,7 +12,7 @@ export const MembershipList = ({ membershipList }: MembershipListType) => {
         <>
             Ma liste
             <ul>
-                {membershipList.map(m => (
+                {membershipList.map((m) => (
                     <li>{m.contributionStatus}</li>
                 ))}
             </ul>

@@ -15,4 +15,4 @@ const getParametersByCode = async (code: string, token: string): Promise<Paramet
     return json;
 };
 
-export {getParametersByCode};
+export { getParametersByCode };

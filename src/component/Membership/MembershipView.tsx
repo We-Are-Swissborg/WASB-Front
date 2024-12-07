@@ -12,7 +12,8 @@ import { Parameter } from '@/types/Parameter';
 import { getParametersByCode } from '@/services/setting.service';
 
 const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => getMemberships(token);
-const fetcherParameters: (token: string) => Promise<Parameter[]> = (token) => getParametersByCode('membership#phone', token);
+const fetcherParameters: (token: string) => Promise<Parameter[]> = (token) =>
+    getParametersByCode('membership#phone', token);
 
 export const MembershipView = () => {
     const { t } = useTranslation('global');
@@ -21,10 +22,11 @@ export const MembershipView = () => {
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
 
-    const { data: memberships, error: membershipsError } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
-    const { data: parameters, error: parametersError } = useSWR<Parameter[]>(
-        'parameters_membership',
-        () => fetcherParameters(token!)
+    const { data: memberships, error: membershipsError } = useSWR<Membership[]>('memberships', () =>
+        fetcherMemberships(token!),
+    );
+    const { data: parameters, error: parametersError } = useSWR<Parameter[]>('parameters_membership', () =>
+        fetcherParameters(token!),
     );
 
     const updateCountdown = () => {
@@ -65,8 +67,8 @@ export const MembershipView = () => {
         membership?.contributionStatus === 'accepted'
             ? 'bg-success'
             : membership?.contributionStatus === 'in progress'
-                ? 'bg-warning'
-                : 'bg-danger';
+              ? 'bg-warning'
+              : 'bg-danger';
 
     return (
         <>
@@ -86,18 +88,19 @@ export const MembershipView = () => {
                             Statut : <span className={`badge ${badgeColor}`}>{membership.contributionStatus}</span>
                         </h6>
                         <p className="card-text">
-                            <strong>Montant : </strong>{membership.contribution.amount} CHF
+                            <strong>Montant : </strong>
+                            {membership.contribution.amount} CHF
                         </p>
                         <p className="card-text">
                             <strong>Date de la demande : </strong>
                             {format(membership.createdAt, 'dd MMMM yyyy', { locale: fr })}
                         </p>
-                        {!!membership.endDateContribution && 
-                        <p className="card-text">
-                            <strong>Date de fin : </strong> 
-                            {format(membership.endDateContribution, 'dd MMMM yyyy', { locale: fr })}
-                        </p>
-                        }
+                        {!!membership.endDateContribution && (
+                            <p className="card-text">
+                                <strong>Date de fin : </strong>
+                                {format(membership.endDateContribution, 'dd MMMM yyyy', { locale: fr })}
+                            </p>
+                        )}
                     </div>
                 </div>
             )}
@@ -114,12 +117,15 @@ export const MembershipView = () => {
                             <p>
                                 {parameters && (
                                     <>
-                                    Pour nous rejoindre, veuillez choisir votre adhésion et faire un envoi via
-                                    l'application <u>Swissborg</u> en <strong>vCHF</strong><br />
-                                    "Smart Send" : {parameters.map(p => (
+                                        Pour nous rejoindre, veuillez choisir votre adhésion et faire un envoi via
+                                        l'application <u>Swissborg</u> en <strong>vCHF</strong>
+                                        <br />
+                                        "Smart Send" :{' '}
+                                        {parameters.map((p) => (
                                             <span>{p.value}</span>
-                                        ))}<br />
-                                    Avec la communication : "New membership {username}"
+                                        ))}
+                                        <br />
+                                        Avec la communication : "New membership {username}"
                                     </>
                                 )}
                             </p>
