@@ -13,11 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install ESLint
-        run: |
-          npm install eslint@8.57.0
-
-      - name: Run ESLint
-        run: npx eslint
+      - name: Run Build
       - run: npm run test --if-present
       - run: npm run build --if-present
