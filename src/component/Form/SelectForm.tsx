@@ -7,6 +7,7 @@ type SelectProps = ControllerRenderProps & {
     options: OptionsSelect[];
     value?: string;
     isOptionNone?: boolean;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { AddContribution, Membership } from '../../types/Membership';
 import { useTranslation } from 'react-i18next';
@@ -9,27 +9,31 @@ import { useAuth } from '@/contexts/AuthContext';
 import * as MemberShipService from '@/services/membership.service';
 import { toast } from 'react-toastify';
 import { Contribution } from '@/types/contribution';
+import useSWR from 'swr';
 
 type MembershipFormType = {
     onUpdate: (membership: Membership) => void;
 };
 
+const fetcheContributions: (token: string) => Promise<Contribution[]> = (token) => ContributionService.getContributions(token);
+
 export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const { t } = useTranslation('global');
     const { token } = useAuth();
-    const { control, handleSubmit } = useForm<AddContribution>();
+    const { control, handleSubmit } = useForm<AddContribution>({
+        defaultValues: {
+            contributionId: 1,
+        },
+    });
     const [contributionOptions, setContributionOptions] = useState<OptionsSelect[]>();
-    const [contributions, setContributions] = useState<Contribution[]>();
 
-    const initContributions = useCallback(async () => {
-        const c = await ContributionService.getContributions(token!);
-        setContributionOptions(c.map((cont) => ({ value: cont.id.toString(), name: cont.title })));
-        setContributions(c);
-    }, []);
+    const { data: contributions, error: membershipsError, isLoading } = useSWR<Contribution[]>('contributions', () => fetcheContributions(token!));
 
     useEffect(() => {
-        initContributions();
-    }, [initContributions]);
+        if(contributions) {
+            setContributionOptions(contributions.map((cont) => ({ value: cont.id.toString(), name: cont.title })));
+        }
+    }, [contributions]);
 
     const onSubmit = handleSubmit(async (sendData: AddContribution) => {
         try {
@@ -42,6 +46,8 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
             console.log('ERROR: save new contribution', e);
         }
     });
+
+    if (isLoading) return <div>{t('common.loading')}</div>;
 
     return (
         <>
