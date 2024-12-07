@@ -3,21 +3,29 @@ import { useTranslation } from 'react-i18next';
 import { MembershipForm } from './MembershipForm';
 import { useEffect, useState } from 'react';
 import { differenceInDays, isBefore, format } from 'date-fns';
-import useSWR, { Fetcher } from 'swr';
+import useSWR from 'swr';
 import { getMemberships } from '@/services/membership.service';
 import { useAuth } from '@/contexts/AuthContext';
 import { fr } from 'date-fns/locale';
+import { MembershipList } from './MembershipList';
+import { Parameter } from '@/types/Parameter';
+import { getParametersByCode } from '@/services/setting.service';
 
-const fetcher: Fetcher<Membership[]> = (token: string) => getMemberships(token);
+const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => getMemberships(token);
+const fetcherParameters: (token: string) => Promise<Parameter[]> = (token) => getParametersByCode('membership#phone', token);
 
 export const MembershipView = () => {
     const { t } = useTranslation('global');
-    const { token } = useAuth();
+    const { token, username } = useAuth();
     const [daysRemaining, setDaysRemaining] = useState<number | null>(null);
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
 
-    const { data, error } = useSWR<Membership[]>(token, fetcher);
+    const { data: memberships, error: membershipsError } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
+    const { data: parameters, error: parametersError } = useSWR<Parameter[]>(
+        'parameters_membership',
+        () => fetcherParameters(token!)
+    );
 
     const updateCountdown = () => {
         console.log('updateCountdown', membership);
@@ -38,27 +46,27 @@ export const MembershipView = () => {
     };
 
     useEffect(() => {
-        if (data) {
-            console.log('setMembership data', data.length);
-            setMembership(data[0]);
-            setOldMemberships(data);
+        if (memberships) {
+            console.log('setMembership data', memberships.length);
+            setMembership(memberships[0]);
+            setOldMemberships(memberships);
             updateCountdown();
         }
-    }, [data]);
+    }, [memberships]);
 
     const handleUpdate = (newAffiliation: Membership) => {
         console.log('handleUpdate membership', newAffiliation);
         setMembership(newAffiliation);
     };
 
-    if (error) return <div>{t('blog.loading-error')}</div>;
+    if (membershipsError || parametersError) return <div>{t('blog.loading-error')}</div>;
 
     const badgeColor =
         membership?.contributionStatus === 'accepted'
             ? 'bg-success'
             : membership?.contributionStatus === 'in progress'
-              ? 'bg-warning'
-              : 'bg-danger';
+                ? 'bg-warning'
+                : 'bg-danger';
 
     return (
         <>
@@ -95,7 +103,7 @@ export const MembershipView = () => {
             )}
             {oldMemberships && oldMemberships.length > 1 && (
                 <>
-                    <div>La liste de tes adhésions</div>
+                    <MembershipList membershipList={oldMemberships} />
                 </>
             )}
             {!membership && (
@@ -104,8 +112,16 @@ export const MembershipView = () => {
                         <div className="card-body">
                             Vous n'êtes pas encore affilié à notre association
                             <p>
-                                Pour nous rejoindre, veuillez compléter le formulaire et faire vos envoi via
-                                l'application <u>Swissborg</u> en <strong>vCHF</strong>
+                                {parameters && (
+                                    <>
+                                    Pour nous rejoindre, veuillez choisir votre adhésion et faire un envoi via
+                                    l'application <u>Swissborg</u> en <strong>vCHF</strong><br />
+                                    "Smart Send" : {parameters.map(p => (
+                                            <span>{p.value}</span>
+                                        ))}<br />
+                                    Avec la communication : "New membership {username}"
+                                    </>
+                                )}
                             </p>
                         </div>
                     </div>

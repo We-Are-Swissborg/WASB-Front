@@ -8,6 +8,7 @@ import * as ContributionService from '@/services/contribution.service';
 import { useAuth } from '@/contexts/AuthContext';
 import * as MemberShipService from '@/services/membership.service';
 import { toast } from 'react-toastify';
+import { Contribution } from '@/types/contribution';
 
 type MembershipFormType = {
     onUpdate: (membership: Membership) => void;
@@ -18,10 +19,12 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const { token } = useAuth();
     const { control, handleSubmit } = useForm<AddContribution>();
     const [contributionOptions, setContributionOptions] = useState<OptionsSelect[]>();
+    const [contributions, setContributions] = useState<Contribution[]>();
 
     const initContributions = useCallback(async () => {
         const c = await ContributionService.getContributions(token!);
         setContributionOptions(c.map((cont) => ({ value: cont.id.toString(), name: cont.title })));
+        setContributions(c);
     }, []);
 
     useEffect(() => {
@@ -31,6 +34,8 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const onSubmit = handleSubmit(async (sendData: AddContribution) => {
         try {
             const membership = await MemberShipService.addContribution(sendData, token!);
+            const contribution = contributions!.find(c => c.id == sendData.contributionId);
+            membership.contribution = contribution!;
             onUpdate(membership);
         } catch (e) {
             toast.error(`Erreur lors de la demande d'adhésion.`);

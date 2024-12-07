@@ -12,33 +12,28 @@ import {
     getSortedRowModel,
     getPaginationRowModel,
 } from '@tanstack/table-core';
-import { useState, useCallback, useEffect, useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
 import * as MembershipService from '@/administration/services/membershipAdmin.service';
+import useSWR from 'swr';
+import { useTranslation } from 'react-i18next';
+
+const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => MembershipService.getMemberships(token);
 
 export default function AdminMemberships() {
+    const { t } = useTranslation('global');
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [memberships, setMemberships] = useState<Membership[]>(() => []);
+    const [membershipsInProgress, setMembershipsInProgress] = useState<Membership[]>(() => []);
+    const [membershipsOther, setMembershipsOther] = useState<Membership[]>(() => []);
 
-    const initMembershipsInProgress = useCallback(async () => {
-        if (token) {
-            const contributions = await MembershipService.getMemberships(token);
-            setMemberships(contributions);
-        }
-    }, [token]);
-
-    const initMemberships = useCallback(async () => {
-        if (token) {
-            const contributions = await MembershipService.getMemberships(token);
-            setMemberships(contributions);
-        }
-    }, [token]);
+    const { data: memberships, error: membershipsError, isLoading } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
 
     useEffect(() => {
-        initMembershipsInProgress();
-        initMemberships();
-    }, [initMembershipsInProgress, initMemberships]);
+        if(memberships && memberships.length > 0) {
+            setMembershipsInProgress(memberships.filter(m => m.contributionStatus === 'in progress'));
+            setMembershipsOther(memberships.filter(m => m.contributionStatus !== 'in progress'));
+        }
+    }, [memberships]);
 
     const columnHelper = createColumnHelper<Membership>();
     const columnsHelper = columnHelper.display({
@@ -101,7 +96,7 @@ export default function AdminMemberships() {
     );
 
     const tableInProgress = useReactTable({
-        data: memberships,
+        data: membershipsInProgress,
         columns: columnsInProgress,
         filterFns: {},
         state: {
@@ -115,7 +110,7 @@ export default function AdminMemberships() {
     });
 
     const table = useReactTable({
-        data: memberships,
+        data: membershipsOther,
         columns: columns,
         filterFns: {},
         state: {
@@ -127,6 +122,10 @@ export default function AdminMemberships() {
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     });
+
+    if (membershipsError) return <div>{t('blog.loading-error')}</div>;
+
+    if (isLoading) return <div>{t('common.loading')}</div>;
 
     return (
         <>
