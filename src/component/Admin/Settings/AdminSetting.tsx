@@ -6,9 +6,10 @@ import {
 } from '@/administration/services/parameterAdmin.service';
 import { useAuth } from '@/contexts/AuthContext';
 import { Parameter } from '@/types/Parameter';
+import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { t } from 'i18next';
 import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -18,7 +19,7 @@ export default function AdminSetting() {
     const { id } = useParams();
     const [parameter, setParameter] = useState<Parameter>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
-    const { register, handleSubmit, formState } = useForm<Parameter>({
+    const { register, handleSubmit, formState, control } = useForm<Parameter>({
         mode: 'onTouched',
         values: parameter,
     });
@@ -50,12 +51,11 @@ export default function AdminSetting() {
                 if (data.id) {
                     await updateParameter(data.id, token!, data);
                     toast.success(t('register.update'));
-                    navigate('/admin/settings');
                 } else {
                     await createParameter(token!, data);
                     toast.success(t('register.create'));
-                    navigate('/admin/settings');
                 }
+                navigate('/admin/settings');
             } catch {
                 toast.error(t('register.error'));
             }
@@ -84,15 +84,35 @@ export default function AdminSetting() {
     return (
         <div className="container-fluid">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <fieldset key={1} className="row g-3">
+                <fieldset className="row g-3">
                     <legend>Parameter</legend>
                     <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
-                        <label htmlFor="name" className="form-label">
-                            Name
-                        </label>
-                        <input
+                        <TextField
+                            type="text"
+                            id="code"
+                            label="Code"
+                            className="form-control"
+                            {...register('code', {
+                                value: parameter?.name,
+                                required: 'this is a required',
+                                maxLength: {
+                                    value: 100,
+                                    message: 'Max length is 100',
+                                },
+                                minLength: {
+                                    value: 3,
+                                    message: 'Min length is 3',
+                                },
+                            })}
+                            required
+                        />
+                        {errors?.code && <div className="text-danger">{errors.code.message}</div>}
+                    </div>
+                    <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
+                        <TextField
                             type="text"
                             id="name"
+                            label="Name"
                             className="form-control"
                             {...register('name', {
                                 value: parameter?.name,
@@ -111,12 +131,10 @@ export default function AdminSetting() {
                         {errors?.name && <div className="text-danger">{errors.name.message}</div>}
                     </div>
                     <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
-                        <label htmlFor="value" className="form-label">
-                            Value
-                        </label>
-                        <input
+                        <TextField
                             type="text"
                             id="value"
+                            label="Value"
                             className="form-control"
                             {...register('value', {
                                 required: 'this is a required',
@@ -124,6 +142,26 @@ export default function AdminSetting() {
                             required
                         />
                         {errors?.value && <div className="text-danger">{errors.value.message}</div>}
+                    </div>
+                    <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
+                        <FormControlLabel
+                            className="form-check"
+                            control={
+                                <Controller
+                                    name="isActive"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Checkbox
+                                            {...field}
+                                            checked={field.value}
+                                            defaultChecked={false}
+                                            onChange={(e) => field.onChange(e.target.checked)}
+                                        />
+                                    )}
+                                />
+                            }
+                            label="Est actif ?"
+                        />
                     </div>
                 </fieldset>
                 <button type="submit" className="btn btn-success">

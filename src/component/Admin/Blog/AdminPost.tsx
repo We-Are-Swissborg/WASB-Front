@@ -45,8 +45,8 @@ export default function AdminPost() {
         async (post: Post) => {
             setPost(post);
             setValue('createdAt', new Date(post.createdAt));
-            setValue('updatedAt', new Date(post.updatedAt));
-            setValue('publishedAt', new Date(post.publishedAt ?? 0));
+            setValue('updatedAt', post.updatedAt ? new Date(post.updatedAt) : undefined);
+            setValue('publishedAt', post.publishedAt ? new Date(post.publishedAt) : undefined);
             setValue(
                 'categories',
                 post.categories?.map((cat) => cat.id),

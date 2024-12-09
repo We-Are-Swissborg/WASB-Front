@@ -34,7 +34,7 @@ export default function AdminPostCategory() {
                 const u = await getPostCategory(Number(id), token!);
                 setPostCategory(u);
                 setValue('createdAt', new Date(u.createdAt));
-                setValue('updatedAt', new Date(u.updatedAt));
+                setValue('updatedAt', u.updatedAt ? new Date(u.updatedAt) : undefined);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de la catégorie`);
                 console.log('ERROR: init PostCategory', e);
@@ -56,12 +56,11 @@ export default function AdminPostCategory() {
                 if (data.id) {
                     await updatePostCategory(data.id, token!, data);
                     toast.success(t('register.update'));
-                    navigate('/admin/category');
                 } else {
                     await createPostCategory(token!, data);
                     toast.success(t('register.create'));
-                    navigate('/admin/category');
                 }
+                navigate('/admin/category');
             } catch {
                 toast.error(t('register.error'));
             }
@@ -84,7 +83,7 @@ export default function AdminPostCategory() {
     };
 
     if (!isInitializing) {
-        return <div>Loading</div>;
+        return <div>{t('common.loading')}</div>;
     }
 
     return (
