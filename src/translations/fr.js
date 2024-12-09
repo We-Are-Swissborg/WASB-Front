@@ -1,7 +1,8 @@
 const global_fr = {
     "common": {
         "backtoup": "Retour au haut de la page",
-        "join": "Rejoignez-nous"
+        "join": "Rejoignez-nous",
+        'loading': 'Chargement en cours...',
     },
     "community": {
         "swissborgmania": "Découvre Swissborg avec SwissBorgMania",
@@ -153,15 +154,12 @@ const global_fr = {
     },
     "blog": {
         'localCode': 'fr-FR',
-        'loading-error': 'Echec du chargement',
+        'loading-error': 'Erreur lors du chargement',
         'title': 'Le blog',
-        'create-post': 'Créer',
-        'last-update': 'Dernière modification',
-        'created-by': 'Créé par',
-        'share': 'PARTAGER',
-        'read': 'LIRE',
-        'created-at': 'Créé le',
-        'url-copied': "L'url a été copié."
+        'published-at': 'Publié le',
+        'published-by': 'Écrit par',
+        'about-author': 'À propos de l\'auteur',
+        'return-blog': 'Retour au blog'
     },
     "article": {
         'post-delete': 'ARTICLE SUPPRIMÉ.',

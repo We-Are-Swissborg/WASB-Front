@@ -8,9 +8,6 @@ function RowActions(cell: any) {
                 <NavLink className={`btn btn-sm btn-secondary`} to={`${cell.row.original.id}/edit`}>
                     <i className="fa fa-edit"></i>
                 </NavLink>
-                <NavLink className={`btn btn-sm btn-danger`} to={`${cell.row.original.id}/delete`}>
-                    <i className="fa fa-trash"></i>
-                </NavLink>
             </div>
         </>
     );

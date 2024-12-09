@@ -19,7 +19,7 @@ const previewPost = async (token: string, data: FormData) => {
     const response: Response = await BaseApi.postFetchWithFile(url, data, token);
     const json = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('An error has occurred: ' + json.message);
     }
 
@@ -32,7 +32,7 @@ const createPost = async (token: string, data: FieldValues) => {
     const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token);
     const json = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('An error has occurred: ' + json.message);
     }
 
@@ -45,18 +45,18 @@ const getPost = async (id: string) => {
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('An error has occurred: ' + json.message);
     }
 
     return json;
 };
 
-const getPostList = async (url: string) => {
+const getPosts = async (url: string) => {
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('An error has occurred: ' + json.message);
     }
 
@@ -68,7 +68,7 @@ const deletePost = async (id: string, token: string) => {
 
     const response: Response = await BaseApi.deleteFetch(url, token);
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('An error has occurred: with the deletePost');
     }
 };
@@ -78,17 +78,9 @@ const updatePost = async (id: number, body: FieldValues, token: string) => {
 
     const response: Response = await BaseApi.putFetch(url, JSON.stringify(body), token);
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('An error has occurred: with the updatePost');
     }
 };
 
-export {
-    getAllPosts,
-    previewPost,
-    createPost,
-    getPost,
-    getPostList,
-    deletePost,
-    updatePost
-};
+export { getAllPosts, previewPost, createPost, getPost, getPosts, deletePost, updatePost };

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef } from 'react';
 import { OptionsSelect } from '@/types/OptionsSelect';
 import { ControllerRenderProps } from 'react-hook-form';
@@ -8,6 +7,7 @@ type SelectProps = ControllerRenderProps & {
     options: OptionsSelect[];
     value?: string;
     isOptionNone?: boolean;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(

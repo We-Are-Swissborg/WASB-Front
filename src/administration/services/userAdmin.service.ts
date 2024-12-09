@@ -2,10 +2,10 @@ import { User } from '@/types/User';
 import * as BaseApi from './baseAPI.service';
 
 /**
- * 
- * @param id 
- * @param token 
- * @returns 
+ *
+ * @param id
+ * @param token
+ * @returns
  */
 const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
     const url: string = `users/${id}`;
@@ -21,11 +21,11 @@ const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
 };
 
 /**
- * 
- * @param id 
- * @param token 
- * @param data 
- * @returns 
+ *
+ * @param id
+ * @param token
+ * @param data
+ * @returns
  */
 const updateUser = async (id: number, token: string, data: User): Promise<boolean> => {
     const url: string = `users/${id}`;

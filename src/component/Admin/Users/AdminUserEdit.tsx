@@ -29,8 +29,8 @@ function AdminUserEdit() {
                 const u = await getUserWithAllInfo(Number(id), token!);
                 setUser(u);
             } catch (e) {
-                toast.error(`Erreur lors du chargement de l'utisateur`);
-                console.log('ERROR: get user', e);
+                toast.error(`Erreur lors du chargement de l'utilisateur`);
+                console.log('ERROR: init User', e);
             } finally {
                 setIsInitializing(true);
             }
@@ -75,7 +75,7 @@ function AdminUserEdit() {
                 console.info('form submit', data);
                 await updateUser(data.id, token!, data);
                 toast.success(t('profile.success-update'));
-            } catch (e) {
+            } catch {
                 toast.error(t('register.error'));
             }
         }
