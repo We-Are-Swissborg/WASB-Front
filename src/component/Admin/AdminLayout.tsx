@@ -7,9 +7,9 @@ function AdminLayout() {
         <>
             <AdminHeader />
             <div className="container-fluid">
-                <div className="row">
+                <div className="row flex-nowrap">
                     <AdminSideBar />
-                    <main className='class="col-md-9 ms-sm-auto col-lg-10 col-xl-11 px-md-4"'>
+                    <main className='class="col-md-9 ms-sm-auto col-lg-10 px-md-4"'>
                         <Outlet />
                     </main>
                 </div>

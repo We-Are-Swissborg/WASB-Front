@@ -48,7 +48,7 @@ export default function Post() {
                                     </p>
                                     <p className="mb-1">
                                         <i className="fa fa-calendar-days"></i> {t('blog.published-at')}{' '}
-                                        {new Date(post.publishedAt).toLocaleDateString(
+                                        {new Date(post.publishedAt!).toLocaleDateString(
                                             `${t('blog.localCode')}`,
                                             optionDate,
                                         )}

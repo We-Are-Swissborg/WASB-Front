@@ -4,11 +4,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { User } from '../types/User';
 import { getUserWithAllInfo } from '../services/user.service';
 import { tokenDecoded } from '../services/token.services';
-import MembershipForm from './Form/MembershipForm';
 import SocialMediasForm from './Form/SocialMediasForm';
 import '../css/Profile.css';
 import QRCode from 'react-qr-code';
 import AccountForm from './Form/AccountForm';
+import { MembershipView } from './Membership/MembershipView';
 
 export default function Profile() {
     const { t } = useTranslation('global');
@@ -23,15 +23,20 @@ export default function Profile() {
         return namesClass;
     };
 
-    const initUser = useCallback(() => {
-        if (token) {
+    const initUser = useCallback(async () => {
+        if (token && !user) {
+            console.log('call user');
+
             const { userId } = tokenDecoded(token);
-            getUserWithAllInfo(userId, token).then((user) => setUser(user));
+            const user = await getUserWithAllInfo(userId, token);
+            setUser(user);
         }
     }, [token]);
 
     useEffect(() => {
-        initUser();
+        if (!user) {
+            initUser();
+        }
     }, [initUser]);
 
     return (
@@ -108,10 +113,8 @@ export default function Profile() {
                     <div className="w-100">
                         <div>
                             <h2 className="fw-normal">{t('profile.manage-membership.title')}</h2>
-                            <p className="message-membership">{t('profile.manage-membership.message-1')}</p>
-                            <p className="message-membership">{t('profile.manage-membership.message-2')}</p>
                         </div>
-                        <MembershipForm membership={user?.membership} />
+                        <MembershipView />
                     </div>
                 )}
                 {profileCategory === 3 && (
