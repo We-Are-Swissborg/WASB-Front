@@ -4,11 +4,13 @@ import backArrow from '../assets/images/svg/back-arrow.svg';
 import { getCryptoAvailable, getOneCrypto } from '../services/metrics.service';
 import '../css/Metrics.css';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 function Metrics() {
     const [titleMetrics, setTitleMetrics] = React.useState('METRICS');
     const { crypto } = Router.useParams();
     const navigate = Router.useNavigate();
+    const { t } = useTranslation('global');
     const [dataCard, setDataCard] = React.useState<Record<string, string | undefined>[]>([]);
     const project = {
         borg: 'Swissborg',
@@ -23,7 +25,7 @@ function Metrics() {
                 let v = value;
                 if(!v) v = 'N/A';
                 arrayMetricsOrCrypto.push({
-                    key: key.toUpperCase(),  
+                    key: key,  
                     value: v as string
                 });
             }
@@ -75,13 +77,13 @@ function Metrics() {
                         <div key={'card-'+idData} className='ms-4 me-4'>
                             {crypto ?
                                 <div key={'card-'+idData} className='container-hexagonal'>
-                                    <h2 className='text-white text-center text-wrap'>{data.key}</h2>
-                                    <span className='text-white'>{data.value}</span>
+                                    <h2 className='text-white text-center text-wrap'>{t('metrics.' + data.key)}</h2>
+                                    <span className='text-white fs-4'>{data.value}</span>
                                 </div> :
                                 <a className='container-hexagonal scale-animation' onClick={() => displayCard(data.key)}> 
-                                    <h2 className='text-white text-center text-nowrap'>{data.key}</h2>
-                                    <p className='text-white text-center text-nowrap'>{project[data.key?.toLowerCase() as keyof object]}</p>
-                                    <span className='text-white'>{data?.value}</span>
+                                    <h2 className='text-white text-center text-nowrap'>{data.key?.toLocaleUpperCase()}</h2>
+                                    <p className='text-white text-center text-nowrap fs-4'>{project[data.key?.toLowerCase() as keyof object]}</p>
+                                    <span className='text-white fs-4'>{data?.value}</span>
                                 </a> 
                             }
                         </div>
