@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR, { Fetcher } from 'swr';
 import '../css/Blog.css';
+import { AlternateEmailSharp, CalendarMonthSharp, ChevronLeftSharp } from '@mui/icons-material';
 
 const fetcher: Fetcher<PostType> = (url: string) => PostServices.getPost(url);
 
@@ -43,11 +44,11 @@ export default function Post() {
                                 <h1 className="display-4 mt-4">{post.title}</h1>
                                 <div className="text-muted">
                                     <p className="mb-1">
-                                        <i className="fa fa-at"></i> {t('blog.published-by')}{' '}
+                                        <AlternateEmailSharp /> {t('blog.published-by')}{' '}
                                         <strong>{post.infoAuthor.username}</strong>
                                     </p>
                                     <p className="mb-1">
-                                        <i className="fa fa-calendar-days"></i> {t('blog.published-at')}{' '}
+                                        <CalendarMonthSharp /> {t('blog.published-at')}{' '}
                                         {new Date(post.publishedAt!).toLocaleDateString(
                                             `${t('blog.localCode')}`,
                                             optionDate,
@@ -85,7 +86,7 @@ export default function Post() {
                     )}
 
                     <NavLink className="btn btn-secondary" to="/blog">
-                        <i className="fa fa-chevron-left"></i> {t('blog.return-blog')}
+                        <ChevronLeftSharp /> {t('blog.return-blog')}                        
                     </NavLink>
                 </div>
             </div>
