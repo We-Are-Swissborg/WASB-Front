@@ -11,6 +11,7 @@ import Countries from '@/hook/Countries';
 import { OptionsCountrySelect, OptionsSelect } from '@/types/OptionsSelect';
 import Select from '@/component/Form/SelectForm';
 import { getUserWithAllInfo, updateUser } from '@/administration/services/userAdmin.service';
+import { ChevronLeftSharp } from '@mui/icons-material';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
@@ -366,7 +367,7 @@ function AdminUserEdit() {
             </div>
 
             <NavLink to="/admin/users" className={`btn btn-primary mb-4`}>
-                <i className="fa fa-arrow-left"></i> Return to list
+                <ChevronLeftSharp /> Return to list
             </NavLink>
         </div>
     );

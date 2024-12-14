@@ -3,6 +3,7 @@ import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
 import { useAuth } from '@/contexts/AuthContext';
 import { Parameter } from '@/types/Parameter';
+import { AddCircleSharp } from '@mui/icons-material';
 import { useReactTable } from '@tanstack/react-table';
 import {
     ColumnDef,
@@ -90,7 +91,7 @@ export default function AdminSettings() {
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Paramètres</h1>
                 <NavLink className={`btn btn-sm btn-primary`} to={`add`}>
-                    <i className="fa fa-circle-plus"></i>
+                    <AddCircleSharp />
                 </NavLink>
             </div>
             <TableReact table={table} />

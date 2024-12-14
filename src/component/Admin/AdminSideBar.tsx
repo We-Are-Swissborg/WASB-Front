@@ -1,3 +1,5 @@
+import { PeopleTwoTone, DashboardTwoTone, CategoryTwoTone, ArticleTwoTone, LoyaltyTwoTone, SettingsTwoTone, ExitToAppTwoTone, AttachMoneyTwoTone } from '@mui/icons-material';
+// import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminSideBar() {
@@ -25,22 +27,22 @@ export default function AdminSideBar() {
                     <ul className="nav flex-column">
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin">
-                                <i className="fa-duotone fa-solid fa-house"></i> Dashboard
+                                <DashboardTwoTone /> Dashboard
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/category">
-                                <i className="fa-solid fa-list"></i> Categories
+                                <CategoryTwoTone /> Categories
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/posts">
-                                <i className="fa-solid fa-blog"></i> Posts
+                                <ArticleTwoTone /> Posts
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/users">
-                                <i className="fa-duotone fa-solid fa-users"></i> Users
+                                <PeopleTwoTone /> Users
                             </NavLink>
                         </li>
                         <li className="nav-item">
@@ -48,7 +50,7 @@ export default function AdminSideBar() {
                                 className="nav-link d-flex align-items-center gap-2 active"
                                 to="/admin/memberships"
                             >
-                                <i className="fa-duotone fa-solid fa-id-badge "></i> Memberships
+                                <LoyaltyTwoTone /> Memberships
                             </NavLink>
                         </li>
                         <li className="nav-item">
@@ -56,17 +58,17 @@ export default function AdminSideBar() {
                                 className="nav-link d-flex align-items-center gap-2 active"
                                 to="/admin/contributions"
                             >
-                                <i className="fa-duotone fa-solid fa-shopping-cart"></i> Contributions
+                                <AttachMoneyTwoTone /> Contributions
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/settings">
-                                <i className="fa-duotone fa-solid fa-gear"></i> Settings
+                                <SettingsTwoTone /> Settings
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/">
-                                <i className="fa-solid fa-right-from-bracket"></i> Return to website
+                                <ExitToAppTwoTone /> Return to website
                             </NavLink>
                         </li>
                     </ul>

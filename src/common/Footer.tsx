@@ -1,38 +1,15 @@
-import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
 import '../css/Footer.css';
+import { Facebook, X, YouTube } from '@mui/icons-material';
 
 export default function Footer() {
     const [t] = useTranslation('global');
-    const backToUp = useRef(null);
-
-    useEffect(() => {
-        // if (
-        //     document.body.scrollTop > 5 ||
-        //     document.documentElement.scrollTop > 5
-        //   ) {
-        //     const el  = backToUp.current;
-        //     // el.style.display = "block";
-        //   } else {
-        //     const el = backToUp.current;
-        //     // backToUp.style.display = "none";
-        //   }
-    }, []);
 
     return (
         <footer className="text-muted py-5 bg-primary">
             <div className="container">
-                <button
-                    ref={backToUp}
-                    type="button"
-                    className="btn btn-danger btn-floating btn-lg"
-                    id="btn-back-to-top"
-                    onClick={() => window.scrollTo(0, 0)}
-                >
-                    <i className="fas fa-arrow-up"></i>
-                </button>
                 <p className="mb-3">{t('footer.message')}</p>
                 <div className="row">
                     <div className="col-6 col-md-2 mb-3">
@@ -65,27 +42,17 @@ export default function Footer() {
                         <ul className="list-group list-group-horizontal">
                             <li className="list-group-item">
                                 <a href="#">
-                                    <i className="fa-brands fa-x-twitter fa-2x"></i>
+                                    <X sx={{fontSize: 30}} />
                                 </a>
-                            </li>
+                            </li>                            
                             <li className="list-group-item">
-                                <a href="#" target="_blank">
-                                    <i className="fa-brands fa-discord fa-2x"></i>
+                                <a href="#">
+                                    <YouTube sx={{fontSize: 30}} />
                                 </a>
                             </li>
                             <li className="list-group-item">
                                 <a href="#">
-                                    <i className="fa-brands fa-youtube fa-2x"></i>
-                                </a>
-                            </li>
-                            <li className="list-group-item">
-                                <a href="#">
-                                    <i className="fa-brands fa-facebook fa-2x"></i>
-                                </a>
-                            </li>
-                            <li className="list-group-item">
-                                <a href="#">
-                                    <i className="fa-brands fa-twitch fa-2x"></i>
+                                    <Facebook sx={{fontSize: 30}} />
                                 </a>
                             </li>
                         </ul>
@@ -121,27 +88,17 @@ export default function Footer() {
                     <ul className="list-unstyled d-flex">
                         <li className="ms-3">
                             <a className="link-light" href="#">
-                                <i className="fa-brands fa-x-twitter"></i>
-                            </a>
-                        </li>
-                        <li className="ms-3">
-                            <a className="link-light" href="#" target="_blank">
-                                <i className="fa-brands fa-discord"></i>
+                                <X />
                             </a>
                         </li>
                         <li className="ms-3">
                             <a className="link-light" href="#">
-                                <i className="fa-brands fa-youtube"></i>
+                                <YouTube />
                             </a>
                         </li>
                         <li className="ms-3">
                             <a className="link-light" href="#">
-                                <i className="fa-brands fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li className="ms-3">
-                            <a className="link-light" href="#">
-                                <i className="fa-brands fa-twitch"></i>
+                                <Facebook />
                             </a>
                         </li>
                     </ul>
