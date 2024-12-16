@@ -120,6 +120,9 @@ const global_fr = {
             "dateContribution": "Date de l’adhésion",
             "contribution": "Cotisation",
             "contributionStatus": "Statut de votre adhésion",
+            "error-add-membership": "Erreur lors de la demande d'adhésion",
+            "error-load-contribution": "Une erreur est survenu lors du chargement des contributions",
+            "contributionId": "Choissisez votre type d'affiliation"
         },
         "my-account": {
             "title": "Mon compte",

@@ -22,7 +22,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                         className="form-select"
                         name={name}
                         id={name}
-                        onChange={onChange}
+                        onChange={(e) => onChange(e.target.value)}
                         value={value || ''}
                         ref={ref}
                     >

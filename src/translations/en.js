@@ -122,6 +122,9 @@ const global_en = {
             "dateContribution": "Contribution start date",
             "contribution": "Contribution",
             "contributionStatus": "Status of your contribution",
+            "error-add-membership": "Error while applying for membership",
+            "error-load-contribution": "An error has occurred while loading contributions",
+            "contributionId": "Choose your type of affiliation"
         },
         "my-account": {
             "title": "My account",
