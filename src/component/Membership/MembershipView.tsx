@@ -52,7 +52,7 @@ export const MembershipView = () => {
             setMembership(memberships[0]);
             setOldMemberships(memberships);
         }
-        if(membership) updateCountdown();
+        if (membership) updateCountdown();
     }, [memberships, membership]);
 
     const handleUpdate = (newAffiliation: Membership) => {
@@ -65,22 +65,22 @@ export const MembershipView = () => {
         membership?.contributionStatus === 'accepted'
             ? 'bg-success'
             : membership?.contributionStatus === 'in progress'
-                ? 'bg-warning'
-                : 'bg-danger';
+              ? 'bg-warning'
+              : 'bg-danger';
 
     return (
         <>
             {!!daysRemaining && daysRemaining < 15 && (
                 <span className="badge bg-danger me-1">Ton adhésion se termine dans {daysRemaining} jours</span>
             )}
-            {daysRemaining === 0 && ( 
+            {daysRemaining === 0 && (
                 <>
                     <div className="">
                         <p>Pour renouveller ton affiliation : </p>
                         {parameters && (
                             <p>
-                                Pour continuer ton aventure avec nous, veuillez choisir votre adhésion et faire un envoi via
-                                l'application <u>Swissborg</u> en <strong>vCHF</strong>
+                                Pour continuer ton aventure avec nous, veuillez choisir votre adhésion et faire un envoi
+                                via l'application <u>Swissborg</u> en <strong>vCHF</strong>
                                 <br />
                                 "Smart Send" :
                                 {parameters.map((p) => (
@@ -122,7 +122,7 @@ export const MembershipView = () => {
                             </p>
                         )}
                         <p>
-                        Commentaire de l'approbateur : 
+                            Commentaire de l'approbateur :
                             <TextareaAutosize
                                 minRows={2}
                                 maxRows={8}
@@ -133,7 +133,7 @@ export const MembershipView = () => {
                                 style={{ resize: 'none' }}
                             />
                         </p>
-                    </div>                    
+                    </div>
                 </div>
             )}
             {oldMemberships && oldMemberships.length > 1 && (

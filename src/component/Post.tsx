@@ -86,7 +86,7 @@ export default function Post() {
                     )}
 
                     <NavLink className="btn btn-secondary" to="/blog">
-                        <ChevronLeftSharp /> {t('blog.return-blog')}                        
+                        <ChevronLeftSharp /> {t('blog.return-blog')}
                     </NavLink>
                 </div>
             </div>

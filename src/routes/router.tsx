@@ -46,12 +46,12 @@ const router = {
             children: [
                 {
                     path: '',
-                    element: <Metrics />
+                    element: <Metrics />,
                 },
                 {
                     path: ':crypto',
-                    element: <Metrics />
-                }
+                    element: <Metrics />,
+                },
             ],
         },
         {

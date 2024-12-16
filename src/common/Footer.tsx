@@ -42,17 +42,17 @@ export default function Footer() {
                         <ul className="list-group list-group-horizontal">
                             <li className="list-group-item">
                                 <a href="#">
-                                    <X sx={{fontSize: 30}} />
-                                </a>
-                            </li>                            
-                            <li className="list-group-item">
-                                <a href="#">
-                                    <YouTube sx={{fontSize: 30}} />
+                                    <X sx={{ fontSize: 30 }} />
                                 </a>
                             </li>
                             <li className="list-group-item">
                                 <a href="#">
-                                    <Facebook sx={{fontSize: 30}} />
+                                    <YouTube sx={{ fontSize: 30 }} />
+                                </a>
+                            </li>
+                            <li className="list-group-item">
+                                <a href="#">
+                                    <Facebook sx={{ fontSize: 30 }} />
                                 </a>
                             </li>
                         </ul>

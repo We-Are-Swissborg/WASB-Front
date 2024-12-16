@@ -15,7 +15,7 @@ const getCryptoAvailable = async () => {
 };
 
 const getOneCrypto = async (crypto: string) => {
-    const url: string = 'metrics/'+crypto.toLowerCase();
+    const url: string = 'metrics/' + crypto.toLowerCase();
 
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();

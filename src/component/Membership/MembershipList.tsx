@@ -5,7 +5,6 @@ type MembershipListType = {
 };
 
 export const MembershipList = ({ membershipList }: MembershipListType) => {
-
     return (
         <>
             Ma liste
