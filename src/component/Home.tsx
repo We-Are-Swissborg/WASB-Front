@@ -8,6 +8,7 @@ import swissborgmania from '../assets/images/swissborgmania.jpg';
 import swissborgmania_banner from '../assets/images/swissborgmania_banner.jpg';
 
 import '../css/Home.css';
+import { ChevronRightTwoTone, Diversity3Sharp, PublicSharp, SchoolSharp, YouTube } from '@mui/icons-material';
 
 export default function Home() {
     const [t] = useTranslation('global');
@@ -33,7 +34,7 @@ export default function Home() {
                             className="btn btn-outline-primary bg-opacity-10 text-end"
                             type="button"
                         >
-                            {t('common.join')} <i className="fa fa-chevron-right"></i>
+                            {t('common.join')} <ChevronRightTwoTone sx={{ fontSize: 21 }} />
                         </a>
                     </div>
                 </div>
@@ -46,7 +47,7 @@ export default function Home() {
                     <div className="row row-cols-1 row-cols-lg-3 row-cols-md-1">
                         <div className="card border border-0 text-center">
                             <div className="card-header bg-transparent border-0">
-                                <i className="fa-solid fa-people-group fa-4x"></i>
+                                <Diversity3Sharp sx={{ fontSize: 80 }} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{t('home.community')}</h5>
@@ -54,7 +55,7 @@ export default function Home() {
                         </div>
                         <div className="card border border-0 text-center">
                             <div className="card-header bg-transparent border-0">
-                                <i className="fa-solid fa-graduation-cap fa-4x"></i>
+                                <SchoolSharp sx={{ fontSize: 80 }} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{t('home.education')}</h5>
@@ -62,7 +63,7 @@ export default function Home() {
                         </div>
                         <div className="card border border-0 text-center">
                             <div className="card-header bg-transparent border-0">
-                                <i className="fa-solid fa-globe fa-4x"></i>
+                                <PublicSharp sx={{ fontSize: 80 }} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{t('home.democratization')}</h5>
@@ -74,28 +75,28 @@ export default function Home() {
                             <div className="col">
                                 <div className="card text-bg-primary bg-gradient p-3 border rounded">
                                     <div className="card-body">
-                                        <h5 className="card-title text-center">{t('home.whoarewe')}</h5>
+                                        <h5 className="card-title text-center m-0">{t('home.whoarewe')}</h5>
                                     </div>
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="card text-bg-primary bg-gradient p-3 border rounded">
                                     <div className="card-body">
-                                        <h5 className="card-title text-center">{t('home.discoverswissborg')}</h5>
+                                        <h5 className="card-title text-center m-0">{t('home.discoverswissborg')}</h5>
                                     </div>
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="card text-bg-primary bg-gradient p-3 border rounded">
                                     <div className="card-body">
-                                        <h5 className="card-title text-center">{t('home.metrics')}</h5>
+                                        <h5 className="card-title text-center m-0">{t('home.metrics')}</h5>
                                     </div>
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="card text-bg-primary bg-gradient p-3 border rounded">
                                     <div className="card-body">
-                                        <h5 className="card-title text-center">{t('home.community')}</h5>
+                                        <h5 className="card-title text-center m-0">{t('home.community')}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -109,30 +110,30 @@ export default function Home() {
                         <div className="col-lg-6 col-md-12 community align-center">
                             <article className="card text-body-secondary">
                                 <div className="row g-0">
-                                    <div className="col-lg-4 col-md-12 m-0 p-0">
+                                    <div className="col-lg-3 col-md-12 m-0 p-0">
                                         <img
                                             src={swissborgmania}
                                             className="img-fluid rounded-start d-none d-lg-block d-xl-block"
                                             alt="SwissBorgMania"
                                         />
                                     </div>
-                                    <div className="col-lg-8 col-md-12 col-xs-4">
+                                    <div className="col-lg-9 col-md-12 col-xs-4 d-flex flex-column justify-content-center align-items-center">
                                         <img
                                             src={swissborgmania_banner}
                                             className="card-img-top d-sm-block d-md-block d-lg-none d-xl-none"
                                             alt="SwissBorgMania on Youtube"
                                         />
-                                        <div className="card-body">
-                                            <h5 className="card-title text-center">{t('community.swissborgmania')}</h5>
-                                            <p className="text-center">
-                                                <a
-                                                    href="https://www.youtube.com/@SwissBorgMania"
-                                                    target="_blank"
-                                                    className="text-danger"
-                                                >
-                                                    <i className="fa-brands fa-youtube fa-5x"></i>
-                                                </a>
-                                            </p>
+                                        <div className="card-body d-flex flex-column justify-content-center align-items-center">
+                                            <h5 className="card-title">{t('community.swissborgmania')}</h5>
+                                            {/* <p className="d-flex justify-content-center align-items-center"> */}
+                                            <a
+                                                href="https://www.youtube.com/@SwissBorgMania"
+                                                target="_blank"
+                                                className="text-danger"
+                                            >
+                                                <YouTube sx={{ fontSize: 80 }} />
+                                            </a>
+                                            {/* </p> */}
                                         </div>
                                     </div>
                                 </div>

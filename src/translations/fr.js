@@ -41,6 +41,23 @@ const global_fr = {
         "subtitle": "L'association qui vous accompagne dans votre aventure crypto !",
         "whoarewe": "Qui sommes-nous ?"
     },
+    "metrics": {
+        "aum": "AUM",
+        "borgLock": "BORG bloqué",
+        "communityIndex": "Communauté index",
+        "liquidity": "Liquidité",
+        "marketCap": "Cap boursière",
+        "newPremiumUserByWeek": "Nouveaux premiums cette semaine",
+        "premiumUser": "Utilisateur premium",
+        "supplyCirculation": "Circulation d'approvisionnement",
+        "userVerify": "Utilisateurs vérifiés",
+        "value": "Valeur",
+        "volumeCex": "Volume CEX",
+        "volumeCoinMarketCap": "Volume CoinMarketCap",
+        "volumeDex": "Volume DEX",
+        "vsBtc": "vsBTC",
+        "weeklyVolumeApp": "Volume app cette semaine",
+    },
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
@@ -48,6 +65,7 @@ const global_fr = {
         "home": "Accueil",
         "language": "Langue",
         "logout": " Déconnexion",
+        "metrics": "Métriques",
         "profile": "Profil",
         "sign-up": "S'inscrire",
         "sign-in": "Se connecter",
@@ -102,6 +120,9 @@ const global_fr = {
             "dateContribution": "Date de l’adhésion",
             "contribution": "Cotisation",
             "contributionStatus": "Statut de votre adhésion",
+            "error-add-membership": "Erreur lors de la demande d'adhésion",
+            "error-load-contribution": "Une erreur est survenu lors du chargement des contributions",
+            "contributionId": "Choissisez votre type d'affiliation"
         },
         "my-account": {
             "title": "Mon compte",

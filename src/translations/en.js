@@ -41,6 +41,23 @@ const global_en = {
         "subtitle": "The association that supports you in your crypto adventure!",
         "whoarewe": "About us ?"
     },
+    "metrics": {
+        "aum": "AUM",
+        "borgLock": "BORG locked",
+        "communityIndex": "Community index",
+        "liquidity": "Liquidity",
+        "marketCap": "Market cap",
+        "newPremiumUserByWeek": "Week new premium user",
+        "premiumUser": "Premium user",
+        "supplyCirculation": "Supply circulation",
+        "userVerify": "Users verified",
+        "value": "Value",
+        "volumeCex": "CEX volume",
+        "volumeCoinMarketCap": "Volume CoinMarketCap",
+        "volumeDex": "DEX volume",
+        "vsBtc": "vsBTC",
+        "weeklyVolumeApp": "Weekly volume app",
+    },
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
@@ -48,6 +65,7 @@ const global_en = {
         "home": "Home",
         "language": "Language",
         "logout": " Logout",
+        "metrics": "Metrics",
         "profile": "Profile",
         "sign-up": "Sign Up",
         "sign-in": "Sign In",
@@ -104,6 +122,9 @@ const global_en = {
             "dateContribution": "Contribution start date",
             "contribution": "Contribution",
             "contributionStatus": "Status of your contribution",
+            "error-add-membership": "Error while applying for membership",
+            "error-load-contribution": "An error has occurred while loading contributions",
+            "contributionId": "Choose your type of affiliation"
         },
         "my-account": {
             "title": "My account",

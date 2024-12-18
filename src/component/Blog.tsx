@@ -127,7 +127,7 @@ function Blog() {
                                                 ))}
                                             </div>
                                             <Typography variant="body2" className="card-text placeholder-glow">
-                                                <i className="fa fa-calendar-days"></i> {dateLastUpdate}
+                                                <svg data-testid="CalendarMonthIcon"></svg> {dateLastUpdate}
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>

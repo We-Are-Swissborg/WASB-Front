@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Role from '../types/Role';
+import { AdminPanelSettingsTwoTone, SettingsTwoTone } from '@mui/icons-material';
+import { gsap } from 'gsap';
 
 export default function Settings() {
     const [t, i18n] = useTranslation('global');
-    const [isHovering, setIsHovering] = useState<boolean>(false);
     const { roles } = useAuth();
+    const iconRef = useRef(null);
 
     const handleChangeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
@@ -15,11 +17,12 @@ export default function Settings() {
     };
 
     const handleMouseEnter = () => {
-        setIsHovering(true);
+        gsap.to(iconRef.current, { rotation: 360, duration: 1, repeat: -1, ease: 'linear' });
     };
 
     const handleMouseLeave = () => {
-        setIsHovering(false);
+        gsap.killTweensOf(iconRef.current);
+        gsap.to(iconRef.current, { rotation: 0, duration: 0.5 });
     };
 
     return (
@@ -34,8 +37,9 @@ export default function Settings() {
                     aria-expanded="false"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    style={{ cursor: 'pointer' }}
                 >
-                    <i className={isHovering ? 'fa fa-spin fa-gear' : 'fa fa-gear'}></i>
+                    <SettingsTwoTone ref={iconRef} />
                 </button>
                 <ul className="dropdown-menu dropdown-menu-md-end" aria-labelledby="navbarParams">
                     <li>
@@ -59,7 +63,7 @@ export default function Settings() {
 
                             <li>
                                 <NavLink className="dropdown-item" to="/admin">
-                                    {t('nav.admin')}
+                                    <AdminPanelSettingsTwoTone /> {t('nav.admin')}
                                 </NavLink>
                             </li>
                         </>

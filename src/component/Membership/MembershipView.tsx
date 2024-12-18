@@ -10,6 +10,7 @@ import { fr } from 'date-fns/locale';
 import { MembershipList } from './MembershipList';
 import { Parameter } from '@/types/Parameter';
 import { getParametersByCode } from '@/services/setting.service';
+import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 
 const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => getMemberships(token);
 const fetcherParameters: (token: string) => Promise<Parameter[]> = (token) =>
@@ -30,7 +31,6 @@ export const MembershipView = () => {
     );
 
     const updateCountdown = () => {
-        console.log('updateCountdown', membership);
         if (!membership?.endDateContribution) {
             setDaysRemaining(null);
             return;
@@ -49,15 +49,13 @@ export const MembershipView = () => {
 
     useEffect(() => {
         if (memberships) {
-            console.log('setMembership data', memberships.length);
             setMembership(memberships[0]);
             setOldMemberships(memberships);
-            updateCountdown();
         }
-    }, [memberships]);
+        if (membership) updateCountdown();
+    }, [memberships, membership]);
 
     const handleUpdate = (newAffiliation: Membership) => {
-        console.log('handleUpdate membership', newAffiliation);
         setMembership(newAffiliation);
     };
 
@@ -67,13 +65,35 @@ export const MembershipView = () => {
         membership?.contributionStatus === 'accepted'
             ? 'bg-success'
             : membership?.contributionStatus === 'in progress'
-                ? 'bg-warning'
-                : 'bg-danger';
+              ? 'bg-warning'
+              : 'bg-danger';
 
     return (
         <>
-            {daysRemaining && daysRemaining < 15 && (
+            {!!daysRemaining && daysRemaining < 15 && (
                 <span className="badge bg-danger me-1">Ton adhésion se termine dans {daysRemaining} jours</span>
+            )}
+            {daysRemaining === 0 && (
+                <>
+                    <div className="">
+                        <p>Pour renouveller ton affiliation : </p>
+                        {parameters && (
+                            <p>
+                                Pour continuer ton aventure avec nous, veuillez choisir votre adhésion et faire un envoi
+                                via l'application <u>Swissborg</u> en <strong>vCHF</strong>
+                                <br />
+                                "Smart Send" :
+                                {parameters.map((p) => (
+                                    <span> {p.value}</span>
+                                ))}
+                                <br />
+                                Avec la communication : "New membership {username}"
+                            </p>
+                        )}
+                    </div>
+
+                    <MembershipForm onUpdate={handleUpdate} />
+                </>
             )}
             {membership && (
                 <div className="card shadow mb-4">
@@ -101,6 +121,18 @@ export const MembershipView = () => {
                                 {format(membership.endDateContribution, 'dd MMMM yyyy', { locale: fr })}
                             </p>
                         )}
+                        <p>
+                            Commentaire de l'approbateur :
+                            <TextareaAutosize
+                                minRows={2}
+                                maxRows={8}
+                                id="note"
+                                className="form-control"
+                                value={membership.note}
+                                disabled
+                                style={{ resize: 'none' }}
+                            />
+                        </p>
                     </div>
                 </div>
             )}
@@ -120,9 +152,9 @@ export const MembershipView = () => {
                                         Pour nous rejoindre, veuillez choisir votre adhésion et faire un envoi via
                                         l'application <u>Swissborg</u> en <strong>vCHF</strong>
                                         <br />
-                                        "Smart Send" :{' '}
+                                        "Smart Send" :
                                         {parameters.map((p) => (
-                                            <span>{p.value}</span>
+                                            <span> {p.value}</span>
                                         ))}
                                         <br />
                                         Avec la communication : "New membership {username}"

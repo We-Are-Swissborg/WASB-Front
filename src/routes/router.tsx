@@ -11,6 +11,7 @@ import OnlyAnonymousRouter from '@/component/Route/OnlyAnonymousRouter';
 import Role from '@/types/Role';
 import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
+import Metrics from '@/component/Metrics';
 // import Article from '@/component/Article';
 import Post from '@/component/Post';
 
@@ -37,6 +38,19 @@ const router = {
                 {
                     path: ':slug',
                     element: <Post />,
+                },
+            ],
+        },
+        {
+            path: 'metrics',
+            children: [
+                {
+                    path: '',
+                    element: <Metrics />,
+                },
+                {
+                    path: ':crypto',
+                    element: <Metrics />,
                 },
             ],
         },
