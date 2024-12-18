@@ -11,7 +11,6 @@ export default function Settings() {
     const { roles } = useAuth();
     const iconRef = useRef(null);
 
-
     const handleChangeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
         localStorage.setItem('language', lang);

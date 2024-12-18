@@ -18,15 +18,18 @@ function Metrics() {
         xbg: 'XBorg',
     };
 
-    const createObjectCard = (res: Record<string, string | undefined>, arrayMetricsOrCrypto: Record<string, string | undefined>[]) => {
+    const createObjectCard = (
+        res: Record<string, string | undefined>,
+        arrayMetricsOrCrypto: Record<string, string | undefined>[],
+    ) => {
         const valueToDisplay = res.metricsCrypto ? res.metricsCrypto : res.cryptoAvailable;
-        if(valueToDisplay) {
+        if (valueToDisplay) {
             for (const [key, value] of Object.entries(valueToDisplay)) {
                 let v = value;
-                if(!v) v = 'N/A';
+                if (!v) v = 'N/A';
                 arrayMetricsOrCrypto.push({
-                    key: key,  
-                    value: v as string
+                    key: key,
+                    value: v as string,
                 });
             }
         }
@@ -36,13 +39,13 @@ function Metrics() {
         try {
             let res = undefined;
             const arrayMetricsOrCrypto: Record<string, string | undefined>[] = [];
-            if(crypto) {
+            if (crypto) {
                 res = await getOneCrypto(crypto);
-                navigate('/metrics/' + crypto, {replace: true});
+                navigate('/metrics/' + crypto, { replace: true });
                 setTitleMetrics(crypto);
             } else {
                 res = await getCryptoAvailable();
-                navigate('/metrics/', {replace: true});
+                navigate('/metrics/', { replace: true });
                 setTitleMetrics('METRICS');
             }
 
@@ -50,13 +53,13 @@ function Metrics() {
             setDataCard(arrayMetricsOrCrypto);
         } catch (e) {
             console.error('Error to display card : ' + e);
-            if(crypto) navigate('/metrics/', {replace: true});
+            if (crypto) navigate('/metrics/', { replace: true });
             else toast.error('Error to display Metrics');
         }
     };
 
     React.useEffect(() => {
-        if(crypto) {
+        if (crypto) {
             setTitleMetrics(crypto);
             displayCard(crypto);
         } else {
@@ -66,37 +69,54 @@ function Metrics() {
     }, [crypto]);
 
     return (
-        <div className='container mb-3'>
+        <div className="container mb-3">
             <div>
-                <h1 className={`title text-center mt-5 text-break ${crypto ? 'mb-0' : 'mb-5'}`}>{titleMetrics.toUpperCase()}</h1>
-                { crypto && <p className='title text-center mb-5 text-break'>({project[crypto?.toLowerCase() as keyof object]})</p> }
+                <h1 className={`title text-center mt-5 text-break ${crypto ? 'mb-0' : 'mb-5'}`}>
+                    {titleMetrics.toUpperCase()}
+                </h1>
+                {crypto && (
+                    <p className="title text-center mb-5 text-break">
+                        ({project[crypto?.toLowerCase() as keyof object]})
+                    </p>
+                )}
             </div>
-            <div className='d-flex flex-wrap justify-content-center flex'>
+            <div className="d-flex flex-wrap justify-content-center flex">
                 {dataCard.map((data: Record<string, string | undefined>, idData) => {
                     return (
-                        <div key={'card-'+idData} className='ms-4 me-4'>
-                            {crypto ?
-                                <div key={'card-'+idData} className='container-hexagonal'>
-                                    <h2 className='text-white text-center text-wrap'>{t('metrics.' + data.key)}</h2>
-                                    <span className='text-white fs-4'>{data.value}</span>
-                                </div> :
-                                <a className='container-hexagonal scale-animation' onClick={() => displayCard(data.key)}> 
-                                    <h2 className='text-white text-center text-nowrap'>{data.key?.toLocaleUpperCase()}</h2>
-                                    <p className='text-white text-center text-nowrap fs-4'>{project[data.key?.toLowerCase() as keyof object]}</p>
-                                    <span className='text-white fs-4'>{data?.value}</span>
-                                </a> 
-                            }
+                        <div key={'card-' + idData} className="ms-4 me-4">
+                            {crypto ? (
+                                <div key={'card-' + idData} className="container-hexagonal">
+                                    <h2 className="text-white text-center text-wrap">{t('metrics.' + data.key)}</h2>
+                                    <span className="text-white fs-4">{data.value}</span>
+                                </div>
+                            ) : (
+                                <a
+                                    className="container-hexagonal scale-animation"
+                                    onClick={() => displayCard(data.key)}
+                                >
+                                    <h2 className="text-white text-center text-nowrap">
+                                        {data.key?.toLocaleUpperCase()}
+                                    </h2>
+                                    <p className="text-white text-center text-nowrap fs-4">
+                                        {project[data.key?.toLowerCase() as keyof object]}
+                                    </p>
+                                    <span className="text-white fs-4">{data?.value}</span>
+                                </a>
+                            )}
                         </div>
                     );
                 })}
-                {crypto &&
-                    <div className='ms-4 me-4'>
-                        <a className='container-hexagonal back-card bg-primary scale-animation' onClick={() => displayCard('')}> 
-                            <h2 className='text-white text-center'>BACK</h2>
-                            <img src={backArrow} alt='arrow to back' className='back-arrow'/>
+                {crypto && (
+                    <div className="ms-4 me-4">
+                        <a
+                            className="container-hexagonal back-card bg-primary scale-animation"
+                            onClick={() => displayCard('')}
+                        >
+                            <h2 className="text-white text-center">BACK</h2>
+                            <img src={backArrow} alt="arrow to back" className="back-arrow" />
                         </a>
                     </div>
-                }
+                )}
             </div>
         </div>
     );

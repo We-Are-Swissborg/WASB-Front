@@ -1,4 +1,13 @@
-import { PeopleTwoTone, DashboardTwoTone, CategoryTwoTone, ArticleTwoTone, LoyaltyTwoTone, SettingsTwoTone, ExitToAppTwoTone, AttachMoneyTwoTone } from '@mui/icons-material';
+import {
+    PeopleTwoTone,
+    DashboardTwoTone,
+    CategoryTwoTone,
+    ArticleTwoTone,
+    LoyaltyTwoTone,
+    SettingsTwoTone,
+    ExitToAppTwoTone,
+    AttachMoneyTwoTone,
+} from '@mui/icons-material';
 // import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import { NavLink } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import { ForumSharp, PendingSharp, PeopleSharp } from "@mui/icons-material";
+import { ForumSharp, PendingSharp, PeopleSharp } from '@mui/icons-material';
 
 export default function Dashboard() {
     return (
@@ -18,7 +18,7 @@ export default function Dashboard() {
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                                 </div>
                                 <div className="col-auto">
-                                    <PeopleSharp sx={{fontSize: 60}} />
+                                    <PeopleSharp sx={{ fontSize: 60 }} />
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@ export default function Dashboard() {
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                 </div>
                                 <div className="col-auto">
-                                    <PeopleSharp sx={{fontSize: 60}} />
+                                    <PeopleSharp sx={{ fontSize: 60 }} />
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@ export default function Dashboard() {
                                     </div>
                                 </div>
                                 <div className="col-auto">
-                                    <PendingSharp sx={{fontSize: 60}} />
+                                    <PendingSharp sx={{ fontSize: 60 }} />
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ export default function Dashboard() {
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                 </div>
                                 <div className="col-auto">
-                                    <ForumSharp sx={{fontSize: 60}} />
+                                    <ForumSharp sx={{ fontSize: 60 }} />
                                 </div>
                             </div>
                         </div>

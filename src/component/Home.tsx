@@ -47,7 +47,7 @@ export default function Home() {
                     <div className="row row-cols-1 row-cols-lg-3 row-cols-md-1">
                         <div className="card border border-0 text-center">
                             <div className="card-header bg-transparent border-0">
-                                <Diversity3Sharp sx={{ fontSize: 80 }}/>
+                                <Diversity3Sharp sx={{ fontSize: 80 }} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{t('home.community')}</h5>
@@ -55,7 +55,7 @@ export default function Home() {
                         </div>
                         <div className="card border border-0 text-center">
                             <div className="card-header bg-transparent border-0">
-                                <SchoolSharp sx={{ fontSize: 80 }}/>
+                                <SchoolSharp sx={{ fontSize: 80 }} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{t('home.education')}</h5>
@@ -63,7 +63,7 @@ export default function Home() {
                         </div>
                         <div className="card border border-0 text-center">
                             <div className="card-header bg-transparent border-0">
-                                <PublicSharp sx={{ fontSize: 80 }}/>
+                                <PublicSharp sx={{ fontSize: 80 }} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{t('home.democratization')}</h5>
@@ -124,7 +124,7 @@ export default function Home() {
                                             alt="SwissBorgMania on Youtube"
                                         />
                                         <div className="card-body d-flex flex-column justify-content-center align-items-center">
-                                            <h5 className="card-title">{t('community.swissborgmania')}</h5>                                               
+                                            <h5 className="card-title">{t('community.swissborgmania')}</h5>
                                             {/* <p className="d-flex justify-content-center align-items-center"> */}
                                             <a
                                                 href="https://www.youtube.com/@SwissBorgMania"
