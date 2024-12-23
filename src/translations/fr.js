@@ -44,19 +44,33 @@ const global_fr = {
     "metrics": {
         "aum": "AUM",
         "borgLock": "BORG bloqué",
+        "back": "RETOUR",
         "communityIndex": "Communauté index",
+        "lastUpdate": "Mise à jour le",
         "liquidity": "Liquidité",
         "marketCap": "Cap boursière",
-        "newPremiumUserByWeek": "Nouveaux premiums cette semaine",
+        "maxSupply": "Approvisionnement max",
+        // "newPremiumUserByWeek": "Nouveaux premiums cette semaine",
         "premiumUser": "Utilisateur premium",
         "supplyCirculation": "Circulation d'approvisionnement",
         "userVerify": "Utilisateurs vérifiés",
         "value": "Valeur",
-        "volumeCex": "Volume CEX",
-        "volumeCoinMarketCap": "Volume CoinMarketCap",
-        "volumeDex": "Volume DEX",
+        // "volumeCex": "Volume CEX",
+        // "volumeDex": "Volume DEX",
         "vsBtc": "vsBTC",
-        "weeklyVolumeApp": "Volume app cette semaine",
+        "volumeCoinGecko": "Volume CoinGecko (24h)",
+        "description": {
+            "borg": "Le BORG, c'est le cœur battant de SwissBorg. Ce token est la clé pour des avantages exclusifs : staking, réductions sur les frais et rendements boostés avec SwissBorg Earn. "+
+                    "Il y a aussi les thématiques, qui te permettent de te diversifier dans des secteurs comme la DeFi, le gaming, ou même les mèmes. "+
+                    "Les utilisateurs Premium ? Ont accès aux Early Deals Alpha, où tu investis dans des projets avant tout le monde. Et ce n'est qu'un début, car BORG pave la voie vers des initiatives comme le BorgPad.",
+            "btc": "Le BTC, c'est pas une monnaie, c'est un mouvement, la colonne vertébrale du nouveau monde financier. " +
+                   "21 millions de pièces, gravées dans le code, pas une de plus, c'est l'actif le plus rare et le plus recherché de la planète. C'est ta meilleure arme contre l'inflation et les crises économiques. "+
+                   "Chaque BTC, c'est un ticket pour la souveraineté financière, un actif que les grosses entités accumulent en silence.",
+            "xbg": "Le XBG est un jeton fondamental de l’écosystème XBorg, utilisé dans l’univers du gaming pour récompenser les joueurs et offrir des expériences personnalisées. "+
+                   "Il permet d’accéder à des airdrops, de participer à la gouvernance et de bénéficier d’avantages exclusifs en accumulant des tokens. "+
+                   "Les développeurs l’utilisent pour créer des jeux sur mesure, tandis que les marques l'intègrent pour offrir des expériences basées sur les données des joueurs. "+
+                   "Avec XBG, chaque action compte, permettant de maximiser les récompenses et l'implication dans l'écosystème.",
+        }
     },
     "nav": {
         "admin": "Administration",
@@ -93,7 +107,7 @@ const global_fr = {
         "title": "Nos objectifs"
     },
     "register": {
-        "message": `Merci de votre intérêt à devenir un membre de l’association WeAreSwissBorg.`,
+        "message": `Merci de votre intérêt à devenir un membre de l'association WeAreSwissBorg.`,
         "title": "Devenir membre",
         "register": "S'inscrire",
         "welcome": "Bienvenue parmi nous !",
@@ -122,7 +136,17 @@ const global_fr = {
             "contributionStatus": "Statut de votre adhésion",
             "error-add-membership": "Erreur lors de la demande d'adhésion",
             "error-load-contribution": "Une erreur est survenu lors du chargement des contributions",
-            "contributionId": "Choissisez votre type d'affiliation"
+            "contributionId": "Choissisez votre type d'affiliation",
+            "title-card": "Adhésion",
+            "status": "Statut",
+            "amount": "Montant",
+            "date-request": "Date de la demande",
+            "end-date": "Date de fin",
+            "comment": "Commentaire de l'approbateur",
+            "join-us": "Pour nous rejoindre, veuillez choisir votre adhésion et faire un envoi via l'application <u>Swissborg</u> en <strong>vCHF</strong>",
+            "smart-send": "Via Smart Send",
+            "communication": "Avec la communication",
+            "reminder": "Ton adhésion se termine dans {daysRemaining} jours"
         },
         "my-account": {
             "title": "Mon compte",
