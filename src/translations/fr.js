@@ -122,7 +122,16 @@ const global_fr = {
             "contributionStatus": "Statut de votre adhésion",
             "error-add-membership": "Erreur lors de la demande d'adhésion",
             "error-load-contribution": "Une erreur est survenu lors du chargement des contributions",
-            "contributionId": "Choissisez votre type d'affiliation"
+            "contributionId": "Choissisez votre type d'affiliation",
+            "title-card": "Adhésion",
+            "status": "Statut",
+            "amount": "Montant",
+            "date-request": "Date de la demande",
+            "end-date": "Date de fin",
+            "comment": "Commentaire de l'approbateur",
+            "join-us": "Pour nous rejoindre, veuillez choisir votre adhésion et faire un envoi via l'application <u>Swissborg</u> en <strong>vCHF</strong>",
+            "smart-send": "Via Smart Send",
+            "communication": "Avec la communication",
         },
         "my-account": {
             "title": "Mon compte",
