@@ -43,20 +43,35 @@ const global_en = {
     },
     "metrics": {
         "aum": "AUM",
+        "back": "BACK",
         "borgLock": "BORG locked",
         "communityIndex": "Community index",
+        "lastUpdate": "Last updated on",
         "liquidity": "Liquidity",
         "marketCap": "Market cap",
-        "newPremiumUserByWeek": "Week new premium user",
+        "maxSupply": "Max supply",
+        // "newPremiumUserByWeek": "Week new premium user",
         "premiumUser": "Premium user",
         "supplyCirculation": "Supply circulation",
         "userVerify": "Users verified",
         "value": "Value",
-        "volumeCex": "CEX volume",
-        "volumeCoinMarketCap": "Volume CoinMarketCap",
-        "volumeDex": "DEX volume",
+        // "volumeCex": "CEX volume",
+        // "volumeDex": "DEX volume",
         "vsBtc": "vsBTC",
-        "weeklyVolumeApp": "Weekly volume app",
+        "volumeCoinGecko": "Volume CoinGecko (24h)",
+        "description": {
+            "borg": "BORG is the beating heart of SwissBorg. This token is the key to exclusive benefits: staking, fee discounts, and boosted returns with SwissBorg Earn. "+
+                    "There are also themes, which allow you to diversify into sectors like DeFi, gaming, or even memes. "+
+                    "Premium users? Have access to Early Deals Alpha, where you invest in projects before anyone else. "+
+                    "And this is just the beginning, as BORG paves the way for initiatives like the BorgPad.",
+            "btc": "Bitcoin is not a currency, it's a movement, the backbone of the new financial world. "+
+                   "21 million coins, engraved in the code, not one more, it's the rarest and most sought-after asset on the planet. "+
+                   "It's your best weapon against inflation and economic crises. "+
+                   "Each BTC is a ticket to financial sovereignty, an asset that major entities are quietly accumulating.",
+            "xbg": "XBG is a fundamental token of the XBorg ecosystem, used in the gaming universe to reward players and offer personalized experiences. "+
+                   "It allows access to airdrops, participation in governance, and benefits from exclusive advantages by accumulating tokens. "+
+                   "Developers use it to create custom games, while brands integrate it to offer experiences based on player data. With XBG, every action counts, allowing for the maximization of rewards and involvement in the ecosystem.",
+        }
     },
     "nav": {
         "admin": "Administration",
