@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { CardActionArea, Pagination } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
+import { CalendarMonthSharp } from '@mui/icons-material';
 
 const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => getPosts(url);
 
@@ -127,7 +128,7 @@ function Blog() {
                                                 ))}
                                             </div>
                                             <Typography variant="body2" className="card-text placeholder-glow">
-                                                <svg data-testid="CalendarMonthIcon"></svg> {dateLastUpdate}
+                                                <CalendarMonthSharp /> {dateLastUpdate}
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
