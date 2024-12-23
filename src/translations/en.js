@@ -134,6 +134,7 @@ const global_en = {
             "join-us": "To join us, please choose your membership and send via the <u>Swissborg</u> app in <strong>vCHF</strong>.",
             "smart-send": "Choose Smart Send",
             "communication": "With communication",
+            "reminder": "Your membership ends in {daysRemaining} days"
         },
         "my-account": {
             "title": "My account",

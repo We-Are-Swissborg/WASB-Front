@@ -1,12 +1,14 @@
 import { Membership } from '@/types/Membership';
 import { differenceInDays, isBefore } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type MembershipReminderType = {
     lastMembership: Membership | undefined;
 };
 
 export const MembershipReminder = ({ lastMembership }: MembershipReminderType) => {
+    const { t } = useTranslation('global');    
     const [daysRemaining, setDaysRemaining] = useState<number | null>(null);
 
     const updateCountdown = () => {
@@ -33,7 +35,7 @@ export const MembershipReminder = ({ lastMembership }: MembershipReminderType) =
     return (
         <>
             {!!daysRemaining && daysRemaining < 15 && (
-                <span className="badge bg-danger me-1">Ton adhésion se termine dans {daysRemaining} jours</span>
+                <span className="badge bg-danger me-1">{t('profile.manage-membership.reminder')}</span>
             )}
         </>
     );
