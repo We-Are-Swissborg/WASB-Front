@@ -139,7 +139,17 @@ const global_en = {
             "contributionStatus": "Status of your contribution",
             "error-add-membership": "Error while applying for membership",
             "error-load-contribution": "An error has occurred while loading contributions",
-            "contributionId": "Choose your type of affiliation"
+            "contributionId": "Choose your type of affiliation",
+            "title-card": "Membership",
+            "status": "Status",
+            "amount": "Amount",
+            "date-request": "Date of request",
+            "end-date": "End date",
+            "comment": "Approver's comment",
+            "join-us": "To join us, please choose your membership and send via the <u>Swissborg</u> app in <strong>vCHF</strong>.",
+            "smart-send": "Choose Smart Send",
+            "communication": "With communication",
+            "reminder": "Your membership ends in {daysRemaining} days"
         },
         "my-account": {
             "title": "My account",
