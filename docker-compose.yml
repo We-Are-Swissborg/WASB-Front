@@ -1,0 +1,10 @@
+version: '4.11'
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
