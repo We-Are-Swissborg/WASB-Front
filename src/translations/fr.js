@@ -44,6 +44,7 @@ const global_fr = {
     "metrics": {
         "aum": "AUM",
         "borgLock": "BORG bloqué",
+        "borgy-telegram": "https://t.me/borgyarmy_fr",
         "back": "RETOUR",
         "communityIndex": "Communauté index",
         "lastUpdate": "Mise à jour le",
@@ -59,6 +60,7 @@ const global_fr = {
         // "volumeDex": "Volume DEX",
         "vsBtc": "vsBTC",
         "volumeCoinGecko": "Volume CoinGecko (24h)",
+        "volumeDexScreener": "Volume DexScreener (24h)",
         "description": {
             "borg": "Le BORG, c'est le cœur battant de SwissBorg. Ce token est la clé pour des avantages exclusifs : staking, réductions sur les frais et rendements boostés avec SwissBorg Earn. "+
                     "Il y a aussi les thématiques, qui te permettent de te diversifier dans des secteurs comme la DeFi, le gaming, ou même les mèmes. "+
@@ -70,6 +72,10 @@ const global_fr = {
                    "Il permet d’accéder à des airdrops, de participer à la gouvernance et de bénéficier d’avantages exclusifs en accumulant des tokens. "+
                    "Les développeurs l’utilisent pour créer des jeux sur mesure, tandis que les marques l'intègrent pour offrir des expériences basées sur les données des joueurs. "+
                    "Avec XBG, chaque action compte, permettant de maximiser les récompenses et l'implication dans l'écosystème.",
+            "borgy": "Borgy est le memecoin de la communauté Swissborg, conçu pour se démarquer par ses futures utilités comme le staking et des mini-jeux. "+
+                     "Il se distingue également par son soutien à des initiatives concrètes, comme la Fondation Barry en Suisse, dédiée aux chiens Saint-Bernard. "+
+                     "Soutenu depuis ses débuts par l’équipe Swissborg, Borgy vise à renforcer la notoriété de l’écosystème Swissborg tout en offrant à la communauté des surprises, des giveaways et des projets innovants. "+
+                     "Ce memecoin ambitionne de construire une communauté forte pour le long terme."
         }
     },
     "nav": {
