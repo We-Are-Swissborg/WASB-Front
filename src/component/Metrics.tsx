@@ -5,8 +5,7 @@ import { getCryptoAvailable, getOneCrypto } from '../services/metrics.service';
 import '../css/Metrics.css';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Public, X, Telegram } from '@mui/icons-material';
-import DiscordIcon from '../common/icons/DiscordIcon';
+import project from '../hook/ProjectMetrics';
 
 function Metrics() {
     const [titleMetrics, setTitleMetrics] = React.useState('METRICS');
@@ -15,64 +14,6 @@ function Metrics() {
     const { t } = useTranslation('global');
     const [dataCard, setDataCard] = React.useState<Record<string, string | undefined>[]>([]);
     const [lastUpdate, setLastUpdate] = React.useState<Date | undefined>();
-    const project: Record<string, Record<'name', string>> &
-        Record<string, Record<'medias', Record<string, React.ReactElement>>> = {
-        borg: {
-            name: 'Swissborg',
-            medias: {
-                site: (
-                    <a href="https://swissborg.com/" target="_blank">
-                        <Public />
-                    </a>
-                ),
-                twitter: (
-                    <a href="https://x.com/swissborg" target="_blank">
-                        <X />
-                    </a>
-                ),
-                discord: (
-                    <a href="https://discord.com/invite/swissborg" target="_blank">
-                        <DiscordIcon />
-                    </a>
-                ),
-                telegram: (
-                    <a href="https://t.me/SwissBorgChat" target="_blank">
-                        <Telegram />
-                    </a>
-                ),
-            },
-        },
-        btc: {
-            name: 'Bitcoin',
-            medias: {
-                site: (
-                    <a href="https://bitcoin.org/en/" target="_blank">
-                        <Public />
-                    </a>
-                ),
-            },
-        },
-        xbg: {
-            name: 'XBorg',
-            medias: {
-                site: (
-                    <a href="https://www.xborg.com/" target="_blank">
-                        <Public />
-                    </a>
-                ),
-                twitter: (
-                    <a href="https://x.com/XBorgHQ" target="_blank">
-                        <X />
-                    </a>
-                ),
-                discord: (
-                    <a href="https://discord.com/invite/xborg" target="_blank">
-                        <DiscordIcon />
-                    </a>
-                ),
-            },
-        },
-    };
 
     const createObjectCard = (
         res: Record<string, Record<string, string>> & Record<string, string>,
