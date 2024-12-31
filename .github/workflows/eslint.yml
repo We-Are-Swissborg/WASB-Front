@@ -1,13 +1,13 @@
-name: ESLint
+name: Build Project
 
 on:
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "develop" ]
+    branches: [ "**", "!main" ]
 
 jobs:
-  eslint:
-    name: Run eslint scanning
+  build:
+    name: Run build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: ESLint
+      - name: ESLint scanning
         run: npm run lint --if-present
       
       - name: Run build        
