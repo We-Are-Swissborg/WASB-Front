@@ -7,6 +7,7 @@ import Loading from './component/Loading.tsx';
 import mainRouter from './routes/router.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import adminRoutes from './routes/adminRoutes.tsx';
+import { WalletContextProvider } from './contexts/WalletContextProvider.tsx';
 
 const router = createHashRouter([mainRouter, adminRoutes]);
 
@@ -18,13 +19,15 @@ const LoadingOverlay: React.FC = () => {
 function App() {
     return (
         <>
-            <AuthProvider>
-                <LoadingProvider>
-                    <ToastContainer />
-                    <RouterProvider router={router} />
-                    <LoadingOverlay />
-                </LoadingProvider>
-            </AuthProvider>
+            <WalletContextProvider>
+                <AuthProvider>
+                    <LoadingProvider>
+                        <ToastContainer />
+                        <RouterProvider router={router} />
+                        <LoadingOverlay />
+                    </LoadingProvider>
+                </AuthProvider>
+            </WalletContextProvider>
         </>
     );
 }
