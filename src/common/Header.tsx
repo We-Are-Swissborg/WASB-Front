@@ -6,6 +6,7 @@ import logo from '../assets/images/Wasb_logo__blanc.png';
 import '../css/Header.css';
 import Settings from '../component/Settings.tsx';
 import { useAuth } from '../contexts/AuthContext.tsx';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 export default function Header() {
     const { t } = useTranslation('global');
@@ -53,7 +54,7 @@ export default function Header() {
                             </li>
                         </ul>
                         <div className="d-flex" role="connect">
-                            {/* <TernoaConnect /> */}
+                            <WalletMultiButton />
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 {isAuthenticated ? (
                                     <>
