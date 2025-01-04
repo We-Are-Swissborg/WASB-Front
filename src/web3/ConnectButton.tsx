@@ -75,7 +75,7 @@ export function ConnectButton({ className, ...props }: { className: string }) {
                 disabled={buttonState === 'connecting' || buttonState === 'disconnecting'}
                 onClick={handleClick}
             >
-                {walletIcon && <WalletIcon width={20} wallet={{ adapter: { icon: walletIcon, name: walletName } }} />}{' '}
+                {walletIcon && walletName && <WalletIcon width={20} wallet={{ adapter: { icon: walletIcon, name: walletName } }} />}{' '}
                 {content}
             </button>
             {walletModalConfig ? (
