@@ -82,11 +82,10 @@ export default function Header() {
                                         </li>
                                     </>
                                 )}
-                                <ConnectButton className='btn btn-outline-secondary' />
+                                <ConnectButton className="btn btn-outline-secondary" />
                                 <Settings />
                             </ul>
                         </div>
-                        
                     </div>
                 </div>
             </nav>

@@ -1,9 +1,7 @@
 import { FC, ReactNode, useCallback, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { Adapter, WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
-import {
-    WalletModalProvider,
-} from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 import type { SolanaSignInInput } from '@solana/wallet-standard-features';
@@ -14,7 +12,7 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import { useAutoConnect } from './AutoConnectProvider';
 import { toast } from 'react-toastify';
 
-export const WalletContextProvider : FC<{ children: ReactNode }> = ({ children }) => {
+export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
     const network = WalletAdapterNetwork.Mainnet;
     const { autoConnect } = useAutoConnect();
@@ -38,16 +36,13 @@ export const WalletContextProvider : FC<{ children: ReactNode }> = ({ children }
              */
             new UnsafeBurnerWalletAdapter(),
         ],
-        [network]
+        [network],
     );
 
-    const onError = useCallback(
-        (error: WalletError, adapter?: Adapter) => {
-            toast.error(error.message ? `${error.name}: ${error.message}` : error.name);
-            console.error(error, adapter);
-        },
-        []
-    );
+    const onError = useCallback((error: WalletError, adapter?: Adapter) => {
+        toast.error(error.message ? `${error.name}: ${error.message}` : error.name);
+        console.error(error, adapter);
+    }, []);
 
     const autoSignIn = useCallback(async (adapter: Adapter) => {
         if (!('signIn' in adapter)) return true;
@@ -67,9 +62,7 @@ export const WalletContextProvider : FC<{ children: ReactNode }> = ({ children }
     return (
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} onError={onError} autoConnect={autoConnect && autoSignIn}>
-                <WalletModalProvider>
-                    {children}
-                </WalletModalProvider>
+                <WalletModalProvider>{children}</WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
     );
