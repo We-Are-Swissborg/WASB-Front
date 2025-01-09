@@ -45,6 +45,7 @@ const global_en = {
         "aum": "AUM",
         "back": "BACK",
         "borgLock": "BORG locked",
+        "borgy-telegram": "https://t.me/borgyarmy",
         "communityIndex": "Community index",
         "lastUpdate": "Last updated on",
         "liquidity": "Liquidity",
@@ -59,6 +60,7 @@ const global_en = {
         // "volumeDex": "DEX volume",
         "vsBtc": "vsBTC",
         "volumeCoinGecko": "Volume CoinGecko (24h)",
+        "volumeDexScreener": "Volume DexScreener (24h)",
         "description": {
             "borg": "BORG is the beating heart of SwissBorg. This token is the key to exclusive benefits: staking, fee discounts, and boosted returns with SwissBorg Earn. "+
                     "There are also themes, which allow you to diversify into sectors like DeFi, gaming, or even memes. "+
@@ -71,6 +73,10 @@ const global_en = {
             "xbg": "XBG is a fundamental token of the XBorg ecosystem, used in the gaming universe to reward players and offer personalized experiences. "+
                    "It allows access to airdrops, participation in governance, and benefits from exclusive advantages by accumulating tokens. "+
                    "Developers use it to create custom games, while brands integrate it to offer experiences based on player data. With XBG, every action counts, allowing for the maximization of rewards and involvement in the ecosystem.",
+            "borgy": "Borgy is the memecoin of the Swissborg community, designed to stand out with its future utilities such as staking and mini-games. "+
+                     "It also supports real-world initiatives, including the Barry Foundation in Switzerland, which is dedicated to Saint Bernard dogs. "+
+                     "Backed by the Swissborg team since its inception, Borgy aims to increase Swissborg's visibility while delivering surprises, giveaways, and innovative projects for the community. "+
+                     "This memecoin is building a strong, long-term community with ambitions to take the ecosystem to new heights."
         }
     },
     "nav": {

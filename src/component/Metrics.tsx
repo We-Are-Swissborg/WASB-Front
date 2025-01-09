@@ -5,8 +5,7 @@ import { getCryptoAvailable, getOneCrypto } from '../services/metrics.service';
 import '../css/Metrics.css';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Public, X, Telegram } from '@mui/icons-material';
-import DiscordIcon from '../common/icons/DiscordIcon';
+import project from '../hook/ProjectMetrics';
 
 function Metrics() {
     const [titleMetrics, setTitleMetrics] = React.useState('METRICS');
@@ -15,33 +14,6 @@ function Metrics() {
     const { t } = useTranslation('global');
     const [dataCard, setDataCard] = React.useState<Record<string, string | undefined>[]>([]);
     const [lastUpdate, setLastUpdate] = React.useState<Date | undefined>();
-    const project:
-    Record<string, Record<'name', string>> & 
-    Record<string, Record<'medias', Record<string, React.ReactElement>>> = {
-        borg: {
-            name: 'Swissborg',
-            medias: {
-                site: <a href='https://swissborg.com/' target="_blank"><Public /></a>,
-                twitter: <a href='https://x.com/swissborg' target="_blank"><X /></a>,
-                discord: <a href='https://discord.com/invite/swissborg' target="_blank"><DiscordIcon /></a>,
-                telegram: <a href='https://t.me/SwissBorgChat' target="_blank"><Telegram /></a>
-            }
-        },
-        btc: {
-            name: 'Bitcoin',
-            medias: {
-                site: <a href='https://bitcoin.org/en/' target="_blank"><Public /></a>,
-            }
-        },
-        xbg: {
-            name: 'XBorg',
-            medias: {
-                site: <a href='https://www.xborg.com/' target="_blank"><Public /></a>,
-                twitter: <a href='https://x.com/XBorgHQ' target="_blank"><X /></a>,
-                discord: <a href='https://discord.com/invite/xborg' target="_blank"><DiscordIcon /></a>,
-            }
-        },
-    };
 
     const createObjectCard = (
         res: Record<string, Record<string, string>> & Record<string, string>,
@@ -88,7 +60,7 @@ function Metrics() {
     // Display last update compared with language of site.
     const manageLastUpdate = () => {
         const lang = localStorage.getItem('language');
-        const local = lang === 'fr' ? 'fr-FR' : 'us-US'; 
+        const local = lang === 'fr' ? 'fr-FR' : 'us-US';
         return lastUpdate?.toLocaleString(local);
     };
 
@@ -104,29 +76,27 @@ function Metrics() {
 
     return (
         <div className="container mb-4">
-            <div className='d-flex flex-column align-items-center'>
-                <div className='d-flex flex-column align-items-center mt-5 w-100 mb-4'>
-                    <h1 className='title text-center text-break'>
-                        {titleMetrics.toUpperCase()}
-                    </h1>
-                    {crypto &&
+            <div className="d-flex flex-column align-items-center">
+                <div className="d-flex flex-column align-items-center mt-5 w-100 mb-4">
+                    <h1 className="title text-center text-break">{titleMetrics.toUpperCase()}</h1>
+                    {crypto && (
                         <>
                             <p className="title text-center text-break">
                                 ({project[crypto?.toLowerCase() as keyof object]['name']})
                             </p>
-                            <div className='d-flex w-100'>
-                                <ul className='d-flex list-unstyled justify-content-evenly m-0 w-100'>
-                                    { Object.values(project[crypto?.toLowerCase() as keyof object]['medias']).map((media, id) => <li key={'media-'+id}>{media}</li>) }
+                            <div className="d-flex w-100">
+                                <ul className="d-flex list-unstyled justify-content-evenly m-0 w-100">
+                                    {Object.values(project[crypto?.toLowerCase() as keyof object]['medias']).map(
+                                        (media, id) => (
+                                            <li key={'media-' + id}>{media}</li>
+                                        ),
+                                    )}
                                 </ul>
                             </div>
                         </>
-                    }
+                    )}
                 </div>
-                {crypto && (
-                    <p className='text-center mb-5'>
-                        {t('metrics.description.'+crypto)}
-                    </p>
-                )}
+                {crypto && <p className="text-center mb-5">{t('metrics.description.' + crypto)}</p>}
             </div>
             <div className="d-flex flex-wrap justify-content-center flex">
                 {dataCard.map((data: Record<string, string | undefined>, idData) => {
@@ -146,7 +116,8 @@ function Metrics() {
                                         {data.key?.toLocaleUpperCase()}
                                     </h2>
                                     <p className="text-white text-center text-nowrap fs-4">
-                                        {project[data.key?.toLowerCase() as keyof object] && project[data.key?.toLowerCase() as keyof object]['name']}
+                                        {project[data.key?.toLowerCase() as keyof object] &&
+                                            project[data.key?.toLowerCase() as keyof object]['name']}
                                     </p>
                                     <span className="text-white fs-4">{data?.value}</span>
                                 </a>
@@ -166,7 +137,7 @@ function Metrics() {
                     </div>
                 )}
             </div>
-            <p>{ `${t('metrics.lastUpdate')} : ${manageLastUpdate()}`}</p>
+            <p>{`${t('metrics.lastUpdate')} : ${manageLastUpdate()}`}</p>
         </div>
     );
 }
