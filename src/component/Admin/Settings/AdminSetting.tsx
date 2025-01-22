@@ -7,13 +7,14 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 import { Parameter } from '@/types/Parameter';
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
-import { t } from 'i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function AdminSetting() {
+    const { t } = useTranslation('global');
     const navigate = useNavigate();
     const { token } = useAuth();
     const { id } = useParams();

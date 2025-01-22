@@ -290,7 +290,7 @@ const global_fr = {
         "united-kingdom": "Royaume-Uni"
     },
     "authenticate": {
-        "title": "Se connecter",
+        "title": "Se connecter", 
         "welcome": "Bonjour",
         "error-sign": "Une erreur est survenu lors de la demande de signature",
         "login": "Se connecter",
@@ -300,6 +300,9 @@ const global_fr = {
         "username": "Nom d'utilisateur",
         "placeholder-username": "Entrez votre nom d'utilisateur",
         "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
+    },
+    "session": {
+        "create": "La sessions a bien été créée !"
     }
 };
 
