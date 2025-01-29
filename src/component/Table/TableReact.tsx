@@ -115,7 +115,7 @@ export default function TableReact<TData>({ table }: TableReactProps<TData>) {
                         table.setPageSize(Number(e.target.value));
                     }}
                 >
-                    {[10, 20, 30, 40, 50].map((pageSize) => (
+                    {[2, 10, 20, 30, 40, 50].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>

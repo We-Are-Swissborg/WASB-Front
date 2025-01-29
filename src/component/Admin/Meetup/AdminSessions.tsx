@@ -12,8 +12,7 @@ import {
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
-    getSortedRowModel,
-    PaginationState,
+    getSortedRowModel
 } from '@tanstack/table-core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -22,10 +21,6 @@ export default function AdminSessions() {
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<Session[]>(() => []);
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    });
 
     const initSessions = useCallback(async () => {
         if (token) {
@@ -103,11 +98,7 @@ export default function AdminSessions() {
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(), //client side filtering
         getSortedRowModel: getSortedRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        onPaginationChange: setPagination,
-        state: {
-            pagination,
-        },
+        getPaginationRowModel: getPaginationRowModel()
     });
 
     return (

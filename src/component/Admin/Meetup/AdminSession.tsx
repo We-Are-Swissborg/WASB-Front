@@ -64,9 +64,9 @@ export default function AdminSession() {
             try {
                 const session = await SessionAdminServices.getSession(Number(id), token!);
                 initSession(session);
-            } catch (error) {
+            } catch (error: unknown) {
                 toast.error(`Erreur lors du chargement de la session`);
-                console.log('ERROR: init Session', e);
+                console.log('ERROR: init Session', error);
             }
         }
     }, [id, token, initSession]);
