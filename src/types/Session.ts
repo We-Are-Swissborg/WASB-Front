@@ -1,11 +1,11 @@
-import { PostCategory } from './PostCategory';
+import { Address } from './Address';
 import { User } from './User';
 
-export type PaginatedPostsResponse = {
+export type PaginatedSessionsResponse = {
     sessions: CardSession[];
     currentPage: number;
     totalPages: number;
-    totalPosts: number;
+    totalSessions: number;
     limit: number;
 };
 
@@ -13,10 +13,10 @@ export type CardSession = {
     id: number;
     title: string;
     slug: string;
+    status: SessionStatus;
     image64: string;
-    infoAuthor?: Omit<User, 'membership'>;
-    publishedAt: Date;
-    categories: PostCategory[];
+    startDateTime: Date;
+    endDateTime?: Date;
 };
 
 export type Session = {
@@ -28,6 +28,7 @@ export type Session = {
     image: string;
     startDateTime: Date;
     endDateTime?: Date;
+    address: Address;
     organizerBy?: Omit<User, 'membership'>;
     numberOfParticipants: number;
     url: string;

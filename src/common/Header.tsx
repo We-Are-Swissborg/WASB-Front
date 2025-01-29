@@ -42,6 +42,11 @@ export default function Header() {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
+                                <NavLink className="nav-link" to="/events">
+                                    {t('nav.events')}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
                                 <NavLink className="nav-link" to="/metrics">
                                     {t('nav.metrics')}
                                 </NavLink>

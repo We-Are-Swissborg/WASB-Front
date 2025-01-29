@@ -42,20 +42,23 @@ export default function AdminSession() {
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
 
-    const initSession = useCallback(async (session: Session) => {
-        setSession(session);
-        setValue('id', session.id);
-        setValue('createdAt', new Date(session.createdAt));
-        setValue('updatedAt', new Date(session.updatedAt));
-        setValue('title', session.title);
-        setValue('status', session.status);
-        setValue('startDateTime', new Date(session.startDateTime));
-        setValue('endDateTime', session.endDateTime ? new Date(session.endDateTime) : undefined);
-        setValue('membersOnly', session.membersOnly);
-        setValue('url', session.url);
-        setValue('description', session.description);
-        setValue('image', session.image);
-    }, [setValue]);
+    const initSession = useCallback(
+        async (session: Session) => {
+            setSession(session);
+            setValue('id', session.id);
+            setValue('createdAt', new Date(session.createdAt));
+            setValue('updatedAt', new Date(session.updatedAt));
+            setValue('title', session.title);
+            setValue('status', session.status);
+            setValue('startDateTime', new Date(session.startDateTime));
+            setValue('endDateTime', session.endDateTime ? new Date(session.endDateTime) : undefined);
+            setValue('membersOnly', session.membersOnly);
+            setValue('url', session.url);
+            setValue('description', session.description);
+            setValue('image', session.image);
+        },
+        [setValue],
+    );
 
     const getSession = useCallback(async () => {
         if (id && token) {
@@ -66,7 +69,7 @@ export default function AdminSession() {
                 toast.error(`Erreur lors du chargement de la session`);
                 console.log('ERROR: init Session', e);
             }
-        }        
+        }
     }, [id, token, initSession]);
 
     const initForm = useCallback(async () => {
@@ -97,8 +100,7 @@ export default function AdminSession() {
                     toast.success(t('session.create'));
                 }
                 // navigate('/admin/meetup');
-            }
-            catch {
+            } catch {
                 toast.error(t('session.error'));
             }
         }
@@ -118,7 +120,7 @@ export default function AdminSession() {
         <>
             <div className="container-fluid">
                 <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
-                    <form onSubmit={handleSubmit(onSubmit)} className='mt-3'>
+                    <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
                         <fieldset className="row g-3">
                             <legend>Session {!!session && <> - {session.title}</>}</legend>
                             <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
@@ -268,16 +270,19 @@ export default function AdminSession() {
                         </fieldset>
                         <fieldset className="row g-3">
                             <legend>Information sur la session</legend>
-                            <div className="col-6 mb-3">
-                                <UploadImage onUpload={handleImageUpload} />
-                                <label>
-                                    Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne
-                                    sera pas pris en considération
-                                </label>
-                                {session?.image64 && (
-                                    <img src={session.image64} alt="Uploaded" style={{ width: '856px', height: '419px' }} />
-                                )}
-                            </div>
+                            <UploadImage onUpload={handleImageUpload} />
+                            <label>
+                                Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne
+                                sera pas pris en considération
+                            </label>
+                            {session?.image64 && (
+                                <img
+                                    src={session.image64}
+                                    className="img-thumbnail"
+                                    alt="Uploaded"
+                                    style={{ width: '856px' }}
+                                />
+                            )}
                             <div className="col-6 mb-3">
                                 <Controller
                                     name="description"
@@ -300,15 +305,8 @@ export default function AdminSession() {
                                     )}
                                 />
                             </div>
-                            {/* <div className="card col-6 mb-3">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: quillRef?.current?.container?.firstChild?.innerHTML ?? 'DEFAULT',
-                                }}
-                            ></div>
-                        </div> */}
                         </fieldset>
-                        <button type="submit" className="btn btn-success mt-3">
+                        <button type="submit" className="btn btn-success my-3">
                             {isSubmitting && (
                                 <div className="spinner-border spinner-border-sm mx-2" role="status">
                                     <span className="visually-hidden">Loading...</span>

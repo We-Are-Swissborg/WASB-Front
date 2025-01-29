@@ -128,6 +128,10 @@ const adminRoutes = {
                     element: <AdminSessions />,
                 },
                 {
+                    path: 'add',
+                    element: <AdminSession />,
+                },
+                {
                     path: ':id/edit',
                     element: <AdminSession />,
                 },

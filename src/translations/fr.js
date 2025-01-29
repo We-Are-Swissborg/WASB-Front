@@ -81,6 +81,7 @@ const global_fr = {
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
+        "events": "Évènements",
         "contact": "Contact",
         "home": "Accueil",
         "language": "Langue",
@@ -303,6 +304,18 @@ const global_fr = {
     },
     "session": {
         "create": "La sessions a bien été créée !"
+    },
+    "event": {
+        "title": "Évènements",
+        "loading-error": "L'évènements est introuvable",
+        "datetime": "Date et heure",
+        "locality": "Lieu",
+        "organizer": "Organisé par",
+        "url": "Lien vers l'événement",
+        "about": "À propos de cet évènement",
+        "details": "Voir les détails",
+        "cancelled": "Annulé",
+        "search": "Rechercher un événement",
     }
 };
 
