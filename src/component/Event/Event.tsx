@@ -4,7 +4,6 @@ import { CalendarMonthSharp } from '@mui/icons-material';
 import {
     Box,
     Typography,
-    TextField,
     Card,
     CardMedia,
     CardContent,
@@ -27,7 +26,7 @@ export default function Event() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [limit] = useState<number>(9);
-    const [filter, setFilter] = useState('');
+    // const [filter, setFilter] = useState('');
     const { data, error, isLoading } = useSWR<PaginatedSessionsResponse>(
         `/sessions?page=${currentPage}&limit=${limit}`,
         fetcher,

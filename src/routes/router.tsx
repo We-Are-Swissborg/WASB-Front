@@ -12,7 +12,6 @@ import Role from '@/types/Role';
 import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
 import Metrics from '@/component/Metrics';
-// import Article from '@/component/Article';
 import Post from '@/component/Post';
 import Event from '@/component/Event/Event';
 import Session from '@/component/Event/Session';

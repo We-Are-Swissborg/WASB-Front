@@ -22,11 +22,10 @@ import Quill from 'quill';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function AdminSession() {
-    const navigate = useNavigate();
     const { t } = useTranslation('global');
     const { token } = useAuth();
     const { id } = useParams();
@@ -75,7 +74,7 @@ export default function AdminSession() {
     const initForm = useCallback(async () => {
         try {
             await getSession();
-        } catch (e) {
+        } catch (e: unknown) {
             toast.error(`Erreur lors de l'initialisation du formulaire`);
             console.log('ERROR: init Form Contribution', e);
         } finally {
