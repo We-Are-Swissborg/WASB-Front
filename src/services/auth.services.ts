@@ -1,18 +1,15 @@
 import { Nonce } from '../types/Security';
-import { postFetch } from './baseAPI.services';
+import { getFetch, postFetch } from './baseAPI.services';
+import type { SolanaSignInOutput } from '@solana/wallet-standard-features';
 
 /**
- * Generates a random value for the wallet
- * @param walletAddress wallet address
+ * Call a random nonce
  * @returns
  */
-const generateNonce = async (walletAddress: string): Promise<Nonce> => {
-    const url: string = 'users/nonce';
-    const data = {
-        walletAddress: walletAddress,
-    };
+const getNonce = async (): Promise<Nonce> => {
+    const url: string = 'getNonce';
 
-    const response: Response = await postFetch(url, JSON.stringify(data));
+    const response: Response = await getFetch(url);
 
     if (!response.ok) {
         throw new Error('An error has occurred: ' + response.statusText);
@@ -23,16 +20,26 @@ const generateNonce = async (walletAddress: string): Promise<Nonce> => {
 
 /**
  * authenticate with wallet and signed message
- * @param walletAddress wallet address
- * @param signedHash signed message hash
+ * @param publicKey wallet address
+ * @param signedMessage signed message hash
  * @returns
  */
-const authenticate = async (walletAddress: string, signedHash: string): Promise<string> => {
+const authenticate = async ({
+    nonce,
+    output,
+}: {
+    nonce: string;
+    output: SolanaSignInOutput;
+}): Promise<string> => {
+
     const url: string = 'authWallet';
-    const data = { walletAddress: walletAddress, signedMessageHash: signedHash };
+    const data = { output, nonce };
+
+    console.log('data', data);
 
     const response: Response = await postFetch(url, JSON.stringify(data));
     const json = await response.json();
+    console.log('response', json);
 
     if (!response.ok) {
         throw new Error('An error has occurred: ' + json.message);
@@ -60,4 +67,4 @@ const auth = async (username: string, password: string): Promise<string> => {
     return json.token;
 };
 
-export { generateNonce, auth, authenticate };
+export { auth, authenticate, getNonce };

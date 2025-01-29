@@ -3,7 +3,6 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { Adapter, WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 import type { SolanaSignInInput } from '@solana/wallet-standard-features';
 import { verifySignIn } from '@solana/wallet-standard-util';
 
@@ -11,6 +10,7 @@ import { verifySignIn } from '@solana/wallet-standard-util';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { useAutoConnect } from './AutoConnectProvider';
 import { toast } from 'react-toastify';
+import { getNonce, authenticate } from '@/services/auth.services';
 
 export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
@@ -22,19 +22,6 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children })
 
     const wallets = useMemo(
         () => [
-            /**
-             * Wallets that implement either of these standards will be available automatically.
-             *
-             *   - Solana Mobile Stack Mobile Wallet Adapter Protocol
-             *     (https://github.com/solana-mobile/mobile-wallet-adapter)
-             *   - Solana Wallet Standard
-             *     (https://github.com/anza-xyz/wallet-standard)
-             *
-             * If you wish to support a wallet that supports neither of those standards,
-             * instantiate its legacy wallet adapter here. Common legacy adapters can be found
-             * in the npm package `@solana/wallet-adapter-wallets`.
-             */
-            new UnsafeBurnerWalletAdapter(),
         ],
         [network],
     );
@@ -47,14 +34,20 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children })
     const autoSignIn = useCallback(async (adapter: Adapter) => {
         if (!('signIn' in adapter)) return true;
 
+        const nonce = await getNonce();
+
         const input: SolanaSignInInput = {
             domain: window.location.host,
             address: adapter.publicKey ? adapter.publicKey.toBase58() : undefined,
             statement: 'Please sign in.',
+            nonce: nonce.nonce
         };
         const output = await adapter.signIn(input);
 
         if (!verifySignIn(input, output)) throw new Error('Sign In verification failed!');
+
+        console.log('output', output.account);
+        await authenticate({ output: output, nonce: nonce.nonce });
 
         return false;
     }, []);
