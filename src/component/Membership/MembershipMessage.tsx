@@ -17,7 +17,7 @@ export const MembershipMessage = () => {
         isLoading: parametersLoading,
     } = useSWR<Parameter[]>('parameters_membership', () => fetcherParameters(token!));
 
-    if (parametersError) return <div>{t('blog.loading-error')}</div>;
+    if (parametersError) return  <div><Trans i18nKey="blog.loading-error"></Trans></div>;
     if (parametersLoading) return <Loading />;
 
     return (
