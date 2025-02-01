@@ -11,7 +11,7 @@ import imageDefault from '../../assets/images/event_default.png';
 const fetcher: Fetcher<SessionType> = (url: string) => getSessionBySlug(url);
 
 export default function Session() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { slug } = useParams();
     const [session, setSession] = useState<SessionType>();
 

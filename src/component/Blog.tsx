@@ -17,7 +17,7 @@ import { CalendarMonthSharp } from '@mui/icons-material';
 const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => getPosts(url);
 
 function Blog() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [limit] = useState<number>(9);

@@ -13,7 +13,7 @@ const authenticate = async (data: User): Promise<string> => {
 
 export default function Login() {
     const { login } = useAuth();
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     // getting the event handlers from our custom hook

@@ -49,7 +49,7 @@ import AE from '../assets/images/countries/uae.svg';
 import GB from '../assets/images/countries/united-kingdom.svg';
 
 export default function Countries() {
-    const [t] = useTranslation('global');
+    const [t] = useTranslation();
 
     const listCountries = [
         { iso: 'AR', name: t('countries.argentina'), urlImg: AR },

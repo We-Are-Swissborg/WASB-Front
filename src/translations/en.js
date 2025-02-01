@@ -5,8 +5,7 @@ const global_en = {
         'loading': 'Loading in progress...',
     },
     "community": {
-        "swissborgmania": "Discover SwissBorg with SwissBorgMania",
-        "thecryptophil": "Discover SwissBorg with Smart Café from TheCryptoPhil"
+        "swissborgmania": "Discover SwissBorg with SwissBorgMania"
     },
     "footer": {
         "contact": "Contact",
@@ -82,7 +81,7 @@ const global_en = {
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
-        "event": "Events",
+        "events": "Events",
         "contact": "Contact",
         "home": "Home",
         "language": "Language",
@@ -319,7 +318,21 @@ const global_en = {
         "details": "See details",
         "cancelled": "Cancelled",
         "search": "Search event",
-
+    },
+    "about": {
+        "title": "Who are we?",
+        "intro": "At <strong>WeAreSwissBorg</strong>, we believe in the power of community. <u>Our mission</u> ? To enable everyone to engage freely, reconnect with ideas, and turn them into concrete actions.",
+        "mission": "Born from the desire to extend the collective energy of the <i>SwissBorg DAO</i>, our independent association brings together enthusiasts around a shared vision: supporting projects proposed, carried out, and realized by the community, for the community.",
+        "values": "Our values – welcome, commitment, knowledge, and ecosystem support – embody our unique way of living and sharing the SwissBorg spirit: Be Healthy, Be Wealthy.",
+        "whatWeDoTitle": "What we do",
+        "whatWeDoIntro": "We provide a space to:",
+        "whatWeDoPoint1": "Join a network of committed Borgers who believe in decentralization and simplified access to crypto.",
+        "whatWeDoPoint2": "Decide together on projects to support, fund them, and make them a reality.",
+        "whatWeDoPoint3": "Support innovation and initiatives that benefit the SwissBorg ecosystem.",
+        "legalNote": "We are the only legal organization dedicated to bringing active Borgers together. Whether you want to start your own project or join an existing one, anything is possible here.",
+        "visionTitle": "Our vision",
+        "visionIntro": "Today, we are laying the first stone towards a future DAO where every community project can be funded.",
+        "visionConclusion": "Join us, and let’s build together a future where crypto becomes the safest way for everyone to create generational wealth."
     }
 };
 

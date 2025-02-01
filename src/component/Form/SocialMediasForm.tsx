@@ -16,7 +16,7 @@ type ISocialMediasForm = {
 };
 
 export default function SocialMediasForm(props: ISocialMediasForm) {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const {
         register,
         handleSubmit,

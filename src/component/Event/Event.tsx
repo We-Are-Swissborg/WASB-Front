@@ -22,7 +22,7 @@ import imageDefault from '../../assets/images/event_default.png';
 const fetcher: Fetcher<PaginatedSessionsResponse> = (url: string) => getAllSessions(url);
 
 export default function Event() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [limit] = useState<number>(9);

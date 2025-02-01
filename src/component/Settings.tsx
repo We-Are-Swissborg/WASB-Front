@@ -7,7 +7,7 @@ import { AdminPanelSettingsTwoTone, SettingsTwoTone } from '@mui/icons-material'
 import { gsap } from 'gsap';
 
 export default function Settings() {
-    const [t, i18n] = useTranslation('global');
+    const [t, i18n] = useTranslation();
     const { roles } = useAuth();
     const iconRef = useRef(null);
 

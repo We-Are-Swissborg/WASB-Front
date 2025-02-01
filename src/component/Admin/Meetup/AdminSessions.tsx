@@ -12,7 +12,7 @@ import {
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
-    getSortedRowModel
+    getSortedRowModel,
 } from '@tanstack/table-core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -98,7 +98,7 @@ export default function AdminSessions() {
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(), //client side filtering
         getSortedRowModel: getSortedRowModel(),
-        getPaginationRowModel: getPaginationRowModel()
+        getPaginationRowModel: getPaginationRowModel(),
     });
 
     return (

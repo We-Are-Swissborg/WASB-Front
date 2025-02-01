@@ -5,8 +5,7 @@ const global_fr = {
         'loading': 'Chargement en cours...',
     },
     "community": {
-        "swissborgmania": "Découvre Swissborg avec SwissBorgMania",
-        "thecryptophil": "Découvre Swissborg avec les Smart Café de TheCryptoPhil"
+        "swissborgmania": "Découvre Swissborg avec SwissBorgMania"
     },
     "footer": {
         "contact": "Contact",
@@ -316,6 +315,21 @@ const global_fr = {
         "details": "Voir les détails",
         "cancelled": "Annulé",
         "search": "Rechercher un événement",
+    },
+    "about": {
+        "title": "Qui sommes-nous ?",
+        "intro": "Chez <strong>WeAreSwissBorg</strong>, nous croyons en la puissance de la communauté. <u>Notre mission</u> ? Permettre à chacun de s’engager librement, renouer avec les idées, et les transformer en actions concrètes.",
+        "mission": "Née de la volonté de prolonger l'énergie collective de la <i>DAO SwissBorg</i>, notre association indépendante rassemble des passionnés autour d’une vision partagée : soutenir des projets proposés, portés et réalisés par la communauté, pour la communauté.",
+        "values": "Nos valeurs – accueil, engagement, connaissance et soutien à l’écosystème – incarnent notre manière unique de vivre et partager l’esprit SwissBorg : Be Healthy, Be Wealthy.",
+        "whatWeDoTitle": "Ce que nous faisons",
+        "whatWeDoIntro": "Nous offrons un espace pour :",
+        "whatWeDoPoint1": "Rejoindre un réseau de Borgers engagés qui croient en la décentralisation et l’accès simplifié à la crypto.",
+        "whatWeDoPoint2": "Décider ensemble des projets à soutenir, les financer et les concrétiser.",
+        "whatWeDoPoint3": "Soutenir l’innovation et les initiatives qui bénéficient à l’écosystème SwissBorg.",
+        "legalNote": "Nous sommes la seule organisation légale dédiée à rassembler les Borgers actifs. Que tu souhaites monter ton projet ou en rejoindre un déjà existant, tout est possible ici.",
+        "visionTitle": "Notre vision",
+        "visionIntro": "Nous posons aujourd’hui la première pierre vers une future DAO où chaque projet communautaire pourra se financer.",
+        "visionConclusion": "Rejoins-nous, et construisons ensemble un avenir où la crypto devient le moyen le plus sûr pour chacun de créer une fortune générationnelle."
     }
 };
 

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import * as MembershipService from '@/administration/services/membershipAdmin.service';
 
 export default function AdminMembership() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const { id } = useParams();
     const [membership, setMembership] = useState<Membership>();
