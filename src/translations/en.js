@@ -137,6 +137,7 @@ const global_en = {
         "manage-membership": {
             "message-1": "You currently have a WASB Genesis membership (annual). Your membership will be renewed on #######.",
             "message-2": "As a WASB Genesis member and holder of the Ternoa NFT, you benefit from our best features.",
+            "loading-error": "Error loading datas",
             "title": "Manage my membership",
             "no-adherent": "No adherent",
             "endDateContribution": "Contribution end date",

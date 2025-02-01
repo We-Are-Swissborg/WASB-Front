@@ -134,6 +134,7 @@ const global_fr = {
         "manage-membership": {
             "message-1": "Vous avez actuellement une adhésion WASB Genesis (annuel). Votre adhésion sera renouvelé le #######.",
             "message-2": "En tant que membre WASB Genesis et détenteur du NFT Ternoa, vous bénéficiez de nos meilleures fonctionnalités.",
+            "loading-error": "Erreur lors du chargement des données",
             "title": "Gérer mon adhésion",
             "no-adherent": "Non adhérent",
             "endDateContribution": "Fin de l’adhésion",
