@@ -7,6 +7,7 @@ import {
     SettingsTwoTone,
     ExitToAppTwoTone,
     AttachMoneyTwoTone,
+    CalendarMonthTwoTone,
 } from '@mui/icons-material';
 // import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import { NavLink } from 'react-router-dom';
@@ -47,6 +48,11 @@ export default function AdminSideBar() {
                         <li className="nav-item">
                             <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/posts">
                                 <ArticleTwoTone /> Posts
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link d-flex align-items-center gap-2 active" to="/admin/meetup">
+                                <CalendarMonthTwoTone /> Meetup
                             </NavLink>
                         </li>
                         <li className="nav-item">

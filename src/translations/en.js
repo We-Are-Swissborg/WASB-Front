@@ -82,6 +82,7 @@ const global_en = {
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
+        "event": "Events",
         "contact": "Contact",
         "home": "Home",
         "language": "Language",
@@ -303,6 +304,22 @@ const global_en = {
         "username": "Username",
         "placeholder-username": "Enter your username",
         "sign-up": "Don't have an account? ? <link1>Sign Up</link1>",
+    },
+    "session": {
+        "create": "The session was created!"
+    },
+    "event": {
+        "title": "Events",
+        "loading-error": "Events not found",
+        "datetime": "Date and hour",
+        "locality": "Locality",
+        "organizer": "Organize by",
+        "url": "Link to the event",
+        "about": "About this event",
+        "details": "See details",
+        "cancelled": "Cancelled",
+        "search": "Search event",
+
     }
 };
 

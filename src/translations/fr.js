@@ -81,6 +81,7 @@ const global_fr = {
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
+        "events": "Évènements",
         "contact": "Contact",
         "home": "Accueil",
         "language": "Langue",
@@ -290,7 +291,7 @@ const global_fr = {
         "united-kingdom": "Royaume-Uni"
     },
     "authenticate": {
-        "title": "Se connecter",
+        "title": "Se connecter", 
         "welcome": "Bonjour",
         "error-sign": "Une erreur est survenu lors de la demande de signature",
         "login": "Se connecter",
@@ -300,6 +301,21 @@ const global_fr = {
         "username": "Nom d'utilisateur",
         "placeholder-username": "Entrez votre nom d'utilisateur",
         "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
+    },
+    "session": {
+        "create": "La sessions a bien été créée !"
+    },
+    "event": {
+        "title": "Évènements",
+        "loading-error": "L'évènements est introuvable",
+        "datetime": "Date et heure",
+        "locality": "Lieu",
+        "organizer": "Organisé par",
+        "url": "Lien vers l'événement",
+        "about": "À propos de cet évènement",
+        "details": "Voir les détails",
+        "cancelled": "Annulé",
+        "search": "Rechercher un événement",
     }
 };
 
