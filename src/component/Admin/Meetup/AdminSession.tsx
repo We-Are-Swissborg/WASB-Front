@@ -26,7 +26,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function AdminSession() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const { id } = useParams();
     const [session, setSession] = useState<Session>();

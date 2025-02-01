@@ -17,7 +17,7 @@ type IAccountForm = {
 };
 
 export default function AccountForm(props: IAccountForm) {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const {
         register,
         handleSubmit,

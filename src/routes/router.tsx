@@ -15,6 +15,7 @@ import Metrics from '@/component/Metrics';
 import Post from '@/component/Post';
 import Event from '@/component/Event/Event';
 import Session from '@/component/Event/Session';
+import AboutUs from '@/component/About/AboutUs';
 
 const router = {
     path: '/',
@@ -93,6 +94,10 @@ const router = {
         {
             path: 'logout',
             element: <ProtectedRoute element={<Logout />} />,
+        },
+        {
+            path: 'aboutus',
+            element: <AboutUs />,
         },
     ],
 };

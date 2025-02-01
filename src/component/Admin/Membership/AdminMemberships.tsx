@@ -21,7 +21,7 @@ import { User } from '@/types/User';
 const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => MembershipService.getMemberships(token);
 
 export default function AdminMemberships() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [membershipsInProgress, setMembershipsInProgress] = useState<Membership[]>(() => []);

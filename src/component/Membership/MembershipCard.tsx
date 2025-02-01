@@ -9,7 +9,7 @@ type MembershipCardType = {
 };
 
 export const MembershipCard = ({ lastMembership }: MembershipCardType) => {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
 
     const badgeColor =
         lastMembership?.contributionStatus === 'accepted'

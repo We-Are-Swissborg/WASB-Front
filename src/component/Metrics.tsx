@@ -11,7 +11,7 @@ function Metrics() {
     const [titleMetrics, setTitleMetrics] = React.useState('METRICS');
     const { crypto } = Router.useParams();
     const navigate = Router.useNavigate();
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const [dataCard, setDataCard] = React.useState<Record<string, string | undefined>[]>([]);
     const [lastUpdate, setLastUpdate] = React.useState<Date | undefined>();
 

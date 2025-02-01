@@ -14,7 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function AdminSetting() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { token } = useAuth();
     const { id } = useParams();

@@ -11,7 +11,7 @@ import AccountForm from './Form/AccountForm';
 import { MembershipView } from './Membership/MembershipView';
 
 export default function Profile() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const [profileCategory, setProfileCategory] = useState(1);
     const { token } = useAuth();
     const [user, setUser] = useState<User>();

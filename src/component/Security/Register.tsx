@@ -19,7 +19,7 @@ const authenticate = async (data: Registration): Promise<string> => {
 };
 
 export default function Register() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { codeRef } = useParams();
     const { login } = useAuth();

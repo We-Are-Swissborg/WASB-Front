@@ -8,7 +8,7 @@ type MembershipReminderType = {
 };
 
 export const MembershipReminder = ({ lastMembership }: MembershipReminderType) => {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const [daysRemaining, setDaysRemaining] = useState<number | null>(null);
 
     const updateCountdown = () => {

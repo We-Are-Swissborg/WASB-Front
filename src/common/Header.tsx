@@ -8,7 +8,7 @@ import Settings from '../component/Settings.tsx';
 import { useAuth } from '../contexts/AuthContext.tsx';
 
 export default function Header() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { isAuthenticated } = useAuth();
 
     return (
