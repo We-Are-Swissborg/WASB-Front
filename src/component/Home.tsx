@@ -11,7 +11,7 @@ import '../css/Home.css';
 import { ChevronRightTwoTone, Diversity3Sharp, PublicSharp, SchoolSharp, YouTube } from '@mui/icons-material';
 
 export default function Home() {
-    const [t] = useTranslation('global');
+    const [t] = useTranslation();
     const container = useRef(null);
 
     useGSAP(

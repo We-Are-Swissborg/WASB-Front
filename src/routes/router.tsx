@@ -12,8 +12,10 @@ import Role from '@/types/Role';
 import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
 import Metrics from '@/component/Metrics';
-// import Article from '@/component/Article';
 import Post from '@/component/Post';
+import Event from '@/component/Event/Event';
+import Session from '@/component/Event/Session';
+import AboutUs from '@/component/About/AboutUs';
 
 const router = {
     path: '/',
@@ -38,6 +40,19 @@ const router = {
                 {
                     path: ':slug',
                     element: <Post />,
+                },
+            ],
+        },
+        {
+            path: 'events',
+            children: [
+                {
+                    path: '',
+                    element: <Event />,
+                },
+                {
+                    path: ':slug',
+                    element: <Session />,
                 },
             ],
         },
@@ -79,6 +94,10 @@ const router = {
         {
             path: 'logout',
             element: <ProtectedRoute element={<Logout />} />,
+        },
+        {
+            path: 'aboutus',
+            element: <AboutUs />,
         },
     ],
 };

@@ -1,7 +1,7 @@
 {
   "name": "weareswissborg",
   "private": true,
-  "version": "0.5.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,6 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@gsap/react": "^2.1.1",
-    "@mui/base": "^5.0.0-beta.68",
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "@mui/x-date-pickers": "^7.23.3",

@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 export default function AdminContribution() {
     const navigate = useNavigate();
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const { id } = useParams();
     const [contribution, setContribution] = useState<Contribution>();

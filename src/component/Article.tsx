@@ -18,7 +18,7 @@
 // const fetcher: Fetcher<Post> = (url: string) => PostServices.getPost(url);
 
 // export default function Article() {
-//     const { t } = useTranslation('global');
+//     const { t } = useTranslation();
 //     const [post, setPost] = useState<Post>();
 //     const { slug } = useParams();
 //     const [init, setInit] = useState(true);

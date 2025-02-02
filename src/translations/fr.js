@@ -5,8 +5,7 @@ const global_fr = {
         'loading': 'Chargement en cours...',
     },
     "community": {
-        "swissborgmania": "Découvre Swissborg avec SwissBorgMania",
-        "thecryptophil": "Découvre Swissborg avec les Smart Café de TheCryptoPhil"
+        "swissborgmania": "Découvre Swissborg avec SwissBorgMania"
     },
     "footer": {
         "contact": "Contact",
@@ -81,6 +80,7 @@ const global_fr = {
     "nav": {
         "admin": "Administration",
         "blog": "Blog",
+        "events": "Évènements",
         "contact": "Contact",
         "home": "Accueil",
         "language": "Langue",
@@ -134,6 +134,7 @@ const global_fr = {
         "manage-membership": {
             "message-1": "Vous avez actuellement une adhésion WASB Genesis (annuel). Votre adhésion sera renouvelé le #######.",
             "message-2": "En tant que membre WASB Genesis et détenteur du NFT Ternoa, vous bénéficiez de nos meilleures fonctionnalités.",
+            "loading-error": "Erreur lors du chargement des données",
             "title": "Gérer mon adhésion",
             "no-adherent": "Non adhérent",
             "endDateContribution": "Fin de l’adhésion",
@@ -290,7 +291,7 @@ const global_fr = {
         "united-kingdom": "Royaume-Uni"
     },
     "authenticate": {
-        "title": "Se connecter",
+        "title": "Se connecter", 
         "welcome": "Bonjour",
         "error-sign": "Une erreur est survenu lors de la demande de signature",
         "login": "Se connecter",
@@ -300,6 +301,36 @@ const global_fr = {
         "username": "Nom d'utilisateur",
         "placeholder-username": "Entrez votre nom d'utilisateur",
         "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
+    },
+    "session": {
+        "create": "La sessions a bien été créée !"
+    },
+    "event": {
+        "title": "Évènements",
+        "loading-error": "L'évènements est introuvable",
+        "datetime": "Date et heure",
+        "locality": "Lieu",
+        "organizer": "Organisé par",
+        "url": "Lien vers l'événement",
+        "about": "À propos de cet évènement",
+        "details": "Voir les détails",
+        "cancelled": "Annulé",
+        "search": "Rechercher un événement",
+    },
+    "about": {
+        "title": "Qui sommes-nous ?",
+        "intro": "Chez <strong>WeAreSwissBorg</strong>, nous croyons en la puissance de la communauté. <u>Notre mission</u> ? Permettre à chacun de s’engager librement, renouer avec les idées, et les transformer en actions concrètes.",
+        "mission": "Née de la volonté de prolonger l'énergie collective de la <i>DAO SwissBorg</i>, notre association indépendante rassemble des passionnés autour d’une vision partagée : soutenir des projets proposés, portés et réalisés par la communauté, pour la communauté.",
+        "values": "Nos valeurs – accueil, engagement, connaissance et soutien à l’écosystème – incarnent notre manière unique de vivre et partager l’esprit SwissBorg : Be Healthy, Be Wealthy.",
+        "whatWeDoTitle": "Ce que nous faisons",
+        "whatWeDoIntro": "Nous offrons un espace pour :",
+        "whatWeDoPoint1": "Rejoindre un réseau de Borgers engagés qui croient en la décentralisation et l’accès simplifié à la crypto.",
+        "whatWeDoPoint2": "Décider ensemble des projets à soutenir, les financer et les concrétiser.",
+        "whatWeDoPoint3": "Soutenir l’innovation et les initiatives qui bénéficient à l’écosystème SwissBorg.",
+        "legalNote": "Nous sommes la seule organisation légale dédiée à rassembler les Borgers actifs. Que tu souhaites monter ton projet ou en rejoindre un déjà existant, tout est possible ici.",
+        "visionTitle": "Notre vision",
+        "visionIntro": "Nous posons aujourd’hui la première pierre vers une future DAO où chaque projet communautaire pourra se financer.",
+        "visionConclusion": "Rejoins-nous, et construisons ensemble un avenir où la crypto devient le moyen le plus sûr pour chacun de créer une fortune générationnelle."
     }
 };
 

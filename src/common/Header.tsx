@@ -8,7 +8,7 @@ import Settings from '../component/Settings.tsx';
 import { useAuth } from '../contexts/AuthContext.tsx';
 
 export default function Header() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { isAuthenticated } = useAuth();
 
     return (
@@ -39,6 +39,11 @@ export default function Header() {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/blog">
                                     {t('nav.blog')}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/events">
+                                    {t('nav.events')}
                                 </NavLink>
                             </li>
                             <li className="nav-item">

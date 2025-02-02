@@ -10,7 +10,7 @@ import { AlternateEmailSharp, CalendarMonthSharp, ChevronLeftSharp } from '@mui/
 const fetcher: Fetcher<PostType> = (url: string) => PostServices.getPost(url);
 
 export default function Post() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { slug } = useParams();
     const [post, setPost] = useState<PostType>();
 
