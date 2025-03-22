@@ -51,7 +51,6 @@ export default function AdminPost() {
                 'categories',
                 post.categories?.map((cat) => cat.id),
             );
-            setValue('content', post.content);
             setValue('isPublish', post.isPublish);
             setValue('id', post.id);
             setValue('image', post.image);

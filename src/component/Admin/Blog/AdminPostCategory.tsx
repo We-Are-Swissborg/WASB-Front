@@ -5,16 +5,19 @@ import {
     updatePostCategory,
 } from '@/administration/services/postCategoryAdmin.service';
 import { useAuth } from '@/contexts/AuthContext';
-import { PostCategory } from '@/types/PostCategory';
+import { PostCategory, PostCategoryFormData } from '@/types/PostCategory';
 import { t } from 'i18next';
 import { useState, useCallback, useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { fr } from 'date-fns/locale/fr';
 import { TextField } from '@mui/material';
+import { TranslationData } from '@/types/Translation';
+
+const defaultTranslations: TranslationData[] = [{languageCode: 'en', title: ''}, {languageCode: 'fr', title: ''}]
 
 export default function AdminPostCategory() {
     const navigate = useNavigate();
@@ -22,19 +25,31 @@ export default function AdminPostCategory() {
     const { id } = useParams();
     const [postCategory, setPostCategory] = useState<PostCategory>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
-    const { register, handleSubmit, formState, control, setValue } = useForm<PostCategory>({
+    const { register, handleSubmit, formState, control, setValue } = useForm<PostCategoryFormData>({
         mode: 'onTouched',
-        values: postCategory,
+        defaultValues: {
+            translations: defaultTranslations,
+            createdAt: new Date(),
+        }
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "translations"
+    });
 
     const initPostCategory = useCallback(async () => {
         if (id) {
             try {
                 const u = await getPostCategory(Number(id), token!);
+                console.info('json PostCategory u:', u);
+
                 setPostCategory(u);
+                setValue('id', u.id);
                 setValue('createdAt', new Date(u.createdAt));
                 setValue('updatedAt', u.updatedAt ? new Date(u.updatedAt) : undefined);
+                setValue("translations", u.translations);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de la catégorie`);
                 console.log('ERROR: init PostCategory', e);
@@ -50,11 +65,11 @@ export default function AdminPostCategory() {
         initPostCategory();
     }, [initPostCategory]);
 
-    const onSubmit = async (data: PostCategory) => {
+    const onSubmit = async (data: PostCategoryFormData) => {
         if (isDirty && isValid) {
             try {
-                if (data.id) {
-                    await updatePostCategory(data.id, token!, data);
+                if (data?.id) {
+                    await updatePostCategory(data?.id, token!, data);
                     toast.success(t('register.update'));
                 } else {
                     await createPostCategory(token!, data);
@@ -90,30 +105,22 @@ export default function AdminPostCategory() {
         <div className="container-fluid">
             <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <fieldset key={1} className="row g-3">
-                        <legend>Parameter</legend>
-                        <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
-                            <TextField
-                                type="text"
-                                id="title"
-                                label="Titre"
-                                className="form-control"
-                                {...register('title', {
-                                    value: postCategory?.title,
-                                    required: 'this is a required',
-                                    maxLength: {
-                                        value: 100,
-                                        message: 'Max length is 100',
-                                    },
-                                    minLength: {
-                                        value: 3,
-                                        message: 'Min length is 3',
-                                    },
-                                })}
-                                required
-                            />
-                            {errors?.title && <div className="text-danger">{errors.title.message}</div>}
-                        </div>
+                    <fieldset className="row g-3">
+                        <legend>Category</legend>
+                        {fields.map((field, index) => (
+                            <div key={field.id} className="col-lg-2 col-md-3 col-sm-12 mb-3">
+                                <TextField
+                                    type="text"
+                                    className="form-control"
+                                    id={`title-${index}`}
+                                    label={`Title (${field.languageCode.toUpperCase()})`}
+                                    {...register(`translations.${index}.title`)}
+                                    placeholder={`Titre pour la langue ${field.languageCode}`}
+                                    required
+                                />
+                            </div>
+                        ))}
+                        
                         <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
                             <Controller
                                 name="createdAt"
@@ -121,6 +128,7 @@ export default function AdminPostCategory() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Créer le"
+                                        className="form-control"
                                         value={field?.value}
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled
@@ -135,6 +143,7 @@ export default function AdminPostCategory() {
                                 render={({ field }) => (
                                     <DateTimePicker
                                         label="Mise à jour le"
+                                        className="form-control"
                                         value={field?.value}
                                         onChange={(newValue) => field.onChange(newValue)}
                                         disabled

@@ -2,6 +2,7 @@ import { getPostCategories } from '@/administration/services/postCategoryAdmin.s
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
 import { useAuth } from '@/contexts/AuthContext';
+import { getLanguagesFromCategories } from '@/services/translation.service';
 import { PostCategory } from '@/types/PostCategory';
 import { AddCircleSharp } from '@mui/icons-material';
 import { useReactTable } from '@tanstack/react-table';
@@ -34,27 +35,35 @@ export default function AdminPostCategories() {
     }, [initPostCategories]);
 
     const columnHelper = createColumnHelper<PostCategory>();
-    const columnsHelper = columnHelper.display({
-        id: 'actions',
-        cell: (props) => <RowActions row={props.row} />,
-    });
 
-    const columns = useMemo<ColumnDef<PostCategory, unknown>[]>(
-        () => [
+    const columns = useMemo<ColumnDef<PostCategory, unknown>[]>(() => {
+        const languages = getLanguagesFromCategories(data);
+
+        const baseColumns: ColumnDef<PostCategory, unknown>[] = [
             {
                 accessorKey: 'id',
                 cell: (info) => info.getValue(),
                 header: () => <span>ID</span>,
             },
-            {
-                accessorKey: 'title',
-                cell: (info) => info.getValue(),
-                header: () => <span>Name</span>,
+        ];
+    
+        const translationColumns = languages.map((lang) => ({
+            accessorKey: `translations.${lang}.title`,
+            cell: ({ row }) => {
+                const translation = row.original.translations?.find((t) => t.languageCode === lang);
+                return translation ? translation.title : 'N/A';
             },
-            columnsHelper,
-        ],
-        [columnsHelper],
-    );
+            header: () => <span>Nom ({lang.toUpperCase()})</span>,
+        }));
+
+        const actionsColumn: ColumnDef<PostCategory, unknown> = columnHelper.display({
+            id: 'actions',
+            header: () => <span>Actions</span>,
+            cell: (props) => <RowActions row={props.row} />,
+        });
+    
+        return [...baseColumns, ...translationColumns, actionsColumn];
+    }, [data]);
 
     const table = useReactTable({
         data,

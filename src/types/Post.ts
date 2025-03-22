@@ -1,4 +1,5 @@
 import { PostCategory } from './PostCategory';
+import { TranslationData } from './Translation';
 import { User } from './User';
 
 export type PaginatedPostsResponse = {
@@ -22,7 +23,6 @@ export type CardPost = {
 export type Post = {
     author: number;
     id: number;
-    title: string;
     image: string;
     image64: string;
     content: string;
@@ -31,8 +31,21 @@ export type Post = {
     updatedAt?: Date;
     isPublish: boolean;
     publishedAt?: Date;
-    slug: string;
+    translations: TranslationData[];
     categories: PostCategory[];
 };
 
-export type PostFormData = Omit<Post, 'categories'> & { categories: number[] };
+export type PostFormData = {
+    author: number;
+    id?: number;
+    image: string;
+    isPublish: boolean;
+    publishedAt?: Date;
+    translations: {
+        fr: { languageCode: 'fr'; title: string; content: string; slug: string };
+        en: { languageCode: 'en'; title: string; content: string; slug: string };
+    };
+    categories: number[];
+    createdAt: Date;
+    updatedAt?: Date;
+};
