@@ -1,8 +1,8 @@
-import { TranslationData } from "./Translation";
+import { TranslationData } from './Translation';
 
 export type PostCategory = {
     id: number;
-    translations: TranslationData[];
+    title: string;
     createdAt: Date;
     updatedAt?: Date;
 };

@@ -3,7 +3,7 @@ import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
 import { useAuth } from '@/contexts/AuthContext';
 import { getLanguagesFromCategories } from '@/services/translation.service';
-import { PostCategory } from '@/types/PostCategory';
+import { PostCategoryFormData } from '@/types/PostCategory';
 import { AddCircleSharp } from '@mui/icons-material';
 import { useReactTable } from '@tanstack/react-table';
 import {
@@ -14,6 +14,7 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
+    Row,
 } from '@tanstack/table-core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -21,7 +22,7 @@ import { NavLink } from 'react-router-dom';
 export default function AdminPostCategories() {
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [data, setData] = useState<PostCategory[]>(() => []);
+    const [data, setData] = useState<PostCategoryFormData[]>(() => []);
 
     const initPostCategories = useCallback(async () => {
         if (token) {
@@ -34,34 +35,34 @@ export default function AdminPostCategories() {
         initPostCategories();
     }, [initPostCategories]);
 
-    const columnHelper = createColumnHelper<PostCategory>();
+    const columnHelper = createColumnHelper<PostCategoryFormData>();
 
-    const columns = useMemo<ColumnDef<PostCategory, unknown>[]>(() => {
+    const columns = useMemo<ColumnDef<PostCategoryFormData, unknown>[]>(() => {
         const languages = getLanguagesFromCategories(data);
 
-        const baseColumns: ColumnDef<PostCategory, unknown>[] = [
+        const baseColumns: ColumnDef<PostCategoryFormData, unknown>[] = [
             {
                 accessorKey: 'id',
                 cell: (info) => info.getValue(),
                 header: () => <span>ID</span>,
             },
         ];
-    
+
         const translationColumns = languages.map((lang) => ({
             accessorKey: `translations.${lang}.title`,
-            cell: ({ row }) => {
+            cell: ({ row }: { row: Row<PostCategoryFormData> }) => {
                 const translation = row.original.translations?.find((t) => t.languageCode === lang);
                 return translation ? translation.title : 'N/A';
             },
             header: () => <span>Nom ({lang.toUpperCase()})</span>,
         }));
 
-        const actionsColumn: ColumnDef<PostCategory, unknown> = columnHelper.display({
+        const actionsColumn: ColumnDef<PostCategoryFormData, unknown> = columnHelper.display({
             id: 'actions',
             header: () => <span>Actions</span>,
             cell: (props) => <RowActions row={props.row} />,
         });
-    
+
         return [...baseColumns, ...translationColumns, actionsColumn];
     }, [data]);
 

@@ -5,7 +5,7 @@ import {
     updatePostCategory,
 } from '@/administration/services/postCategoryAdmin.service';
 import { useAuth } from '@/contexts/AuthContext';
-import { PostCategory, PostCategoryFormData } from '@/types/PostCategory';
+import { PostCategoryFormData } from '@/types/PostCategory';
 import { t } from 'i18next';
 import { useState, useCallback, useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
@@ -17,26 +17,29 @@ import { fr } from 'date-fns/locale/fr';
 import { TextField } from '@mui/material';
 import { TranslationData } from '@/types/Translation';
 
-const defaultTranslations: TranslationData[] = [{languageCode: 'en', title: ''}, {languageCode: 'fr', title: ''}]
+const defaultTranslations: TranslationData[] = [
+    { languageCode: 'en', title: '' },
+    { languageCode: 'fr', title: '' },
+];
 
 export default function AdminPostCategory() {
     const navigate = useNavigate();
     const { token } = useAuth();
     const { id } = useParams();
-    const [postCategory, setPostCategory] = useState<PostCategory>();
+    const [postCategory, setPostCategory] = useState<PostCategoryFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const { register, handleSubmit, formState, control, setValue } = useForm<PostCategoryFormData>({
         mode: 'onTouched',
         defaultValues: {
             translations: defaultTranslations,
             createdAt: new Date(),
-        }
+        },
     });
-    const { isSubmitting, errors, isDirty, isValid } = formState;
+    const { isSubmitting, isDirty, isValid } = formState;
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields } = useFieldArray({
         control,
-        name: "translations"
+        name: 'translations',
     });
 
     const initPostCategory = useCallback(async () => {
@@ -49,7 +52,7 @@ export default function AdminPostCategory() {
                 setValue('id', u.id);
                 setValue('createdAt', new Date(u.createdAt));
                 setValue('updatedAt', u.updatedAt ? new Date(u.updatedAt) : undefined);
-                setValue("translations", u.translations);
+                setValue('translations', u.translations);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de la catégorie`);
                 console.log('ERROR: init PostCategory', e);
@@ -87,7 +90,7 @@ export default function AdminPostCategory() {
 
         if (confirmDelete) {
             try {
-                await deletePostCategory(postCategory!.id, token!);
+                await deletePostCategory(postCategory!.id!, token!);
                 toast.success('Paramètre supprimé avec succès!');
                 navigate('/admin/category', { replace: true });
             } catch (error) {
@@ -120,7 +123,6 @@ export default function AdminPostCategory() {
                                 />
                             </div>
                         ))}
-                        
                         <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
                             <Controller
                                 name="createdAt"

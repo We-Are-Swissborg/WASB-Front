@@ -1,5 +1,5 @@
 import * as BaseApi from './baseAPI.service';
-import { PostCategory, PostCategoryFormData } from '@/types/PostCategory';
+import { PostCategoryFormData } from '@/types/PostCategory';
 
 /**
  * Update post category
@@ -45,7 +45,7 @@ const createPostCategory = async (token: string, data: PostCategoryFormData): Pr
  * @param token token
  * @returns all categories
  */
-const getPostCategories = async (token: string): Promise<PostCategory[]> => {
+const getPostCategories = async (token: string): Promise<PostCategoryFormData[]> => {
     const url: string = 'postCategories';
 
     const response: Response = await BaseApi.getFetch(url, token);
@@ -63,7 +63,7 @@ const getPostCategories = async (token: string): Promise<PostCategory[]> => {
  * @param token token
  * @returns parameter
  */
-const getPostCategory = async (id: number, token: string): Promise<PostCategory> => {
+const getPostCategory = async (id: number, token: string): Promise<PostCategoryFormData> => {
     const url: string = `postCategories/${id}`;
 
     const response: Response = await BaseApi.getFetch(url, token);

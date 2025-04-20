@@ -38,10 +38,19 @@ const Editor = forwardRef<Quill | null, EditorProps>(
                 theme: 'snow',
                 modules: {
                     toolbar: [
-                        [{ header: [false, 2, 3] }],
-                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-                        ['link', 'image'],
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                        ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+                        [
+                            { list: 'ordered' },
+                            { list: 'bullet' },
+                            { list: 'check' },
+                            { indent: '-1' },
+                            { indent: '+1' },
+                            { script: 'sub' },
+                            { script: 'super' },
+                        ],
+                        ['link', 'image', 'video'],
+                        [{ align: [] }],
                         [{ color: [] }, { background: [] }],
                         [{ size: ['small', 'medium', 'large', 'huge'] }],
                     ],

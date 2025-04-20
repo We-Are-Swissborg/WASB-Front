@@ -25,8 +25,6 @@ export default function Profile() {
 
     const initUser = useCallback(async () => {
         if (token && !user) {
-            console.log('call user');
-
             const { userId } = tokenDecoded(token);
             const user = await getUserWithAllInfo(userId, token);
             setUser(user);

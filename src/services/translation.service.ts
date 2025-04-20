@@ -1,7 +1,7 @@
-import { Post } from "@/types/Post";
-import { PostCategory } from "@/types/PostCategory";
+import { PostFormData } from '@/types/Post';
+import { PostCategoryFormData } from '@/types/PostCategory';
 
-const getLanguagesFromCategories = (categories: PostCategory[]): string[] => {
+const getLanguagesFromCategories = (categories: PostCategoryFormData[]): string[] => {
     const languageSet = new Set<string>();
 
     categories.forEach((category) => {
@@ -15,7 +15,7 @@ const getLanguagesFromCategories = (categories: PostCategory[]): string[] => {
     return Array.from(languageSet);
 };
 
-const getLanguagesFromPosts = (posts: Post[]): string[] => {
+const getLanguagesFromPosts = (posts: PostFormData[]): string[] => {
     const languageSet = new Set<string>();
 
     posts.forEach((post) => {

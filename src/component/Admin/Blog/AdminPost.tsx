@@ -1,10 +1,10 @@
 import { useAuth } from '@/contexts/AuthContext';
 import * as PostAdminServices from '@/administration/services/postAdmin.service';
 import * as PostCategoryAdminServices from '@/administration/services/postCategoryAdmin.service';
-import { Post, PostFormData } from '@/types/Post';
+import { PostFormData, PostFormState } from '@/types/Post';
 import { t } from 'i18next';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useCallback, useEffect, useState } from 'react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -12,48 +12,62 @@ import {
     FormControl,
     FormControlLabel,
     InputLabel,
+    ListItemText,
     MenuItem,
     OutlinedInput,
     Select,
-    TextField,
 } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { fr } from 'date-fns/locale/fr';
-import Quill from 'quill';
-import Editor from '@/hook/Editor';
-import { PostCategory } from '@/types/PostCategory';
+import { PostCategoryFormData } from '@/types/PostCategory';
 import { tokenDecoded } from '@/services/token.services';
 import UploadImage from '@/component/Form/UploadImage';
 import { UploadFile } from '@/types/UploadFile';
+import { TranslationData } from '@/types/Translation';
+import TranslationField from '../Translation/TranslationField';
+import TranslationEditor from '../Translation/TranslationEditor';
+
+const defaultTranslations: TranslationData[] = [
+    { languageCode: 'en', title: '', content: '' },
+    { languageCode: 'fr', title: '', content: '' },
+];
 
 export default function AdminPost() {
     const navigate = useNavigate();
     const { token } = useAuth();
     const { id } = useParams();
-    const [post, setPost] = useState<Post>();
+    const [post, setPost] = useState<PostFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
-    const quillRef = useRef<Quill | null>(null);
-    const [postCategories, setPostCategories] = useState<Array<PostCategory>>([]);
+    const [postCategories, setPostCategories] = useState<Array<PostCategoryFormData>>([]);
+    const [previewImage64, setPreviewImage64] = useState<string | undefined>();
 
     const { register, handleSubmit, formState, control, setValue } = useForm<PostFormData>({
         mode: 'onTouched',
+        defaultValues: {
+            translations: defaultTranslations,
+            createdAt: new Date(),
+        },
     });
-    const { isSubmitting, errors, isDirty, isValid } = formState;
+    const { isSubmitting, isDirty, isValid } = formState;
+
+    const { fields } = useFieldArray({
+        control,
+        name: 'translations',
+    });
 
     const initPost = useCallback(
-        async (post: Post) => {
+        async (post: PostFormState) => {
             setPost(post);
             setValue('createdAt', new Date(post.createdAt));
             setValue('updatedAt', post.updatedAt ? new Date(post.updatedAt) : undefined);
             setValue('publishedAt', post.publishedAt ? new Date(post.publishedAt) : undefined);
-            setValue(
-                'categories',
-                post.categories?.map((cat) => cat.id),
-            );
+            setValue('categories', post.categories);
             setValue('isPublish', post.isPublish);
             setValue('id', post.id);
             setValue('image', post.image);
+            setValue('translations', post.translations);
+            setPreviewImage64(post.image64);
         },
         [setValue],
     );
@@ -73,11 +87,11 @@ export default function AdminPost() {
     const getPost = useCallback(async () => {
         if (id && !post) {
             try {
-                const p: Post = await PostAdminServices.getPost(Number(id), token!);
+                const p: PostFormData = await PostAdminServices.getPost(Number(id), token!);
                 initPost(p);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de l'article`);
-                console.log('ERROR: init Post', e);
+                console.error('ERROR: init Post', e);
             }
         }
     }, [id, token, initPost]);
@@ -88,7 +102,7 @@ export default function AdminPost() {
             await getPost();
         } catch (e) {
             toast.error(`Erreur lors de l'initialisation du formulaire`);
-            console.log('ERROR: init Post', e);
+            console.error('ERROR: init Post', e);
         } finally {
             setIsInitializing(true);
         }
@@ -98,11 +112,10 @@ export default function AdminPost() {
         if (!isInitializing) {
             initForm();
         }
-    }, [initForm, isInitializing]);
+    }, []);
 
     const onSubmit = async (data: PostFormData) => {
-        const selectedCategories = postCategories.filter((cat) => data.categories?.includes(cat.id));
-        const sendData = { ...data, categories: selectedCategories };
+        const sendData = { ...data };
 
         if (isDirty && isValid) {
             try {
@@ -128,7 +141,7 @@ export default function AdminPost() {
 
         if (confirmDelete) {
             try {
-                await PostAdminServices.destroy(post!.id, token!);
+                await PostAdminServices.destroy(post!.id!, token!);
                 toast.success('Article supprimé avec succès!');
                 navigate('/admin/posts', { replace: true });
             } catch (error) {
@@ -140,13 +153,16 @@ export default function AdminPost() {
 
     const handleImageUpload = async (data: UploadFile) => {
         setValue('image', data.filePath);
-        post!.image64 = data.base64;
-        setPost(post);
+        setPreviewImage64(data.base64);
     };
 
     if (!isInitializing) {
         return <div>{t('common.loading')}</div>;
     }
+
+    const getTranslatedTitle = (translations: TranslationData[], language: string): string => {
+        return translations.find((t) => t.languageCode === language)?.title || translations[0]?.title || 'Sans titre';
+    };
 
     return (
         <div className="container-fluid">
@@ -154,28 +170,6 @@ export default function AdminPost() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="row g-3">
                         <legend>Information sur l'article</legend>
-                        <div className="col-lg-4 col-md-6 col-sm-12">
-                            <TextField
-                                type="text"
-                                id="title"
-                                label="Titre"
-                                className="form-control"
-                                {...register('title', {
-                                    value: post?.title,
-                                    required: 'this is a required',
-                                    maxLength: {
-                                        value: 100,
-                                        message: 'Max length is 100',
-                                    },
-                                    minLength: {
-                                        value: 3,
-                                        message: 'Min length is 3',
-                                    },
-                                })}
-                                required
-                            />
-                            {errors?.title && <div className="text-danger">{errors.title.message}</div>}
-                        </div>
                         {!!post?.createdAt && (
                             <>
                                 <div className="col-lg-2 col-md-4 col-sm-12">
@@ -255,13 +249,30 @@ export default function AdminPost() {
                                             <Select
                                                 labelId="categories"
                                                 multiple
-                                                value={field.value || []}
-                                                onChange={(e) => field.onChange(e.target.value)}
+                                                value={field.value.map((cat) => cat.id)}
+                                                onChange={(event) => {
+                                                    const selectedIds = event.target.value as number[];
+                                                    const selectedCategories = postCategories.filter((cat) =>
+                                                        selectedIds.includes(cat.id ?? 0),
+                                                    );
+                                                    field.onChange(selectedCategories);
+                                                }}
                                                 input={<OutlinedInput label="Categories" />}
+                                                renderValue={(selected) =>
+                                                    postCategories
+                                                        .filter((cat) => selected.includes(cat.id))
+                                                        .map((cat) => getTranslatedTitle(cat.translations, 'fr'))
+                                                        .join(', ')
+                                                }
                                             >
-                                                {postCategories.map((cat) => (
-                                                    <MenuItem key={cat.id} value={cat.id}>
-                                                        {cat.title}
+                                                {postCategories.map((category) => (
+                                                    <MenuItem key={category.id} value={category.id}>
+                                                        <Checkbox
+                                                            checked={field.value.some((cat) => cat.id === category.id)}
+                                                        />
+                                                        <ListItemText
+                                                            primary={getTranslatedTitle(category.translations, 'fr')}
+                                                        />
                                                     </MenuItem>
                                                 ))}
                                             </Select>
@@ -275,42 +286,19 @@ export default function AdminPost() {
                             Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne sera
                             pas pris en considération
                         </label>
-                        {post?.image64 && (
-                            <img src={post.image64} alt="Uploaded" style={{ width: '856px', height: '419px' }} />
+                        {previewImage64 && (
+                            <img src={previewImage64} alt="Uploaded" style={{ width: '856px', height: '419px' }} />
                         )}
                     </fieldset>
 
                     <fieldset className="row g-3">
                         <legend>Contenu de l'article</legend>
-                        <div className="col-6 mb-3">
-                            <Controller
-                                name="content"
-                                control={control}
-                                render={({ field }) => (
-                                    <Editor
-                                        ref={quillRef}
-                                        readOnly={false}
-                                        defaultValue={field.value}
-                                        onTextChange={() => {
-                                            const childNode = quillRef.current?.container.firstChild;
-                                            const textContent = childNode?.textContent;
-                                            let innerHTML = '';
-                                            if (childNode instanceof HTMLElement) innerHTML = childNode?.innerHTML;
-                                            if (!textContent) innerHTML = '';
-
-                                            field.onChange(innerHTML);
-                                        }}
-                                    />
-                                )}
-                            />
-                        </div>
-                        {/* <div className="card col-6 mb-3">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: quillRef?.current?.container?.firstChild?.innerHTML ?? 'DEFAULT',
-                                }}
-                            ></div>
-                        </div> */}
+                        {fields.map((field, index) => (
+                            <div key={field.id} className="col-12 mb-4">
+                                <TranslationField index={index} languageCode={field.languageCode} register={register} />
+                                <TranslationEditor control={control} index={index} languageCode={field.languageCode} />
+                            </div>
+                        ))}
                     </fieldset>
 
                     <button type="submit" className="btn btn-success">
