@@ -243,13 +243,18 @@ export default function AdminPost() {
                                 <Controller
                                     name="categories"
                                     control={control}
-                                    render={({ field }) => (
-                                        <FormControl className="form-control">
+                                    render={({ field }) => {
+                                        const selectedValues = Array.isArray(field.value)
+                                        ? field.value.map((cat) => cat.id)
+                                        : [];
+
+                                        return (
+                                            <FormControl className="form-control">
                                             <InputLabel id="categories">Catégories</InputLabel>
                                             <Select
                                                 labelId="categories"
                                                 multiple
-                                                value={field.value.map((cat) => cat.id)}
+                                                value={selectedValues}
                                                 onChange={(event) => {
                                                     const selectedIds = event.target.value as number[];
                                                     const selectedCategories = postCategories.filter((cat) =>
@@ -268,7 +273,9 @@ export default function AdminPost() {
                                                 {postCategories.map((category) => (
                                                     <MenuItem key={category.id} value={category.id}>
                                                         <Checkbox
-                                                            checked={field.value.some((cat) => cat.id === category.id)}
+                                                            checked={
+                                                                selectedValues.includes(category.id)
+                                                            }
                                                         />
                                                         <ListItemText
                                                             primary={getTranslatedTitle(category.translations, 'fr')}
@@ -278,6 +285,7 @@ export default function AdminPost() {
                                             </Select>
                                         </FormControl>
                                     )}
+                                }
                                 />
                             </div>
                         </div>
