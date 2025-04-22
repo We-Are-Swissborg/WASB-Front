@@ -6,15 +6,16 @@ import { useTranslation } from 'react-i18next';
 import useSWR, { Fetcher } from 'swr';
 import '../css/Blog.css';
 import { AlternateEmailSharp, CalendarMonthSharp, ChevronLeftSharp } from '@mui/icons-material';
+import 'quill/dist/quill.snow.css';
 
 const fetcher: Fetcher<PostType> = (url: string) => PostServices.getPost(url);
 
 export default function Post() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { slug } = useParams();
     const [post, setPost] = useState<PostType>();
 
-    const { data, error, isLoading } = useSWR<PostType>(`/${slug}`, fetcher);
+    const { data, error, isLoading } = useSWR<PostType>(`${i18n.language}/${slug}`, fetcher);
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -36,16 +37,15 @@ export default function Post() {
 
     return (
         <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-lg-8 col-md-10 col-sm-12 mx-auto pb-3">
+            <div className="row">
+                <div className="col-lg-10 col-md-10 col-sm-12 mx-auto pb-3">
                     {post && (
                         <>
                             <header className="mb-4">
-                                <h1 className="display-4 mt-4">{post.title}</h1>
+                                <h1 className="display-4 mt-4 text-justify">{post.title}</h1>
                                 <div className="text-muted">
                                     <p className="mb-1">
-                                        <AlternateEmailSharp /> {t('blog.published-by')}{' '}
-                                        <strong>{post.infoAuthor.username}</strong>
+                                        <AlternateEmailSharp /> {t('blog.published-by')} <strong>{post.author}</strong>
                                     </p>
                                     <p className="mb-1">
                                         <CalendarMonthSharp /> {t('blog.published-at')}{' '}
@@ -63,24 +63,25 @@ export default function Post() {
                                     </div>
                                 </div>
                             </header>
-
-                            <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center mb-5">
-                                <img
-                                    src={post.image64}
-                                    width={856}
-                                    height={419}
-                                    className="object-fit-cover shadow"
-                                    alt="main image"
-                                />
+                            <div className="text-center mb-5">
+                                <div className="rounded-5">
+                                    <img
+                                        src={post.image64}
+                                        width={856}
+                                        height={419}
+                                        className="object-fit-cover shadow"
+                                        alt="main image"
+                                    />
+                                </div>
                             </div>
 
                             <section className="post-content">
-                                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                                <div className="ql-editor" dangerouslySetInnerHTML={{ __html: post.content }} />
                             </section>
 
                             <aside className="author-info">
                                 <h3>{t('blog.about-author')}</h3>
-                                <p>{post.infoAuthor.username}</p>
+                                <p>{post.author}</p>
                             </aside>
                         </>
                     )}
