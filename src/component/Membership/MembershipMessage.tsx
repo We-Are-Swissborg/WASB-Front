@@ -17,7 +17,12 @@ export const MembershipMessage = () => {
         isLoading: parametersLoading,
     } = useSWR<Parameter[]>('parameters_membership', () => fetcherParameters(token!));
 
-    if (parametersError) return  <div><Trans i18nKey="profile.loading-error"></Trans></div>;
+    if (parametersError)
+        return (
+            <div>
+                <Trans i18nKey="profile.loading-error"></Trans>
+            </div>
+        );
     if (parametersLoading) return <Loading />;
 
     return (
@@ -32,18 +37,13 @@ export const MembershipMessage = () => {
                                     components={{ strong: <strong />, u: <u /> }}
                                 />
                                 <br />
-                                <Trans
-                                    i18nKey="profile.manage-membership.smart-send"
-                                />{' '}
-                                :
+                                <Trans i18nKey="profile.manage-membership.smart-send" /> :
                                 {parameters.map((p) => (
                                     <span> {p.value}</span>
                                 ))}
                                 <br />
-                                <Trans
-                                    i18nKey="profile.manage-membership.communication"
-                                />{' '}
-                                : "New membership {username}"
+                                <Trans i18nKey="profile.manage-membership.communication" /> : "New membership {username}
+                                "
                             </>
                         )}
                     </p>

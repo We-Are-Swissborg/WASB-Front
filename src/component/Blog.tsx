@@ -17,13 +17,17 @@ import { CalendarMonthSharp } from '@mui/icons-material';
 const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => getPosts(url);
 
 function Blog() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [limit] = useState<number>(9);
-    const { data, error, isLoading } = useSWR<PaginatedPostsResponse>(`/posts?page=${page}&limit=${limit}`, fetcher, {
-        revalidateOnFocus: false,
-    });
+    const { data, error, isLoading } = useSWR<PaginatedPostsResponse>(
+        `${i18n.language}?page=${page}&limit=${limit}`,
+        fetcher,
+        {
+            revalidateOnFocus: false,
+        },
+    );
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
 
     const optionDate: Intl.DateTimeFormatOptions = {
@@ -121,11 +125,13 @@ function Blog() {
                                                 {post.title}
                                             </Typography>
                                             <div className="mb-2">
-                                                {post.categories.map((category) => (
-                                                    <span key={category.id} className="badge bg-secondary me-1">
-                                                        {category.title}
-                                                    </span>
-                                                ))}
+                                                {post.categories.map((category) => {
+                                                    return (
+                                                        <span key={category.id} className="badge bg-secondary me-1">
+                                                            {category.title}
+                                                        </span>
+                                                    );
+                                                })}
                                             </div>
                                             <Typography variant="body2" className="card-text placeholder-glow">
                                                 <CalendarMonthSharp /> {dateLastUpdate}

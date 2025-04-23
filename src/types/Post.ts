@@ -1,5 +1,5 @@
-import { PostCategory } from './PostCategory';
-import { User } from './User';
+import { PostCategory, PostCategoryFormData } from './PostCategory';
+import { TranslationData } from './Translation';
 
 export type PaginatedPostsResponse = {
     posts: CardPost[];
@@ -14,25 +14,37 @@ export type CardPost = {
     title: string;
     slug: string;
     image64: string;
-    infoAuthor?: Omit<User, 'membership'>;
     publishedAt: Date;
     categories: PostCategory[];
+    author: string;
 };
 
 export type Post = {
-    author: number;
     id: number;
     title: string;
     image: string;
     image64: string;
     content: string;
-    infoAuthor: Omit<User, 'membership'>;
     createdAt: Date;
     updatedAt?: Date;
     isPublish: boolean;
     publishedAt?: Date;
-    slug: string;
+    author: string;
     categories: PostCategory[];
 };
 
-export type PostFormData = Omit<Post, 'categories'> & { categories: number[] };
+export type PostFormData = {
+    author: number;
+    id?: number;
+    image: string;
+    isPublish: boolean;
+    publishedAt?: Date;
+    translations: TranslationData[];
+    categories: PostCategoryFormData[];
+    createdAt: Date;
+    updatedAt?: Date;
+};
+
+export type PostFormState = PostFormData & {
+    image64?: string;
+};

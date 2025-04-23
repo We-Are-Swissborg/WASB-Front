@@ -1,4 +1,4 @@
-import { Post } from '@/types/Post';
+import { PostFormData, PostFormState } from '@/types/Post';
 import * as BaseApi from './baseAPI.service';
 
 /**
@@ -23,7 +23,7 @@ const getAllPosts = async (token: string) => {
  * @param token
  * @returns
  */
-const getPost = async (id: number, token: string): Promise<Post> => {
+const getPost = async (id: number, token: string): Promise<PostFormState> => {
     const url: string = `posts/${id}`;
     const response: Response = await BaseApi.getFetch(url, token);
     const json = await response.json();
@@ -40,7 +40,7 @@ const getPost = async (id: number, token: string): Promise<Post> => {
  * @param data
  * @returns
  */
-const create = async (token: string, data: Post) => {
+const create = async (token: string, data: PostFormData) => {
     const url: string = 'posts';
 
     const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token);
@@ -58,7 +58,7 @@ const create = async (token: string, data: Post) => {
  * @param data
  * @returns
  */
-const update = async (id: number, token: string, data: Post) => {
+const update = async (id: number, token: string, data: PostFormData) => {
     const url: string = `posts/${id}`;
 
     const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
