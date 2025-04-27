@@ -18,7 +18,7 @@ import {
     Select,
 } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { fr } from 'date-fns/locale/fr';
 import { PostCategoryFormData } from '@/types/PostCategory';
 import { tokenDecoded } from '@/services/token.services';

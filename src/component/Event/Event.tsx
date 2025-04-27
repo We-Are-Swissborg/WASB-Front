@@ -9,7 +9,7 @@ import {
     CardContent,
     Button,
     Pagination,
-    Grid2,
+    Grid,
     CardActions,
     Chip,
 } from '@mui/material';
@@ -84,9 +84,9 @@ export default function Event() {
                 */}
 
                 {isLoading ? (
-                    <Grid2 container spacing={4}>
+                    <Grid container spacing={4}>
                         {[...Array(6)].map((_, index) => (
-                            <Grid2 key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                            <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                     aria-hidden="true"
@@ -136,13 +136,13 @@ export default function Event() {
                                         ></Button>
                                     </CardActions>
                                 </Card>
-                            </Grid2>
+                            </Grid>
                         ))}
-                    </Grid2>
+                    </Grid>
                 ) : (
-                    <Grid2 container spacing={4}>
+                    <Grid container spacing={4}>
                         {sessions.map((session) => (
-                            <Grid2 key={session.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                            <Grid key={session.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                                 <Card
                                     sx={{
                                         height: '100%',
@@ -194,9 +194,9 @@ export default function Event() {
                                         </NavLink>
                                     </CardContent>
                                 </Card>
-                            </Grid2>
+                            </Grid>
                         ))}
-                    </Grid2>
+                    </Grid>
                 )}
 
                 {!isLoading && (

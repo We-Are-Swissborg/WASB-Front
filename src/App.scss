@@ -10,7 +10,7 @@ $gradient: linear-gradient(180deg, $secondary, $secondary-bis);
 $other: #C5D86D;
 $oldother: #F7F7F2;
 
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import "bootstrap/scss/bootstrap";
 
 body {
   min-width: 360px;
