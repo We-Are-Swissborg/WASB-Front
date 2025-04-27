@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Card, CardContent, CardMedia, Button, Chip, Grid2 } from '@mui/material';
+import { Box, Typography, Card, CardContent, CardMedia, Button, Chip, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { Session as SessionType } from '@/types/Session';
 import useSWR, { Fetcher } from 'swr';
@@ -64,8 +64,8 @@ export default function Session() {
                             {session.title}
                         </Typography>
                     </Box>
-                    <Grid2 container spacing={4}>
-                        <Grid2 size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Grid container spacing={4}>
+                        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                             <Card
                                 sx={{
                                     height: '100%',
@@ -89,8 +89,8 @@ export default function Session() {
                                     sx={{ maxHeight: 400 }}
                                 />
                             </Card>
-                        </Grid2>
-                        <Grid2 size={{ xs: 12, sm: 6, md: 8 }}>
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6, md: 8 }}>
                             <Box sx={{ marginBottom: 4 }}>
                                 <Typography variant="h4" gutterBottom>
                                     {t('event.datetime')} :
@@ -130,9 +130,9 @@ export default function Session() {
                                     </Button>
                                 )}
                             </Box>
-                        </Grid2>
-                    </Grid2>
-                    <Grid2 container>
+                        </Grid>
+                    </Grid>
+                    <Grid container>
                         <CardContent sx={{ marginBottom: 4 }}>
                             <Typography variant="h4" gutterBottom sx={{ marginBottom: 4 }}>
                                 {t('event.about')} :
@@ -141,7 +141,7 @@ export default function Session() {
                                 <div dangerouslySetInnerHTML={{ __html: session.description }} />
                             </Typography>
                         </CardContent>
-                    </Grid2>
+                    </Grid>
                 </Box>
             </div>
         </div>

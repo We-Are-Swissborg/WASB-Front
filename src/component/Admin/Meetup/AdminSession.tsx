@@ -16,7 +16,7 @@ import {
     TextField,
 } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { fr } from 'date-fns/locale';
 import Quill from 'quill';
 import { useCallback, useEffect, useRef, useState } from 'react';
