@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/AuthContext.tsx';
 import { ConnectButton } from '@/web3/ConnectButton.tsx';
 
 export default function Header() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { isAuthenticated } = useAuth();
 
     return (
@@ -40,6 +40,11 @@ export default function Header() {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/blog">
                                     {t('nav.blog')}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/events">
+                                    {t('nav.events')}
                                 </NavLink>
                             </li>
                             <li className="nav-item">

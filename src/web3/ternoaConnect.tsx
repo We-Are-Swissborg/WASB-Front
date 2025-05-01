@@ -37,7 +37,7 @@
 // }
 
 // export default function TernoaConnect() {
-//     const { t } = useTranslation('global');
+//     const { t } = useTranslation();
 //     const navigate = useNavigate();
 
 //     const reset = () => {

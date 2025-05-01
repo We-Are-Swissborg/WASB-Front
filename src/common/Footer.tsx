@@ -5,7 +5,7 @@ import '../css/Footer.css';
 import { Facebook, X, YouTube } from '@mui/icons-material';
 
 export default function Footer() {
-    const [t] = useTranslation('global');
+    const [t] = useTranslation();
 
     return (
         <footer className="text-muted py-5 bg-primary">
@@ -16,9 +16,9 @@ export default function Footer() {
                         <h5>{t('footer.subtitle')}</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item mb-2">
-                                <a href="#" className="nav-link p-0 link-light">
+                                <NavLink to="/aboutus" className="nav-link p-0 link-light">
                                     {t('footer.whoarewe')}
-                                </a>
+                                </NavLink>
                             </li>
                             <li className="nav-item mb-2">
                                 <a href="#" className="nav-link p-0 link-light">

@@ -19,7 +19,7 @@ const fetcheContributions: (token: string) => Promise<Contribution[]> = (token) 
     ContributionService.getContributions(token);
 
 export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const { control, handleSubmit } = useForm<AddContribution>({
         defaultValues: {

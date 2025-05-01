@@ -12,7 +12,7 @@ type IModal = {
 };
 
 export default function Modal(props: IModal) {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
 
     return (
         <Dialog open={props.open} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">

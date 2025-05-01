@@ -14,6 +14,8 @@ import AdminContributions from '@/component/Admin/Membership/AdminContributions'
 import AdminMemberships from '@/component/Admin/Membership/AdminMemberships';
 import AdminContribution from '@/component/Admin/Membership/AdminContribution';
 import AdminMembership from '@/component/Admin/Membership/AdminMembership';
+import AdminSessions from '@/component/Admin/Meetup/AdminSessions';
+import AdminSession from '@/component/Admin/Meetup/AdminSession';
 
 const adminRoutes = {
     path: 'admin',
@@ -22,71 +24,118 @@ const adminRoutes = {
         { index: true, element: <Dashboard /> },
         {
             path: 'category',
-            element: <AdminPostCategories />,
-        },
-        {
-            path: 'category/add',
-            element: <AdminPostCategory />,
-        },
-        {
-            path: 'category/:id/edit',
-            element: <AdminPostCategory />,
+            children: [
+                {
+                    path: '',
+                    element: <AdminPostCategories />,
+                },
+                {
+                    path: 'add',
+                    element: <AdminPostCategory />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminPostCategory />,
+                },
+            ],
         },
         {
             path: 'contributions',
-            element: <AdminContributions />,
-        },
-        {
-            path: 'contributions/add',
-            element: <AdminContribution />,
-        },
-        {
-            path: 'contributions/:id/edit',
-            element: <AdminContribution />,
+            children: [
+                {
+                    path: '',
+                    element: <AdminContributions />,
+                },
+                {
+                    path: 'add',
+                    element: <AdminContribution />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminContribution />,
+                },
+            ],
         },
         {
             path: 'memberships',
-            element: <AdminMemberships />,
-        },
-        {
-            path: 'memberships/add',
-            element: <AdminMembership />,
-        },
-        {
-            path: 'memberships/:id/edit',
-            element: <AdminMembership />,
+            children: [
+                {
+                    path: '',
+                    element: <AdminMemberships />,
+                },
+                {
+                    path: 'add',
+                    element: <AdminMembership />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminMembership />,
+                },
+            ],
         },
         {
             path: 'posts',
-            element: <AdminPosts />,
-        },
-        {
-            path: 'posts/add',
-            element: <AdminPost />,
-        },
-        {
-            path: 'posts/:id/edit',
-            element: <AdminPost />,
+            children: [
+                {
+                    path: '',
+                    element: <AdminPosts />,
+                },
+                {
+                    path: 'add',
+                    element: <AdminPost />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminPost />,
+                },
+            ],
         },
         {
             path: 'settings',
-            element: <AdminSettings />,
-        },
-        {
-            path: 'settings/add',
-            element: <AdminSetting />,
-        },
-        {
-            path: 'settings/:id/edit',
-            element: <AdminSetting />,
+            children: [
+                {
+                    path: '',
+                    element: <AdminSettings />,
+                },
+                {
+                    path: 'add',
+                    element: <AdminSetting />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminSetting />,
+                },
+            ],
         },
         {
             path: 'users',
-            element: <AdminUsers />,
+            children: [
+                {
+                    path: '',
+                    element: <AdminUsers />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminUserEdit />,
+                },
+            ],
         },
         {
-            path: 'users/:id/edit',
-            element: <AdminUserEdit />,
+            path: 'meetup',
+            children: [
+                {
+                    path: '',
+                    element: <AdminSessions />,
+                },
+                {
+                    path: 'add',
+                    element: <AdminSession />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <AdminSession />,
+                },
+            ],
         },
     ],
 };

@@ -52,7 +52,9 @@ const getPost = async (id: string) => {
     return json;
 };
 
-const getPosts = async (url: string) => {
+const getPosts = async (id: string) => {
+    const url: string = 'posts/' + id;
+
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
 

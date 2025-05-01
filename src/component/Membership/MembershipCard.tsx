@@ -1,5 +1,4 @@
 import { Membership } from '@/types/Membership';
-import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +8,7 @@ type MembershipCardType = {
 };
 
 export const MembershipCard = ({ lastMembership }: MembershipCardType) => {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
 
     const badgeColor =
         lastMembership?.contributionStatus === 'accepted'
@@ -48,9 +47,8 @@ export const MembershipCard = ({ lastMembership }: MembershipCardType) => {
                     )}
                     <p>
                         {t('profile.manage-membership.comment')} :
-                        <TextareaAutosize
-                            minRows={2}
-                            maxRows={8}
+                        <textarea
+                            rows={4}
                             id="note"
                             className="form-control"
                             value={lastMembership.note}

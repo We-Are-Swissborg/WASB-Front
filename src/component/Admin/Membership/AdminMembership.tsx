@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Membership } from '@/types/Membership';
 import { TextareaAutosize, TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { fr } from 'date-fns/locale';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import * as MembershipService from '@/administration/services/membershipAdmin.service';
 
 export default function AdminMembership() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const { id } = useParams();
     const [membership, setMembership] = useState<Membership>();

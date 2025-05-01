@@ -15,7 +15,7 @@ import { isBefore } from 'date-fns';
 const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => getMemberships(token);
 
 export const MembershipView = () => {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const { token } = useAuth();
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
@@ -52,6 +52,8 @@ export const MembershipView = () => {
     return (
         <>
             <MembershipReminder lastMembership={membership} />
+            <MembershipMessage />
+
             {isDisplayNewAffiliation && (
                 <>
                     <MembershipMessage />

@@ -1,9 +1,8 @@
-import { getAllPosts } from '@/administration/services/postAdmin.service';
+import { getAllSessions } from '@/administration/services/sessionAdmin.service';
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
 import { useAuth } from '@/contexts/AuthContext';
-import { getLanguagesFromPosts } from '@/services/translation.service';
-import { PostFormData } from '@/types/Post';
+import { Session } from '@/types/Session';
 import { AddCircleSharp } from '@mui/icons-material';
 import { useReactTable } from '@tanstack/react-table';
 import {
@@ -14,45 +13,61 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    Row,
 } from '@tanstack/table-core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function AdminPosts() {
+export default function AdminSessions() {
     const { token } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [data, setData] = useState<PostFormData[]>(() => []);
+    const [data, setData] = useState<Session[]>(() => []);
 
-    const initPosts = useCallback(async () => {
+    const initSessions = useCallback(async () => {
         if (token) {
-            const posts = await getAllPosts(token);
-            setData(posts);
+            const sessions = await getAllSessions(token);
+            setData(sessions);
         }
     }, [token]);
 
     useEffect(() => {
-        initPosts();
-    }, [initPosts]);
+        initSessions();
+    }, [initSessions]);
 
-    const columnHelper = createColumnHelper<PostFormData>();
+    const columnHelper = createColumnHelper<Session>();
+    const columnsHelper = columnHelper.display({
+        id: 'actions',
+        cell: (props) => <RowActions row={props.row} />,
+    });
 
-    const columns = useMemo<ColumnDef<PostFormData>[]>(() => {
-        const languages = getLanguagesFromPosts(data);
-
-        const baseColumns: ColumnDef<PostFormData, unknown>[] = [
+    const columns = useMemo<ColumnDef<Session>[]>(
+        () => [
             {
                 accessorKey: 'id',
                 cell: (info) => info.getValue(),
                 header: () => <span>ID</span>,
             },
             {
-                accessorKey: 'isPublish',
-                cell: (info) => (info.getValue() ? 'Oui' : 'Non'),
-                header: () => <span>Est Pulibé ?</span>,
+                accessorKey: 'title',
+                cell: (info) => info.getValue(),
+                header: () => <span>Titre</span>,
             },
             {
-                accessorKey: 'publishedAt',
+                accessorKey: 'slug',
+                cell: (info) => info.getValue(),
+                header: () => <span>Slug</span>,
+            },
+            {
+                accessorKey: 'status',
+                cell: (info) => info.getValue(),
+                header: () => <span>Statut</span>,
+            },
+            {
+                accessorKey: 'membersOnly',
+                cell: (info) => (info.getValue() ? 'Oui' : 'Non'),
+                header: () => <span>Members Only ?</span>,
+            },
+            {
+                accessorKey: 'startDateTime',
                 cell: (info) => {
                     const dateValue = info.getValue() as string | null;
 
@@ -64,37 +79,13 @@ export default function AdminPosts() {
                     }
                     return 'Non publié';
                 },
-                header: () => <span>Publié le</span>,
+                header: () => <span>Date début</span>,
                 enableColumnFilter: false,
             },
-        ];
-
-        const titleTranslationsColumns = languages.map((lang: string) => ({
-            accessorKey: `translations.${lang}.title`,
-            cell: ({ row }: { row: Row<PostFormData> }) => {
-                const translation = row.original.translations?.find((t) => t.languageCode === lang);
-                return translation ? translation.title : 'N/A';
-            },
-            header: () => <span>Titre ({lang.toUpperCase()})</span>,
-        }));
-
-        const SlugtranslationsColumns = languages.map((lang: string) => ({
-            accessorKey: `translations.${lang}.slug`,
-            cell: ({ row }: { row: Row<PostFormData> }) => {
-                const translation = row.original.translations?.find((t) => t.languageCode === lang);
-                return translation ? translation.slug : 'N/A';
-            },
-            header: () => <span>Slug ({lang.toUpperCase()})</span>,
-        }));
-
-        const actionsColumn: ColumnDef<PostFormData, unknown> = columnHelper.display({
-            id: 'actions',
-            header: () => <span>Actions</span>,
-            cell: (props) => <RowActions row={props.row} />,
-        });
-
-        return [...baseColumns, ...titleTranslationsColumns, ...SlugtranslationsColumns, actionsColumn];
-    }, [data]);
+            columnsHelper,
+        ],
+        [columnsHelper],
+    );
 
     const table = useReactTable({
         data,
@@ -113,7 +104,7 @@ export default function AdminPosts() {
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Posts</h1>
+                <h1 className="h2">Sessions</h1>
                 <NavLink className={`btn btn-sm btn-primary`} to={`add`}>
                     <AddCircleSharp />
                 </NavLink>

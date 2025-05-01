@@ -3,7 +3,7 @@ import DiscordIcon from '../common/icons/DiscordIcon';
 import { useTranslation } from 'react-i18next';
 
 function BorgyTelegramLink() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
 
     return (
         <a href={t('metrics.borgy-telegram')} target="_blank">

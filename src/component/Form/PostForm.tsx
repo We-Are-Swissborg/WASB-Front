@@ -13,7 +13,7 @@ import arrayBufferToBase64 from '../../services/arrayBufferToBase64';
 import '../../css/Blog.css';
 
 export default function PostForm() {
-    const { t } = useTranslation('global');
+    const { t } = useTranslation();
     const [image, setImage] = useState<string | ArrayBuffer | undefined | null>(null);
     const { register, handleSubmit, setValue } = useForm();
     const [previewValues, setPreviewValues] = useState<FieldValues>();

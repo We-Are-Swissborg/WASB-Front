@@ -1,13 +1,13 @@
-import { PostFormData, PostFormState } from '@/types/Post';
+import { Session } from '@/types/Session';
 import * as BaseApi from './baseAPI.service';
 
 /**
- * Get all Posts
+ * Get all Sessions
  * @param token
  * @returns
  */
-const getAllPosts = async (token: string) => {
-    const url: string = 'posts';
+const getAllSessions = async (token: string) => {
+    const url: string = 'sessions';
 
     const response: Response = await BaseApi.getFetch(url, token);
     const json = await response.json();
@@ -23,8 +23,8 @@ const getAllPosts = async (token: string) => {
  * @param token
  * @returns
  */
-const getPost = async (id: number, token: string): Promise<PostFormState> => {
-    const url: string = `posts/${id}`;
+const getSession = async (id: number, token: string): Promise<Session> => {
+    const url: string = `sessions/${id}`;
     const response: Response = await BaseApi.getFetch(url, token);
     const json = await response.json();
     if (!response.ok) {
@@ -35,13 +35,13 @@ const getPost = async (id: number, token: string): Promise<PostFormState> => {
 };
 
 /**
- * Create a new Post
+ * Create a new Session
  * @param token
  * @param data
  * @returns
  */
-const create = async (token: string, data: PostFormData) => {
-    const url: string = 'posts';
+const create = async (token: string, data: Session) => {
+    const url: string = 'sessions';
 
     const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token);
     const json = await response.json();
@@ -53,13 +53,13 @@ const create = async (token: string, data: PostFormData) => {
 };
 
 /**
- * Update a Post
+ * Update a Session
  * @param token
  * @param data
  * @returns
  */
-const update = async (id: number, token: string, data: PostFormData) => {
-    const url: string = `posts/${id}`;
+const update = async (id: number, token: string, data: Session) => {
+    const url: string = `sessions/${id}`;
 
     const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
     const json = await response.json();
@@ -71,13 +71,13 @@ const update = async (id: number, token: string, data: PostFormData) => {
 };
 
 /**
- * Delete post
+ * Delete Session
  * @param id
  * @param token
  * @returns
  */
 const destroy = async (id: number, token: string): Promise<boolean> => {
-    const url: string = `posts/${id}`;
+    const url: string = `sessions/${id}`;
 
     const response: Response = await BaseApi.deleteFetch(url, token);
 
@@ -89,4 +89,4 @@ const destroy = async (id: number, token: string): Promise<boolean> => {
     return response.ok;
 };
 
-export { getPost, getAllPosts, create, update, destroy };
+export { getSession, getAllSessions, create, update, destroy };
