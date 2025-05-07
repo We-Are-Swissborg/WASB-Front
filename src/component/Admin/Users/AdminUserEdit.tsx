@@ -52,7 +52,7 @@ function AdminUserEdit() {
         { value: 'discord', name: 'Discord' },
         { value: 'telegram', name: 'Telegram' },
         { value: 'tiktok', name: 'Tiktok' },
-        { value: 'twitter', name: 'Twitter' },
+        { value: 'twitter', name: 'X' },
         { value: 'youtube', name: 'Youtube' },
         { value: 'other', name: 'Other' },
     ];
@@ -244,7 +244,7 @@ function AdminUserEdit() {
                         <legend>Social Medias</legend>
                         <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
                             <label htmlFor="twitter" className="form-label">
-                                Twitter
+                                X
                             </label>
                             <input
                                 type="text"

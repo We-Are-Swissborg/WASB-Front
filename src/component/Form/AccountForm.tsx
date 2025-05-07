@@ -120,7 +120,7 @@ export default function AccountForm(props: IAccountForm) {
         { value: 'discord', name: 'Discord' },
         { value: 'telegram', name: 'Telegram' },
         { value: 'tiktok', name: 'Tiktok' },
-        { value: 'twitter', name: 'Twitter' },
+        { value: 'twitter', name: 'X' },
         { value: 'youtube', name: 'Youtube' },
         { value: 'other', name: t('profile.my-account.other') },
     ];
