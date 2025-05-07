@@ -30,10 +30,10 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     const valueSocialMediasRef = useRef(valueSocialMedias);
     const socialMediasRef = useRef(props.socialMedias);
     const placeholder = [
-        'twitter.com/WeAreSwissBorg',
+        t('profile.social-medias.twitter'),
         t('profile.social-medias.discord'),
-        'tiktok.com/@weareswissborg.eth',
-        't.me/WeAreSwissBorg',
+        t('profile.social-medias.tiktok'),
+        t('profile.social-medias.telegram'),
     ];
 
     const initUser = useCallback(() => {
@@ -58,7 +58,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         return (
             <div key={'input-' + id} className="container-input-and-select">
                 <label className="label-form uppercase-first-letter" htmlFor={field}>
-                    {field} :
+                    {field != 'twitter' ? field : 'X'} :
                 </label>
                 <input
                     {...register(field, {
