@@ -39,7 +39,7 @@ export const MembershipView = () => {
     };
 
     useEffect(() => {
-        if (membership && membership.endDateContribution && isBefore(membership.endDateContribution, new Date())) {
+        if (!membership || (membership.endDateContribution && isBefore(membership.endDateContribution, new Date()))) {
             setIsDisplayNewAffiliation(true);
         } else {
             setIsDisplayNewAffiliation(false);
@@ -52,7 +52,6 @@ export const MembershipView = () => {
     return (
         <>
             <MembershipReminder lastMembership={membership} />
-            <MembershipMessage />
 
             {isDisplayNewAffiliation && (
                 <>
