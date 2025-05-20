@@ -28,4 +28,15 @@ const getNewToken = async (oldToken: string) => {
     return json;
 };
 
-export { isTokenExpired, tokenDecoded, getNewToken };
+const generateNewToken = async (setToken: (newToken: string) => void) => {
+    const oldToken = localStorage.getItem('authToken');
+    const res = await getNewToken(oldToken!);
+
+    if(res.token) {
+        setToken(res.token);
+        localStorage.setItem('authToken', res.token);
+    }
+    else console.error('Error with generateNewToken :', res.message);
+}
+
+export { isTokenExpired, tokenDecoded, getNewToken, generateNewToken };

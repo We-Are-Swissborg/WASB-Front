@@ -1,4 +1,4 @@
-import { getNewToken } from "./token.services";
+import { generateNewToken } from "./token.services";
 
 const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
 const backendAPI: URL = new URL(serverURL, window.location.origin);
@@ -43,18 +43,6 @@ function addOptionHeaders(token?: string | null, contentType = 'application/json
     requestHeaders.set('Content-Type', contentType);
 
     return requestHeaders;
-}
-
-async function generateNewToken(setToken: (newToken: string) => void) {
-    const oldToken = localStorage.getItem('authToken');
-    const res = await getNewToken(oldToken!);
-
-    if(res.token) {
-        setToken(res.token);
-        localStorage.setItem('authToken', res.token);
-         
-    }
-    else console.error('Error with generateNewToken :', res.message);
 }
 
 const getFetch = async (url: string, token?: string | null, setToken?: (newToken: string) => void): Promise<Response> => {

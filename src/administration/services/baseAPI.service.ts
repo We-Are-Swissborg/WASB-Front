@@ -1,3 +1,5 @@
+import { generateNewToken } from "@/services/token.services";
+
 const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
 const backendAPI: URL = new URL(`${serverURL}/admin`, window.location.origin);
 
@@ -33,6 +35,8 @@ const patchOptions: RequestInit = {
     cache: 'no-cache',
 };
 
+const urlToAddCredentials: string[] = ['refresh'];
+
 function addOptionHeaders(token: string, contentType = 'application/json'): Headers {
     requestHeaders.set('Authorization', `Bearer ${token}`);
     requestHeaders.set('Content-Type', contentType);
@@ -40,58 +44,78 @@ function addOptionHeaders(token: string, contentType = 'application/json'): Head
     return requestHeaders;
 }
 
-const getFetch = async (url: string, token: string): Promise<Response> => {
+const getFetch = async (url: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
     const options = getOptions;
 
     options.headers = addOptionHeaders(token);
+    const res = await fetch(`${backendAPI.href}/${url}`, options); 
 
-    return await fetch(`${backendAPI.href}/${url}`, options);
+    if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
+
+    return res;
 };
 
-const postFetch = async (url: string, body: string, token: string): Promise<Response> => {
+const postFetch = async (url: string, body: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
     const options = postOptions;
 
     options.headers = addOptionHeaders(token);
     options.body = body;
+    if(urlToAddCredentials.includes(url)) options.credentials = 'include';
 
-    return await fetch(`${backendAPI.href}/${url}`, options);
+    const res = await fetch(`${backendAPI.href}/${url}`, options);
+
+    if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
+
+    return res;
 };
 
-const postFetchWithFile = async (url: string, body: FormData, token: string): Promise<Response> => {
+const postFetchWithFile = async (url: string, body: FormData, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
     const options = postOptions;
 
     options.headers = addOptionHeaders(token);
     options.body = body;
 
     requestHeaders.delete('Content-Type'); // Not set with multipart/form-data
+    const res = await fetch(`${backendAPI.href}/${url}`, options);
 
-    return await fetch(`${backendAPI.href}/${url}`, options);
+    if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
+
+    return res;
 };
 
-const putFetch = (url: string, body: string, token: string): Promise<Response> => {
+const putFetch = async (url: string, body: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
     const options = putOptions;
 
     options.headers = addOptionHeaders(token);
     options.body = body;
+    const res = await fetch(`${backendAPI.href}/${url}`, options);
 
-    return fetch(`${backendAPI.href}/${url}`, options);
+    if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
+
+    return res;
 };
 
-const deleteFetch = (url: string, token: string): Promise<Response> => {
+const deleteFetch = async (url: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
     const options = deleteOptions;
 
     options.headers = addOptionHeaders(token);
+    const res = await fetch(`${backendAPI.href}/${url}`, options);
 
-    return fetch(`${backendAPI.href}/${url}`, options);
+    if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
+
+    return res;
 };
 
-const patchFetch = (url: string, body: string, token: string): Promise<Response> => {
+const patchFetch = async  (url: string, body: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
     const options = patchOptions;
 
     options.headers = addOptionHeaders(token);
     options.body = body;
+    const res = await fetch(`${backendAPI.href}/${url}`, options);
 
-    return fetch(`${backendAPI.href}/${url}`, options);
+    if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
+
+    return res;
 };
 
 export { getFetch, postFetch, putFetch, postFetchWithFile, deleteFetch, patchFetch };
