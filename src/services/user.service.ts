@@ -28,10 +28,10 @@ const checkReferralExist = async (codeRef: string): Promise<string> => {
     return json;
 };
 
-const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
+const getUserWithAllInfo = async (id: number, token: string, setToken: (newToken: string) => void): Promise<User> => {
     const url: string = 'users/allInfo/' + id;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
