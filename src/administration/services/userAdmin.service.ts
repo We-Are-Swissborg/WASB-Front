@@ -5,12 +5,13 @@ import * as BaseApi from './baseAPI.service';
  *
  * @param id
  * @param token
+ * @param setToken
  * @returns
  */
-const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
+const getUserWithAllInfo = async (id: number, token: string, setToken: (newToken: string) => void): Promise<User> => {
     const url: string = `users/${id}`;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -24,13 +25,14 @@ const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
  *
  * @param id
  * @param token
+ * @param setToken
  * @param data
  * @returns
  */
-const updateUser = async (id: number, token: string, data: User): Promise<boolean> => {
+const updateUser = async (id: number, token: string, data: User, setToken: (newToken: string) => void): Promise<boolean> => {
     const url: string = `users/${id}`;
 
-    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -43,12 +45,13 @@ const updateUser = async (id: number, token: string, data: User): Promise<boolea
 /**
  *
  * @param token token
+ * @param setToken
  * @returns all users
  */
-const getUsers = async (token: string): Promise<User[]> => {
+const getUsers = async (token: string, setToken: (newToken: string) => void): Promise<User[]> => {
     const url: string = 'users';
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {

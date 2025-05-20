@@ -1,9 +1,9 @@
 import { AddContribution, Membership } from '@/types/Membership';
 import * as BaseApi from './baseAPI.service';
 
-const addContribution = async (contribution: AddContribution, token: string): Promise<Membership> => {
+const addContribution = async (contribution: AddContribution, token: string, setToken: (newToken: string) => void): Promise<Membership> => {
     const url: string = `memberships`;
-    const response: Response = await BaseApi.postFetch(url, JSON.stringify(contribution), token);
+    const response: Response = await BaseApi.postFetch(url, JSON.stringify(contribution), token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -13,9 +13,9 @@ const addContribution = async (contribution: AddContribution, token: string): Pr
     return response.json();
 };
 
-const getMemberships = async (token: string): Promise<Membership[]> => {
+const getMemberships = async (token: string, setToken: (newToken: string) => void): Promise<Membership[]> => {
     const url: string = `memberships`;
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -25,9 +25,9 @@ const getMemberships = async (token: string): Promise<Membership[]> => {
     return response.json();
 };
 
-const getMembership = async (id: number, token: string): Promise<Membership> => {
+const getMembership = async (id: number, token: string, setToken: (newToken: string) => void): Promise<Membership> => {
     const url: string = `memberships/${id}`;
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -37,9 +37,9 @@ const getMembership = async (id: number, token: string): Promise<Membership> => 
     return response.json();
 };
 
-const changeStatusMembership = async (id: number, data: Membership, token: string): Promise<Membership> => {
+const changeStatusMembership = async (id: number, data: Membership, token: string, setToken: (newToken: string) => void): Promise<Membership> => {
     const url: string = `memberships/${id}`;
-    const response: Response = await BaseApi.patchFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.patchFetch(url, JSON.stringify(data), token, setToken);
 
     if (!response.ok) {
         const json = await response.json();

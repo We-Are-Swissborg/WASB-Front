@@ -18,11 +18,11 @@ import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
 import { User } from '@/types/User';
 
-const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => MembershipService.getMemberships(token);
+const fetcherMemberships: (token: string, setToken: (newToken: string) => void) => Promise<Membership[]> = (token, setToken) => MembershipService.getMemberships(token, setToken);
 
 export default function AdminMemberships() {
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [membershipsInProgress, setMembershipsInProgress] = useState<Membership[]>(() => []);
     const [membershipsOther, setMembershipsOther] = useState<Membership[]>(() => []);
@@ -31,7 +31,7 @@ export default function AdminMemberships() {
         data: memberships,
         error: membershipsError,
         isLoading,
-    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
+    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!, setToken));
 
     useEffect(() => {
         if (memberships && memberships.length > 0) {

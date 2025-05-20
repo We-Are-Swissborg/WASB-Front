@@ -44,7 +44,7 @@ function addOptionHeaders(token: string, contentType = 'application/json'): Head
     return requestHeaders;
 }
 
-const getFetch = async (url: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
+const getFetch = async (url: string, token: string, setToken: (newToken: string) => void): Promise<Response> => {
     const options = getOptions;
 
     options.headers = addOptionHeaders(token);
@@ -55,7 +55,7 @@ const getFetch = async (url: string, token: string, setToken?: (newToken: string
     return res;
 };
 
-const postFetch = async (url: string, body: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
+const postFetch = async (url: string, body: string, token: string, setToken: (newToken: string) => void): Promise<Response> => {
     const options = postOptions;
 
     options.headers = addOptionHeaders(token);
@@ -69,7 +69,7 @@ const postFetch = async (url: string, body: string, token: string, setToken?: (n
     return res;
 };
 
-const postFetchWithFile = async (url: string, body: FormData, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
+const postFetchWithFile = async (url: string, body: FormData, token: string, setToken: (newToken: string) => void): Promise<Response> => {
     const options = postOptions;
 
     options.headers = addOptionHeaders(token);
@@ -83,7 +83,7 @@ const postFetchWithFile = async (url: string, body: FormData, token: string, set
     return res;
 };
 
-const putFetch = async (url: string, body: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
+const putFetch = async (url: string, body: string, token: string, setToken: (newToken: string) => void): Promise<Response> => {
     const options = putOptions;
 
     options.headers = addOptionHeaders(token);
@@ -95,7 +95,7 @@ const putFetch = async (url: string, body: string, token: string, setToken?: (ne
     return res;
 };
 
-const deleteFetch = async (url: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
+const deleteFetch = async (url: string, token: string, setToken: (newToken: string) => void): Promise<Response> => {
     const options = deleteOptions;
 
     options.headers = addOptionHeaders(token);
@@ -106,7 +106,7 @@ const deleteFetch = async (url: string, token: string, setToken?: (newToken: str
     return res;
 };
 
-const patchFetch = async  (url: string, body: string, token: string, setToken?: (newToken: string) => void): Promise<Response> => {
+const patchFetch = async  (url: string, body: string, token: string, setToken: (newToken: string) => void): Promise<Response> => {
     const options = patchOptions;
 
     options.headers = addOptionHeaders(token);

@@ -4,12 +4,13 @@ import * as BaseApi from './baseAPI.service';
 /**
  * Retrieve all contributions
  * @param token token
+ * @param setToken setToken()
  * @returns all contributions
  */
-const getContributions = async (token: string): Promise<Contribution[]> => {
+const getContributions = async (token: string, setToken: (newToken: string) => void): Promise<Contribution[]> => {
     const url: string = `contributions`;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -23,12 +24,13 @@ const getContributions = async (token: string): Promise<Contribution[]> => {
 /**
  * Retrieve contribution by identifiant
  * @param token token
+ * @param setToken setToken()
  * @returns contribution
  */
-const getContribution = async (id: number, token: string): Promise<Contribution> => {
+const getContribution = async (id: number, token: string, setToken: (newToken: string) => void): Promise<Contribution> => {
     const url: string = `contributions/${id}`;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -42,12 +44,13 @@ const getContribution = async (id: number, token: string): Promise<Contribution>
 /**
  * Create a contribution
  * @param token token
+ * @param setToken setToken()
  * @returns contribution
  */
-const createContribution = async (data: Contribution, token: string): Promise<Contribution> => {
+const createContribution = async (data: Contribution, token: string, setToken: (newToken: string) => void): Promise<Contribution> => {
     const url: string = `contributions`;
 
-    const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -61,12 +64,13 @@ const createContribution = async (data: Contribution, token: string): Promise<Co
 /**
  * Create a contribution
  * @param token token
+ * @param setToken setToken()
  * @returns contribution
  */
-const updateContribution = async (id: number, data: Contribution, token: string): Promise<Contribution> => {
+const updateContribution = async (id: number, data: Contribution, token: string, setToken: (newToken: string) => void): Promise<Contribution> => {
     const url: string = `contributions/${id}`;
 
-    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token, setToken);
     const json = await response.json();
 
     if (!response.ok) {

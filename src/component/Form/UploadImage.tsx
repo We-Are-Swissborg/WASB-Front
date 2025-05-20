@@ -9,7 +9,7 @@ export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadF
     const [image, setImage] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [previewURL, setPreviewURL] = useState<string | null>(null);
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -24,7 +24,7 @@ export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadF
         setUploading(true);
 
         try {
-            const response = await UploadService.uploadImage(image, token!);
+            const response = await UploadService.uploadImage(image, token!, setToken);
             setUploading(false);
             onUpload(response);
             toast.success('Image uploaded successfully!');

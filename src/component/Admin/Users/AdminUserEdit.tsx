@@ -15,7 +15,7 @@ import { ChevronLeftSharp } from '@mui/icons-material';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const { id } = useParams();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const { register, handleSubmit, control, formState } = useForm<User>({
@@ -27,7 +27,7 @@ function AdminUserEdit() {
     const initUser = useCallback(async () => {
         if (id) {
             try {
-                const u = await getUserWithAllInfo(Number(id), token!);
+                const u = await getUserWithAllInfo(Number(id), token!, setToken);
                 setUser(u);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de l'utilisateur`);
@@ -74,7 +74,7 @@ function AdminUserEdit() {
         if (isDirty && isValid) {
             try {
                 console.info('form submit', data);
-                await updateUser(data.id, token!, data);
+                await updateUser(data.id, token!, data, setToken);
                 toast.success(t('profile.success-update'));
             } catch {
                 toast.error(t('register.error'));

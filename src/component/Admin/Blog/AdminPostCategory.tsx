@@ -24,7 +24,7 @@ const defaultTranslations: TranslationData[] = [
 
 export default function AdminPostCategory() {
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const { id } = useParams();
     const [postCategory, setPostCategory] = useState<PostCategoryFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export default function AdminPostCategory() {
     const initPostCategory = useCallback(async () => {
         if (id) {
             try {
-                const u = await getPostCategory(Number(id), token!);
+                const u = await getPostCategory(Number(id), token!, setToken);
                 console.info('json PostCategory u:', u);
 
                 setPostCategory(u);
@@ -72,10 +72,10 @@ export default function AdminPostCategory() {
         if (isDirty && isValid) {
             try {
                 if (data?.id) {
-                    await updatePostCategory(data?.id, token!, data);
+                    await updatePostCategory(data?.id, token!, data, setToken);
                     toast.success(t('register.update'));
                 } else {
-                    await createPostCategory(token!, data);
+                    await createPostCategory(token!, data, setToken);
                     toast.success(t('register.create'));
                 }
                 navigate('/admin/category');
@@ -90,7 +90,7 @@ export default function AdminPostCategory() {
 
         if (confirmDelete) {
             try {
-                await deletePostCategory(postCategory!.id!, token!);
+                await deletePostCategory(postCategory!.id!, token!, setToken);
                 toast.success('Paramètre supprimé avec succès!');
                 navigate('/admin/category', { replace: true });
             } catch (error) {

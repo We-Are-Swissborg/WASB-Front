@@ -6,12 +6,13 @@ import * as BaseApi from './baseAPI.service';
  * @param id
  * @param token
  * @param data
+ * @param setToken
  * @returns
  */
-const updateParameter = async (id: number, token: string, data: Parameter): Promise<boolean> => {
+const updateParameter = async (id: number, token: string, data: Parameter, setToken: (newToken: string) => void): Promise<boolean> => {
     const url: string = `parameters/${id}`;
 
-    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.putFetch(url, JSON.stringify(data), token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -25,12 +26,13 @@ const updateParameter = async (id: number, token: string, data: Parameter): Prom
  *
  * @param token
  * @param data
+ * @param setToken
  * @returns
  */
-const createParameter = async (token: string, data: Parameter): Promise<boolean> => {
+const createParameter = async (token: string, data: Parameter, setToken: (newToken: string) => void): Promise<boolean> => {
     const url: string = `parameters`;
 
-    const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -43,12 +45,13 @@ const createParameter = async (token: string, data: Parameter): Promise<boolean>
 /**
  *
  * @param token token
+ * @param setToken
  * @returns all parameters
  */
-const getParameters = async (token: string): Promise<Parameter[]> => {
+const getParameters = async (token: string, setToken: (newToken: string) => void): Promise<Parameter[]> => {
     const url: string = 'parameters';
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -62,12 +65,13 @@ const getParameters = async (token: string): Promise<Parameter[]> => {
 /**
  *
  * @param token token
+ * @param setToken
  * @returns parameter
  */
-const getParameter = async (id: number, token: string): Promise<Parameter> => {
+const getParameter = async (id: number, token: string, setToken: (newToken: string) => void): Promise<Parameter> => {
     const url: string = `parameters/${id}`;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -82,12 +86,13 @@ const getParameter = async (id: number, token: string): Promise<Parameter> => {
  *
  * @param id
  * @param token
+ * @param setToken
  * @returns
  */
-const deleteParameter = async (id: number, token: string): Promise<boolean> => {
+const deleteParameter = async (id: number, token: string, setToken: (newToken: string) => void): Promise<boolean> => {
     const url: string = `parameters/${id}`;
 
-    const response: Response = await BaseApi.deleteFetch(url, token);
+    const response: Response = await BaseApi.deleteFetch(url, token, setToken);
 
     if (!response.ok) {
         const json = await response.json();

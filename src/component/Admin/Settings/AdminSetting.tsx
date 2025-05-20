@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 export default function AdminSetting() {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const { id } = useParams();
     const [parameter, setParameter] = useState<Parameter>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function AdminSetting() {
     const initParameter = useCallback(async () => {
         if (id) {
             try {
-                const u = await getParameter(Number(id), token!);
+                const u = await getParameter(Number(id), token!, setToken);
                 setParameter(u);
             } catch (e) {
                 toast.error(`Erreur lors du chargement du paramètre`);
@@ -50,10 +50,10 @@ export default function AdminSetting() {
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    await updateParameter(data.id, token!, data);
+                    await updateParameter(data.id, token!, data, setToken);
                     toast.success(t('register.update'));
                 } else {
-                    await createParameter(token!, data);
+                    await createParameter(token!, data, setToken);
                     toast.success(t('register.create'));
                 }
                 navigate('/admin/settings');
@@ -68,7 +68,7 @@ export default function AdminSetting() {
 
         if (confirmDelete) {
             try {
-                await deleteParameter(parameter!.id, token!);
+                await deleteParameter(parameter!.id, token!, setToken);
                 toast.success('Paramètre supprimé avec succès!');
                 navigate('/admin/settings', { replace: true });
             } catch (error) {
