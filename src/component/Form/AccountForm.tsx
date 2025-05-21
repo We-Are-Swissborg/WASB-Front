@@ -24,7 +24,7 @@ export default function AccountForm(props: IAccountForm) {
         setValue,
         formState: { errors },
     } = useForm();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [isInit, setIsInit] = useState(true);
     const [beContactedChanged, setBeContactedChanged] = useState(true);
     const [valueAccount, setValueAccount] = useState<Account>({} as Account);
@@ -203,7 +203,7 @@ export default function AccountForm(props: IAccountForm) {
         if (token && props.user?.id) {
             if (beContactedChanged) user.beContacted = props.user.beContacted;
             user = correctUserToSend(user);
-            patchUser(props.user.id, token, user as User)
+            patchUser(props.user.id, token, user as User, setToken)
                 .then(() => {
                     if (props.user?.id) {
                         // Without the condition we have an error

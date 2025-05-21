@@ -20,13 +20,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminPostCategories() {
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<PostCategoryFormData[]>(() => []);
 
     const initPostCategories = useCallback(async () => {
         if (token) {
-            const categories = await getPostCategories(token);
+            const categories = await getPostCategories(token, setToken);
             setData(categories);
         }
     }, [token]);

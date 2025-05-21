@@ -23,7 +23,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         formState: { errors },
     } = useForm<SocialMedias>();
     const [isInit, setIsInit] = useState(true);
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [valueSocialMedias, setValueSocialMedias] = useState<SocialMedias>({} as SocialMedias);
     const propValueSocialMedias = Object.keys(valueSocialMedias); // Properties for creating a field form
 
@@ -107,7 +107,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     const onSubmit = handleSubmit((data) => {
         if (token && props.user?.id) {
             data = correctSocialMediasToSend(data);
-            updateSocialMediasUser(props.user.id, token, data)
+            updateSocialMediasUser(props.user.id, token, data, setToken)
                 .then(() => {
                     if (props.user?.id) {
                         // Without the condition we have an error

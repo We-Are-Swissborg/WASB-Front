@@ -18,13 +18,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminContributions() {
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<Contribution[]>(() => []);
 
     const initContributions = useCallback(async () => {
         if (token) {
-            const contributions = await ContributionService.getContributions(token);
+            const contributions = await ContributionService.getContributions(token, setToken);
             setData(contributions);
         }
     }, [token]);

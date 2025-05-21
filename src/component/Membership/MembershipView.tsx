@@ -12,11 +12,11 @@ import { MembershipCard } from './MembershipCard';
 import { MembershipMessage } from './MembershipMessage';
 import { isBefore } from 'date-fns';
 
-const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => getMemberships(token);
+const fetcherMemberships: (token: string, setToken: (newToken: string) => void) => Promise<Membership[]> = (token, setToken) => getMemberships(token, setToken);
 
 export const MembershipView = () => {
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
     const [isDisplayNewAffiliation, setIsDisplayNewAffiliation] = useState<boolean>(true);
@@ -25,7 +25,7 @@ export const MembershipView = () => {
         data: memberships,
         error: membershipsError,
         isLoading: membershpsLoading,
-    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
+    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!, setToken));
 
     useEffect(() => {
         if (memberships) {

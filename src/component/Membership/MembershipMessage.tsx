@@ -5,17 +5,17 @@ import { Trans } from 'react-i18next';
 import useSWR from 'swr';
 import Loading from '../Loading';
 
-const fetcherParameters: (token: string) => Promise<Parameter[]> = (token) =>
-    getParametersByCode('membership#phone', token);
+const fetcherParameters: (token: string, setToken: (newToken: string) => void) => Promise<Parameter[]> = (token, setToken) =>
+    getParametersByCode('membership#phone', token, setToken);
 
 export const MembershipMessage = () => {
-    const { token, username } = useAuth();
+    const { token, username, setToken } = useAuth();
 
     const {
         data: parameters,
         error: parametersError,
         isLoading: parametersLoading,
-    } = useSWR<Parameter[]>('parameters_membership', () => fetcherParameters(token!));
+    } = useSWR<Parameter[]>('parameters_membership', () => fetcherParameters(token!, setToken));
 
     if (parametersError)
         return (

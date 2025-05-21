@@ -17,13 +17,13 @@ import { getUsers } from '@/administration/services/userAdmin.service';
 import TableReact from '@/component/Table/TableReact';
 
 export default function AdminUsers() {
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<User[]>(() => []);
 
     const initUser = useCallback(async () => {
         if (token) {
-            const users = await getUsers(token);
+            const users = await getUsers(token, setToken);
             setData(users);
         }
     }, [token]);

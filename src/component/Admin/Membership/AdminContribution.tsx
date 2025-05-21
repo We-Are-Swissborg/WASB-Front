@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 export default function AdminContribution() {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const { id } = useParams();
     const [contribution, setContribution] = useState<Contribution>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export default function AdminContribution() {
     const getContribution = useCallback(async () => {
         if (id && token) {
             try {
-                const contribution = await ContributionService.getContribution(Number(id), token);
+                const contribution = await ContributionService.getContribution(Number(id), token, setToken);
                 initContribution(contribution);
             } catch (error) {
                 toast.error('Erreur lors du chargement de la contribution');
@@ -74,10 +74,10 @@ export default function AdminContribution() {
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    await ContributionService.updateContribution(data.id, data, token!);
+                    await ContributionService.updateContribution(data.id, data, token!, setToken);
                     toast.success(t('contribution.update'));
                 } else {
-                    await ContributionService.createContribution(data, token!);
+                    await ContributionService.createContribution(data, token!, setToken);
                     toast.success(t('contribution.create'));
                 }
                 navigate('/admin/contributions');

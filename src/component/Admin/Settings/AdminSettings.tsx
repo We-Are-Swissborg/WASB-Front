@@ -18,13 +18,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminSettings() {
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<Parameter[]>(() => []);
 
     const initParameters = useCallback(async () => {
         if (token) {
-            const parameters = await getParameters(token);
+            const parameters = await getParameters(token, setToken);
             setData(parameters);
         }
     }, [token]);

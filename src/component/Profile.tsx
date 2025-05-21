@@ -13,7 +13,7 @@ import { MembershipView } from './Membership/MembershipView';
 export default function Profile() {
     const { t } = useTranslation();
     const [profileCategory, setProfileCategory] = useState(1);
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [user, setUser] = useState<User>();
 
     const classNaV = (nav: number) => {
@@ -26,7 +26,7 @@ export default function Profile() {
     const initUser = useCallback(async () => {
         if (token && !user) {
             const { userId } = tokenDecoded(token);
-            const user = await getUserWithAllInfo(userId, token);
+            const user = await getUserWithAllInfo(userId, token, setToken);
             setUser(user);
         }
     }, [token]);

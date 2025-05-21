@@ -1,26 +1,16 @@
 import { UploadFile } from '@/types/UploadFile';
+import * as BaseApi from './baseAPI.services';
 
-const serverURL: string = import.meta.env.VITE_BACKEND_API || '';
-const backendAPI: URL = new URL(`${serverURL}/admin`, window.location.origin);
-const requestHeaders: Headers = new Headers();
-
-export async function uploadImage(file: File, token: string): Promise<UploadFile> {
+export async function uploadImage(file: File, token: string, setToken: (newToken: string) => void): Promise<UploadFile> {
     const formData = new FormData();
-    const url = 'posts/upload';
+    const url = 'admin/posts/upload';
     formData.append('imagePost', file);
-    requestHeaders.set('Authorization', `Bearer ${token}`);
 
-    const response = await fetch(`${backendAPI.href}/${url}`, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        body: formData,
-        headers: requestHeaders,
-    });
+    const res = await BaseApi.postFetchWithFile(url, formData, token, setToken);
 
-    if (!response.ok) {
+    if (!res.ok) {
         throw new Error('Failed to upload image');
     }
 
-    return await response.json();
+    return await res.json();
 }

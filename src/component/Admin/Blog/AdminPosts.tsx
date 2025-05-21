@@ -20,13 +20,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminPosts() {
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<PostFormData[]>(() => []);
 
     const initPosts = useCallback(async () => {
         if (token) {
-            const posts = await getAllPosts(token);
+            const posts = await getAllPosts(token, setToken);
             setData(posts);
         }
     }, [token]);
