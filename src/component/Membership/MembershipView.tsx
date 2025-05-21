@@ -4,7 +4,7 @@ import { MembershipForm } from './MembershipForm';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { getMemberships } from '@/services/membership.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { MembershipList } from './MembershipList';
 import Loading from '../Loading';
 import { MembershipReminder } from './MembershipReminder';
@@ -16,7 +16,7 @@ const fetcherMemberships: (token: string, setToken: (newToken: string) => void) 
 
 export const MembershipView = () => {
     const { t } = useTranslation();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
     const [isDisplayNewAffiliation, setIsDisplayNewAffiliation] = useState<boolean>(true);

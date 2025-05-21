@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 
 type ProtectedRouteProps = {
     element: JSX.Element;
@@ -14,7 +14,7 @@ If no role is defined, we just check that it is authenticated.
  * @returns The component or redirect user to login
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, role }) => {
-    const { isAuthenticated, roles } = useAuth();
+    const { isAuthenticated, roles } = UseAuth();
 
     if (!role) {
         return isAuthenticated ? element : <Navigate to="/login" />;

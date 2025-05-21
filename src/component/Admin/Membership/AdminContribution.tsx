@@ -1,5 +1,5 @@
 import * as ContributionService from '@/administration/services/contributionsAdmin.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Contribution } from '@/types/contribution';
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 export default function AdminContribution() {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [contribution, setContribution] = useState<Contribution>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);

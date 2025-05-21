@@ -6,7 +6,7 @@ import { OptionsCountrySelect, OptionsSelect } from '../../types/OptionsSelect';
 import Countries from '../../hook/Countries';
 import regex from '../../services/regex';
 import { patchUser } from '../../services/user.service';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { Account } from '../../types/Account';
 import toDownArrow from '../../assets/images/icon/to_down-arrow.png';
@@ -24,7 +24,7 @@ export default function AccountForm(props: IAccountForm) {
         setValue,
         formState: { errors },
     } = useForm();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [isInit, setIsInit] = useState(true);
     const [beContactedChanged, setBeContactedChanged] = useState(true);
     const [valueAccount, setValueAccount] = useState<Account>({} as Account);

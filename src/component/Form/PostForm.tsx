@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Editor from '../../hook/Editor';
 import Quill from 'quill';
 import { toast } from 'react-toastify';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 import { createPost, previewPost } from '../../services/blog.service';
 import { tokenDecoded } from '../../services/token.services';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export default function PostForm() {
     const { register, handleSubmit, setValue } = useForm();
     const [previewValues, setPreviewValues] = useState<FieldValues>();
     const [isForm, setIsForm] = useState<boolean>(true);
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const quillRef = useRef<Quill | null>(null);
     const navigate = useNavigate();
     const isBuffer = typeof image !== 'string'; // Required for check if the image has changed.

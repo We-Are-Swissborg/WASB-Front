@@ -3,7 +3,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SocialMedias } from '../../types/SocialMedias';
 import regex from '../../services/regex';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { User } from '../../types/User';
 import { updateSocialMediasUser } from '../../services/socialMedias.service';
@@ -23,7 +23,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         formState: { errors },
     } = useForm<SocialMedias>();
     const [isInit, setIsInit] = useState(true);
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [valueSocialMedias, setValueSocialMedias] = useState<SocialMedias>({} as SocialMedias);
     const propValueSocialMedias = Object.keys(valueSocialMedias); // Properties for creating a field form
 

@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { User } from '../../types/User';
 import { auth } from '../../services/auth.services';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 
 const authenticate = async (data: User): Promise<string> => {
     const { username, password } = data;
@@ -12,7 +12,7 @@ const authenticate = async (data: User): Promise<string> => {
 };
 
 export default function Login() {
-    const { login } = useAuth();
+    const { login } = UseAuth();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
