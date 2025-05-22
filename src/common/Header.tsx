@@ -5,12 +5,12 @@ import logo from '../assets/images/Wasb_logo__blanc.png';
 
 import '../css/Header.css';
 import Settings from '../component/Settings.tsx';
-import { useAuth } from '../contexts/AuthContext.tsx';
+import { UseAuth } from '../contexts/AuthContext.tsx';
 import { ConnectButton } from '@/web3/ConnectButton.tsx';
 
 export default function Header() {
     const { t } = useTranslation();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated } = UseAuth();
 
     return (
         <header>

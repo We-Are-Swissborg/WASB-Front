@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import * as PostAdminServices from '@/administration/services/postAdmin.service';
 import * as PostCategoryAdminServices from '@/administration/services/postCategoryAdmin.service';
 import { PostFormData, PostFormState } from '@/types/Post';
@@ -35,7 +35,7 @@ const defaultTranslations: TranslationData[] = [
 
 export default function AdminPost() {
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [post, setPost] = useState<PostFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
@@ -75,7 +75,7 @@ export default function AdminPost() {
     const getPostCategories = useCallback(async () => {
         if (postCategories.length === 0) {
             try {
-                const categories = await PostCategoryAdminServices.getPostCategories(token!);
+                const categories = await PostCategoryAdminServices.getPostCategories(token!, setToken);
                 setPostCategories(categories);
             } catch (error) {
                 toast.error('Erreur lors du chargement des catégories');
@@ -87,7 +87,7 @@ export default function AdminPost() {
     const getPost = useCallback(async () => {
         if (id && !post) {
             try {
-                const p: PostFormData = await PostAdminServices.getPost(Number(id), token!);
+                const p: PostFormData = await PostAdminServices.getPost(Number(id), token!, setToken);
                 initPost(p);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de l'article`);
@@ -120,13 +120,13 @@ export default function AdminPost() {
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    const updatedPost = await PostAdminServices.update(data.id, token!, sendData);
+                    const updatedPost = await PostAdminServices.update(data.id, token!, sendData, setToken);
                     initPost(updatedPost);
                     toast.success(t('post.update'));
                 } else {
                     const decodedToken = tokenDecoded(token!);
                     sendData.author = decodedToken.userId;
-                    await PostAdminServices.create(token!, sendData);
+                    await PostAdminServices.create(token!, sendData, setToken);
                     toast.success(t('post.create'));
                 }
             } catch (e) {
@@ -141,7 +141,7 @@ export default function AdminPost() {
 
         if (confirmDelete) {
             try {
-                await PostAdminServices.destroy(post!.id!, token!);
+                await PostAdminServices.destroy(post!.id!, token!, setToken);
                 toast.success('Article supprimé avec succès!');
                 navigate('/admin/posts', { replace: true });
             } catch (error) {

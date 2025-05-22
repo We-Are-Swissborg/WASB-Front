@@ -3,7 +3,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SocialMedias } from '../../types/SocialMedias';
 import regex from '../../services/regex';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { User } from '../../types/User';
 import { updateSocialMediasUser } from '../../services/socialMedias.service';
@@ -23,17 +23,17 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         formState: { errors },
     } = useForm<SocialMedias>();
     const [isInit, setIsInit] = useState(true);
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const [valueSocialMedias, setValueSocialMedias] = useState<SocialMedias>({} as SocialMedias);
     const propValueSocialMedias = Object.keys(valueSocialMedias); // Properties for creating a field form
 
     const valueSocialMediasRef = useRef(valueSocialMedias);
     const socialMediasRef = useRef(props.socialMedias);
     const placeholder = [
-        'twitter.com/WeAreSwissBorg',
+        t('profile.social-medias.twitter'),
         t('profile.social-medias.discord'),
-        'tiktok.com/@weareswissborg.eth',
-        't.me/WeAreSwissBorg',
+        t('profile.social-medias.tiktok'),
+        t('profile.social-medias.telegram'),
     ];
 
     const initUser = useCallback(() => {
@@ -58,7 +58,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
         return (
             <div key={'input-' + id} className="container-input-and-select">
                 <label className="label-form uppercase-first-letter" htmlFor={field}>
-                    {field} :
+                    {field != 'twitter' ? field : 'X'} :
                 </label>
                 <input
                     {...register(field, {
@@ -107,7 +107,7 @@ export default function SocialMediasForm(props: ISocialMediasForm) {
     const onSubmit = handleSubmit((data) => {
         if (token && props.user?.id) {
             data = correctSocialMediasToSend(data);
-            updateSocialMediasUser(props.user.id, token, data)
+            updateSocialMediasUser(props.user.id, token, data, setToken)
                 .then(() => {
                     if (props.user?.id) {
                         // Without the condition we have an error

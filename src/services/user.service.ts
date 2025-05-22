@@ -28,10 +28,10 @@ const checkReferralExist = async (codeRef: string): Promise<string> => {
     return json;
 };
 
-const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
+const getUserWithAllInfo = async (id: number, token: string, setToken: (newToken: string) => void): Promise<User> => {
     const url: string = 'users/allInfo/' + id;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {
@@ -41,10 +41,10 @@ const getUserWithAllInfo = async (id: number, token: string): Promise<User> => {
     return json;
 };
 
-const patchUser = async (id: number, token: string, data: Partial<User>): Promise<boolean> => {
+const patchUser = async (id: number, token: string, data: Partial<User>, setToken: (newToken: string) => void): Promise<boolean> => {
     const url: string = 'users/' + id;
 
-    const response: Response = await BaseApi.patchFetch(url, JSON.stringify(data), token);
+    const response: Response = await BaseApi.patchFetch(url, JSON.stringify(data), token, setToken);
 
     if (!response.ok) {
         const json = await response.json();
@@ -59,10 +59,10 @@ const patchUser = async (id: number, token: string, data: Partial<User>): Promis
  * @param token token
  * @returns all users
  */
-const getUsers = async (token: string): Promise<User[]> => {
+const getUsers = async (token: string, setToken: (newToken: string) => void): Promise<User[]> => {
     const url: string = 'users';
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {

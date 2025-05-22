@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { OptionsSelect } from '../../types/OptionsSelect';
 import Select from '../Form/SelectForm';
 import * as ContributionService from '@/services/contribution.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import * as MemberShipService from '@/services/membership.service';
 import { toast } from 'react-toastify';
 import { Contribution } from '@/types/contribution';
@@ -15,12 +15,12 @@ type MembershipFormType = {
     onUpdate: (membership: Membership) => void;
 };
 
-const fetcheContributions: (token: string) => Promise<Contribution[]> = (token) =>
-    ContributionService.getContributions(token);
+const fetcheContributions: (token: string, setToken: (newToken: string) => void) => Promise<Contribution[]> = (token, setToken) =>
+    ContributionService.getContributions(token, setToken);
 
 export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const { control, handleSubmit } = useForm<AddContribution>({
         defaultValues: {
             contributionId: 1,
@@ -32,7 +32,7 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
         data: contributions,
         error: membershipsError,
         isLoading,
-    } = useSWR<Contribution[]>('contributions', () => fetcheContributions(token!));
+    } = useSWR<Contribution[]>('contributions', () => fetcheContributions(token!, setToken));
 
     useEffect(() => {
         if (contributions) {
@@ -42,7 +42,7 @@ export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
 
     const onSubmit = handleSubmit(async (sendData: AddContribution) => {
         try {
-            const membership = await MemberShipService.addContribution(sendData, token!);
+            const membership = await MemberShipService.addContribution(sendData, token!, setToken);
             const contribution = contributions!.find((c) => c.id == sendData.contributionId);
             membership.contribution = contribution!;
             onUpdate(membership);

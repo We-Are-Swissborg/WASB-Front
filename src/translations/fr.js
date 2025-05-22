@@ -125,9 +125,12 @@ const global_fr = {
     "profile": {
         "social-medias": {
             "title": "Réseaux sociaux",
+            "twitter": "Entrer votre pseudo X",
             "discord": "Entrer votre pseudo Discord",
+            "tiktok": "Entrer votre pseudo TikTok",
+            "telegram": "Entrer votre pseudo Telegram",
             "error-discord": "Une erreur avec votre Discord",
-            "error-twitter": "Une erreur avec votre Twitter",
+            "error-twitter": "Une erreur avec votre X",
             "error-tiktok": "Une erreur avec votre TikTok",
             "error-telegram": "Une erreur avec votre Telegram",
         },

@@ -1,6 +1,6 @@
 import * as SessionAdminServices from '@/administration/services/sessionAdmin.service';
 import UploadImage from '@/component/Form/UploadImage';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import Editor from '@/hook/Editor';
 import { Session, SessionStatus } from '@/types/Session';
 import { UploadFile } from '@/types/UploadFile';
@@ -27,7 +27,7 @@ import { toast } from 'react-toastify';
 
 export default function AdminSession() {
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [session, setSession] = useState<Session>();
     const quillRef = useRef<Quill | null>(null);
@@ -62,7 +62,7 @@ export default function AdminSession() {
     const getSession = useCallback(async () => {
         if (id && token) {
             try {
-                const session = await SessionAdminServices.getSession(Number(id), token!);
+                const session = await SessionAdminServices.getSession(Number(id), token!, setToken);
                 initSession(session);
             } catch (error: unknown) {
                 toast.error(`Erreur lors du chargement de la session`);
@@ -92,10 +92,10 @@ export default function AdminSession() {
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    await SessionAdminServices.update(data.id, token!, data);
+                    await SessionAdminServices.update(data.id, token!, data, setToken);
                     toast.success(t('register.update'));
                 } else {
-                    await SessionAdminServices.create(token!, data);
+                    await SessionAdminServices.create(token!, data, setToken);
                     toast.success(t('session.create'));
                 }
                 // navigate('/admin/meetup');

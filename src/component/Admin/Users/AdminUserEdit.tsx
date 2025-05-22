@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { User } from '@/types/User';
 import { NavLink, useParams } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import Role from '@/types/Role';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -15,7 +15,7 @@ import { ChevronLeftSharp } from '@mui/icons-material';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const { register, handleSubmit, control, formState } = useForm<User>({
@@ -27,7 +27,7 @@ function AdminUserEdit() {
     const initUser = useCallback(async () => {
         if (id) {
             try {
-                const u = await getUserWithAllInfo(Number(id), token!);
+                const u = await getUserWithAllInfo(Number(id), token!, setToken);
                 setUser(u);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de l'utilisateur`);
@@ -52,7 +52,7 @@ function AdminUserEdit() {
         { value: 'discord', name: 'Discord' },
         { value: 'telegram', name: 'Telegram' },
         { value: 'tiktok', name: 'Tiktok' },
-        { value: 'twitter', name: 'Twitter' },
+        { value: 'twitter', name: 'X' },
         { value: 'youtube', name: 'Youtube' },
         { value: 'other', name: 'Other' },
     ];
@@ -74,7 +74,7 @@ function AdminUserEdit() {
         if (isDirty && isValid) {
             try {
                 console.info('form submit', data);
-                await updateUser(data.id, token!, data);
+                await updateUser(data.id, token!, data, setToken);
                 toast.success(t('profile.success-update'));
             } catch {
                 toast.error(t('register.error'));
@@ -244,7 +244,7 @@ function AdminUserEdit() {
                         <legend>Social Medias</legend>
                         <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
                             <label htmlFor="twitter" className="form-label">
-                                Twitter
+                                X
                             </label>
                             <input
                                 type="text"

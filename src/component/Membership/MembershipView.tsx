@@ -4,7 +4,7 @@ import { MembershipForm } from './MembershipForm';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { getMemberships } from '@/services/membership.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { MembershipList } from './MembershipList';
 import Loading from '../Loading';
 import { MembershipReminder } from './MembershipReminder';
@@ -12,11 +12,11 @@ import { MembershipCard } from './MembershipCard';
 import { MembershipMessage } from './MembershipMessage';
 import { isBefore } from 'date-fns';
 
-const fetcherMemberships: (token: string) => Promise<Membership[]> = (token) => getMemberships(token);
+const fetcherMemberships: (token: string, setToken: (newToken: string) => void) => Promise<Membership[]> = (token, setToken) => getMemberships(token, setToken);
 
 export const MembershipView = () => {
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const [membership, setMembership] = useState<Membership>();
     const [oldMemberships, setOldMemberships] = useState<Membership[]>();
     const [isDisplayNewAffiliation, setIsDisplayNewAffiliation] = useState<boolean>(true);
@@ -25,7 +25,7 @@ export const MembershipView = () => {
         data: memberships,
         error: membershipsError,
         isLoading: membershpsLoading,
-    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!));
+    } = useSWR<Membership[]>('memberships', () => fetcherMemberships(token!, setToken));
 
     useEffect(() => {
         if (memberships) {
@@ -39,7 +39,7 @@ export const MembershipView = () => {
     };
 
     useEffect(() => {
-        if (membership && membership.endDateContribution && isBefore(membership.endDateContribution, new Date())) {
+        if (!membership || (membership.endDateContribution && isBefore(membership.endDateContribution, new Date()))) {
             setIsDisplayNewAffiliation(true);
         } else {
             setIsDisplayNewAffiliation(false);
@@ -52,7 +52,6 @@ export const MembershipView = () => {
     return (
         <>
             <MembershipReminder lastMembership={membership} />
-            <MembershipMessage />
 
             {isDisplayNewAffiliation && (
                 <>

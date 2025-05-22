@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Membership } from '@/types/Membership';
 import { TextareaAutosize, TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -12,7 +12,7 @@ import * as MembershipService from '@/administration/services/membershipAdmin.se
 
 export default function AdminMembership() {
     const { t } = useTranslation();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [membership, setMembership] = useState<Membership>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export default function AdminMembership() {
     const getMembership = useCallback(async () => {
         if (id && token) {
             try {
-                const membership = await MembershipService.getMembership(Number(id), token);
+                const membership = await MembershipService.getMembership(Number(id), token, setToken);
                 initMembership(membership);
             } catch (error) {
                 toast.error('Erreur lors du chargement de la contribution');
@@ -54,7 +54,7 @@ export default function AdminMembership() {
         try {
             if (membership && token) {
                 membership.contributionStatus = status;
-                await MembershipService.changeStatusMembership(id, membership, token);
+                await MembershipService.changeStatusMembership(id, membership, token, setToken);
                 toast.success(t('membership.update'));
                 // navigate('/admin/memberships');
             }

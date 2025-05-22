@@ -128,9 +128,12 @@ const global_en = {
     "profile": {
         "social-medias": {
             "title": "Social medias",
+            "twitter": "Enter your X pseudo",
             "discord": "Enter your Discord pseudo",
+            "tiktok": "Enter your TikTok pseudo",
+            "telegram": "Enter your Telegram pseudo",
             "error-discord": "An error with your Discord",
-            "error-twitter": "An error with your Twitter",
+            "error-twitter": "An error with your X",
             "error-tiktok": "An error with your TikTok",
             "error-telegram": "An error with your Telegram",
         },
