@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { OptionsSelect } from '../../types/OptionsSelect';
 import Select from '../Form/SelectForm';
 import * as ContributionService from '@/services/contribution.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import * as MemberShipService from '@/services/membership.service';
 import { toast } from 'react-toastify';
 import { Contribution } from '@/types/contribution';
@@ -20,7 +20,7 @@ const fetcheContributions: (token: string, setToken: (newToken: string) => void)
 
 export const MembershipForm = ({ onUpdate }: MembershipFormType) => {
     const { t } = useTranslation();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { control, handleSubmit } = useForm<AddContribution>({
         defaultValues: {
             contributionId: 1,

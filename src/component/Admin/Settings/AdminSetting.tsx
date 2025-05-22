@@ -4,7 +4,7 @@ import {
     getParameter,
     updateParameter,
 } from '@/administration/services/parameterAdmin.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Parameter } from '@/types/Parameter';
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 export default function AdminSetting() {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [parameter, setParameter] = useState<Parameter>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);

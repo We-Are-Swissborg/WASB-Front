@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { getParametersByCode } from '@/services/setting.service';
 import { Parameter } from '@/types/Parameter';
 import { Trans } from 'react-i18next';
@@ -9,7 +9,7 @@ const fetcherParameters: (token: string, setToken: (newToken: string) => void) =
     getParametersByCode('membership#phone', token, setToken);
 
 export const MembershipMessage = () => {
-    const { token, username, setToken } = useAuth();
+    const { token, username, setToken } = UseAuth();
 
     const {
         data: parameters,

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { UseAuth } from '../contexts/AuthContext';
 import { User } from '../types/User';
 import { getUserWithAllInfo } from '../services/user.service';
 import { tokenDecoded } from '../services/token.services';
@@ -13,7 +13,7 @@ import { MembershipView } from './Membership/MembershipView';
 export default function Profile() {
     const { t } = useTranslation();
     const [profileCategory, setProfileCategory] = useState(1);
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [user, setUser] = useState<User>();
 
     const classNaV = (nav: number) => {

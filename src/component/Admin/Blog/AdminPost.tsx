@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import * as PostAdminServices from '@/administration/services/postAdmin.service';
 import * as PostCategoryAdminServices from '@/administration/services/postCategoryAdmin.service';
 import { PostFormData, PostFormState } from '@/types/Post';
@@ -35,7 +35,7 @@ const defaultTranslations: TranslationData[] = [
 
 export default function AdminPost() {
     const navigate = useNavigate();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [post, setPost] = useState<PostFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);

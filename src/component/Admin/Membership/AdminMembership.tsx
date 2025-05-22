@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Membership } from '@/types/Membership';
 import { TextareaAutosize, TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -12,7 +12,7 @@ import * as MembershipService from '@/administration/services/membershipAdmin.se
 
 export default function AdminMembership() {
     const { t } = useTranslation();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [membership, setMembership] = useState<Membership>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);

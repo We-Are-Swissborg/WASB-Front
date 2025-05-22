@@ -1,7 +1,7 @@
 import { getAllPosts } from '@/administration/services/postAdmin.service';
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { getLanguagesFromPosts } from '@/services/translation.service';
 import { PostFormData } from '@/types/Post';
 import { AddCircleSharp } from '@mui/icons-material';
@@ -20,7 +20,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminPosts() {
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<PostFormData[]>(() => []);
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { User } from '@/types/User';
 import { NavLink, useParams } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import Role from '@/types/Role';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -15,7 +15,7 @@ import { ChevronLeftSharp } from '@mui/icons-material';
 
 function AdminUserEdit() {
     const [user, setUser] = useState<User>();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
     const { register, handleSubmit, control, formState } = useForm<User>({

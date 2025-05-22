@@ -4,7 +4,7 @@ import {
     getPostCategory,
     updatePostCategory,
 } from '@/administration/services/postCategoryAdmin.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { PostCategoryFormData } from '@/types/PostCategory';
 import { t } from 'i18next';
 import { useState, useCallback, useEffect } from 'react';
@@ -24,7 +24,7 @@ const defaultTranslations: TranslationData[] = [
 
 export default function AdminPostCategory() {
     const navigate = useNavigate();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [postCategory, setPostCategory] = useState<PostCategoryFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
