@@ -303,7 +303,9 @@ const global_fr = {
         "placeholder-password": "Entrez votre mot de passe",
         "username": "Nom d'utilisateur",
         "placeholder-username": "Entrez votre nom d'utilisateur",
-        "sign-up": "Pas encore de compte ? <link1>S'inscrire</link1>",
+        "sign-up": "<link1>S'inscrire</link1>",
+        "forgot-password": "<link1>Mot de passe oublié ?</link1>",
+        "loading": "Chargement...",
     },
     "session": {
         "create": "La sessions a bien été créée !"
@@ -334,7 +336,21 @@ const global_fr = {
         "visionTitle": "Notre vision",
         "visionIntro": "Nous posons aujourd’hui la première pierre vers une future DAO où chaque projet communautaire pourra se financer.",
         "visionConclusion": "Rejoins-nous, et construisons ensemble un avenir où la crypto devient le moyen le plus sûr pour chacun de créer une fortune générationnelle."
-    }
+    },
+    "reset-password": {
+        "title": "Mot de passe oublié",
+        "first-paragraph": "Veuillez entrer votre e-mail pour recevoir le lien de récupération.",
+        "second-paragraph": "Confirmer votre nom d'utilisateur pour recevoir l'e-mail.",
+        "placeholder-email": "Entrer votre e-mail",
+        "placeholder-username": "Entrer votre nom d'utilisateur",
+        "confirm": "Confirmer",
+        "email-error": "Une erreur s'est produite avec votre e-mail.",
+        "username-error": "Une erreur s'est produite avec votre nom d'utilisateur.",
+        "submit-error": "Une erreur s'est produit lors de l'envoie.",
+        "cancel": "Annuler",
+        "loading": "Chargement...",
+        "link-send": "Lien pour réinitialiser le mot de passe par e-mail a été envoyé."
+    },
 };
 
 export default global_fr;

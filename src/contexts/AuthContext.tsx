@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const storedToken = localStorage.getItem('authToken');
         if (storedToken && !isTokenExpired(storedToken)) {
             login(storedToken);
-        } else if (isTokenExpired(storedToken as string)) {
+        } else if (storedToken && isTokenExpired(storedToken as string)) {
             generateNewToken().then((newToken: string) => {
                 if(newToken) {
                     setToken(newToken);

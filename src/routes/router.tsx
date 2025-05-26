@@ -16,6 +16,7 @@ import Post from '@/component/Post';
 import Event from '@/component/Event/Event';
 import Session from '@/component/Event/Session';
 import AboutUs from '@/component/About/AboutUs';
+import ForgotPassword from '@/component/Security/ForgotPassword';
 
 const router = {
     path: '/',
@@ -90,6 +91,10 @@ const router = {
         {
             path: 'login',
             element: <OnlyAnonymousRouter element={<Login />} />,
+        },
+        {
+            path: 'reset-password',
+            element: <OnlyAnonymousRouter element={<ForgotPassword />} />,
         },
         {
             path: 'logout',

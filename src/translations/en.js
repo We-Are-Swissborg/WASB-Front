@@ -306,7 +306,9 @@ const global_en = {
         "placeholder-password": "Enter your password",
         "username": "Username",
         "placeholder-username": "Enter your username",
-        "sign-up": "Don't have an account? ? <link1>Sign Up</link1>",
+        "sign-up": "<link1>Sign Up</link1>",
+        "forgot-password": "<link1>Forgot password?</link1>",
+        "loading": "Loading...",
     },
     "session": {
         "create": "The session was created!"
@@ -337,7 +339,21 @@ const global_en = {
         "visionTitle": "Our vision",
         "visionIntro": "Today, we are laying the first stone towards a future DAO where every community project can be funded.",
         "visionConclusion": "Join us, and let’s build together a future where crypto becomes the safest way for everyone to create generational wealth."
-    }
+    },
+    "reset-password": {
+        "title": "Forgot password",
+        "first-paragraph": "Please enter your email to receive the recovery link.",
+        "second-paragraph": "Confirm your username to receive the mail.",
+        "placeholder-email": "Enter your email",
+        "placeholder-username": "Enter your username",
+        "confirm": "Confirm",
+        "email-error": "An error occured with your email",
+        "username-error": "An error occured with your username",
+        "cancel": "Cancel",
+        "loading": "Loading...",
+        "link-send": "Link to reset password by email is sent."
+    },
+
 };
 
 export default global_en;

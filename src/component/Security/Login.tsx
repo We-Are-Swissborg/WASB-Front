@@ -105,20 +105,31 @@ export default function Login() {
                                                         className="spinner-border spinner-border-sm mx-2"
                                                         role="status"
                                                     >
-                                                        <span className="visually-hidden">Loading...</span>
+                                                        <span className="visually-hidden">{t('authenticate.loading')}</span>
                                                     </div>
                                                 )}
                                                 {t('authenticate.login')}
                                             </button>
-                                            <p className="small fw-bold mt-2 pt-1 mb-0">
-                                                <Trans
-                                                    i18nKey="authenticate.sign-up"
-                                                    t={t}
-                                                    components={{
-                                                        link1: <NavLink className="link-danger" to="/register" />,
-                                                    }}
-                                                />
-                                            </p>
+                                            <div className='d-flex justify-content-between mt-4'>
+                                                <div>
+                                                    <Trans
+                                                        i18nKey="authenticate.sign-up"
+                                                        t={t}
+                                                        components={{
+                                                            link1: <NavLink className="link-danger" to="/register" />,
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <Trans
+                                                        i18nKey="authenticate.forgot-password"
+                                                        t={t}
+                                                        components={{
+                                                            link1: <NavLink className="link-danger" to="/reset-password" />,
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
