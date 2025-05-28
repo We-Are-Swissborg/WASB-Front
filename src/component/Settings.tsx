@@ -1,14 +1,14 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { UseAuth } from '../contexts/AuthContext';
 import Role from '../types/Role';
 import { AdminPanelSettingsTwoTone, SettingsTwoTone } from '@mui/icons-material';
 import { gsap } from 'gsap';
 
 export default function Settings() {
     const [t, i18n] = useTranslation();
-    const { roles } = useAuth();
+    const { roles } = UseAuth();
     const iconRef = useRef(null);
 
     const handleChangeLanguage = (lang: string) => {

@@ -1,6 +1,6 @@
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Membership } from '@/types/Membership';
 import { useReactTable } from '@tanstack/react-table';
 import {
@@ -22,7 +22,7 @@ const fetcherMemberships: (token: string, setToken: (newToken: string) => void) 
 
 export default function AdminMemberships() {
     const { t } = useTranslation();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [membershipsInProgress, setMembershipsInProgress] = useState<Membership[]>(() => []);
     const [membershipsOther, setMembershipsOther] = useState<Membership[]>(() => []);

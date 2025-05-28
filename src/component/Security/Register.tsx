@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { auth } from '../../services/auth.services';
-import { useAuth } from '../../contexts/AuthContext';
+import { UseAuth } from '../../contexts/AuthContext';
 
 const registration = async (data: Registration) => {
     await register(data);
@@ -22,7 +22,7 @@ export default function Register() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { codeRef } = useParams();
-    const { login } = useAuth();
+    const { login } = UseAuth();
 
     // getting the event handlers from our custom hook
     const { register, handleSubmit, formState } = useForm<Registration>({ mode: 'onTouched' });

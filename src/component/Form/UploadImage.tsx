@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { useState } from 'react';
 import * as UploadService from '@/services/upload.services';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { UploadFile } from '@/types/UploadFile';
 import { toast } from 'react-toastify';
 
@@ -9,7 +9,7 @@ export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadF
     const [image, setImage] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [previewURL, setPreviewURL] = useState<string | null>(null);
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];

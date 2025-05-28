@@ -1,7 +1,7 @@
 import { getParameters } from '@/administration/services/parameterAdmin.service';
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Parameter } from '@/types/Parameter';
 import { AddCircleSharp } from '@mui/icons-material';
 import { useReactTable } from '@tanstack/react-table';
@@ -18,7 +18,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminSettings() {
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<Parameter[]>(() => []);
 

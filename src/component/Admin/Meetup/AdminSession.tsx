@@ -1,6 +1,6 @@
 import * as SessionAdminServices from '@/administration/services/sessionAdmin.service';
 import UploadImage from '@/component/Form/UploadImage';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import Editor from '@/hook/Editor';
 import { Session, SessionStatus } from '@/types/Session';
 import { UploadFile } from '@/types/UploadFile';
@@ -27,7 +27,7 @@ import { toast } from 'react-toastify';
 
 export default function AdminSession() {
     const { t } = useTranslation();
-    const { token, setToken } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [session, setSession] = useState<Session>();
     const quillRef = useRef<Quill | null>(null);
