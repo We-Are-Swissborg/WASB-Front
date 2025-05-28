@@ -1,198 +1,334 @@
-import { ChangeEvent, useRef, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import Editor from '../../hook/Editor';
-import Quill from 'quill';
+import { UseAuth } from '@/contexts/AuthContext';
+import * as PostServices from '@/services/blog.service';
+import * as PostCategoryServices from '@/services/postCategory.service';
+import { PostFormData, PostFormState } from '@/types/Post';
+import { t } from 'i18next';
+import { useCallback, useEffect, useState } from 'react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { UseAuth } from '../../contexts/AuthContext';
-import { createPost, previewPost } from '../../services/blog.service';
-import { tokenDecoded } from '../../services/token.services';
-import { useNavigate } from 'react-router-dom';
-import { Delta, EmitterSource } from 'quill/core';
-import arrayBufferToBase64 from '../../services/arrayBufferToBase64';
-import '../../css/Blog.css';
+import {
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    InputLabel,
+    ListItemText,
+    MenuItem,
+    OutlinedInput,
+    Select,
+} from '@mui/material';
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { fr } from 'date-fns/locale/fr';
+import { PostCategoryFormData } from '@/types/PostCategory';
+import { tokenDecoded } from '@/services/token.services';
+import UploadImage from '@/component/Form/UploadImage';
+import { UploadFile } from '@/types/UploadFile';
+import { TranslationData } from '@/types/Translation';
+import TranslationField from '../Translation/TranslationField';
+import TranslationEditor from '../Translation/TranslationEditor';
+
+const defaultTranslations: TranslationData[] = [
+    { languageCode: 'en', title: '', content: '' },
+    { languageCode: 'fr', title: '', content: '' },
+];
 
 export default function PostForm() {
-    const { t } = useTranslation();
-    const [image, setImage] = useState<string | ArrayBuffer | undefined | null>(null);
-    const { register, handleSubmit, setValue } = useForm();
-    const [previewValues, setPreviewValues] = useState<FieldValues>();
-    const [isForm, setIsForm] = useState<boolean>(true);
-    const { token, setToken } = UseAuth();
-    const quillRef = useRef<Quill | null>(null);
     const navigate = useNavigate();
-    const isBuffer = typeof image !== 'string'; // Required for check if the image has changed.
+    const { token, setToken } = UseAuth();
+    const { id } = useParams();
+    const [post, setPost] = useState<PostFormData>();
+    const [isInitializing, setIsInitializing] = useState<boolean>(false);
+    const [postCategories, setPostCategories] = useState<Array<PostCategoryFormData>>([]);
+    const [previewImage64, setPreviewImage64] = useState<string | undefined>();
 
-    const onSubmit = handleSubmit((user, e) => {
-        const nameTarget = e?.target.name;
-        const propsForm = Object.keys(user);
-        const lengthEditor = quillRef.current?.getLength();
+    const { register, handleSubmit, formState, control, setValue } = useForm<PostFormData>({
+        mode: 'onTouched',
+        defaultValues: {
+            translations: defaultTranslations,
+            createdAt: new Date(),
+        },
+    });
+    const { isSubmitting, isDirty, isValid } = formState;
 
-        propsForm.forEach((prop, id) => {
-            const isEmptyValues = user[prop] === '' || user[prop] === undefined;
-            if (isEmptyValues) {
-                toast.error(t(`post-form.${prop}-empty`));
-                throw new Error(prop + ' is empty');
-            }
-            // TODO: change with constante in params
-            if (user.title.length < 5) {
-                toast.error(t('post-form.title-length'));
-                throw new Error('ERROR: Title length too short.');
-            }
-            if (lengthEditor! < 10) {
-                toast.error(t('post-form.editor-length'));
-                throw new Error('ERROR: Editor length too short.');
-            }
-
-            if (propsForm.length === ++id && propsForm.length !== 3) {
-                toast.error(t('post-form.value-missing'));
-                throw new Error('ERROR: Value missing');
-            }
-        });
-
-        // Display post before save post to BD
-        if (nameTarget === 'preview') {
-            const isTheSame = user.content === previewValues?.content;
-
-            if (isBuffer) user.image = image;
-
-            if (token && (!isTheSame || !isBuffer)) {
-                const formData = new FormData();
-
-                if (!isTheSame) formData.append('contentPost', user.content);
-                if (!isBuffer) formData.append('imagePost', user.image);
-
-                previewPost(token, formData, setToken).then((res) => {
-                    if (res.clean) user.content = res.clean;
-                    if (res.convertToWebp) {
-                        user.image = res.convertToWebp;
-                        setImage(res.convertToWebp);
-                    }
-                    setIsForm(false);
-                    setPreviewValues(user);
-                });
-            } else {
-                setIsForm(false);
-                setPreviewValues(user);
-            }
-        } else {
-            if (token && previewValues) {
-                const dataPost = {
-                    author: tokenDecoded(token).userId,
-                    title: previewValues?.title,
-                    image: previewValues?.image,
-                    content: previewValues?.content,
-                };
-
-                createPost(token, dataPost, setToken)
-                    .then(() => {
-                        toast.success(t('post-form.success-post'));
-                        navigate('/', { replace: true });
-                    })
-                    .catch(() => {
-                        toast.error(t('post-form.error-post'));
-                    });
-            }
-        }
+    const { fields } = useFieldArray({
+        control,
+        name: 'translations',
     });
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const nameTarget = e.target?.name;
-        if (nameTarget === 'image') {
-            const file = e.target?.files && e.target?.files[0];
-            const fileReader = new FileReader();
+    const initPost = useCallback(
+        async (post: PostFormState) => {
+            setPost(post);
+            setValue('createdAt', new Date(post.createdAt));
+            setValue('updatedAt', post.updatedAt ? new Date(post.updatedAt) : undefined);
+            setValue('publishedAt', post.publishedAt ? new Date(post.publishedAt) : undefined);
+            setValue('categories', post.categories);
+            setValue('isPublish', post.isPublish);
+            setValue('id', post.id);
+            setValue('image', post.image);
+            setValue('translations', post.translations);
+            setPreviewImage64(post.image64);
+        },
+        [setValue],
+    );
 
-            fileReader.onload = (event) => {
-                // The file's text will be printed here
-                setImage(event.target?.result);
-            };
+    const getPostCategories = useCallback(async () => {
+        if (postCategories.length === 0) {
+            try {
+                const categories = await PostCategoryServices.getPostCategories(token!, setToken);
+                setPostCategories(categories);
+            } catch (error) {
+                toast.error('Erreur lors du chargement des catégories');
+                console.error(error);
+            }
+        }
+    }, [token, postCategories]);
 
-            if (file) fileReader.readAsDataURL(file);
-            else setImage(null);
+    const getPost = useCallback(async () => {
+        if (id && !post) {
+            try {
+                const p: PostFormData = await PostServices.getPost(id);
+                initPost(p);
+            } catch (e) {
+                toast.error(`Erreur lors du chargement de l'article`);
+                console.error('ERROR: init Post', e);
+            }
+        }
+    }, [id, token, initPost]);
 
-            setValue('image', file);
-        } else {
-            const childNode = quillRef.current?.container.firstChild;
-            const textContent = childNode?.textContent;
-            let innerHTML = '';
+    const initForm = useCallback(async () => {
+        try {
+            await getPostCategories();
+            await getPost();
+        } catch (e) {
+            toast.error(`Erreur lors de l'initialisation du formulaire`);
+            console.error('ERROR: init Post', e);
+        } finally {
+            setIsInitializing(true);
+        }
+    }, [getPostCategories, getPost]);
 
-            if (childNode instanceof HTMLElement) innerHTML = childNode?.innerHTML;
-            if (!textContent) innerHTML = '';
+    useEffect(() => {
+        if (!isInitializing) {
+            initForm();
+        }
+    }, []);
 
-            setValue('content', innerHTML);
+    const onSubmit = async (data: PostFormData) => {
+        const sendData = { ...data };
+
+        if (isDirty && isValid) {
+            try {
+                if (data.id) {
+                    const updatedPost = await PostServices.updatePost(data.id, sendData, token!, setToken);
+                    initPost(updatedPost);
+                    toast.success(t('post.update'));
+                } else {
+                    const decodedToken = tokenDecoded(token!);
+                    sendData.author = decodedToken.userId;
+                    await PostServices.createPost(token!, sendData, setToken);
+                    toast.success(t('post.create'));
+                }
+            } catch (e) {
+                toast.error(t('register.error'));
+                console.error(e);
+            }
         }
     };
 
-    const srcImageBeforePreview = () => {
-        if (!isBuffer) return image;
-        if (isBuffer) return arrayBufferToBase64(image as unknown as ArrayBuffer, 'image/webp');
+    const onDeleteAction = async () => {
+        const confirmDelete = window.confirm('Es-tu sûr de vouloir supprimer cet élément ?');
+
+        if (confirmDelete) {
+            try {
+                await PostServices.deletePost(post!.id!, token!, setToken);
+                toast.success('Article supprimé avec succès!');
+                navigate('/admin/posts', { replace: true });
+            } catch (error) {
+                console.error('Erreur lors de la suppression :', error);
+                toast.error('Échec de la suppression. Veuillez réessayer.');
+            }
+        }
+    };
+
+    const handleImageUpload = async (data: UploadFile) => {
+        setValue('image', data.filePath);
+        setPreviewImage64(data.base64);
+    };
+
+    if (!isInitializing) {
+        return <div>{t('common.loading')}</div>;
+    }
+
+    const getTranslatedTitle = (translations: TranslationData[], language: string): string => {
+        return translations.find((t) => t.languageCode === language)?.title || translations[0]?.title || 'Sans titre';
     };
 
     return (
-        <div className="container">
-            <form className="form align-items-start" onSubmit={onSubmit}>
-                <div className="flex-column" style={isForm ? { display: 'flex', width: '100%' } : { display: 'none' }}>
-                    <textarea
-                        className="border border-0 border-bottom border-black h1 w-100 mb-5 mt-3"
-                        {...register('title')}
-                        id="title"
-                        required={true}
-                    />
-                    <div className="mb-4">
-                        {image && (
-                            <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center">
-                                <img
-                                    src={srcImageBeforePreview()}
-                                    className="w-100 h-100 object-fit-fill"
-                                    alt="main image"
+        <div className="container-fluid">
+            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <fieldset className="row g-3">
+                        <legend>Information sur l'article</legend>
+                        {!!post?.createdAt && (
+                            <>
+                                <div className="col-lg-2 col-md-4 col-sm-12">
+                                    <Controller
+                                        name="createdAt"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DateTimePicker
+                                                label="Créer le"
+                                                className="form-control"
+                                                value={field?.value}
+                                                onChange={(newValue) => field.onChange(newValue)}
+                                                disabled
+                                            />
+                                        )}
+                                    />
+                                </div>
+                                <div className="col-lg-2 col-md-4 col-sm-12">
+                                    <Controller
+                                        name="updatedAt"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <DateTimePicker
+                                                label="Mise à jour le"
+                                                className="form-control"
+                                                value={field?.value}
+                                                onChange={(newValue) => field.onChange(newValue)}
+                                                disabled={true}
+                                            />
+                                        )}
+                                    />
+                                </div>
+                            </>
+                        )}
+                        <div className="row g-3">
+                            <div className="col-lg-2 col-md-2 col-sm-2 mb-3">
+                                <FormControlLabel
+                                    className="form-check"
+                                    control={
+                                        <Controller
+                                            name="isPublish"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Checkbox
+                                                    {...field}
+                                                    checked={field.value}
+                                                    onChange={(e) => field.onChange(e.target.checked)}
+                                                />
+                                            )}
+                                        />
+                                    }
+                                    label="Publié ?"
                                 />
                             </div>
+                            <div className="col-lg-2 col-md-6 col-sm-12 mb-3">
+                                <Controller
+                                    name="publishedAt"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <DateTimePicker
+                                            label="Publié le"
+                                            className="form-control"
+                                            value={field.value}
+                                            onChange={(newValue) => field.onChange(newValue)}
+                                            disabled
+                                        />
+                                    )}
+                                />
+                            </div>
+                            <div className="col-lg-2 col-md-6 col-sm-12 mb-3">
+                                <Controller
+                                    name="categories"
+                                    control={control}
+                                    render={({ field }) => {
+                                        const selectedValues = Array.isArray(field.value)
+                                        ? field.value.map((cat) => cat.id)
+                                        : [];
+
+                                        return (
+                                            <FormControl className="form-control">
+                                            <InputLabel id="categories">Catégories</InputLabel>
+                                            <Select
+                                                labelId="categories"
+                                                multiple
+                                                value={selectedValues}
+                                                onChange={(event) => {
+                                                    const selectedIds = event.target.value as number[];
+                                                    const selectedCategories = postCategories.filter((cat) =>
+                                                        selectedIds.includes(cat.id ?? 0),
+                                                    );
+                                                    field.onChange(selectedCategories);
+                                                }}
+                                                input={<OutlinedInput label="Categories" />}
+                                                renderValue={(selected) =>
+                                                    postCategories
+                                                        .filter((cat) => selected.includes(cat.id))
+                                                        .map((cat) => getTranslatedTitle(cat.translations, 'fr'))
+                                                        .join(', ')
+                                                }
+                                            >
+                                                {postCategories.map((category) => (
+                                                    <MenuItem key={category.id} value={category.id}>
+                                                        <Checkbox
+                                                            checked={
+                                                                selectedValues.includes(category.id)
+                                                            }
+                                                        />
+                                                        <ListItemText
+                                                            primary={getTranslatedTitle(category.translations, 'fr')}
+                                                        />
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    )}
+                                }
+                                />
+                            </div>
+                        </div>
+                        <UploadImage onUpload={handleImageUpload} />
+                        <label>
+                            Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne sera
+                            pas pris en considération
+                        </label>
+                        {previewImage64 && (
+                            <img src={previewImage64} alt="Uploaded" style={{ width: '856px', height: '419px' }} />
                         )}
-                        <input type="file" id="image" name="image" accept="image/*" onChange={onChange} />
-                    </div>
-                    <Editor
-                        ref={quillRef}
-                        onTextChange={
-                            onChange as unknown as (delta: Delta, oldContents: Delta, source: EmitterSource) => unknown
-                        }
-                        readOnly={false}
-                    />
-                    <button
-                        className="btn btn-form padding-button align-self-end mt-5"
-                        type="submit"
-                        name="preview"
-                        onClick={onSubmit}
-                    >
-                        {t('post-form.preview')}
+                    </fieldset>
+
+                    <fieldset className="row g-3">
+                        <legend>Contenu de l'article</legend>
+                        {fields.map((field, index) => (
+                            <div key={field.id} className="col-12 mb-4">
+                                <TranslationField index={index} languageCode={field.languageCode} register={register} />
+                                <TranslationEditor control={control} index={index} languageCode={field.languageCode} />
+                            </div>
+                        ))}
+                    </fieldset>
+
+                    <button type="submit" className="btn btn-success">
+                        {isSubmitting && (
+                            <div className="spinner-border spinner-border-sm mx-2" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        )}
+                        Submit
                     </button>
-                </div>
-                <div className="flex-column" style={isForm ? { display: 'none' } : { display: 'flex', width: '100%' }}>
-                    <h1 className="title-preview mb-5 mt-3">{previewValues?.title}</h1>
-                    <div className="container-main-image title-post overflow-hidden rounded-5 align-self-center mb-5">
-                        <img
-                            src={arrayBufferToBase64(previewValues?.image as unknown as ArrayBuffer, 'image/webp')}
-                            className="w-100 h-100 object-fit-fill"
-                            alt="main image"
-                        />
-                    </div>
-                    <div
-                        dangerouslySetInnerHTML={{ __html: previewValues?.content }}
-                        className="content-post text-break"
-                    />
-                    <div className="d-flex justify-content-end container-cancel-btn">
-                        <button
-                            className="btn btn-form padding-button text-bg-danger cancel-btn"
-                            type="button"
-                            onClick={() => setIsForm(true)}
-                        >
-                            {t('post-form.cancel')}
+                    {!!post?.id && (
+                        <button type="button" className="btn btn-danger" onClick={onDeleteAction}>
+                            {isSubmitting && (
+                                <div className="spinner-border spinner-border-sm mx-2" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            )}
+                            Delete
                         </button>
-                        <button className="btn btn-form padding-button" type="submit" name="submit" onClick={onSubmit}>
-                            {t('post-form.confirm')}
-                        </button>
-                    </div>
-                </div>
-            </form>
+                    )}
+                </form>
+            </LocalizationProvider>
         </div>
     );
 }

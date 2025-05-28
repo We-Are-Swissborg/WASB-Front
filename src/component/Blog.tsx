@@ -1,20 +1,24 @@
 import { CardPost, PaginatedPostsResponse } from '../types/Post';
-import { getPosts } from '../services/blog.service';
+import * as PostServices from '../services/blog.service';
 import useSWR, { Fetcher, mutate } from 'swr';
-import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Link, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { CardActionArea, Pagination } from '@mui/material';
+import {
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Button,
+    Typography,
+    CardActionArea,
+    Pagination
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
 import { CalendarMonthSharp } from '@mui/icons-material';
+import { UseAuth } from '../contexts/AuthContext';
 
-const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => getPosts(url);
+const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => PostServices.getPosts(url);
 
 function Blog() {
     const { t, i18n } = useTranslation();
@@ -29,6 +33,7 @@ function Blog() {
         },
     );
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
+    const { roles } = UseAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -55,13 +60,13 @@ function Blog() {
     return (
         <>
             <div className="container">
-                <div className="d-flex align-items-center justify-content-between">
-                    <h1 className="title mt-4">{t('blog.title')}</h1>
-                    {/* {roles?.includes('moderator') && (
-                        <NavLink to="create-post" className="btn btn-form align-self-end py-2 px-3">
+                <div className="d-flex align-items-center justify-content-between mt-4">
+                    <h1 className="title">{t('blog.title')}</h1>
+                    {roles?.includes('author') && (
+                        <NavLink to="create-post" className="btn btn-form py-2 px-3">
                             {t('blog.create-post')}
                         </NavLink>
-                    )} */}
+                    )}
                 </div>
                 <section className="row row-cols-1 row-cols-md-3 g-2 mb-0 mt-3 justify-content-center">
                     {isLoading && (

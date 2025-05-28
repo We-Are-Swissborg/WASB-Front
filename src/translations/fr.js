@@ -214,7 +214,8 @@ const global_fr = {
         'published-at': 'Publié le',
         'published-by': 'Écrit par',
         'about-author': 'À propos de l\'auteur',
-        'return-blog': 'Retour au blog'
+        'return-blog': 'Retour au blog',
+        'create-post': 'Créer',
     },
     "article": {
         'post-delete': 'ARTICLE SUPPRIMÉ.',
@@ -319,6 +320,7 @@ const global_fr = {
         "details": "Voir les détails",
         "cancelled": "Annulé",
         "search": "Rechercher un événement",
+        "create-event": "Créer",
     },
     "about": {
         "title": "Qui sommes-nous ?",

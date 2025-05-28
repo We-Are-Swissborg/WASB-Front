@@ -25,8 +25,8 @@ import { tokenDecoded } from '@/services/token.services';
 import UploadImage from '@/component/Form/UploadImage';
 import { UploadFile } from '@/types/UploadFile';
 import { TranslationData } from '@/types/Translation';
-import TranslationField from '../Translation/TranslationField';
-import TranslationEditor from '../Translation/TranslationEditor';
+import TranslationField from '../../Translation/TranslationField';
+import TranslationEditor from '../../Translation/TranslationEditor';
 
 const defaultTranslations: TranslationData[] = [
     { languageCode: 'en', title: '', content: '' },

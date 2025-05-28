@@ -1,5 +1,5 @@
-import * as SessionAdminServices from '@/administration/services/sessionAdmin.service';
-import AdminUploadImage from '../Form/AdminUploadImage';
+import * as SessionServices from '@/services/session.service';
+import UploadImage from '@/component/Form/UploadImage';
 import { UseAuth } from '@/contexts/AuthContext';
 import Editor from '@/hook/Editor';
 import { Session, SessionStatus } from '@/types/Session';
@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function AdminSession() {
+export default function SessionForm() {
     const { t } = useTranslation();
     const { token, setToken } = UseAuth();
     const { id } = useParams();
@@ -62,11 +62,11 @@ export default function AdminSession() {
     const getSession = useCallback(async () => {
         if (id && token) {
             try {
-                const session = await SessionAdminServices.getSession(Number(id), token!, setToken);
+                const session = await SessionServices.getSession(Number(id), token!, setToken);
                 initSession(session);
             } catch (error: unknown) {
                 toast.error(`Erreur lors du chargement de la session`);
-                console.log('ERROR: init Session', error);
+                console.error('ERROR: init Session', error);
             }
         }
     }, [id, token, initSession]);
@@ -76,7 +76,7 @@ export default function AdminSession() {
             await getSession();
         } catch (e: unknown) {
             toast.error(`Erreur lors de l'initialisation du formulaire`);
-            console.log('ERROR: init Form Contribution', e);
+            console.error('ERROR: init Form Contribution', e);
         } finally {
             setIsInitializing(true);
         }
@@ -92,10 +92,10 @@ export default function AdminSession() {
         if (isDirty && isValid) {
             try {
                 if (data.id) {
-                    await SessionAdminServices.update(data.id, token!, data, setToken);
+                    await SessionServices.update(data.id, token!, data, setToken);
                     toast.success(t('register.update'));
                 } else {
-                    await SessionAdminServices.create(token!, data, setToken);
+                    await SessionServices.create(token!, data, setToken);
                     toast.success(t('session.create'));
                 }
                 // navigate('/admin/meetup');
@@ -269,7 +269,7 @@ export default function AdminSession() {
                         </fieldset>
                         <fieldset className="row g-3">
                             <legend>Information sur la session</legend>
-                            <AdminUploadImage onUpload={handleImageUpload} />
+                            <UploadImage onUpload={handleImageUpload} />
                             <label>
                                 Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne
                                 sera pas pris en considération
