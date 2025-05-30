@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import useSWR, { Fetcher, mutate } from 'swr';
 import imageDefault from '../../assets/images/event_default.png';
+import { UseAuth } from '@/contexts/AuthContext';
 
 const fetcher: Fetcher<PaginatedSessionsResponse> = (url: string) => getAllSessions(url);
 
@@ -28,13 +29,14 @@ export default function Event() {
     const [limit] = useState<number>(9);
     // const [filter, setFilter] = useState('');
     const { data, error, isLoading } = useSWR<PaginatedSessionsResponse>(
-        `/sessions?page=${currentPage}&limit=${limit}`,
+        `sessions?page=${currentPage}&limit=${limit}`,
         fetcher,
         {
             revalidateOnFocus: false,
         },
     );
     const [sessions, setSessions] = useState<CardSession[]>([]);
+    const { roles } = UseAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -67,21 +69,28 @@ export default function Event() {
     return (
         <div className="container">
             <Box sx={{ padding: 4 }}>
-                <Typography variant="h4" gutterBottom>
-                    {t('event.title')}
-                </Typography>
+                <div className='d-flex align-items-center justify-content-between mb-4'>
+                    <Typography variant="h4">
+                        {t('event.title')}
+                    </Typography>
 
-                {/* Filter and Search Bar 
-                <Box sx={{ marginBottom: 4, display: 'flex', justifyContent: 'center' }}>
-                    <TextField
-                        label={t('event.search')}
-                        variant="outlined"
-                        fullWidth
-                        value={filter}
-                        onChange={handleFilterChange}
-                    />
-                </Box>
-                */}
+                    {roles?.includes('organizer') && (
+                        <NavLink to="create-event" className="btn btn-form py-2 px-3">
+                            {t('event.create-event')}
+                        </NavLink>
+                    )}
+                    {/* Filter and Search Bar 
+                    <Box sx={{ marginBottom: 4, display: 'flex', justifyContent: 'center' }}>
+                        <TextField
+                            label={t('event.search')}
+                            variant="outlined"
+                            fullWidth
+                            value={filter}
+                            onChange={handleFilterChange}
+                        />
+                    </Box>
+                    */}
+                </div>
 
                 {isLoading ? (
                     <Grid container spacing={4}>

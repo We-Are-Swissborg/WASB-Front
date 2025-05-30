@@ -17,6 +17,7 @@ import Event from '@/component/Event/Event';
 import Session from '@/component/Event/Session';
 import AboutUs from '@/component/About/AboutUs';
 import ForgotPassword from '@/component/Security/ForgotPassword';
+import SessionForm from '@/component/Form/SessionForm';
 
 const router = {
     path: '/',
@@ -36,7 +37,7 @@ const router = {
                 },
                 {
                     path: 'create-post',
-                    element: <ProtectedRoute element={<PostForm />} role={Role.Moderator} />,
+                    element: <ProtectedRoute element={<PostForm />} role={Role.Author} />,
                 },
                 {
                     path: ':slug',
@@ -54,6 +55,10 @@ const router = {
                 {
                     path: ':slug',
                     element: <Session />,
+                },
+                {
+                    path: 'create-event',
+                    element: <ProtectedRoute element={<SessionForm />} role={Role.Organizer} />,
                 },
             ],
         },

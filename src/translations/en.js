@@ -217,7 +217,8 @@ const global_en = {
         'published-at': 'Published at',
         'published-by': 'Write by',
         'about-author': 'About author',
-        'return-blog': 'Return to blog'
+        'return-blog': 'Return to blog',
+        'create-post': 'Create',
     },
     'article': {
         'post-delete': 'POST DELETE.',
@@ -324,6 +325,7 @@ const global_en = {
         "details": "See details",
         "cancelled": "Cancelled",
         "search": "Search event",
+        "create-event": "Create",
     },
     "about": {
         "title": "Who are we?",

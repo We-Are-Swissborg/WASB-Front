@@ -48,8 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else if (storedToken && isTokenExpired(storedToken as string)) {
             generateNewToken().then((newToken: string) => {
                 if(newToken) {
-                    setToken(newToken);
-                    localStorage.setItem('authToken', newToken);
+                    login(newToken);
                 };
             });
         } else {

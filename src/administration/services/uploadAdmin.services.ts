@@ -1,5 +1,5 @@
 import { UploadFile } from '@/types/UploadFile';
-import * as BaseApi from './baseAPI.services';
+import * as BaseApi from './baseAPI.service';
 
 export async function uploadImage(file: File, token: string, setToken: (newToken: string) => void): Promise<UploadFile> {
     const formData = new FormData();
