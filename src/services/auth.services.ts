@@ -24,16 +24,26 @@ const getNonce = async (): Promise<Nonce> => {
  * @param signedMessage signed message hash
  * @returns
  */
-const authenticate = async ({
-    nonce,
-    output,
-}: {
-    nonce: string;
-    output: SolanaSignInOutput;
-}): Promise<string> => {
+// const authenticate = async ({
+//     nonce,
+//     output,
+// }: {
+//     nonce: string;
+//     output: SolanaSignInOutput;
+// }): Promise<string> => {
+    const authenticate = async ({
+        publicKey,
+        nonce,
+        output,
+    }: {
+        publicKey: string,
+        nonce: string;
+        output: SolanaSignInOutput;
+    }): Promise<string> => {
 
     const url: string = 'authWallet';
-    const data = { output, nonce };
+    // const data = { output, nonce };
+    const data = { account: publicKey, output, nonce };
 
     console.log('data', data);
 

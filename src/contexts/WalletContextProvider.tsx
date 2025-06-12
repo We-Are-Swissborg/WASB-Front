@@ -46,8 +46,9 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children })
 
         if (!verifySignIn(input, output)) throw new Error('Sign In verification failed!');
 
-        console.log('output', output.account);
-        await authenticate({ output: output, nonce: nonce.nonce });
+        console.log('output', output.account.publicKey);
+        await authenticate({ publicKey: output.account.publicKey, output: output, nonce: nonce.nonce });
+        // await authenticate({ publicKey:output.account.publicKey, signedMessage: output.signedMessage, signature: output.signature, nonce:nonce });
 
         return false;
     }, []);

@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import Role from '@/types/Role';
 import { AdminPanelSettingsTwoTone, ExitToAppTwoTone } from '@mui/icons-material';
 import { Box, ListItem, ListItemButton, ListItemText, SwipeableDrawer } from '@mui/material';
@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 export function ConnectButton({ className, ...props }: { className: string }) {
     const { t } = useTranslation('global');
-    const { roles } = useAuth();
+    const { roles } = UseAuth();
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [walletModalConfig, setWalletModalConfig] = useState<Readonly<{
