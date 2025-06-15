@@ -10,20 +10,20 @@ import {
 } from '@tanstack/react-table';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { User } from '@/types/User';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import RowActions from '@/component/Table/RowActions';
 import Role from '@/types/Role';
 import { getUsers } from '@/administration/services/userAdmin.service';
 import TableReact from '@/component/Table/TableReact';
 
 export default function AdminUsers() {
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<User[]>(() => []);
 
     const initUser = useCallback(async () => {
         if (token) {
-            const users = await getUsers(token);
+            const users = await getUsers(token, setToken);
             setData(users);
         }
     }, [token]);

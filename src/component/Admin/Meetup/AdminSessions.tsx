@@ -1,7 +1,7 @@
 import { getAllSessions } from '@/administration/services/sessionAdmin.service';
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { Session } from '@/types/Session';
 import { AddCircleSharp } from '@mui/icons-material';
 import { useReactTable } from '@tanstack/react-table';
@@ -18,13 +18,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminSessions() {
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<Session[]>(() => []);
 
     const initSessions = useCallback(async () => {
         if (token) {
-            const sessions = await getAllSessions(token);
+            const sessions = await getAllSessions(token, setToken);
             setData(sessions);
         }
     }, [token]);

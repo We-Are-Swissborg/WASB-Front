@@ -1,11 +1,11 @@
 import { Parameter } from '@/types/Parameter';
 import * as BaseApi from './baseAPI.services';
 
-const getParametersByCode = async (code: string, token: string): Promise<Parameter[]> => {
+const getParametersByCode = async (code: string, token: string, setToken: (newToken: string) => void): Promise<Parameter[]> => {
     console.log('getParametersByCode', code);
     const url: string = `parameters/${code}`;
 
-    const response: Response = await BaseApi.getFetch(url, token);
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
 
     if (!response.ok) {

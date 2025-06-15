@@ -1,11 +1,11 @@
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { useState } from 'react';
-import * as UploadService from '@/services/upload.services';
+import * as UploadService from '@/administration/services/uploadAdmin.services';
 import { UseAuth } from '@/contexts/AuthContext';
 import { UploadFile } from '@/types/UploadFile';
 import { toast } from 'react-toastify';
 
-export default function UploadImage({ onUpload }: { onUpload: (filePath: UploadFile) => void }) {
+export default function AdminUploadImage({ onUpload }: { onUpload: (filePath: UploadFile) => void }) {
     const [image, setImage] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [previewURL, setPreviewURL] = useState<string | null>(null);

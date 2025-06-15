@@ -1,11 +1,12 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { isTokenExpired, tokenDecoded } from '../services/token.services';
+import { isTokenExpired, tokenDecoded, getNewToken } from '../services/token.services';
 
 type AuthContextType = {
     isAuthenticated: boolean;
     token?: string | null;
     username?: string;
     roles?: string[];
+    setToken: (newToken: string) => void;
     login: (newToken: string) => void;
     logout: () => void;
 };
@@ -31,28 +32,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem('authToken');
     };
 
+    const generateNewToken = async () => {
+        const oldToken = localStorage.getItem('authToken');
+        const res = await getNewToken(oldToken!);
+        if(!res.token) console.error('Error with newToken :', res.message);
+        return res.token;
+    };
+
     const isAuthenticated = !!token;
 
     useEffect(() => {
         const storedToken = localStorage.getItem('authToken');
         if (storedToken && !isTokenExpired(storedToken)) {
             login(storedToken);
+        } else if (storedToken && isTokenExpired(storedToken as string)) {
+            generateNewToken().then((newToken: string) => {
+                if(newToken) {
+                    login(newToken);
+                };
+            });
         } else {
             logout();
         }
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, username, roles, token, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, username, roles, token, login, logout, setToken }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => {
+export const UseAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error('UseAuth must be used within an AuthProvider');
     }
     return context;
 };

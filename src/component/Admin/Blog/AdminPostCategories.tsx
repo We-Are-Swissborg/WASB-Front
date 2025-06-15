@@ -1,7 +1,7 @@
 import { getPostCategories } from '@/administration/services/postCategoryAdmin.service';
 import RowActions from '@/component/Table/RowActions';
 import TableReact from '@/component/Table/TableReact';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { getLanguagesFromCategories } from '@/services/translation.service';
 import { PostCategoryFormData } from '@/types/PostCategory';
 import { AddCircleSharp } from '@mui/icons-material';
@@ -20,13 +20,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function AdminPostCategories() {
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [data, setData] = useState<PostCategoryFormData[]>(() => []);
 
     const initPostCategories = useCallback(async () => {
         if (token) {
-            const categories = await getPostCategories(token);
+            const categories = await getPostCategories(token, setToken);
             setData(categories);
         }
     }, [token]);

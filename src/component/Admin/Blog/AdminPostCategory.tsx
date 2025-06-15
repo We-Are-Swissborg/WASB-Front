@@ -4,7 +4,7 @@ import {
     getPostCategory,
     updatePostCategory,
 } from '@/administration/services/postCategoryAdmin.service';
-import { useAuth } from '@/contexts/AuthContext';
+import { UseAuth } from '@/contexts/AuthContext';
 import { PostCategoryFormData } from '@/types/PostCategory';
 import { t } from 'i18next';
 import { useState, useCallback, useEffect } from 'react';
@@ -12,7 +12,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { fr } from 'date-fns/locale/fr';
 import { TextField } from '@mui/material';
 import { TranslationData } from '@/types/Translation';
@@ -24,7 +24,7 @@ const defaultTranslations: TranslationData[] = [
 
 export default function AdminPostCategory() {
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { token, setToken } = UseAuth();
     const { id } = useParams();
     const [postCategory, setPostCategory] = useState<PostCategoryFormData>();
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export default function AdminPostCategory() {
     const initPostCategory = useCallback(async () => {
         if (id) {
             try {
-                const u = await getPostCategory(Number(id), token!);
+                const u = await getPostCategory(Number(id), token!, setToken);
                 console.info('json PostCategory u:', u);
 
                 setPostCategory(u);
@@ -72,10 +72,10 @@ export default function AdminPostCategory() {
         if (isDirty && isValid) {
             try {
                 if (data?.id) {
-                    await updatePostCategory(data?.id, token!, data);
+                    await updatePostCategory(data?.id, token!, data, setToken);
                     toast.success(t('register.update'));
                 } else {
-                    await createPostCategory(token!, data);
+                    await createPostCategory(token!, data, setToken);
                     toast.success(t('register.create'));
                 }
                 navigate('/admin/category');
@@ -90,7 +90,7 @@ export default function AdminPostCategory() {
 
         if (confirmDelete) {
             try {
-                await deletePostCategory(postCategory!.id!, token!);
+                await deletePostCategory(postCategory!.id!, token!, setToken);
                 toast.success('Paramètre supprimé avec succès!');
                 navigate('/admin/category', { replace: true });
             } catch (error) {
