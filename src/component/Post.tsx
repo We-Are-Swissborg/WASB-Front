@@ -63,20 +63,18 @@ export default function Post() {
                                     </div>
                                 </div>
                             </header>
-                            <div className="text-center mb-5">
-                                <div className="rounded-5">
+                            <div className="col-md-10 mx-auto my-4">
+                                <div className="ratio ratio-16x9">
                                     <img
                                         src={post.image64}
-                                        width={856}
-                                        height={419}
-                                        className="object-fit-cover shadow"
+                                        className="img-fluid object-fit-cover w-100"
                                         alt="main image"
                                     />
                                 </div>
                             </div>
 
                             <section className="post-content">
-                                <div className="ql-editor" dangerouslySetInnerHTML={{ __html: post.content }} />
+                                <article className="ql-editor" dangerouslySetInnerHTML={{ __html: post.content }} />
                             </section>
 
                             <aside className="author-info">

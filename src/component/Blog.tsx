@@ -115,8 +115,11 @@ function Blog() {
                                         <CardMedia
                                             component="img"
                                             className="card-media object-fill-none"
-                                            width={425}
-                                            height={208}
+                                            sx={{
+                                                width: '100%',
+                                                aspectRatio: '16/9',
+                                                objectFit: 'cover'
+                                            }}
                                             image={post.image64}
                                             title={post.title}
                                         />
@@ -125,7 +128,13 @@ function Blog() {
                                                 gutterBottom
                                                 variant="h5"
                                                 component="div"
-                                                className="text-nowrap overflow-hidden text-truncate"
+                                                sx={{
+                                                    display: '-webkit-box',
+                                                    overflow: 'hidden',
+                                                    WebkitBoxOrient: 'vertical',
+                                                    WebkitLineClamp: 3,
+                                                    minHeight: '6rem'
+                                                }}
                                             >
                                                 {post.title}
                                             </Typography>

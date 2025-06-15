@@ -22,11 +22,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { fr } from 'date-fns/locale/fr';
 import { PostCategoryFormData } from '@/types/PostCategory';
 import { tokenDecoded } from '@/services/token.services';
-import UploadImage from '@/component/Form/UploadImage';
 import { UploadFile } from '@/types/UploadFile';
 import { TranslationData } from '@/types/Translation';
 import TranslationField from '../../Translation/TranslationField';
 import TranslationEditor from '../../Translation/TranslationEditor';
+import AdminUploadImage from '../Form/AdminUploadImage';
 
 const defaultTranslations: TranslationData[] = [
     { languageCode: 'en', title: '', content: '' },
@@ -289,7 +289,7 @@ export default function AdminPost() {
                                 />
                             </div>
                         </div>
-                        <UploadImage onUpload={handleImageUpload} />
+                        <AdminUploadImage onUpload={handleImageUpload} />
                         <label>
                             Si vous uploadez un fichier, il faut également enregistrer le formulaire sinon il ne sera
                             pas pris en considération
