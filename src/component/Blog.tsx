@@ -1,7 +1,7 @@
 import { CardPost, PaginatedPostsResponse } from '../types/Post';
 import * as PostServices from '../services/blog.service';
 import useSWR, { Fetcher, mutate } from 'swr';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
     Card,
