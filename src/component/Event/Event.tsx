@@ -36,7 +36,6 @@ export default function Event() {
         },
     );
     const [sessions, setSessions] = useState<CardSession[]>([]);
-    const { roles } = UseAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
