@@ -33,7 +33,6 @@ function Blog() {
         },
     );
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
-    const { roles } = UseAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
