@@ -18,7 +18,6 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import useSWR, { Fetcher, mutate } from 'swr';
 import imageDefault from '../../assets/images/event_default.png';
-import { UseAuth } from '@/contexts/AuthContext';
 
 const fetcher: Fetcher<PaginatedSessionsResponse> = (url: string) => getAllSessions(url);
 
