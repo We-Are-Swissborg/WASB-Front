@@ -73,12 +73,6 @@ export default function Event() {
                     <Typography variant="h4">
                         {t('event.title')}
                     </Typography>
-
-                    {roles?.includes('organizer') && (
-                        <NavLink to="create-event" className="btn btn-form py-2 px-3">
-                            {t('event.create-event')}
-                        </NavLink>
-                    )}
                     {/* Filter and Search Bar 
                     <Box sx={{ marginBottom: 4, display: 'flex', justifyContent: 'center' }}>
                         <TextField
