@@ -16,7 +16,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
 import { CalendarMonthSharp } from '@mui/icons-material';
-import { UseAuth } from '../contexts/AuthContext';
 
 const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => PostServices.getPosts(url);
 
