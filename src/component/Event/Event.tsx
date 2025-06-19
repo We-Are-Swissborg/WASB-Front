@@ -18,7 +18,6 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import useSWR, { Fetcher, mutate } from 'swr';
 import imageDefault from '../../assets/images/event_default.png';
-import { UseAuth } from '@/contexts/AuthContext';
 
 const fetcher: Fetcher<PaginatedSessionsResponse> = (url: string) => getAllSessions(url);
 
@@ -36,7 +35,6 @@ export default function Event() {
         },
     );
     const [sessions, setSessions] = useState<CardSession[]>([]);
-    const { roles } = UseAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -73,12 +71,6 @@ export default function Event() {
                     <Typography variant="h4">
                         {t('event.title')}
                     </Typography>
-
-                    {roles?.includes('organizer') && (
-                        <NavLink to="create-event" className="btn btn-form py-2 px-3">
-                            {t('event.create-event')}
-                        </NavLink>
-                    )}
                     {/* Filter and Search Bar 
                     <Box sx={{ marginBottom: 4, display: 'flex', justifyContent: 'center' }}>
                         <TextField
