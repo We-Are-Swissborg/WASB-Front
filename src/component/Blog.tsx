@@ -1,7 +1,7 @@
 import { CardPost, PaginatedPostsResponse } from '../types/Post';
 import * as PostServices from '../services/blog.service';
 import useSWR, { Fetcher, mutate } from 'swr';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
     Card,
@@ -16,7 +16,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import '../css/Blog.css';
 import { CalendarMonthSharp } from '@mui/icons-material';
-import { UseAuth } from '../contexts/AuthContext';
 
 const fetcher: Fetcher<PaginatedPostsResponse> = (url: string) => PostServices.getPosts(url);
 
@@ -33,7 +32,6 @@ function Blog() {
         },
     );
     const [dataReverse, setDataReverse] = useState<CardPost[]>([]);
-    const { roles } = UseAuth();
 
     const optionDate: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -62,11 +60,6 @@ function Blog() {
             <div className="container">
                 <div className="d-flex align-items-center justify-content-between mt-4">
                     <h1 className="title">{t('blog.title')}</h1>
-                    {roles?.includes('author') && (
-                        <NavLink to="create-post" className="btn btn-form py-2 px-3">
-                            {t('blog.create-post')}
-                        </NavLink>
-                    )}
                 </div>
                 <section className="row row-cols-1 row-cols-md-3 g-2 mb-0 mt-3 justify-content-center">
                     {isLoading && (
@@ -115,8 +108,11 @@ function Blog() {
                                         <CardMedia
                                             component="img"
                                             className="card-media object-fill-none"
-                                            width={425}
-                                            height={208}
+                                            sx={{
+                                                width: '100%',
+                                                aspectRatio: '16/9',
+                                                objectFit: 'cover'
+                                            }}
                                             image={post.image64}
                                             title={post.title}
                                         />
@@ -125,7 +121,13 @@ function Blog() {
                                                 gutterBottom
                                                 variant="h5"
                                                 component="div"
-                                                className="text-nowrap overflow-hidden text-truncate"
+                                                sx={{
+                                                    display: '-webkit-box',
+                                                    overflow: 'hidden',
+                                                    WebkitBoxOrient: 'vertical',
+                                                    WebkitLineClamp: 3,
+                                                    minHeight: '6rem'
+                                                }}
                                             >
                                                 {post.title}
                                             </Typography>

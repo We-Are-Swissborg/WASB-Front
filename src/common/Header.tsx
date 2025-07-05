@@ -9,7 +9,104 @@ import { UseAuth } from '../contexts/AuthContext.tsx';
 
 export default function Header() {
     const { t } = useTranslation();
-    const { isAuthenticated } = UseAuth();
+    const { isAuthenticated, roles } = UseAuth();
+    const dataDropdown = {
+        blog: [
+            {
+                name: 'Accueil',
+                path: '/blog',
+            },
+            {
+                name: 'Create',
+                path: '/blog/create-post',
+                acceptRole: ['author']
+
+            },
+            {
+                name: 'My posts',
+                path: '/blog/my-posts',
+                acceptRole: ['author']
+            },
+            {
+                name: 'To validate',
+                path: '/blog/to-validate',
+                acceptRole: ['author', 'editor']
+            },
+        ],
+        events: [
+            {
+                name: 'Accueil',
+                path: '/events'
+            },
+            {
+                name: 'My events',
+                path: '/events/my-events',
+                acceptRole: ['organizer']
+            },
+            {
+                name: 'Create',
+                path: '/events/create-event',
+                acceptRole: ['organizer']
+            },
+        ],
+    }
+
+    const dropdown = (nameButton: string, listNav: Array<{name: string, path: string, acceptRole?: string[]}>, idButton: number) => {
+        let idMenu = 0;
+        return (
+            <>
+                <NavLink className="nav-link dropdown-toggle" key={'button-header-'+idButton} id={'button-header-'+idButton} to={`${listNav[0].path}`} role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {nameButton}
+                </NavLink>
+                <ul className="dropdown-menu" aria-labelledby={'button-header-'+idButton}>
+                    {listNav.map((nav) => {
+                        let isInDropdown = false;
+                        nav.acceptRole?.forEach((role) => roles?.includes(role) && (isInDropdown = true));
+                        if(isInDropdown || !nav.acceptRole) {
+                            idMenu++;
+                            return (
+                                <li className='header-menu-item' key={"header-menu-item-"+idMenu}>
+                                    <NavLink className="nav-link dropdown-item" to={nav.path} end>
+                                        {nav.name}
+                                    </NavLink>
+                                </li>
+                            )
+                        }
+                    })}
+                </ul>
+            </>
+        );
+    }
+
+    const getIdButton = (mainPath: string) => {
+        const propsDataDropdown = Object.keys(dataDropdown);
+        let idButton = undefined;
+        idButton = propsDataDropdown.findIndex((prop) => mainPath.includes(prop));
+
+        return idButton;
+    } 
+
+    const displayButtonOrDropdown = (nameButton: string, listNav: Array<{name: string, path: string, acceptRole?: string[]}>) => {
+        let displayButton = true;
+        let roleToDisplayDropdown: string[] = [];
+        const mainPath = listNav[0].path;
+        const idButton: number | undefined = getIdButton(mainPath);
+
+        listNav.forEach(data => data.acceptRole && (roleToDisplayDropdown = roleToDisplayDropdown.concat(data.acceptRole)));
+        const setRoleToDisplayDropdown = new Set(roleToDisplayDropdown);
+
+        let withoutDuplicateRole = [...setRoleToDisplayDropdown];
+        withoutDuplicateRole.forEach((role) => displayButton = !roles?.includes(role));
+        if(displayButton) {
+            return (
+                <NavLink className="nav-link dropdown-item" key={'nav-header-'+idButton} to={mainPath} end>
+                    {nameButton}
+                </NavLink>
+            )
+        }
+
+       return dropdown(nameButton, listNav, idButton);
+    }
 
     return (
         <header>
@@ -36,15 +133,11 @@ export default function Header() {
                                     {t('nav.home')}
                                 </NavLink>
                             </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/blog">
-                                    {t('nav.blog')}
-                                </NavLink>
+                            <li className="nav-item dropdown">
+                                {displayButtonOrDropdown(t('nav.blog'), dataDropdown.blog)}
                             </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/events">
-                                    {t('nav.events')}
-                                </NavLink>
+                            <li className="nav-item dropdown">
+                                {displayButtonOrDropdown(t('nav.events'), dataDropdown.events)}
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/metrics">
