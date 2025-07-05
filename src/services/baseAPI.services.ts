@@ -49,7 +49,7 @@ const getFetch = async (url: string, token?: string | null, setToken?: (newToken
     const options = getOptions;
 
     options.headers = addOptionHeaders(token);
-    const res = await fetch(`${backendAPI.href}/${url}`, options); 
+    const res = await fetch(`${backendAPI.href}/${url}`, options);
 
     if(res.status === 401 && setToken) await generateNewToken(setToken); // Set a new token after a refreshToken.
 

@@ -13,38 +13,38 @@ export default function Header() {
     const dataDropdown = {
         blog: [
             {
-                name: 'Accueil',
+                name: t('nav.home'),
                 path: '/blog',
             },
             {
-                name: 'Create',
+                name: t('nav.create'),
                 path: '/blog/create-post',
                 acceptRole: ['author']
 
             },
             {
-                name: 'My posts',
+                name: t('nav.my-posts'),
                 path: '/blog/my-posts',
                 acceptRole: ['author']
             },
             {
-                name: 'To validate',
+                name: t('nav.to-validate'),
                 path: '/blog/to-validate',
                 acceptRole: ['author', 'editor']
             },
         ],
         events: [
             {
-                name: 'Accueil',
+                name: t('nav.home'),
                 path: '/events'
             },
             {
-                name: 'My events',
+                name: t('nav.my-events'),
                 path: '/events/my-events',
                 acceptRole: ['organizer']
             },
             {
-                name: 'Create',
+                name: t('nav.create'),
                 path: '/events/create-event',
                 acceptRole: ['organizer']
             },

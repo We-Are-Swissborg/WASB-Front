@@ -82,10 +82,14 @@ const global_fr = {
         "blog": "Blog",
         "events": "Évènements",
         "contact": "Contact",
+        "create": "Créer",
         "home": "Accueil",
         "language": "Langue",
         "logout": " Déconnexion",
         "metrics": "Métriques",
+        "my-events": 'Mes évènements',
+        "my-posts": 'Mes articles',
+        "to-validate": 'À validé',
         "profile": "Profil",
         "sign-up": "S'inscrire",
         "sign-in": "Se connecter",
@@ -336,6 +340,9 @@ const global_fr = {
         "visionTitle": "Notre vision",
         "visionIntro": "Nous posons aujourd’hui la première pierre vers une future DAO où chaque projet communautaire pourra se financer.",
         "visionConclusion": "Rejoins-nous, et construisons ensemble un avenir où la crypto devient le moyen le plus sûr pour chacun de créer une fortune générationnelle."
+    },
+    "my-event": {
+        "title": "Mes événements",
     }
 };
 
