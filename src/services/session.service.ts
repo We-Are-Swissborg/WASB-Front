@@ -26,6 +26,7 @@ const create = async (token: string, data: Session, setToken: (newToken: string)
 
     const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token, setToken);
     const json = await response.json();
+
     if (!response.ok) {
         throw new Error('An error has occurred: ' + json.message);
     }
@@ -56,5 +57,15 @@ const getSession = async (id: number, token: string, setToken: (newToken: string
     return json;
 };
 
+const getMySessions = async (url: string, token: string, setToken: (newToken: string) => void): Promise<PaginatedSessionsResponse> => {
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
+    const json = await response.json();
+    if (!response.ok) {
+        throw new Error('An error has occurred: ' + json.message);
+    }
 
-export { getAllSessions, getSessionBySlug, create, update, getSession };
+    return json;
+};
+
+
+export { getAllSessions, getSessionBySlug, create, update, getSession, getMySessions };

@@ -83,10 +83,14 @@ const global_en = {
         "blog": "Blog",
         "events": "Events",
         "contact": "Contact",
+        "create": "Create",
         "home": "Home",
         "language": "Language",
         "logout": " Logout",
         "metrics": "Metrics",
+        "my-events": 'My events',
+        "my-posts": 'My posts',
+        "to-validate": 'To validate',
         "profile": "Profile",
         "sign-up": "Sign Up",
         "sign-in": "Sign In",
@@ -339,6 +343,9 @@ const global_en = {
         "visionTitle": "Our vision",
         "visionIntro": "Today, we are laying the first stone towards a future DAO where every community project can be funded.",
         "visionConclusion": "Join us, and let’s build together a future where crypto becomes the safest way for everyone to create generational wealth."
+    },
+    "my-event": {
+        "title": "My events",
     }
 };
 
