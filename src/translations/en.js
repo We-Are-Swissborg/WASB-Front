@@ -86,10 +86,14 @@ const global_en = {
         "blog": "Blog",
         "events": "Events",
         "contact": "Contact",
+        "create": "Create",
         "home": "Home",
         "language": "Language",
         "logout": " Logout",
         "metrics": "Metrics",
+        "my-events": 'My events',
+        "my-posts": 'My posts',
+        "to-validate": 'To validate',
         "profile": "Profile",
         "sign-up": "Sign Up",
         "sign-in": "Sign In",
@@ -374,6 +378,9 @@ const global_en = {
         "loading": "Chargement...",
         "new-password-saved": "New password saved."
     },
+    "my-event": {
+        "title": "My events",
+    }
 };
 
 export default global_en;

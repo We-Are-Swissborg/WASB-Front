@@ -85,10 +85,14 @@ const global_fr = {
         "blog": "Blog",
         "events": "Évènements",
         "contact": "Contact",
+        "create": "Créer",
         "home": "Accueil",
         "language": "Langue",
         "logout": " Déconnexion",
         "metrics": "Métriques",
+        "my-events": 'Mes évènements',
+        "my-posts": 'Mes articles',
+        "to-validate": 'À validé',
         "profile": "Profil",
         "sign-up": "S'inscrire",
         "sign-in": "Se connecter",
@@ -371,6 +375,9 @@ const global_fr = {
         "loading": "Chargement...",
         "new-password-saved": "Nouveau mot de passe enregistré."
     },
+    "my-event": {
+        "title": "Mes événements",
+    }
 };
 
 export default global_fr;
