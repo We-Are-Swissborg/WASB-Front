@@ -43,6 +43,9 @@ const global_fr = {
     "metrics": {
         "aum": "AUM",
         "borgLock": "BORG bloqué",
+        "borgLockByPremium": "Borg bloqué par premium",
+        "borgLockForGovernance": "Borg bloqué pour la gouvernance",
+        "circulatingBorg": "Borg en circulation",
         "borgy-telegram": "https://t.me/borgyarmy_fr",
         "back": "RETOUR",
         "communityIndex": "Communauté index",
@@ -339,7 +342,7 @@ const global_fr = {
         "visionIntro": "Nous posons aujourd’hui la première pierre vers une future DAO où chaque projet communautaire pourra se financer.",
         "visionConclusion": "Rejoins-nous, et construisons ensemble un avenir où la crypto devient le moyen le plus sûr pour chacun de créer une fortune générationnelle."
     },
-    "reset-password": {
+    "forgot-password": {
         "title": "Mot de passe oublié",
         "first-paragraph": "Veuillez entrer votre e-mail pour recevoir le lien de récupération.",
         "second-paragraph": "Confirmer votre nom d'utilisateur pour recevoir l'e-mail.",
@@ -348,10 +351,25 @@ const global_fr = {
         "confirm": "Confirmer",
         "email-error": "Une erreur s'est produite avec votre e-mail.",
         "username-error": "Une erreur s'est produite avec votre nom d'utilisateur.",
-        "submit-error": "Une erreur s'est produit lors de l'envoie.",
+        "submit-error": "Une erreur s'est produite lors de l'envoi.",
         "cancel": "Annuler",
         "loading": "Chargement...",
-        "link-send": "Lien pour réinitialiser le mot de passe par e-mail a été envoyé."
+        "link-send": "Lien pour réinitialiser le mot de passe par e-mail a été envoyé.",
+        "username-label": "Nom d'utilisateur",
+        "email-label": "E-mail",
+    },
+    "reset-password": {
+        "title": "Nouveau mot de passe",
+        "first-paragraph": "Veuillez entrer votre nouveau mot de passe.",
+        "placeholder-password": "Entrer votre mot de passe",
+        "placeholder-confirm-password": "Retaper votre mot de passe",
+        "confirm": "Confirmer",
+        "password-error": "Les mots de passe ne sont pas identiques.",
+        "submit-error": "Une erreur s'est produite lors de l'envoi.",
+        "password-label": "Mot de passe",
+        "confirm-password-label": "Entrer votre mot de passe à nouveau",
+        "loading": "Chargement...",
+        "new-password-saved": "Nouveau mot de passe enregistré."
     },
 };
 

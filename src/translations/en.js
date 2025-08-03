@@ -44,6 +44,9 @@ const global_en = {
         "aum": "AUM",
         "back": "BACK",
         "borgLock": "BORG locked",
+        "borgLockByPremium": "Borg lock by Premium",
+        "borgLockForGovernance": "Borg lock for governance",
+        "circulatingBorg": "Circulating Borg",
         "borgy-telegram": "https://t.me/borgyarmy",
         "communityIndex": "Community index",
         "lastUpdate": "Last updated on",
@@ -342,7 +345,7 @@ const global_en = {
         "visionIntro": "Today, we are laying the first stone towards a future DAO where every community project can be funded.",
         "visionConclusion": "Join us, and let’s build together a future where crypto becomes the safest way for everyone to create generational wealth."
     },
-    "reset-password": {
+    "forgot-password": {
         "title": "Forgot password",
         "first-paragraph": "Please enter your email to receive the recovery link.",
         "second-paragraph": "Confirm your username to receive the mail.",
@@ -351,11 +354,26 @@ const global_en = {
         "confirm": "Confirm",
         "email-error": "An error occured with your email",
         "username-error": "An error occured with your username",
+        "submit-error": "An error occured while sending",
         "cancel": "Cancel",
         "loading": "Loading...",
-        "link-send": "Link to reset password by email is sent."
+        "link-send": "Link to reset password by email is sent.",
+        "username-label": "Username",
+        "email-label": "Email",
     },
-
+    "reset-password": {
+        "title": "New password",
+        "first-paragraph": "Please enter your new password.",
+        "placeholder-password": "Enter your password",
+        "placeholder-confirm-password": "Retype password",
+        "confirm": "Confirm",
+        "password-error": "Password are not the same.",
+        "submit-error": "An error occured while sending",
+        "password-label": "Password",
+        "confirm-password-label": "Enter your password again",
+        "loading": "Chargement...",
+        "new-password-saved": "New password saved."
+    },
 };
 
 export default global_en;

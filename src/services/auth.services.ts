@@ -97,4 +97,29 @@ const checkUsernameAndEmail = async (username: string, email: string): Promise<b
     return response.ok;
 };
 
-export { generateNonce, auth, authenticate, checkEmail, checkUsernameAndEmail };
+/**
+ * set a new password for an user
+ * @param newPassword new password
+ */
+const resetPassword = async (newPassword: string, slug: string): Promise<boolean> => {
+    const url = `/resetPassword/`+ slug;
+    const data = { newPassword };
+
+    const response: Response = await postFetch(url, JSON.stringify(data));
+
+    if (!response.ok) {
+        const json = await response.json();
+        throw new Error('An error has occurred: ' + json.message);
+    }
+
+    return response.ok;
+};
+
+export {
+    generateNonce,
+    auth,
+    authenticate,
+    checkEmail,
+    checkUsernameAndEmail,
+    resetPassword
+};
