@@ -57,6 +57,7 @@ const patchUser = async (id: number, token: string, data: Partial<User>, setToke
 /**
  *
  * @param token token
+ * @param setToken set token 
  * @returns all users
  */
 const getUsers = async (token: string, setToken: (newToken: string) => void): Promise<User[]> => {
@@ -73,4 +74,31 @@ const getUsers = async (token: string, setToken: (newToken: string) => void): Pr
     return json;
 };
 
-export { register, checkReferralExist, getUserWithAllInfo, getUsers, patchUser };
+/**
+ * Retrive username all organizer
+ * @param token token
+ * @param setToken set token 
+ * @returns username organizers
+ */
+const getUsernameOrganizers = async (token: string, setToken: (newToken: string) => void): Promise<User[]> => {
+    const url: string = 'users/organizers/username';
+
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
+    const json = await response.json();
+
+    if (!response.ok) {
+        const json = await response.json();
+        throw new Error('An error has occurred: ' + json.message);
+    }
+
+    return json;
+};
+
+export {
+    register,
+    checkReferralExist,
+    getUserWithAllInfo,
+    getUsers,
+    patchUser,
+    getUsernameOrganizers
+};

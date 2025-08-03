@@ -17,6 +17,7 @@ import Event from '@/component/Event/Event';
 import Session from '@/component/Event/Session';
 import AboutUs from '@/component/About/AboutUs';
 import SessionForm from '@/component/Form/SessionForm';
+import MyEvent from '@/component/Event/MyEvent';
 
 const router = {
     path: '/',
@@ -58,6 +59,10 @@ const router = {
                 {
                     path: 'create-event',
                     element: <ProtectedRoute element={<SessionForm />} role={Role.Organizer} />,
+                },
+                {
+                    path: 'my-events',
+                    element: <ProtectedRoute element={<MyEvent />} role={Role.Organizer} />,
                 },
             ],
         },
