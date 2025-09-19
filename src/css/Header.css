@@ -2,3 +2,11 @@
   height: 65px;
   width: 145px;
 }
+
+.header-menu-item .nav-link {
+  color: var(--bs-dropdown-link-color);
+}
+
+.header-menu-item .nav-link:active {
+  color: var(--bs-nav-link-hover-color);
+}

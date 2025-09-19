@@ -263,12 +263,12 @@ export default function PostForm() {
                                                     field.onChange(selectedCategories);
                                                 }}
                                                 input={<OutlinedInput label="Categories" />}
-                                                renderValue={(selected) =>
-                                                    postCategories
+                                                renderValue={(selected) => {
+                                                    return postCategories
                                                         .filter((cat) => selected.includes(cat.id))
                                                         .map((cat) => getTranslatedTitle(cat.translations, 'fr'))
                                                         .join(', ')
-                                                }
+                                                }}
                                             >
                                                 {postCategories.map((category) => (
                                                     <MenuItem key={category.id} value={category.id}>

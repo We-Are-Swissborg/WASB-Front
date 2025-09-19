@@ -29,15 +29,16 @@ export type Session = {
     startDateTime: Date;
     endDateTime?: Date;
     address: Address;
-    organizerBy?: Omit<User, 'membership'>;
+    organizerById: number;
+    organizerBy?: Omit<User, 'membership' | 'walletAddress' | 'confidentiality' | 'beContacted' | 'roles'>;
     numberOfParticipants: number;
     url: string;
     membersOnly: boolean;
     status: SessionStatus;
     createdAt: Date;
-    createdBy: Omit<User, 'membership'>;
+    createdBy: Omit<User, 'membership' | 'walletAddress' | 'confidentiality' | 'beContacted' | 'roles'>;
     updatedAt: Date;
-    updatedBy: Omit<User, 'membership'>;
+    updatedBy: Omit<User, 'membership' | 'walletAddress' | 'confidentiality' | 'beContacted' | 'roles'>;
 };
 
 export enum SessionStatus {

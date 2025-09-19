@@ -1,4 +1,5 @@
 import * as SessionServices from '@/services/session.service';
+import * as UserServices from '@/services/user.service';
 import UploadImage from '@/component/Form/UploadImage';
 import { UseAuth } from '@/contexts/AuthContext';
 import Editor from '@/hook/Editor';
@@ -22,21 +23,27 @@ import Quill from 'quill';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { User } from '@/types/User';
+import { tokenDecoded } from '@/services/token.services';
 
 export default function SessionForm() {
     const { t } = useTranslation();
-    const { token, setToken } = UseAuth();
+    const { token, setToken, roles } = UseAuth();
     const { id } = useParams();
     const [session, setSession] = useState<Session>();
     const quillRef = useRef<Quill | null>(null);
     const [isInitializing, setIsInitializing] = useState<boolean>(false);
+    const [organizers, setOrganizers] = useState<User[] | undefined>(undefined);
+    const organizerId = roles?.includes('organizer') ? tokenDecoded(token!).userId : undefined;
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState, control, setValue } = useForm<Session>({
         mode: 'onTouched',
         defaultValues: {
             status: SessionStatus.Draft,
+            organizerById: organizerId,
         },
     });
     const { isSubmitting, errors, isDirty, isValid } = formState;
@@ -55,6 +62,7 @@ export default function SessionForm() {
             setValue('url', session.url);
             setValue('description', session.description);
             setValue('image', session.image);
+            setValue('organizerById', session.organizerById);
         },
         [setValue],
     );
@@ -71,16 +79,27 @@ export default function SessionForm() {
         }
     }, [id, token, initSession]);
 
+    const getUsernameOrganizers = useCallback(async () => {
+        try {
+            const allOrganizer = await UserServices.getUsernameOrganizers(token!, setToken);
+            setOrganizers(allOrganizer);
+        } catch (error: unknown) {
+            toast.error(`Erreur lors du chargement des noms des organisateurs`);
+            console.error('ERROR: init Session', error);
+        }
+    }, []);
+
     const initForm = useCallback(async () => {
         try {
             await getSession();
+            await getUsernameOrganizers();
         } catch (e: unknown) {
             toast.error(`Erreur lors de l'initialisation du formulaire`);
             console.error('ERROR: init Form Contribution', e);
         } finally {
             setIsInitializing(true);
         }
-    }, [getSession]);
+    }, [getSession, getUsernameOrganizers]);
 
     useEffect(() => {
         if (!isInitializing) {
@@ -98,9 +117,9 @@ export default function SessionForm() {
                     await SessionServices.create(token!, data, setToken);
                     toast.success(t('session.create'));
                 }
-                // navigate('/admin/meetup');
-            } catch {
-                toast.error(t('session.error'));
+                navigate('/events');
+            } catch(e: unknown) {
+                if(e instanceof Error) toast.error(e.message);
             }
         }
     };
@@ -265,6 +284,35 @@ export default function SessionForm() {
                                     })}
                                 />
                                 {errors?.url && <div className="text-danger">{errors.url.message}</div>}
+                            </div>
+                        </fieldset>
+                        <fieldset className="row g-3">
+                            <div className="col-lg-2 col-md-4 col-sm-12 mb-3">
+                                <Controller
+                                    name="organizerById"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <FormControl className="form-control">
+                                            <InputLabel id="organizerById">Organizer*</InputLabel>
+                                            <Select
+                                                {...field}
+                                                labelId="organizerById"
+                                                value={field.value || ''}
+                                                onChange={(e) => field.onChange(e.target.value)}
+                                                input={<OutlinedInput label="organizerById" />}
+                                                disabled={!roles?.includes('admin') && true}
+                                                required
+                                            >
+                                                {organizers!.map((organizer, id) => (
+                                                    <MenuItem key={'organizer-'+id} value={organizer.id}>
+                                                        {organizer.username}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    )}
+                                />
+                                {errors.status && <FormHelperText>{errors.status.message}</FormHelperText>}
                             </div>
                         </fieldset>
                         <fieldset className="row g-3">
