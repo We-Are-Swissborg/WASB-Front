@@ -129,6 +129,7 @@ export default function PostForm() {
                     await PostServices.createPost(token!, sendData, setToken);
                     toast.success(t('post.create'));
                 }
+                navigate('/blog');
             } catch (e) {
                 toast.error(t('register.error'));
                 console.error(e);

@@ -1,6 +1,6 @@
 import ErrorPage from '@/hook/Error-page';
 import Home from '@/component/Home';
-import Blog from '@/component/Blog';
+import Blog from '@/component/Blog/Blog';
 import Contact from '@/component/Contact';
 import ProtectedRoute from '@/component/Route/ProtectedRouter';
 import Profile from '@/component/Profile';
@@ -12,7 +12,7 @@ import Role from '@/types/Role';
 import RootLayout from '@/component/RootLayout';
 import PostForm from '@/component/Form/PostForm';
 import Metrics from '@/component/Metrics';
-import Post from '@/component/Post';
+import Post from '@/component/Blog/Post';
 import Event from '@/component/Event/Event';
 import Session from '@/component/Event/Session';
 import AboutUs from '@/component/About/AboutUs';
@@ -20,6 +20,7 @@ import ForgotPassword from '@/component/Security/ForgotPassword';
 import SessionForm from '@/component/Form/SessionForm';
 import ResetPassword from '@/component/Security/ResetPassword';
 import MyEvent from '@/component/Event/MyEvent';
+import MyPosts from '@/component/Blog/MyPosts';
 
 const router = {
     path: '/',
@@ -38,12 +39,16 @@ const router = {
                     element: <Blog />,
                 },
                 {
+                    path: ':slug',
+                    element: <Post />,
+                },
+                {
                     path: 'create-post',
                     element: <ProtectedRoute element={<PostForm />} role={Role.Author} />,
                 },
                 {
-                    path: ':slug',
-                    element: <Post />,
+                    path: 'my-posts',
+                    element: <ProtectedRoute element={<MyPosts />} role={Role.Author} />,
                 },
             ],
         },

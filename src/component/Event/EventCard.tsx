@@ -12,6 +12,7 @@ import {
     CardActions,
     Chip,
     ChipProps,
+    CardActionArea,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +20,9 @@ import { NavLink } from 'react-router-dom';
 import useSWR, { BareFetcher, mutate } from 'swr';
 import imageDefault from '../../assets/images/event_default.png';
 import { UseAuth } from '@/contexts/AuthContext';
+import DeleteIcon from '../../assets/images/trash.svg';
+import { toast } from 'react-toastify';
+import * as SessionService from '@/services/session.service';
 
 type IEventCard = {
     fetcher: BareFetcher<PaginatedSessionsResponse>,
@@ -32,6 +36,9 @@ export default function EventCard({fetcher, title, userId}: IEventCard) {
     const [totalPages, setTotalPages] = useState<number>(1);
     const [limit] = useState<number>(9);
     const { token, setToken } = UseAuth();
+    const [ isDelete, setIsDelete ] = useState<boolean>(false);
+    const [ nbSelect, setNbSelect ] = useState<number>(0);
+    const [ listIdToDelete, setListIdToDelete ] = useState<number[]>([]);
     // const [filter, setFilter] = useState('');
 
     const url = userId ?
@@ -97,14 +104,93 @@ export default function EventCard({fetcher, title, userId}: IEventCard) {
         )
     };
 
-    if (error) return <div>{t('blog.loading-error')}</div>;
+    const cardContent = (session: CardSession) => {
+        return (
+            <>
+                {session.status === 'Cancelled' && setChip(session)}
+                <CardMedia
+                    component="img"
+                    image={session.image64}
+                    src={imageDefault}
+                    alt={session.title}
+                    height="285"
+                />
+                <CardContent sx={{ flexGrow: 1, paddingBottom: '24px' }}>
+                    <Typography variant="h6" gutterBottom>
+                        {session.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 2 }}>
+                        <CalendarMonthSharp />{' '}
+                        {new Date(session.startDateTime).toLocaleString(
+                            `${t('event.localCode')}`,
+                            optionDate,
+                        )}
+                    </Typography>
+                    {session.endDateTime && (
+                        <Typography variant="body2" color="text.secondary">
+                            <CalendarMonthSharp />{' '}
+                            {new Date(session.endDateTime).toLocaleString(
+                                `${t('event.localCode')}`,
+                                optionDate,
+                            )}
+                        </Typography>
+                    )}
+                    <NavLink
+                        color="primary"
+                        to={`/events/${session.slug}`}
+                        className={isDelete ? 'disabled-a btn btn-secondary' : 'btn btn-secondary'}
+                    >
+                        {t('event.details')}
+                    </NavLink>
+                </CardContent>
+            </>
+        )
+    };
+
+    if (error) return <div>{t('event.loading-error')}</div>;
+
+    const onDelete = () => {
+        setIsDelete(true);
+    }
+
+    const onCancel = () => {
+        setListIdToDelete([]);
+        setIsDelete(false);
+        setNbSelect(0)
+    }
+
+    const onConfirm = () => {
+        SessionService.deleteSessions(listIdToDelete, token!, setToken).then((res) => {
+            if(!res) throw new Error;
+            const newSessions = sessions.filter((session) => !listIdToDelete.includes(session.id));
+
+            setSessions(newSessions);
+            onCancel();
+            toast.success(t('event.sessions-delete'));
+        }).catch(() => {
+            toast.error(t('event.error-delete'));
+        })
+    }
+
+    const onSelectToDelete = (id: number) => {
+        let isInList = listIdToDelete.includes(id);
+
+        if(isInList) {
+            const newList = listIdToDelete.filter((e) => e !== id);
+            setListIdToDelete(newList);
+            setNbSelect(newList.length);
+        } else {
+            setListIdToDelete([...listIdToDelete, id]);
+            setNbSelect(listIdToDelete.length + 1);
+        }
+    }
 
     return (
         <Box sx={{ padding: 4 }}>
             <div className='d-flex align-items-center justify-content-between mb-4'>
-                <Typography variant="h4">
+                <h1 className="title">
                     {title}
-                </Typography>
+                </h1>
                 {/* Filter and Search Bar 
                 <Box sx={{ marginBottom: 4, display: 'flex', justifyContent: 'center' }}>
                     <TextField
@@ -116,6 +202,27 @@ export default function EventCard({fetcher, title, userId}: IEventCard) {
                     />
                 </Box>
                 */}
+                { userId && (
+                    !isDelete ? 
+                        <Button variant="contained" className='bg-secondary text-primary' endIcon={<img src={DeleteIcon}/>} onClick={onDelete}>
+                            {t('event.delete')}
+                        </Button> :
+
+                        <div className='button-after-h1'>
+                            <Button variant="contained" color='error' onClick={onCancel}>
+                                {t('event.cancel')}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                className={nbSelect ? 'bg-secondary text-primary confirm' : 'confirm'}
+                                onClick={onConfirm}
+                                disabled={nbSelect ? false : true}
+                                style={{ marginLeft: '20px' }}>
+                                {`${t('event.confirm')} (${nbSelect})`}
+                            </Button>
+                        </div>
+                    )
+                }
             </div>
 
             {isLoading ? (
@@ -186,42 +293,27 @@ export default function EventCard({fetcher, title, userId}: IEventCard) {
                                     position: 'relative',
                                 }}
                             >
-                                {session.status === 'Cancelled' && setChip(session)}
-                                <CardMedia
-                                    component="img"
-                                    image={session.image64}
-                                    src={imageDefault}
-                                    alt={session.title}
-                                    height="285"
-                                />
-                                <CardContent sx={{ flexGrow: 1 }}>
-                                    <Typography variant="h6" gutterBottom>
-                                        {session.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 2 }}>
-                                        <CalendarMonthSharp />{' '}
-                                        {new Date(session.startDateTime).toLocaleString(
-                                            `${t('blog.localCode')}`,
-                                            optionDate,
-                                        )}
-                                    </Typography>
-                                    {session.endDateTime && (
-                                        <Typography variant="body2" color="text.secondary">
-                                            <CalendarMonthSharp />{' '}
-                                            {new Date(session.endDateTime).toLocaleString(
-                                                `${t('blog.localCode')}`,
-                                                optionDate,
-                                            )}
-                                        </Typography>
-                                    )}
-                                    <NavLink
-                                        color="primary"
-                                        to={`/events/${session.slug}`}
-                                        className={'btn btn-secondary'}
+                                { isDelete ? 
+                                    <CardActionArea
+                                        onClick={() => onSelectToDelete(session.id)}
+                                        data-active={listIdToDelete.includes(session.id) ? '' : undefined}
+                                        sx={{
+                                            '&[data-active]': {
+                                                filter: 'brightness(0.5)',
+                                                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                                                '&:hover': {
+                                                    backgroundColor: 'action.selectedHover',
+                                                },
+                                            },
+                                            ":hover": {
+                                                backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                                            }
+                                        }}
                                     >
-                                        {t('event.details')}
-                                    </NavLink>
-                                </CardContent>
+                                        {cardContent(session)}
+                                    </CardActionArea> :
+                                    cardContent(session)
+                                }
                             </Card>
                         </Grid>
                     ))}

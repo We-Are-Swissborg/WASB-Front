@@ -17,15 +17,15 @@ export default function Header() {
                 path: '/blog',
             },
             {
+                name: t('nav.my-posts'),
+                path: '/blog/my-posts',
+                acceptRole: ['author']
+            },
+            {
                 name: t('nav.create'),
                 path: '/blog/create-post',
                 acceptRole: ['author']
 
-            },
-            {
-                name: t('nav.my-posts'),
-                path: '/blog/my-posts',
-                acceptRole: ['author']
             },
             {
                 name: t('nav.to-validate'),

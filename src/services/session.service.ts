@@ -67,5 +67,26 @@ const getMySessions = async (url: string, token: string, setToken: (newToken: st
     return json;
 };
 
+const deleteSessions = async (listId: number[], token: string, setToken: (newToken: string) => void): Promise<boolean> => {
+    const url: string = 'sessions/delete';
+    const data = { listId }
 
-export { getAllSessions, getSessionBySlug, create, update, getSession, getMySessions };
+    const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token, setToken);
+
+    if (!response.ok) {
+        throw new Error('An error has occurred with deleteSessions');
+    }
+
+    return response.ok;
+};
+
+
+export {
+    getAllSessions,
+    getSessionBySlug,
+    create,
+    update,
+    getSession,
+    getMySessions,
+    deleteSessions
+};

@@ -1,10 +1,10 @@
 import { NavLink, useParams } from 'react-router-dom';
-import { Post as PostType } from '../types/Post';
-import * as PostServices from '../services/blog.service';
+import { Post as PostType } from '../../types/Post';
+import * as PostServices from '../../services/blog.service';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR, { Fetcher } from 'swr';
-import '../css/Blog.css';
+import '../../css/Blog.css';
 import { AlternateEmailSharp, CalendarMonthSharp, ChevronLeftSharp } from '@mui/icons-material';
 import 'quill/dist/quill.snow.css';
 
