@@ -219,13 +219,18 @@ const global_en = {
     },
     "blog": {
         'localCode': 'en-US',
-        'loading-error': 'Loading error.',
+        'loading-error': 'No post found',
         'title': 'The blog',
         'published-at': 'Published at',
         'published-by': 'Write by',
         'about-author': 'About author',
         'return-blog': 'Return to blog',
         'create-post': 'Create',
+        'posts-delete': 'The posts were deleted.',
+        'error-delete': 'An error occurred while deleting posts.',
+        'delete': 'Delete',
+        'cancel': 'Cancel',
+        'confirm': 'Confirm',
     },
     'article': {
         'post-delete': 'POST DELETE.',
@@ -333,6 +338,12 @@ const global_en = {
         "cancelled": "Cancelled",
         "search": "Search event",
         "create-event": "Create",
+        "localCode": "en-US",
+        "sessions-delete": "The events were deleted.",
+        "error-delete": "An error occurred while deleting events.",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
     },
     "about": {
         "title": "Who are we?",
@@ -380,6 +391,9 @@ const global_en = {
     },
     "my-event": {
         "title": "My events",
+    },
+    "my-posts": {
+        "title": "My posts",
     }
 };
 

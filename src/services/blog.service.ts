@@ -1,4 +1,4 @@
-import { PostFormData } from '@/types/Post';
+import { PostFormData, PaginatedPostsResponse } from '@/types/Post';
 import * as BaseApi from './baseAPI.services';
 
 // const getAllPosts = async (token: string, setToken: (newToken: string) => void) => {
@@ -52,9 +52,7 @@ const getPost = async (id: string) => {
     return json;
 };
 
-const getPosts = async (id: string) => {
-    const url: string = 'posts/' + id;
-
+const getPosts = async (url: string) => {
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
 
@@ -88,6 +86,29 @@ const updatePost = async (id: number, data: PostFormData, token: string, setToke
     return json;
 };
 
+const getMyPosts = async (url: string, token: string, setToken: (newToken: string) => void): Promise<PaginatedPostsResponse> => {
+    const response: Response = await BaseApi.getFetch(url, token, setToken);
+    const json = await response.json();
+    if (!response.ok) {
+        throw new Error('An error has occurred' + json.message);
+    }
+
+    return json;
+};
+
+const deletePosts = async (listId: number[], token: string, setToken: (newToken: string) => void): Promise<boolean> => {
+    const url: string = 'posts/delete';
+    const data = { listId }
+
+    const response: Response = await BaseApi.postFetch(url, JSON.stringify(data), token, setToken);
+
+    if (!response.ok) {
+        throw new Error('An error has occurred with deletePosts');
+    }
+
+    return response.ok;
+};
+
 export {
     // getAllPosts,
     // previewPost,
@@ -95,5 +116,7 @@ export {
     getPost,
     getPosts,
     deletePost,
-    updatePost
+    updatePost,
+    getMyPosts,
+    deletePosts
 };

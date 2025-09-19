@@ -6,6 +6,7 @@
 $primary: #242B2A;
 $secondary: #1AD9BC;
 $secondary-bis: #1DBFBC;
+$warning: #f51212;
 $gradient: linear-gradient(180deg, $secondary, $secondary-bis);
 $other: #C5D86D;
 $oldother: #F7F7F2;
@@ -89,4 +90,19 @@ label {
 
 .text-justify {
   text-align: justify;
+}
+
+.disabled-a {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .button-after-h1 {
+    width: min-content;
+  }
+
+  .button-after-h1 .confirm {
+    margin: 0 !important;
+  }
 }

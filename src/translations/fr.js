@@ -216,13 +216,18 @@ const global_fr = {
     },
     "blog": {
         'localCode': 'fr-FR',
-        'loading-error': 'Erreur lors du chargement',
+        'loading-error': 'Aucun article trouvé',
         'title': 'Le blog',
         'published-at': 'Publié le',
         'published-by': 'Écrit par',
         'about-author': 'À propos de l\'auteur',
         'return-blog': 'Retour au blog',
         'create-post': 'Créer',
+        'posts-delete': 'Les articles ont été supprimés.',
+        'error-delete': "Une erreur s'est produite lors de la suppression des articles.",
+        'delete': 'Supprimer',
+        'cancel': 'Annuler',
+        'confirm': 'Confirmer',
     },
     "article": {
         'post-delete': 'ARTICLE SUPPRIMÉ.',
@@ -330,6 +335,12 @@ const global_fr = {
         "cancelled": "Annulé",
         "search": "Rechercher un événement",
         "create-event": "Créer",
+        "localCode": "fr-FR",
+        "sessions-delete": "Les événements ont été supprimés.",
+        "error-delete": "Une erreur s'est produite lors de la suppression des événements.",
+        "delete": "Supprimer",
+        "cancel": "Annuler",
+        "confirm": "Confirmer",
     },
     "about": {
         "title": "Qui sommes-nous ?",
@@ -377,6 +388,9 @@ const global_fr = {
     },
     "my-event": {
         "title": "Mes événements",
+    },
+    "my-posts": {
+        "title": "Mes articles",
     }
 };
 
