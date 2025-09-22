@@ -1,11 +1,11 @@
 const global_en = {
     "common": {
         "backtoup": "Back to up",
-        "join": "Join us"
+        "join": "Join us",
+        'loading': 'Loading in progress...',
     },
     "community": {
-        "swissborgmania": "Discover SwissBorg with SwissBorgMania",
-        "thecryptophil": "Discover SwissBorg with Smart Café from TheCryptoPhil"
+        "swissborgmania": "Discover SwissBorg with SwissBorgMania"
     },
     "footer": {
         "contact": "Contact",
@@ -22,7 +22,7 @@ const global_en = {
         },
         "subtitle": "The association",
         "team": "Team",
-        "whoarewe": "Who are we ?"
+        "whoarewe": "About us ?"
     },
     "header": {
         "en": "English",
@@ -38,15 +38,65 @@ const global_en = {
         "metrics": "Metrics",
         "mission": "Our mission",
         "subtitle": "The association that supports you in your crypto adventure!",
-        "whoarewe": "Who are we ?"
+        "whoarewe": "About us ?"
+    },
+    "metrics": {
+        "aum": "AUM",
+        "back": "BACK",
+        "borgLock": "BORG locked",
+        "borgLockByPremium": "Borg lock by Premium",
+        "borgLockForGovernance": "Borg lock for governance",
+        "circulatingBorg": "Circulating Borg",
+        "borgy-telegram": "https://t.me/borgyarmy",
+        "communityIndex": "Community index",
+        "lastUpdate": "Last updated on",
+        "liquidity": "Liquidity",
+        "marketCap": "Market cap",
+        "maxSupply": "Max supply",
+        // "newPremiumUserByWeek": "Week new premium user",
+        "premiumUser": "Premium user",
+        "supplyCirculation": "Supply circulation",
+        "userVerify": "Users verified",
+        "value": "Value",
+        // "volumeCex": "CEX volume",
+        // "volumeDex": "DEX volume",
+        "vsBtc": "vsBTC",
+        "volumeCoinGecko": "Volume CoinGecko (24h)",
+        "volumeDexScreener": "Volume DexScreener (24h)",
+        "description": {
+            "borg": "BORG is the beating heart of SwissBorg. This token is the key to exclusive benefits: staking, fee discounts, and boosted returns with SwissBorg Earn. "+
+                    "There are also themes, which allow you to diversify into sectors like DeFi, gaming, or even memes. "+
+                    "Premium users? Have access to Early Deals Alpha, where you invest in projects before anyone else. "+
+                    "And this is just the beginning, as BORG paves the way for initiatives like the BorgPad.",
+            "btc": "Bitcoin is not a currency, it's a movement, the backbone of the new financial world. "+
+                   "21 million coins, engraved in the code, not one more, it's the rarest and most sought-after asset on the planet. "+
+                   "It's your best weapon against inflation and economic crises. "+
+                   "Each BTC is a ticket to financial sovereignty, an asset that major entities are quietly accumulating.",
+            "xbg": "XBG is a fundamental token of the XBorg ecosystem, used in the gaming universe to reward players and offer personalized experiences. "+
+                   "It allows access to airdrops, participation in governance, and benefits from exclusive advantages by accumulating tokens. "+
+                   "Developers use it to create custom games, while brands integrate it to offer experiences based on player data. With XBG, every action counts, allowing for the maximization of rewards and involvement in the ecosystem.",
+            "borgy": "Borgy is the memecoin of the Swissborg community, designed to stand out with its future utilities such as staking and mini-games. "+
+                     "It also supports real-world initiatives, including the Barry Foundation in Switzerland, which is dedicated to Saint Bernard dogs. "+
+                     "Backed by the Swissborg team since its inception, Borgy aims to increase Swissborg's visibility while delivering surprises, giveaways, and innovative projects for the community. "+
+                     "This memecoin is building a strong, long-term community with ambitions to take the ecosystem to new heights."
+        }
     },
     "nav": {
+        "admin": "Administration",
         "blog": "Blog",
+        "events": "Events",
         "contact": "Contact",
+        "create": "Create",
         "home": "Home",
         "language": "Language",
+        "logout": " Logout",
+        "metrics": "Metrics",
+        "my-events": 'My events',
+        "my-posts": 'My posts',
+        "to-validate": 'To validate',
         "profile": "Profile",
-        "register": "Register"
+        "sign-up": "Sign Up",
+        "sign-in": "Sign In",
     },
     "ourmission": {
         "blockchain": {
@@ -54,104 +104,161 @@ const global_en = {
                        `Our aim is to make it accessible to everyone, by explaining its benefits and encouraging its use.`,
             "title": "Promoting blockchain"
         },
-        "comment": "Join us on this adventure to shape the financial future together, by learning, sharing and growing within our WeareSwissBorg community!",
+        "comment": "Join us on this adventure to shape the financial future together, by learning, sharing and growing within our WeAreSwissBorg community!",
         "community": {
             "content": `We are here to support and strengthen the SwissBorg community. ` +
-                       `By encouraging the exchange of knowledge and experience, we foster an environment where everyone can learn and grow`,
+                       `By encouraging the exchange of knowledge and experience, we foster an environment where everyone can learn and grow.`,
             "title": "Supporting the Community"
         },
         "democratization": {
             "content": `We believe in a financial future open to all. ` +
-                       `By democratizing access to crypto-assets, we want to create opportunities for everyone, everywhere in the world`,
+                       `By democratizing access to crypto-assets, we want to create opportunities for everyone, everywhere in the world.`,
             "title": "Democratizing Crypto-Actives"
         },
         "education": {
             "content": `Education is at the heart of our approach.` +
-                       `We provide clear, accessible educational content, so that everyone can understand and make informed decisions`,
+                       `We provide clear, accessible educational content, so that everyone can understand and make informed decisions.`,
             "title": "Educate and Inform"
         },
         "title": "Our objectives"
     },
     "register": {
-        "aboutUs": "How did you hear about the association ?",
-        "city": "City",
-        "confidentiality": "*Check, if you accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
-        "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
-        "contribution": "Contribution",
-        "country": "Choose your country",
-        "email": "Email*",
-        "first-name": "First Name",
-        "last-name": "Last Name",
-        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.
-                    To register, please fill out the form below (all fields with * are mandatory):`,
-        "other": "In another way",
-        "placeholder": {
-            "city": "Enter your city",
-            "contribution": "Become a member for...",
-            "discord": "Enter your Discord pseudo",
-            "email": "Enter your email",
-            "first-name": "Enter your first name",
-            "last-name": "Enter your last name",
-            "pseudo": "Enter your pseudo",
-            "select": "Choose...",
-        },
-        "pseudo": "Pseudo*",
-        "referral": "Referral",
-        "send": "Join",
+        "message": `Thank you for your interest in becoming a member of the WeAreSwissBorg association.`,
         "title": "Become a member",
-        "wallet": "Your wallet address*",
+        "register": "Register",
+        "welcome": "Welcome to our website!",
+        "error": "An error has occurred during registration.",
+        "referral-error": "Referral not exist.",
+        "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
+        "confidentiality": "*Check, if you accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
     },
-    "setting": {
-        "linked-accounts": {
+    "profile": {
+        "social-medias": {
+            "title": "Social medias",
+            "twitter": "Enter your X pseudo",
             "discord": "Enter your Discord pseudo",
-            "title": "Linked accounts",
-            "update": "Update"
+            "tiktok": "Enter your TikTok pseudo",
+            "telegram": "Enter your Telegram pseudo",
+            "error-discord": "An error with your Discord",
+            "error-twitter": "An error with your X",
+            "error-tiktok": "An error with your TikTok",
+            "error-telegram": "An error with your Telegram",
         },
         "manage-membership": {
-            "cancel": "Cancel your contribution",
-            "contribution": "Contribution",
-            "contribution-end": "Contribution end date",
-            "contribution-start": "Contribution start date",
-            "donations": "Donations",
             "message-1": "You currently have a WASB Genesis membership (annual). Your membership will be renewed on #######.",
             "message-2": "As a WASB Genesis member and holder of the Ternoa NFT, you benefit from our best features.",
-            "modify": "Modify my contribution",
-            "nft-wallet": "Adress of your Ternoa NFT",
+            "loading-error": "Error loading datas",
             "title": "Manage my membership",
-            "status": "Status of your contribution"
+            "no-adherent": "No adherent",
+            "endDateContribution": "Contribution end date",
+            "dateContribution": "Contribution start date",
+            "contribution": "Contribution",
+            "contributionStatus": "Status of your contribution",
+            "error-add-membership": "Error while applying for membership",
+            "error-load-contribution": "An error has occurred while loading contributions",
+            "contributionId": "Choose your type of affiliation",
+            "title-card": "Membership",
+            "status": "Status",
+            "amount": "Amount",
+            "date-request": "Date of request",
+            "end-date": "End date",
+            "comment": "Approver's comment",
+            "join-us": "To join us, please choose your membership and send via the <u>Swissborg</u> app in <strong>vCHF</strong>.",
+            "smart-send": "Choose Smart Send",
+            "communication": "With communication",
+            "reminder": "Your membership ends in {daysRemaining} days"
         },
         "my-account": {
-            "aboutUs": "How did you hear about the association ?",
-            "city": "City",
-            "city_placeholder": "Enter your city",
-            "confidentiality": "By submitting this form, you agree to be contacted by WeAreSwissBorg and accept our <link1>Terms of Use</link1> and <link2>Privacy Policy</link2>.",
-            "country": "Choose your country",
-            "email": "Email*",
-            "first-name": "First Name",
-            "first-name_placeholder": "Enter your first name",
-            "last-name": "Last Name",
-            "last-name_placeholder": "Enter your last name",
-            "pseudo": "Pseudo*",
-            "referral": "Referral",
-            "select_placeholder": "Choose...",
-            "send": "Rejoindre",
             "title": "My account",
-            "update": "Update",
-            "wallet": "Your wallet address*"
+            "be-contacted": "Check, if you agree to be contacted by WeAreSwissBorg.",
+            "other": "In another way",
+            "country": "Choose your country",
+            "not-be-contacted": 'Uncheck, if you no longer wish to be contacted by WeAreSwissBorg',
+            "required": "Required value",
+            "error-firstName": "Error with the first name",
+            "error-lastName": "Error with the last name",
+            "error-username": "Error with the username",
+            "error-email": "Error with the email",
+            "city": "City",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email*",
+            "username": "Username*",
+            "walletAddress": "wallet address",
+            "aboutUs": "How did you hear about the association ?",        
+            "referral": "Your referral link",
+            "placeholder": {
+                "city": "Enter your city",
+                "email": "Enter your email",
+                "first-name": "Enter your first name",
+                "last-name": "Enter your last name",
+                "username": "Enter your username",
+                "wallet-address": "Enter your wallet address",
+            },
         },
-        "title": "Setting",
+        "donations": {
+            "title": "Donations",
+            "message": "Scan the QR code below to make a donation and help grow our association.\n Each contribution counts and makes a real difference.",
+            "qr-code": "The QR code for the donation is a TEST",
+        },
+        "default-select": "Choose...",
+        "success-update": "Data update",
+        "update": "Update",
+        "form-not-changed": "No changes have been made",
+        "form-not-saved": "Unsaved change",
+        "title": "Profile",
+        "error-form": "An error with your form",
     },
     "ternoa": {
-        "account-certified": "Account certified: ",
         "logout": " Logout",
-        "test-signed": " Test signed"
     },
     "whoarewe": {
         "content": `WeAreSwissBorg is much more than just an association. ` +
                    `We're a passionate community, committed to sharing knowledge and democratizing the use of crypto-assets and the SwissBorg ecosystem`,
-        "title": "Who are we ?"
+        "title": "About us ?"
     },
-    
+    "blog": {
+        'localCode': 'en-US',
+        'loading-error': 'No post found',
+        'title': 'The blog',
+        'published-at': 'Published at',
+        'published-by': 'Write by',
+        'about-author': 'About author',
+        'return-blog': 'Return to blog',
+        'create-post': 'Create',
+        'posts-delete': 'The posts were deleted.',
+        'error-delete': 'An error occurred while deleting posts.',
+        'delete': 'Delete',
+        'cancel': 'Cancel',
+        'confirm': 'Confirm',
+    },
+    'article': {
+        'post-delete': 'POST DELETE.',
+        'error-post-delete': 'ERROR: POST NOT DELETE.',
+        'post-update': 'POST UPDATE.',
+        'error-post-update': 'ERROR: POST NOT UPDATE.',
+        'delete': 'Delete',
+        'edit': 'Edit',
+        'confirm-delete': 'Do you really want delete this article ?',
+    },
+    "post-form": { 
+        'title-empty': 'Title is empty.',
+        'image-empty': 'Image is empty.',
+        'content-empty': 'Content is empty.',
+        'value-missing': 'ERROR: Value missing.',
+        'title-length': 'ERROR: Title length too short.',
+        'editor-length': 'ERROR: Editor length too short.',
+        'success-post': 'Post created.',
+        'error-post': 'ERROR: Post not created.',
+        'preview': "PREVIEW",
+        'cancel': "CANCEL",
+        'confirm': "CONFIRM",
+    },
+    "modal": { 
+        'cancel': 'Cancel',
+        'confirm': "Confirm",
+    },
+
     // For all components
     "countries": {
         "argentina": "Argentina",
@@ -201,6 +308,92 @@ const global_en = {
         "thailand": "Thailand",
         "uae": "United Arab Emirates",
         "united-kingdom": "United Kingdom"
+    },
+    "authenticate": {
+        "title": "Login",
+        "welcome": "Welcome",
+        "error-sign": "An error occurred during the signature request.",
+        "login": "Login",
+        "error": "Authentication is not valid for this username or password",
+        "password": "Password",
+        "placeholder-password": "Enter your password",
+        "username": "Username",
+        "placeholder-username": "Enter your username",
+        "sign-up": "<link1>Sign Up</link1>",
+        "forgot-password": "<link1>Forgot password?</link1>",
+        "loading": "Loading...",
+    },
+    "session": {
+        "create": "The session was created!"
+    },
+    "event": {
+        "title": "Events",
+        "loading-error": "Events not found",
+        "datetime": "Date and hour",
+        "locality": "Locality",
+        "organizer": "Organize by",
+        "url": "Link to the event",
+        "about": "About this event",
+        "details": "See details",
+        "cancelled": "Cancelled",
+        "search": "Search event",
+        "create-event": "Create",
+        "localCode": "en-US",
+        "sessions-delete": "The events were deleted.",
+        "error-delete": "An error occurred while deleting events.",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+    },
+    "about": {
+        "title": "Who are we?",
+        "intro": "At <strong>WeAreSwissBorg</strong>, we believe in the power of community. <u>Our mission</u> ? To enable everyone to engage freely, reconnect with ideas, and turn them into concrete actions.",
+        "mission": "Born from the desire to extend the collective energy of the <i>SwissBorg DAO</i>, our independent association brings together enthusiasts around a shared vision: supporting projects proposed, carried out, and realized by the community, for the community.",
+        "values": "Our values – welcome, commitment, knowledge, and ecosystem support – embody our unique way of living and sharing the SwissBorg spirit: Be Healthy, Be Wealthy.",
+        "whatWeDoTitle": "What we do",
+        "whatWeDoIntro": "We provide a space to:",
+        "whatWeDoPoint1": "Join a network of committed Borgers who believe in decentralization and simplified access to crypto.",
+        "whatWeDoPoint2": "Decide together on projects to support, fund them, and make them a reality.",
+        "whatWeDoPoint3": "Support innovation and initiatives that benefit the SwissBorg ecosystem.",
+        "legalNote": "We are the only legal organization dedicated to bringing active Borgers together. Whether you want to start your own project or join an existing one, anything is possible here.",
+        "visionTitle": "Our vision",
+        "visionIntro": "Today, we are laying the first stone towards a future DAO where every community project can be funded.",
+        "visionConclusion": "Join us, and let’s build together a future where crypto becomes the safest way for everyone to create generational wealth."
+    },
+    "forgot-password": {
+        "title": "Forgot password",
+        "first-paragraph": "Please enter your email to receive the recovery link.",
+        "second-paragraph": "Confirm your username to receive the mail.",
+        "placeholder-email": "Enter your email",
+        "placeholder-username": "Enter your username",
+        "confirm": "Confirm",
+        "email-error": "An error occured with your email",
+        "username-error": "An error occured with your username",
+        "submit-error": "An error occured while sending",
+        "cancel": "Cancel",
+        "loading": "Loading...",
+        "link-send": "Link to reset password by email is sent.",
+        "username-label": "Username",
+        "email-label": "Email",
+    },
+    "reset-password": {
+        "title": "New password",
+        "first-paragraph": "Please enter your new password.",
+        "placeholder-password": "Enter your password",
+        "placeholder-confirm-password": "Retype password",
+        "confirm": "Confirm",
+        "password-error": "Password are not the same.",
+        "submit-error": "An error occured while sending",
+        "password-label": "Password",
+        "confirm-password-label": "Enter your password again",
+        "loading": "Chargement...",
+        "new-password-saved": "New password saved."
+    },
+    "my-event": {
+        "title": "My events",
+    },
+    "my-posts": {
+        "title": "My posts",
     }
 };
 

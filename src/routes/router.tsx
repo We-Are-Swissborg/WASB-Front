@@ -1,0 +1,134 @@
+import ErrorPage from '@/hook/Error-page';
+import Home from '@/component/Home';
+import Blog from '@/component/Blog/Blog';
+import Contact from '@/component/Contact';
+import ProtectedRoute from '@/component/Route/ProtectedRouter';
+import Profile from '@/component/Profile';
+import Register from '@/component/Security/Register';
+import Login from '@/component/Security/Login';
+import Logout from '@/component/Security/Logout';
+import OnlyAnonymousRouter from '@/component/Route/OnlyAnonymousRouter';
+import Role from '@/types/Role';
+import RootLayout from '@/component/RootLayout';
+import PostForm from '@/component/Form/PostForm';
+import Metrics from '@/component/Metrics';
+import Post from '@/component/Blog/Post';
+import Event from '@/component/Event/Event';
+import Session from '@/component/Event/Session';
+import AboutUs from '@/component/About/AboutUs';
+import ForgotPassword from '@/component/Security/ForgotPassword';
+import SessionForm from '@/component/Form/SessionForm';
+import ResetPassword from '@/component/Security/ResetPassword';
+import MyEvent from '@/component/Event/MyEvent';
+import MyPosts from '@/component/Blog/MyPosts';
+
+const router = {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+        {
+            path: '',
+            element: <Home />,
+        },
+        {
+            path: 'blog',
+            children: [
+                {
+                    path: '',
+                    element: <Blog />,
+                },
+                {
+                    path: ':slug',
+                    element: <Post />,
+                },
+                {
+                    path: 'create-post',
+                    element: <ProtectedRoute element={<PostForm />} role={Role.Author} />,
+                },
+                {
+                    path: 'my-posts',
+                    element: <ProtectedRoute element={<MyPosts />} role={Role.Author} />,
+                },
+            ],
+        },
+        {
+            path: 'events',
+            children: [
+                {
+                    path: '',
+                    element: <Event />,
+                },
+                {
+                    path: ':slug',
+                    element: <Session />,
+                },
+                {
+                    path: 'create-event',
+                    element: <ProtectedRoute element={<SessionForm />} role={Role.Organizer} />,
+                },
+                {
+                    path: 'my-events',
+                    element: <ProtectedRoute element={<MyEvent />} role={Role.Organizer} />,
+                },
+            ],
+        },
+        {
+            path: 'metrics',
+            children: [
+                {
+                    path: '',
+                    element: <Metrics />,
+                },
+                {
+                    path: ':crypto',
+                    element: <Metrics />,
+                },
+            ],
+        },
+        {
+            path: 'contact',
+            element: <Contact />,
+        },
+        {
+            path: 'register',
+            element: <OnlyAnonymousRouter element={<Register />} />,
+            children: [
+                {
+                    path: ':codeRef',
+                    element: <Register />,
+                },
+            ],
+        },
+        {
+            path: 'profile',
+            element: <ProtectedRoute element={<Profile />} />,
+        },
+        {
+            path: 'login',
+            element: <OnlyAnonymousRouter element={<Login />} />,
+        },
+        {
+            path: 'reset-password',
+            children: [
+                {
+                    path: '',
+                    element: <OnlyAnonymousRouter element={<ForgotPassword />} />,
+                },
+                {
+                    path: ':slug',
+                    element: <OnlyAnonymousRouter element={<ResetPassword />} />,
+                },
+            ],
+        },
+        {
+            path: 'logout',
+            element: <ProtectedRoute element={<Logout />} />,
+        },
+        {
+            path: 'aboutus',
+            element: <AboutUs />,
+        },
+    ],
+};
+export default router;

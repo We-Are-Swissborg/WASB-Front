@@ -1,0 +1,59 @@
+.container-hexagonal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  height: 350px;
+  background:  url("../assets/images/svg/hexagonal-card.svg") no-repeat;
+  background-size: cover;
+  margin-bottom: 30px;
+  position: relative;
+  justify-content: center;
+  padding: 0 55px;
+  clip-path: path('M158.6,5.8L35.4,77.2c-10.1,5.8-16.4,16.4-16.4,27.9v142.7c0,11.5,6.3,22.1,16.4,27.9L158.6,345.5 c10.1,5.8,22.5,5.8,32.6,0l125.1-72.3c10.1-5.8,16.4-16.4,16.4-27.9V102.7c0-11.5-6.3-22.1-16.4-27.9L191.2,5.8 C181.1,0,168.7,0,158.6,5.8z');
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.scale-animation:hover {
+  animation: scaleCard 0.4s forwards;
+  cursor: pointer;
+}
+
+.scale-animation:active {
+  filter: brightness(0.8);
+}
+
+
+@keyframes scaleCard {
+  from {
+    transform: scale(1.0);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.card-input_metrics {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
+
+.container-hexagonal h2 {
+  max-width: 240px;
+  position: relative;
+  top: -15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.back-card {
+  background: none;
+}
+
+.back-arrow {
+  position: relative;
+  z-index: -2;
+}

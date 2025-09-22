@@ -7,13 +7,14 @@ import global_fr from './translations/fr';
 
 i18next.use(initReactI18next).init({
     interpolation: {escapeValue: false},
+    fallbackLng: 'en',
     lng: localStorage.getItem("language") || "en",
     resources: {
         en: {
-            global: global_en,
+            translation: global_en,
         },
         fr: {
-            global: global_fr,
+            translation: global_fr,
         }
     }
 });

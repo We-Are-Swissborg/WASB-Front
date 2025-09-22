@@ -6,11 +6,12 @@
 $primary: #242B2A;
 $secondary: #1AD9BC;
 $secondary-bis: #1DBFBC;
+$warning: #f51212;
 $gradient: linear-gradient(180deg, $secondary, $secondary-bis);
 $other: #C5D86D;
 $oldother: #F7F7F2;
 
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import "bootstrap/scss/bootstrap";
 
 body {
   min-width: 360px;
@@ -60,8 +61,9 @@ label {
   box-shadow: inset -2px 2px 6px #d7d7d7;
 }
 
-.position-flag-select {
-  background-position: 15px 6px !important;
+.position-arrow-select {
+  background-position: 95% 10px !important;
+  background-size: 20px !important;
 }
 
 .gradient-div {
@@ -80,4 +82,27 @@ label {
 
 .read-only {
   background: #bbbbbb;
+}
+
+.uppercase-first-letter::first-letter {
+  text-transform: uppercase;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.disabled-a {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .button-after-h1 {
+    width: min-content;
+  }
+
+  .button-after-h1 .confirm {
+    margin: 0 !important;
+  }
 }
