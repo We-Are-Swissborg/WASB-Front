@@ -11,7 +11,7 @@ type IForgotPassword = {
 }
 
 export default function ForgotPassword() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [isEmailValid, setIsEmailValid] = useState<boolean>();
     const [email, setEmail] = useState<string>();
@@ -40,7 +40,7 @@ export default function ForgotPassword() {
 
     const confirmUsernameAndEmail = async (data: IForgotPassword) => {
         try {
-            return await checkUsernameAndEmail(data.username, data.email);
+            return await checkUsernameAndEmail(data.username, data.email, i18n.language);
         } catch {
             toast.error(t('forgot-password.username-error'));
         }
