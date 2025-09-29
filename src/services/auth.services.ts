@@ -83,8 +83,8 @@ const checkEmail = async (email: string): Promise<boolean> => {
  * @param username your username
  * @param email your email
  */
-const checkUsernameAndEmail = async (username: string, email: string): Promise<boolean> => {
-    const url = `checkUsernameAndEmail`;
+const checkUsernameAndEmail = async (username: string, email: string, lang: string): Promise<boolean> => {
+    const url = `checkUsernameAndEmail/${lang}`;
     const data = { username, email };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
