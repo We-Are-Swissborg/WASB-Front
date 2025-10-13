@@ -102,7 +102,7 @@ const checkUsernameAndEmail = async (username: string, email: string, lang: stri
  * @param newPassword new password
  */
 const resetPassword = async (newPassword: string, slug: string): Promise<boolean> => {
-    const url = `/resetPassword/`+ slug;
+    const url = `resetPassword/`+ slug;
     const data = { newPassword };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
