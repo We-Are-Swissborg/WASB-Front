@@ -43,6 +43,10 @@ const router = {
                     element: <Post />,
                 },
                 {
+                    path: ':id/edit',
+                    element: <ProtectedRoute element={<PostForm />} role={Role.Author} />,
+                },
+                {
                     path: 'create-post',
                     element: <ProtectedRoute element={<PostForm />} role={Role.Author} />,
                 },
@@ -62,6 +66,10 @@ const router = {
                 {
                     path: ':slug',
                     element: <Session />,
+                },
+                {
+                    path: ':id/edit',
+                    element: <ProtectedRoute element={<SessionForm />} role={Role.Organizer} />,
                 },
                 {
                     path: 'create-event',

@@ -8,7 +8,7 @@ import '../../css/Blog.css';
 import { AlternateEmailSharp, CalendarMonthSharp, ChevronLeftSharp } from '@mui/icons-material';
 import 'quill/dist/quill.snow.css';
 
-const fetcher: Fetcher<PostType> = (url: string) => PostServices.getPost(url);
+const fetcher: Fetcher<PostType> = (url: string) => PostServices.getPostBySlug(url);
 
 export default function Post() {
     const { t, i18n } = useTranslation();

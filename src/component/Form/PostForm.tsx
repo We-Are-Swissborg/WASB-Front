@@ -87,7 +87,7 @@ export default function PostForm() {
     const getPost = useCallback(async () => {
         if (id && !post) {
             try {
-                const p: PostFormData = await PostServices.getPost(id);
+                const p: PostFormData = await PostServices.getPostById(Number(id));
                 initPost(p);
             } catch (e) {
                 toast.error(`Erreur lors du chargement de l'article`);
