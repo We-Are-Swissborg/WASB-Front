@@ -61,31 +61,13 @@ const auth = async (username: string, password: string): Promise<string> => {
 };
 
 /**
- * check email user is valid
+ * Send forget password email.
  * @param email your email
+ * @param lang language
  */
-const checkEmail = async (email: string): Promise<boolean> => {
-    const url = `checkEmail`;
+const passwordForget = async (email: string, lang: string): Promise<boolean> => {
+    const url = `passwordForget/${lang}`;
     const data = { email: email };
-
-    const response: Response = await postFetch(url, JSON.stringify(data));
-
-    if (!response.ok) {
-        const json = await response.json();
-        throw new Error('An error has occurred: ' + json.message);
-    }
-
-    return response.ok;
-};
-
-/**
- * check username and email user are valid
- * @param username your username
- * @param email your email
- */
-const checkUsernameAndEmail = async (username: string, email: string, lang: string): Promise<boolean> => {
-    const url = `checkUsernameAndEmail/${lang}`;
-    const data = { username, email };
 
     const response: Response = await postFetch(url, JSON.stringify(data));
 
@@ -119,7 +101,6 @@ export {
     generateNonce,
     auth,
     authenticate,
-    checkEmail,
-    checkUsernameAndEmail,
+    passwordForget,
     resetPassword
 };
