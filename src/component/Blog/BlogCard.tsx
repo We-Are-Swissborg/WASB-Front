@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import '../../css/Blog.css';
-import { CalendarMonthSharp, EditSharp } from '@mui/icons-material';
+import { CalendarMonthSharp, EditSharp, Visibility } from '@mui/icons-material';
 import { UseAuth } from '@/contexts/AuthContext';
 import * as BlogService from '@/services/blog.service';
 import { toast } from 'react-toastify';
@@ -128,9 +128,14 @@ function BlogCard({fetcher, title, userId}: IBlogCard) {
                                 );
                             })}
                         </div>
-                        <Typography variant="body2" className="card-text placeholder-glow">
-                            <CalendarMonthSharp /> {dateLastUpdate}
-                        </Typography>
+                        <div className="d-flex justify-content-between">
+                            <Typography variant="body2" className="card-text placeholder-glow">
+                                <CalendarMonthSharp /> {dateLastUpdate}
+                            </Typography>
+                            <Typography variant="body2" className="card-text placeholder-glow">
+                                {post.views} <Visibility />
+                            </Typography>
+                        </div>
                     </CardContent>
                 </CardActionArea>
             </Link>

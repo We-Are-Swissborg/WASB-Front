@@ -8,8 +8,6 @@ const global_en = {
         "swissborgmania": "Discover SwissBorg with SwissBorgMania"
     },
     "footer": {
-        "contact": "Contact",
-        "donation": "Make a donation",
         "join": "Join our community",
         "message": `WeAreSwissBorg is an association that aims to promote the use of blockchain and crypto-assets, ` +
                    `provide educational content on these technologies, particularly related to Swissborg, and support actions related to this ecosystem.`,
@@ -20,9 +18,19 @@ const global_en = {
             "placeholder": "Email address",
             "button": "Subscribe",
         },
-        "subtitle": "The association",
-        "team": "Team",
-        "whoarewe": "About us ?"
+        "association": {
+            "title": "The association",
+            "team": "Team",
+            "whoarewe": "About us ?",
+            "contact": "Contact",
+            "donation": "Make a donation",
+        },
+        "legal": {
+            "title": "Legal Information",
+            "notices": "Legal notices",
+            "confidentiality": "Privacy and cookies policy",
+            "cookies": "Manage cookies",
+        }
     },
     "header": {
         "en": "English",
@@ -44,11 +52,11 @@ const global_en = {
         "aum": "AUM",
         "back": "BACK",
         "borgLock": "BORG locked",
-        "borgLockByPremium": "Borg lock by Premium",
         "borgLockForGovernance": "Borg lock for governance",
         "circulatingBorg": "Circulating Borg",
         "borgy-telegram": "https://t.me/borgyarmy",
         "communityIndex": "Community index",
+        "holders": "Holders",
         "lastUpdate": "Last updated on",
         "liquidity": "Liquidity",
         "marketCap": "Market cap",
@@ -367,8 +375,6 @@ const global_en = {
         "placeholder-email": "Enter your email",
         "placeholder-username": "Enter your username",
         "confirm": "Confirm",
-        "email-error": "An error occured with your email",
-        "username-error": "An error occured with your username",
         "submit-error": "An error occured while sending",
         "cancel": "Cancel",
         "loading": "Loading...",
@@ -394,6 +400,24 @@ const global_en = {
     },
     "my-posts": {
         "title": "My posts",
+    },
+    "consent-banner": {
+        "title": "We value your privacy",
+        "description": "We use cookies and similar technologies to enhance your browsing experience " +
+                       "analyze site traffic, and personalize content. By clicking «Accept All» " +
+                       "you consent to our use of cookies. You can manage your preferences at any time.",
+        "accept": "Accept All",
+        "customize": "Customize",
+        "reject": "Reject All",
+        "modal": {
+            "title": "Cookie Preferences",
+            "intro": "Manage your cookie preferences. You can enable or disable different types of cookies below.",
+            "essential": "Essential Cookies",
+            "description-essential": "These cookies are necessary for the website to function and cannot be switched off.",
+            "analytics": "Analytics Cookies",
+            "description-analytics": "These cookies help us understand how visitors interact with our website.",
+            "save": "Save Preferences",
+        },
     }
 };
 

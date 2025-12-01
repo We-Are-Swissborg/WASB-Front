@@ -3,9 +3,20 @@ import { NavLink } from 'react-router-dom';
 
 import '../css/Footer.css';
 import { Facebook, X, YouTube } from '@mui/icons-material';
+import ConsentBanner from './ConsentBanner';
+import useCookieConsent from '@/hook/useCookieConsent';
+import { loadConsent } from '@/services/gtag.service';
 
 export default function Footer() {
-    const [t] = useTranslation();
+    const { t } = useTranslation();
+
+    const showModal = () => {
+        const consent = loadConsent();
+        useCookieConsent.getState().openPreferences(consent?.preferences ?? {
+            essential: true,
+            analytics: false
+        });
+    }
 
     return (
         <footer className="text-muted py-5 bg-primary">
@@ -13,27 +24,51 @@ export default function Footer() {
                 <p className="mb-3">{t('footer.message')}</p>
                 <div className="row">
                     <div className="col-6 col-md-2 mb-3">
-                        <h5>{t('footer.subtitle')}</h5>
+                        <h5>{t('footer.association.title')}</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item mb-2">
                                 <NavLink to="/aboutus" className="nav-link p-0 link-light">
-                                    {t('footer.whoarewe')}
+                                    {t('footer.association.whoarewe')}
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
                                 <a href="#" className="nav-link p-0 link-light">
-                                    {t('footer.team')}
+                                    {t('footer.association.team')}
                                 </a>
                             </li>
                             <li className="nav-item mb-2">
                                 <NavLink className="nav-link p-0 link-light" to="/contact">
-                                    {t('footer.contact')}
+                                    {t('footer.association.contact')}
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
                                 <a href="#" className="nav-link p-0 link-light">
-                                    {t('footer.donation')}
+                                    {t('footer.association.donation')}
                                 </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="col-6 col-md-2 mb-3">
+                        <h5>{t('footer.legal.title')}</h5>
+                        <ul className="nav flex-column">
+                            <li className="nav-item mb-2">
+                                <NavLink className="nav-link p-0 link-light" to="#">
+                                    {t('footer.legal.notices')}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <NavLink className="nav-link p-0 link-light" to="#">
+                                    {t('footer.legal.confidentiality')}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <button
+                                    className="nav-link p-0 link-light text-start"
+                                    type="button"
+                                    onClick={() => showModal()}
+                                >
+                                    {t('footer.legal.cookies')}
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -104,6 +139,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </div>
+            <ConsentBanner />
         </footer>
     );
 }

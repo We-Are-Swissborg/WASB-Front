@@ -14,70 +14,74 @@ $oldother: #F7F7F2;
 @import "bootstrap/scss/bootstrap";
 
 body {
-  min-width: 360px;
+    min-width: 360px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
 }
 
 p {
-  white-space: pre-line;
+    white-space: pre-line;
 }
 
 select {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 label {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .appGsap {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100vh;
 }
 
 .box {
-  width: 100px;
-  height: 100px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-weight: 600;
-  margin: 10px;
-  background-color: brown;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 600;
+    margin: 10px;
+    background-color: brown;
 }
 
 #btn-back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
 }
 
 .shadow_background-input {
-  background: #EDEFF1;
-  box-shadow: inset -2px 2px 6px #d7d7d7;
+    background: #EDEFF1;
+    box-shadow: inset -2px 2px 6px #d7d7d7;
 }
 
 .position-arrow-select {
-  background-position: 95% 10px !important;
-  background-size: 20px !important;
+    background-position: 95% 10px !important;
+    background-size: 20px !important;
 }
 
 .gradient-div {
-  padding: 2.4px;
-  border-radius: 15px;
-  margin: 19px;
+    padding: 2.4px;
+    border-radius: 15px;
+    margin: 19px;
 }
 
 .radius-button {
-  border-radius: 12px;
+    border-radius: 12px;
 }
 
 .padding-button {
-  padding: 15px 35px;
+    padding: 15px 35px;
 }
 
 .read-only {
@@ -85,24 +89,24 @@ label {
 }
 
 .uppercase-first-letter::first-letter {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .text-justify {
-  text-align: justify;
+    text-align: justify;
 }
 
 .disabled-a {
-  pointer-events: none;
-  cursor: default;
+    pointer-events: none;
+    cursor: default;
 }
 
 @media (max-width: 768px) {
-  .button-after-h1 {
-    width: min-content;
-  }
+    .button-after-h1 {
+        width: min-content;
+    }
 
-  .button-after-h1 .confirm {
-    margin: 0 !important;
-  }
+    .button-after-h1 .confirm {
+        margin: 0 !important;
+    }
 }

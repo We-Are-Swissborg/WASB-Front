@@ -8,8 +8,6 @@ const global_fr = {
         "swissborgmania": "Découvre Swissborg avec SwissBorgMania"
     },
     "footer": {
-        "contact": "Contact",
-        "donation": "Faire un don",
         "join":"Rejoignez notre communauté",
         "message": `WeAreSwissBorg est une association qui vise à promouvoir l'utilisation de la blockchain et des crypto-actifs, ` +
                    `a fournir du contenu éducatif sur ces technologies, notamment liées à Swissborg, et à soutenir des actions en lien avec cet écosystème.`,
@@ -20,9 +18,19 @@ const global_fr = {
             "placeholder": "Adresse email",
             "button": "S'abonner",
         },
-        "subtitle": "L'association",
-        "team": "L'équipe",
-        "whoarewe": "Qui sommes-nous ?"
+        "association": {
+            "title": "L'association",
+            "team": "L'équipe",
+            "whoarewe": "Qui sommes-nous ?",
+            "contact": "Contact",
+            "donation": "Faire un don",
+        },
+        "legal": {
+            "title": "Informations juridiques",
+            "notices": "Mentions légales",
+            "confidentiality": "Politique de confidentialité et des cookies",
+            "cookies": "Gérer mes cookies",
+        }
     },
     "header": {
         "en": "Anglais",
@@ -43,12 +51,12 @@ const global_fr = {
     "metrics": {
         "aum": "AUM",
         "borgLock": "BORG bloqué",
-        "borgLockByPremium": "Borg bloqué par premium",
         "borgLockForGovernance": "Borg bloqué pour la gouvernance",
         "circulatingBorg": "Borg en circulation",
         "borgy-telegram": "https://t.me/borgyarmy_fr",
         "back": "RETOUR",
         "communityIndex": "Communauté index",
+        "holders": "Détenteurs",
         "lastUpdate": "Mise à jour le",
         "liquidity": "Liquidité",
         "marketCap": "Cap boursière",
@@ -364,8 +372,6 @@ const global_fr = {
         "placeholder-email": "Entrer votre e-mail",
         "placeholder-username": "Entrer votre nom d'utilisateur",
         "confirm": "Confirmer",
-        "email-error": "Une erreur s'est produite avec votre e-mail.",
-        "username-error": "Une erreur s'est produite avec votre nom d'utilisateur.",
         "submit-error": "Une erreur s'est produite lors de l'envoi.",
         "cancel": "Annuler",
         "loading": "Chargement...",
@@ -391,6 +397,24 @@ const global_fr = {
     },
     "my-posts": {
         "title": "Mes articles",
+    },
+    "consent-banner": {
+        "title": "Nous respectons votre vie privée",
+        "description": "Nous utilisons des cookies et des technologies similaires pour améliorer votre expérience de navigation " +
+        "analyser le trafic du site et personnaliser le contenu. En cliquant sur «Tout accepter» " +
+        "vous acceptez l’utilisation de cookies conformément à notre politique de cookies. Vous pouvez modifier ou retirer votre consentement à tout moment.",
+        "accept": "Tout Accepter",
+        "customize": "Personnaliser",
+        "reject": "Tout Refuser",
+        "modal": {
+            "title": "Préférences relatives aux cookies",
+            "intro": "Gérez vos préférences en matière de cookies. Vous pouvez activer ou désactiver les différents types de cookies ci-dessous.",
+            "essential": "Cookies Essentiels",
+            "description-essential": "Ces cookies sont nécessaires au bon fonctionnement du site web et ne peuvent pas être désactivés.",
+            "analytics": "Cookies Analytiques",
+            "description-analytics": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web.",
+            "save": "Enregistrer les préférences",
+        },
     }
 };
 
