@@ -21,6 +21,8 @@ import SessionForm from '@/component/Form/SessionForm';
 import ResetPassword from '@/component/Security/ResetPassword';
 import MyEvent from '@/component/Event/MyEvent';
 import MyPosts from '@/component/Blog/MyPosts';
+import Legal from '@/component/LegalInformation/Legal';
+import Confidentiality from '@/component/LegalInformation/Confidentiality';
 
 const router = {
     path: '/',
@@ -136,6 +138,14 @@ const router = {
         {
             path: 'aboutus',
             element: <AboutUs />,
+        },
+        {
+            path: 'legal',
+            element: <Legal />,
+        },
+        {
+            path: 'confidentiality',
+            element: <Confidentiality />,
         },
     ],
 };

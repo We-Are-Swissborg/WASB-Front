@@ -49,16 +49,16 @@ export default function Footer() {
                         </ul>
                     </div>
                     <div className="col-6 col-md-2 mb-3">
-                        <h5>{t('footer.legal.title')}</h5>
+                        <h5>{t('footer.juridical.title')}</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item mb-2">
-                                <NavLink className="nav-link p-0 link-light" to="#">
-                                    {t('footer.legal.notices')}
+                                <NavLink className="nav-link p-0 link-light" to="/legal">
+                                    {t('footer.juridical.legal')}
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
-                                <NavLink className="nav-link p-0 link-light" to="#">
-                                    {t('footer.legal.confidentiality')}
+                                <NavLink className="nav-link p-0 link-light" to="/confidentiality">
+                                    {t('footer.juridical.confidentiality')}
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
@@ -67,7 +67,7 @@ export default function Footer() {
                                     type="button"
                                     onClick={() => showModal()}
                                 >
-                                    {t('footer.legal.cookies')}
+                                    {t('footer.juridical.cookies')}
                                 </button>
                             </li>
                         </ul>
@@ -122,12 +122,12 @@ export default function Footer() {
                     <p>© 2024 WeAreSwissborg, Inc. {t('footer.rights-reserved')}</p>
                     <ul className="list-unstyled d-flex">
                         <li className="ms-3">
-                            <a className="link-light" href="#">
+                            <a className="link-light" href="https://x.com/WeAreSwissBorg">
                                 <X />
                             </a>
                         </li>
                         <li className="ms-3">
-                            <a className="link-light" href="#">
+                            <a className="link-light" href="https://www.youtube.com/@SwissBorgMania">
                                 <YouTube />
                             </a>
                         </li>

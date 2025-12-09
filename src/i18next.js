@@ -16,7 +16,9 @@ i18next.use(initReactI18next).init({
         fr: {
             translation: global_fr,
         }
-    }
+    },
+    transSupportBasicHtmlNodes: true,
+    transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'em'],
 });
 
 export default i18next;
