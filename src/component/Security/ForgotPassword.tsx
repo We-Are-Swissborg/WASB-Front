@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { checkEmail, checkUsernameAndEmail } from '@/services/auth.services';
+import { passwordForget } from '@/services/auth.services';
 
 type IForgotPassword = {
     email: string,
@@ -13,61 +12,19 @@ type IForgotPassword = {
 export default function ForgotPassword() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const [isEmailValid, setIsEmailValid] = useState<boolean>();
-    const [email, setEmail] = useState<string>();
-    const form = {
-        paragraph: isEmailValid ? t('forgot-password.second-paragraph') : t('forgot-password.first-paragraph'),
-        htmlFor: isEmailValid ? 'username' : 'email',
-        label: isEmailValid ?  t('forgot-password.username-label') : t('forgot-password.email-label'),
-        id_input: isEmailValid ? 'username' : 'email',
-        type_input: isEmailValid ? 'username' : 'email',
-        placeholder_input: isEmailValid ? t('forgot-password.placeholder-username') : t('forgot-password.placeholder-email'),
-    }
 
     // getting the event handlers from our custom hook
-    const { register, handleSubmit, resetField, setValue, formState } = useForm<IForgotPassword>({ mode: 'onTouched' });
+    const { register, handleSubmit, formState } = useForm<IForgotPassword>({ mode: 'onTouched' });
     const { isSubmitting, errors } = formState;
-
-    const confirmEmail = async (mail: string) => {
-        try {
-            const res = await checkEmail(mail);
-            if(!res) throw new Error;
-            setIsEmailValid(res);
-        } catch {
-            toast.error(t('forgot-password.email-error'));
-        }
-    };
-
-    const confirmUsernameAndEmail = async (data: IForgotPassword) => {
-        try {
-            return await checkUsernameAndEmail(data.username, data.email, i18n.language);
-        } catch {
-            toast.error(t('forgot-password.username-error'));
-        }
-    };
-
-    const onCancel = async () => {
-        setIsEmailValid(false);
-        setValue('username', '');
-        setValue('email', email!);
-    };
 
     const onSubmit = async (data: IForgotPassword) => {
         try {
-            if(data.email && !data.username) {
-                await confirmEmail(data.email);
-                setEmail(data.email);
-                resetField('email');
-            }
-            if(data.username && email) {
-                const userInfo = {email, 'username': data.username};
+            const res = await passwordForget(data.email, i18n.language);
 
-                const res = await confirmUsernameAndEmail(userInfo);
-                if(res) {
-                    navigate('/login', { replace: true });
-                    toast.success(t('forgot-password.link-send'));
-                }
-            }
+            if(!res) throw new Error
+
+            navigate('/login', { replace: true });
+            toast.success(t('forgot-password.link-send'));
         } catch {
             toast.error(t('forgot-password.submit-error'));
         }
@@ -89,18 +46,18 @@ export default function ForgotPassword() {
                                     ></img>
                                 </div>
                                 <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                                    <p className='text-start'>{form.paragraph}</p>
+                                    <p className='text-start'>{t('forgot-password.first-paragraph')}</p>
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="form-outline mb-4">
-                                            <label className="form-label" htmlFor={form.htmlFor}>
-                                                {form.label}
+                                            <label className="form-label" htmlFor='email'>
+                                                {t('forgot-password.email-label')}
                                             </label>
                                             <input
                                                 className="form-control"
-                                                id={form.id_input}
-                                                type={form.type_input}
-                                                placeholder={form.placeholder_input}
-                                                {...register(isEmailValid ? 'username' : 'email' , {
+                                                id='email'
+                                                type='email'
+                                                placeholder={t('forgot-password.placeholder-email')}
+                                                {...register('email' , {
                                                     required: 'this is a required',
                                                     maxLength: {
                                                         value: 100,
@@ -109,39 +66,23 @@ export default function ForgotPassword() {
                                                 })}
                                                 required
                                             />
-                                            {
-                                                errors?.email ?
-                                                <div className="text-danger">{errors.email.message}</div> :
-                                                <div className="text-danger">{errors.username?.message}</div>
-                                            }
+                                            <div className="text-danger">{errors.email?.message}</div>
                                         </div>
-
-                                        <div className="d-flex justify-content-between text-center text-lg-start mt-4 pt-2">
-                                            { isEmailValid && 
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-cancel px-4 py-3"
-                                                    onClick={onCancel}
+                                        <button
+                                            type="submit"
+                                            className="btn btn-form px-4 py-3"
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting && (
+                                                <div
+                                                    className="spinner-border spinner-border-sm mx-2"
+                                                    role="status"
                                                 >
-                                                    {t('forgot-password.cancel')}
-                                                </button>
-                                            }
-                                            <button
-                                                type="submit"
-                                                className="btn btn-form px-4 py-3"
-                                                disabled={isSubmitting}
-                                            >
-                                                {isSubmitting && (
-                                                    <div
-                                                        className="spinner-border spinner-border-sm mx-2"
-                                                        role="status"
-                                                    >
-                                                        <span className="visually-hidden">{t('forgot-password.loading')}</span>
-                                                    </div>
-                                                )}
-                                                {t('forgot-password.confirm')}
-                                            </button>
-                                        </div>
+                                                    <span className="visually-hidden">{t('forgot-password.loading')}</span>
+                                                </div>
+                                            )}
+                                            {t('forgot-password.confirm')}
+                                        </button>
                                     </form>
                                 </div>
                             </div>
