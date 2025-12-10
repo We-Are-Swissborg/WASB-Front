@@ -39,8 +39,8 @@ const createPost = async (token: string, data: PostFormData, setToken: (newToken
     return json;
 };
 
-const getPost = async (id: string) => {
-    const url: string = 'posts/' + id;
+const getPostBySlug = async (slug: string) => {
+    const url: string = 'posts/' + slug;
 
     const response: Response = await BaseApi.getFetch(url);
     const json = await response.json();
@@ -109,14 +109,28 @@ const deletePosts = async (listId: number[], token: string, setToken: (newToken:
     return response.ok;
 };
 
+const getPostById = async (id: number) => {
+    const url: string = 'posts/id/' + id;
+
+    const response: Response = await BaseApi.getFetch(url);
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error('An error has occurred: ' + json.message);
+    }
+
+    return json;
+};
+
 export {
     // getAllPosts,
     // previewPost,
     createPost,
-    getPost,
+    getPostBySlug,
     getPosts,
     deletePost,
     updatePost,
     getMyPosts,
-    deletePosts
+    deletePosts,
+    getPostById
 };

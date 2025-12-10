@@ -46,8 +46,8 @@ const update = async (id: number, token: string, data: Session, setToken: (newTo
     return json;
 };
 
-const getSession = async (id: number, token: string, setToken: (newToken: string) => void): Promise<Session> => {
-    const url: string = `sessions/${id}`;
+const getSessionById = async (id: number, token: string, setToken: (newToken: string) => void): Promise<Session> => {
+    const url: string = `sessions/id/${id}`;
     const response: Response = await BaseApi.getFetch(url, token, setToken);
     const json = await response.json();
     if (!response.ok) {
@@ -86,7 +86,7 @@ export {
     getSessionBySlug,
     create,
     update,
-    getSession,
+    getSessionById,
     getMySessions,
     deleteSessions
 };

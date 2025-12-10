@@ -17,6 +17,7 @@ export type CardPost = {
     publishedAt: Date;
     categories: PostCategory[];
     author: string;
+    views: number;
 };
 
 export type Post = {
@@ -31,6 +32,7 @@ export type Post = {
     publishedAt?: Date;
     author: string;
     categories: PostCategory[];
+    views: number;
 };
 
 export type PostFormData = {

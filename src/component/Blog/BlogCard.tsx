@@ -1,6 +1,6 @@
 import { CardPost, PaginatedPostsResponse } from '../../types/Post';
 import useSWR, { BareFetcher, mutate } from 'swr';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
     Card,
@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import '../../css/Blog.css';
-import { CalendarMonthSharp } from '@mui/icons-material';
+import { CalendarMonthSharp, EditSharp, Visibility } from '@mui/icons-material';
 import { UseAuth } from '@/contexts/AuthContext';
 import * as BlogService from '@/services/blog.service';
 import { toast } from 'react-toastify';
@@ -79,17 +79,31 @@ function BlogCard({fetcher, title, userId}: IBlogCard) {
         return (
             <Link to={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }} className={isDelete ? 'disabled-a h-100 d-block' : 'h-100 d-block'}>
                 <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        className="card-media object-fill-none"
-                        sx={{
-                            width: '100%',
-                            aspectRatio: '16/9',
-                            objectFit: 'cover'
-                        }}
-                        image={post.image64}
-                        title={post.title}
-                    />
+                    <div>
+                        <CardMedia
+                            component="img"
+                            className="card-media object-fill-none"
+                            sx={{
+                                width: '100%',
+                                aspectRatio: '16/9',
+                                objectFit: 'cover'
+                            }}
+                            image={post.image64}
+                            title={post.title}
+                        />
+                        {userId &&
+                            <NavLink
+                                className={
+                                    isDelete ?
+                                    'disabled-a btn btn-secondary btn-sm position-absolute top-0 end-0' :
+                                    'btn btn-secondary btn-sm position-absolute top-0 end-0'
+                                }
+                                to={`/blog/${post.id}/edit`}
+                            >
+                                <EditSharp />
+                            </NavLink>
+                        }
+                    </div>
                     <CardContent className="pb-2">
                         <Typography
                             gutterBottom
@@ -114,9 +128,14 @@ function BlogCard({fetcher, title, userId}: IBlogCard) {
                                 );
                             })}
                         </div>
-                        <Typography variant="body2" className="card-text placeholder-glow">
-                            <CalendarMonthSharp /> {dateLastUpdate}
-                        </Typography>
+                        <div className="d-flex justify-content-between">
+                            <Typography variant="body2" className="card-text placeholder-glow">
+                                <CalendarMonthSharp /> {dateLastUpdate}
+                            </Typography>
+                            <Typography variant="body2" className="card-text placeholder-glow">
+                                {post.views} <Visibility />
+                            </Typography>
+                        </div>
                     </CardContent>
                 </CardActionArea>
             </Link>

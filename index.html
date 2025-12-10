@@ -1,14 +1,29 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/images/svg/wasb_favicon.svg" />
-    <link href="/src/assets/css/all.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>We Are Swissborg</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/src/assets/images/svg/wasb_favicon.svg" />
+		<link href="/src/assets/css/all.css" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>We Are Swissborg</title>
+	</head>
+	<!-- Google tag -->
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('consent', 'default', {
+			'analytics_storage': 'denied',
+			'ad_storage': 'denied',
+			'wait_for_update': 500
+		});
+	</script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_MEASUREMENT_ID_GA4%"></script>
+	<script>
+		gtag('js', new Date());
+		gtag('config', '%VITE_MEASUREMENT_ID_GA4%', { 'anonymize_ip': true, send_page_view: false });
+	</script>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
 </html>

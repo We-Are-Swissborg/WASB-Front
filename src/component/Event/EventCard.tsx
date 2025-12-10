@@ -23,6 +23,7 @@ import { UseAuth } from '@/contexts/AuthContext';
 import DeleteIcon from '../../assets/images/trash.svg';
 import { toast } from 'react-toastify';
 import * as SessionService from '@/services/session.service';
+import { EditSharp } from '@mui/icons-material';
 
 type IEventCard = {
     fetcher: BareFetcher<PaginatedSessionsResponse>,
@@ -36,9 +37,9 @@ export default function EventCard({fetcher, title, userId}: IEventCard) {
     const [totalPages, setTotalPages] = useState<number>(1);
     const [limit] = useState<number>(9);
     const { token, setToken } = UseAuth();
-    const [ isDelete, setIsDelete ] = useState<boolean>(false);
-    const [ nbSelect, setNbSelect ] = useState<number>(0);
-    const [ listIdToDelete, setListIdToDelete ] = useState<number[]>([]);
+    const [isDelete, setIsDelete] = useState<boolean>(false);
+    const [nbSelect, setNbSelect] = useState<number>(0);
+    const [listIdToDelete, setListIdToDelete] = useState<number[]>([]);
     // const [filter, setFilter] = useState('');
 
     const url = userId ?
@@ -135,13 +136,20 @@ export default function EventCard({fetcher, title, userId}: IEventCard) {
                             )}
                         </Typography>
                     )}
-                    <NavLink
-                        color="primary"
-                        to={`/events/${session.slug}`}
-                        className={isDelete ? 'disabled-a btn btn-secondary' : 'btn btn-secondary'}
-                    >
-                        {t('event.details')}
-                    </NavLink>
+                    <div className="d-flex justify-content-between">
+                        <NavLink
+                            color="primary"
+                            to={`/events/${session.slug}`}
+                            className={isDelete ? 'disabled-a btn btn-secondary' : 'btn btn-secondary'}
+                        >
+                            {t('event.details')}
+                        </NavLink>
+                        {userId &&
+                            <NavLink className={isDelete ? 'disabled-a btn btn-secondary btn-sm' : 'btn btn-secondary btn-sm'} to={`/events/${session.id}/edit`}>
+                                <EditSharp />
+                            </NavLink>
+                        }
+                    </div>
                 </CardContent>
             </>
         )

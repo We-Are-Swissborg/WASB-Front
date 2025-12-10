@@ -67,10 +67,10 @@ export default function SessionForm() {
         [setValue],
     );
 
-    const getSession = useCallback(async () => {
+    const getSessionById = useCallback(async () => {
         if (id && token) {
             try {
-                const session = await SessionServices.getSession(Number(id), token!, setToken);
+                const session = await SessionServices.getSessionById(Number(id), token!, setToken);
                 initSession(session);
             } catch (error: unknown) {
                 toast.error(`Erreur lors du chargement de la session`);
@@ -91,7 +91,7 @@ export default function SessionForm() {
 
     const initForm = useCallback(async () => {
         try {
-            await getSession();
+            await getSessionById();
             await getUsernameOrganizers();
         } catch (e: unknown) {
             toast.error(`Erreur lors de l'initialisation du formulaire`);
@@ -99,7 +99,7 @@ export default function SessionForm() {
         } finally {
             setIsInitializing(true);
         }
-    }, [getSession, getUsernameOrganizers]);
+    }, [getSessionById, getUsernameOrganizers]);
 
     useEffect(() => {
         if (!isInitializing) {
