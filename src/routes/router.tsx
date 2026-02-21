@@ -23,6 +23,7 @@ import MyEvent from '@/component/Event/MyEvent';
 import MyPosts from '@/component/Blog/MyPosts';
 import Legal from '@/component/LegalInformation/Legal';
 import Confidentiality from '@/component/LegalInformation/Confidentiality';
+import Welcome from '@/component/Welcome';
 
 const router = {
     path: '/',
@@ -146,6 +147,10 @@ const router = {
         {
             path: 'confidentiality',
             element: <Confidentiality />,
+        },
+        {
+            path: 'welcome',
+            element: <Welcome />,
         },
     ],
 };
